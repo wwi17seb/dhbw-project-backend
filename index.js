@@ -1,9 +1,10 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const app = express()
-const db_tutor = require('./queries_tutor')
-const db_course = require('./queries_course')
-const port = 3000
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+const db_tutor = require('./queries/queries_tutor');
+const db_course = require('./queries/queries_course');
+var propertiesReader = require('./tools/propertyReader');
+const port = propertiesReader.getProperty('app.port');
 
 app.use(bodyParser.json())
 app.use(
@@ -18,11 +19,11 @@ app.get('/', (request, response) => {
 })
 
 // URI for tutor
-app.get('/tutor', db_tutor.getTutors)
-app.get('/tutor/:id', db_tutor.getTutorById)
-app.post('/tutor', db_tutor.createTutor)
-app.put('/tutor/:id', db_tutor.updateTutor)
-app.delete('/tutor/:id', db_tutor.deleteTutor)
+app.get('/tutor', db_tutor.getTutors);
+app.get('/tutor/:id', db_tutor.getTutorById);
+app.post('/tutor', db_tutor.createTutor);
+app.put('/tutor/:id', db_tutor.updateTutor);
+app.delete('/tutor/:id', db_tutor.deleteTutor);
 
 // URI for course
 app.get('/course', db_course.getCourses);
@@ -32,5 +33,5 @@ app.put('/course/:id', db_course.updateCourse);
 app.delete('/course/:id', db_course.deleteCourse);
 
 app.listen(port, () => {
-    console.log(`App running on port ${port}.`)
-})
+    console.log(`App running on port ${port}.`);
+});

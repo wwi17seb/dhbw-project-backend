@@ -1,10 +1,12 @@
+var propertiesReader = require('../tools/propertyReader');
+
 const Pool = require('pg').Pool
 const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'becker',
-    password: '123456',
-    port: 5432,
+    user: propertiesReader.getProperty('server.user'),
+    host: propertiesReader.getProperty('server.host'),
+    database: propertiesReader.getProperty('server.database'),
+    password: propertiesReader.getProperty('server.password'),
+    port: propertiesReader.getProperty('server.port'),
 })
 
 const getCourses = (request, response) => {
@@ -12,9 +14,9 @@ const getCourses = (request, response) => {
         pool.query('SELECT * FROM course', (error, results) => {
             if (error) {
                 console.log('error getCourses', error);
-                throw error
+                throw error;
             } else {
-                response.status(200).json(results.rows)
+                response.status(200).json(results.rows);
             }
         })
     } catch (error) {
@@ -24,14 +26,14 @@ const getCourses = (request, response) => {
 
 const getCourseById = (request, response) => {
     try {
-        const { id } = parseInt(request.params)
+        const { id } = parseInt(request.params);
 
         pool.query('SELECT * FROM course WHERE id = $1', [id], (error, results) => {
             if (error) {
-                console.log('error getCourseById', error)
-                throw error
+                console.log('error getCourseById', error);
+                throw error;
             } else {
-                response.status(200).json(results.rows)
+                response.status(200).json(results.rows);
             }
         })
     } catch (error) {
@@ -40,14 +42,14 @@ const getCourseById = (request, response) => {
 }
 
 const createCourse = (request, response) => {
-    const { id, name, tutor_id, quantityofstudents } = request.body
+    const { id, name, tutor_id, quantityofstudents } = request.body;
     try {
         pool.query('INSERT INTO course (name, quantityofstudents, tutor_id) VALUES ($1, $2, $3)', [name, quantityofstudents, tutor_id], (error, results) => {
             if (error) {
-                console.log('error createCourse', error)
-                throw error
+                console.log('error createCourse', error);
+                throw error;
             } else {
-                response.status(201).send('New Course added')
+                response.status(201).send('New Course added');
             }
         })
     } catch (error) {
@@ -56,17 +58,17 @@ const createCourse = (request, response) => {
 }
 
 const updateCourse = (request, response) => {
-    const { id } = parseInt(request.params)
-    const { name, tutor_id, quantityofstudents } = request.body
+    const { id } = parseInt(request.params);
+    const { name, tutor_id, quantityofstudents } = request.body;
     try {
         pool.query(
             'UPDATE course SET name = $1, quantityofstudents = $2, tutor_id = $3 WHERE id = $3', [name, quantityofstudents, tutor_id, id],
             (error, results) => {
                 if (error) {
-                    console.log('error updateCourse', error)
-                    throw error
+                    console.log('error updateCourse', error);
+                    throw error;
                 } else {
-                    response.status(200).send('Course modified')
+                    response.status(200).send('Course modified');
                 }
             }
         )
@@ -76,14 +78,14 @@ const updateCourse = (request, response) => {
 }
 
 const deleteCourse = (request, response) => {
-    const { id } = parseInt(request.params)
+    const { id } = parseInt(request.params);
     try {
         pool.query('DELETE FROM course WHERE id = $1', [id], (error, results) => {
             if (error) {
-                console.log('error deleteCourse', error)
-                throw error
+                console.log('error deleteCourse', error);
+                throw error;
             } else {
-                response.status(200).send('Course deleted')
+                response.status(200).send('Course deleted');
             }
         })
     } catch (error) {
