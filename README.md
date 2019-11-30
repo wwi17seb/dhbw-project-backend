@@ -3,37 +3,24 @@
 Please create feature branches and then use pull requests to merge to master branch.
 Read more on https://guides.github.com/introduction/flow/.
 
-# install node-express
+# installation
 ```
-npm install -g express
+npm install express pg properties-reader
 ```
 
-# install node-postgres (pg) to be able to connect to PostgreSQL
+# setup
+env/app.properties:
 ```
-npm i express pg
+app.port = 3000
+
+server.user     = 'postgres'
+server.host     = 'localhost'
+server.database = 'becker'
+server.password = 'yourpasswordhere'
+server.port     = 5342
 ```
 
 # start server
 ```
 node index.js
 ```
-
-# load properties
-```
-npm i properties-reader
-```
-
-# properties
-- create dir "env"  
-- add app.properties to that dir 
-
-# structure of app.properties
-## Application port to run the node server
-app.port=xxxxxx
-
-## Database connection to postgres
-server.user=xxxxxx
-server.host= xxxxxx
-server.database=xxxxxx
-server.password=xxxxxx
-server.port=xxxxxx
