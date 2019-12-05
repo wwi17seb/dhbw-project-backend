@@ -1,0 +1,1029 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.6.10
+-- Dumped by pg_dump version 9.6.10
+
+-- Started on 2019-11-29 16:49:42
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+DROP DATABASE becker;
+--
+-- TOC entry 2266 (class 1262 OID 50451)
+-- Name: becker; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE becker WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'German_Germany.1252' LC_CTYPE = 'German_Germany.1252';
+
+
+ALTER DATABASE becker OWNER TO postgres;
+
+\connect becker
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 1 (class 3079 OID 12387)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 2269 (class 0 OID 0)
+-- Dependencies: 1
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 186 (class 1259 OID 50460)
+-- Name: address; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.address (
+    id integer NOT NULL
+    street character varying(80),
+    zipcode character varying,    
+);
+
+
+ALTER TABLE public.address OWNER TO postgres;
+
+--
+-- TOC entry 200 (class 1259 OID 50695)
+-- Name: address_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.address_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.address_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2270 (class 0 OID 0)
+-- Dependencies: 200
+-- Name: address_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.address_id_seq OWNED BY public.address.id;
+
+
+--
+-- TOC entry 191 (class 1259 OID 50507)
+-- Name: contactinformation; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.contactinformation (
+	id integer NOT NULL
+    email character varying(150),
+    "phonenumberInternal" character varying(30),
+    "phonenumberHome" character varying(30),
+    mobilephone character varying(30),
+    office character varying(5),
+);
+
+
+ALTER TABLE public.contactinformation OWNER TO postgres;
+
+--
+-- TOC entry 201 (class 1259 OID 50706)
+-- Name: contactinformation_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.contactinformation_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.contactinformation_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2271 (class 0 OID 0)
+-- Dependencies: 201
+-- Name: contactinformation_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.contactinformation_id_seq OWNED BY public.contactinformation.id;
+
+
+--
+-- TOC entry 188 (class 1259 OID 50473)
+-- Name: course; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.course (
+ 	id integer NOT NULL
+    name character varying(20),
+    quantityofstudents numeric(2,0),
+    tutor_id integer NOT NULL,
+);
+
+
+ALTER TABLE public.course OWNER TO postgres;
+
+--
+-- TOC entry 203 (class 1259 OID 50725)
+-- Name: course_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.course_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.course_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2272 (class 0 OID 0)
+-- Dependencies: 203
+-- Name: course_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.course_id_seq OWNED BY public.course.id;
+
+
+--
+-- TOC entry 197 (class 1259 OID 50632)
+-- Name: lecture; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.lecture (
+   	id integer NOT NULL
+    name character varying(40),
+    tutor_id integer NOT NULL,
+    room_id integer NOT NULL,
+);
+
+
+ALTER TABLE public.lecture OWNER TO postgres;
+
+--
+-- TOC entry 198 (class 1259 OID 50650)
+-- Name: lecture_course; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.lecture_course (
+    lecture_id integer NOT NULL,
+    course_id integer NOT NULL,
+    date timestamp with time zone
+);
+
+
+ALTER TABLE public.lecture_course OWNER TO postgres;
+
+--
+-- TOC entry 204 (class 1259 OID 50734)
+-- Name: lecture_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.lecture_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.lecture_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2273 (class 0 OID 0)
+-- Dependencies: 204
+-- Name: lecture_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.lecture_id_seq OWNED BY public.lecture.id;
+
+
+--
+-- TOC entry 190 (class 1259 OID 50499)
+-- Name: module; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.module (
+	id integer NOT NULL
+    workload numeric(3,0),
+    name character varying(40),
+    description text,
+);
+
+
+ALTER TABLE public.module OWNER TO postgres;
+
+--
+-- TOC entry 207 (class 1259 OID 50834)
+-- Name: module_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.module_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.module_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2274 (class 0 OID 0)
+-- Dependencies: 207
+-- Name: module_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.module_id_seq OWNED BY public.module.id;
+
+
+--
+-- TOC entry 195 (class 1259 OID 50584)
+-- Name: room; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.room (
+ 	id integer NOT NULL
+    floor numeric(1,0),
+    room character varying(5),
+    building character varying(2),
+    capacity numeric(3,0),
+);
+
+
+ALTER TABLE public.room OWNER TO postgres;
+
+--
+-- TOC entry 206 (class 1259 OID 50796)
+-- Name: room_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.room_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.room_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2275 (class 0 OID 0)
+-- Dependencies: 206
+-- Name: room_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.room_id_seq OWNED BY public.room.id;
+
+
+--
+-- TOC entry 192 (class 1259 OID 50530)
+-- Name: semester; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.semester (
+ 	id integer NOT NULL
+    name character varying(2),
+    datefrom date,
+    dateto date,
+);
+
+
+ALTER TABLE public.semester OWNER TO postgres;
+
+--
+-- TOC entry 193 (class 1259 OID 50538)
+-- Name: semester_course; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.semester_course (
+    semester_id integer NOT NULL,
+    course_id integer NOT NULL
+);
+
+
+ALTER TABLE public.semester_course OWNER TO postgres;
+
+--
+-- TOC entry 205 (class 1259 OID 50788)
+-- Name: semester_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.semester_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.semester_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2276 (class 0 OID 0)
+-- Dependencies: 205
+-- Name: semester_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.semester_id_seq OWNED BY public.semester.id;
+
+
+--
+-- TOC entry 196 (class 1259 OID 50597)
+-- Name: semester_module; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.semester_module (
+    semester_id integer NOT NULL,
+    module_id integer NOT NULL
+);
+
+
+ALTER TABLE public.semester_module OWNER TO postgres;
+
+--
+-- TOC entry 185 (class 1259 OID 50452)
+-- Name: tutor; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.tutor (
+	id integer NOT NULL
+    firstname character varying(20),
+    lastname character varying(40),
+    dateofbirth date,
+    title character varying(10),
+    address_id integer,
+    contactinformation_id integer,
+);
+
+
+ALTER TABLE public.tutor OWNER TO postgres;
+
+--
+-- TOC entry 189 (class 1259 OID 50481)
+-- Name: tutor_course; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.tutor_course (
+    tutor_id integer NOT NULL,
+    course_id integer NOT NULL
+);
+
+
+ALTER TABLE public.tutor_course OWNER TO postgres;
+
+--
+-- TOC entry 202 (class 1259 OID 50714)
+-- Name: tutor_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.tutor_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.tutor_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2277 (class 0 OID 0)
+-- Dependencies: 202
+-- Name: tutor_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.tutor_id_seq OWNED BY public.tutor.id;
+
+
+--
+-- TOC entry 194 (class 1259 OID 50556)
+-- Name: tutor_module; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.tutor_module (
+    tutor_id integer NOT NULL,
+    module_id integer NOT NULL
+);
+
+
+ALTER TABLE public.tutor_module OWNER TO postgres;
+
+--
+-- TOC entry 199 (class 1259 OID 50693)
+-- Name: tutor_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.tutor_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.tutor_seq OWNER TO postgres;
+
+--
+-- TOC entry 187 (class 1259 OID 50468)
+-- Name: zipcode; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.zipcode (
+    zipcode character varying(6) NOT NULL,
+    location character varying(25)
+);
+
+
+ALTER TABLE public.zipcode OWNER TO postgres;
+
+--
+-- TOC entry 2072 (class 2604 OID 50697)
+-- Name: address id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.address ALTER COLUMN id SET DEFAULT nextval('public.address_id_seq'::regclass);
+
+
+--
+-- TOC entry 2075 (class 2604 OID 50708)
+-- Name: contactinformation id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.contactinformation ALTER COLUMN id SET DEFAULT nextval('public.contactinformation_id_seq'::regclass);
+
+
+--
+-- TOC entry 2073 (class 2604 OID 50727)
+-- Name: course id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.course ALTER COLUMN id SET DEFAULT nextval('public.course_id_seq'::regclass);
+
+
+--
+-- TOC entry 2078 (class 2604 OID 50736)
+-- Name: lecture id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.lecture ALTER COLUMN id SET DEFAULT nextval('public.lecture_id_seq'::regclass);
+
+
+--
+-- TOC entry 2074 (class 2604 OID 50836)
+-- Name: module id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.module ALTER COLUMN id SET DEFAULT nextval('public.module_id_seq'::regclass);
+
+
+--
+-- TOC entry 2077 (class 2604 OID 50798)
+-- Name: room id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.room ALTER COLUMN id SET DEFAULT nextval('public.room_id_seq'::regclass);
+
+
+--
+-- TOC entry 2076 (class 2604 OID 50790)
+-- Name: semester id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.semester ALTER COLUMN id SET DEFAULT nextval('public.semester_id_seq'::regclass);
+
+
+--
+-- TOC entry 2071 (class 2604 OID 50716)
+-- Name: tutor id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tutor ALTER COLUMN id SET DEFAULT nextval('public.tutor_id_seq'::regclass);
+
+
+--
+-- TOC entry 2239 (class 0 OID 50460)
+-- Dependencies: 186
+-- Data for Name: address; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.address (street, zipcode, id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2278 (class 0 OID 0)
+-- Dependencies: 200
+-- Name: address_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.address_id_seq', 1, false);
+
+
+--
+-- TOC entry 2244 (class 0 OID 50507)
+-- Dependencies: 191
+-- Data for Name: contactinformation; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.contactinformation (email, "phonenumberInternal", "phonenumberHome", mobilephone, office, id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2279 (class 0 OID 0)
+-- Dependencies: 201
+-- Name: contactinformation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.contactinformation_id_seq', 1, false);
+
+
+--
+-- TOC entry 2241 (class 0 OID 50473)
+-- Dependencies: 188
+-- Data for Name: course; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.course (name, quantityofstudents, tutor_id, id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2280 (class 0 OID 0)
+-- Dependencies: 203
+-- Name: course_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.course_id_seq', 1, false);
+
+
+--
+-- TOC entry 2250 (class 0 OID 50632)
+-- Dependencies: 197
+-- Data for Name: lecture; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.lecture (name, tutor_id, room_id, id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2251 (class 0 OID 50650)
+-- Dependencies: 198
+-- Data for Name: lecture_course; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.lecture_course (lecture_id, course_id, date) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2281 (class 0 OID 0)
+-- Dependencies: 204
+-- Name: lecture_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.lecture_id_seq', 1, false);
+
+
+--
+-- TOC entry 2243 (class 0 OID 50499)
+-- Dependencies: 190
+-- Data for Name: module; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.module (workload, name, description, id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2282 (class 0 OID 0)
+-- Dependencies: 207
+-- Name: module_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.module_id_seq', 1, false);
+
+
+--
+-- TOC entry 2248 (class 0 OID 50584)
+-- Dependencies: 195
+-- Data for Name: room; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.room (floor, room, building, capacity, id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2283 (class 0 OID 0)
+-- Dependencies: 206
+-- Name: room_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.room_id_seq', 1, false);
+
+
+--
+-- TOC entry 2245 (class 0 OID 50530)
+-- Dependencies: 192
+-- Data for Name: semester; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.semester (name, datefrom, dateto, id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2246 (class 0 OID 50538)
+-- Dependencies: 193
+-- Data for Name: semester_course; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.semester_course (semester_id, course_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2284 (class 0 OID 0)
+-- Dependencies: 205
+-- Name: semester_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.semester_id_seq', 1, false);
+
+
+--
+-- TOC entry 2249 (class 0 OID 50597)
+-- Dependencies: 196
+-- Data for Name: semester_module; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.semester_module (semester_id, module_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2238 (class 0 OID 50452)
+-- Dependencies: 185
+-- Data for Name: tutor; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.tutor (firstname, lastname, dateofbirth, title, address_id, contactinformation_id, id) FROM stdin;
+Test	asd	\N	\N	\N	\N	1
+Julian	Reichwald	\N	Prof. Dr.	\N	\N	2
+Hans	Wurst	\N	Prof.	\N	\N	3
+\.
+
+
+--
+-- TOC entry 2242 (class 0 OID 50481)
+-- Dependencies: 189
+-- Data for Name: tutor_course; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.tutor_course (tutor_id, course_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2285 (class 0 OID 0)
+-- Dependencies: 202
+-- Name: tutor_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.tutor_id_seq', 3, true);
+
+
+--
+-- TOC entry 2247 (class 0 OID 50556)
+-- Dependencies: 194
+-- Data for Name: tutor_module; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.tutor_module (tutor_id, module_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2286 (class 0 OID 0)
+-- Dependencies: 199
+-- Name: tutor_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.tutor_seq', 1, false);
+
+
+--
+-- TOC entry 2240 (class 0 OID 50468)
+-- Dependencies: 187
+-- Data for Name: zipcode; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.zipcode (zipcode, location) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2092 (class 2606 OID 50713)
+-- Name: contactinformation PK_Contactinformation_ID; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.contactinformation
+    ADD CONSTRAINT "PK_Contactinformation_ID" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2086 (class 2606 OID 50755)
+-- Name: course PK_Course_ID; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.course
+    ADD CONSTRAINT "PK_Course_ID" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2082 (class 2606 OID 50705)
+-- Name: address PK_ID; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.address
+    ADD CONSTRAINT "PK_ID" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2106 (class 2606 OID 50819)
+-- Name: lecture_course lecture_course_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.lecture_course
+    ADD CONSTRAINT lecture_course_pkey PRIMARY KEY (lecture_id, course_id);
+
+
+--
+-- TOC entry 2104 (class 2606 OID 50744)
+-- Name: lecture lecture_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.lecture
+    ADD CONSTRAINT lecture_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2090 (class 2606 OID 50844)
+-- Name: module module_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.module
+    ADD CONSTRAINT module_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2100 (class 2606 OID 50803)
+-- Name: room room_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.room
+    ADD CONSTRAINT room_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2096 (class 2606 OID 50855)
+-- Name: semester_course semester_course_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.semester_course
+    ADD CONSTRAINT semester_course_pkey PRIMARY KEY (semester_id, course_id);
+
+
+--
+-- TOC entry 2102 (class 2606 OID 50880)
+-- Name: semester_module semester_module_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.semester_module
+    ADD CONSTRAINT semester_module_pkey PRIMARY KEY (semester_id, module_id);
+
+
+--
+-- TOC entry 2094 (class 2606 OID 50795)
+-- Name: semester semester_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.semester
+    ADD CONSTRAINT semester_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2088 (class 2606 OID 50926)
+-- Name: tutor_course tutor_course_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tutor_course
+    ADD CONSTRAINT tutor_course_pkey PRIMARY KEY (tutor_id, course_id);
+
+
+--
+-- TOC entry 2098 (class 2606 OID 50946)
+-- Name: tutor_module tutor_module_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tutor_module
+    ADD CONSTRAINT tutor_module_pkey PRIMARY KEY (tutor_id, module_id);
+
+
+--
+-- TOC entry 2080 (class 2606 OID 50724)
+-- Name: tutor tutor_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tutor
+    ADD CONSTRAINT tutor_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2084 (class 2606 OID 50472)
+-- Name: zipcode zipcode_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.zipcode
+    ADD CONSTRAINT zipcode_pkey PRIMARY KEY (zipcode);
+
+
+--
+-- TOC entry 2107 (class 2606 OID 50906)
+-- Name: tutor FK_Address_ID; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tutor
+    ADD CONSTRAINT "FK_Address_ID" FOREIGN KEY (address_id) REFERENCES public.address(id);
+
+
+--
+-- TOC entry 2108 (class 2606 OID 50911)
+-- Name: tutor FK_Contactinformation_ID; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tutor
+    ADD CONSTRAINT "FK_Contactinformation_ID" FOREIGN KEY (contactinformation_id) REFERENCES public.contactinformation(id);
+
+
+--
+-- TOC entry 2114 (class 2606 OID 50865)
+-- Name: semester_course FK_Course_ID; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.semester_course
+    ADD CONSTRAINT "FK_Course_ID" FOREIGN KEY (course_id) REFERENCES public.course(id);
+
+
+--
+-- TOC entry 2112 (class 2606 OID 50936)
+-- Name: tutor_course FK_Course_ID; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tutor_course
+    ADD CONSTRAINT "FK_Course_ID" FOREIGN KEY (course_id) REFERENCES public.course(id);
+
+
+--
+-- TOC entry 2118 (class 2606 OID 50890)
+-- Name: semester_module FK_Module_ID; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.semester_module
+    ADD CONSTRAINT "FK_Module_ID" FOREIGN KEY (module_id) REFERENCES public.module(id);
+
+
+--
+-- TOC entry 2116 (class 2606 OID 50952)
+-- Name: tutor_module FK_Module_ID; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tutor_module
+    ADD CONSTRAINT "FK_Module_ID" FOREIGN KEY (module_id) REFERENCES public.module(id);
+
+
+--
+-- TOC entry 2120 (class 2606 OID 50804)
+-- Name: lecture FK_Room_ID; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.lecture
+    ADD CONSTRAINT "FK_Room_ID" FOREIGN KEY (room_id) REFERENCES public.room(id);
+
+
+--
+-- TOC entry 2113 (class 2606 OID 50860)
+-- Name: semester_course FK_Semster_ID; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.semester_course
+    ADD CONSTRAINT "FK_Semster_ID" FOREIGN KEY (semester_id) REFERENCES public.semester(id);
+
+
+--
+-- TOC entry 2117 (class 2606 OID 50885)
+-- Name: semester_module FK_Semster_ID; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.semester_module
+    ADD CONSTRAINT "FK_Semster_ID" FOREIGN KEY (semester_id) REFERENCES public.semester(id);
+
+
+--
+-- TOC entry 2110 (class 2606 OID 50749)
+-- Name: course FK_Tutor_ID; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.course
+    ADD CONSTRAINT "FK_Tutor_ID" FOREIGN KEY (tutor_id) REFERENCES public.tutor(id);
+
+
+--
+-- TOC entry 2119 (class 2606 OID 50772)
+-- Name: lecture FK_Tutor_ID; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.lecture
+    ADD CONSTRAINT "FK_Tutor_ID" FOREIGN KEY (tutor_id) REFERENCES public.tutor(id);
+
+
+--
+-- TOC entry 2111 (class 2606 OID 50931)
+-- Name: tutor_course FK_Tutor_ID; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tutor_course
+    ADD CONSTRAINT "FK_Tutor_ID" FOREIGN KEY (tutor_id) REFERENCES public.tutor(id);
+
+
+--
+-- TOC entry 2115 (class 2606 OID 50947)
+-- Name: tutor_module FK_Tutor_ID; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tutor_module
+    ADD CONSTRAINT "FK_Tutor_ID" FOREIGN KEY (tutor_id) REFERENCES public.tutor(id);
+
+
+--
+-- TOC entry 2109 (class 2606 OID 50525)
+-- Name: address FK_Zipcode; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.address
+    ADD CONSTRAINT "FK_Zipcode" FOREIGN KEY (zipcode) REFERENCES public.zipcode(zipcode);
+
+
+--
+-- TOC entry 2268 (class 0 OID 0)
+-- Dependencies: 6
+-- Name: SCHEMA public; Type: ACL; Schema: -; Owner: postgres
+--
+
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+-- Completed on 2019-11-29 16:49:42
+
+--
+-- PostgreSQL database dump complete
+--
+
