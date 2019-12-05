@@ -1,22 +1,23 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const app = express();
 const db_tutor = require('./queries/queries_tutor');
 const db_course = require('./queries/queries_course');
 var propertiesReader = require('./tools/propertyReader');
+
+const app = express();
 const port = propertiesReader.getProperty('app.port');
 
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 app.use(
     bodyParser.urlencoded({
         extended: true,
     })
-)
+);
 
 // basic URI
 app.get('/', (request, response) => {
-    response.json({ info: 'Node.js, Express, and Postgres API' })
-})
+    response.json({ info: 'Node.js, Express and Postgres API' });
+});
 
 // URI for tutor
 app.get('/tutor', db_tutor.getTutors);
