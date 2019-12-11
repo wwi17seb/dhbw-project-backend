@@ -24,4 +24,4 @@ server.port     = 5342
 ```
 swagger project start
 ```
-Afterwards, you can test the API either via curl or through the web-UI "swagger project edit".
+Afterwards, you can test the API either via curl or through the web-UI "swagger project edit". There might be problems with curl if you're using it with the VSC powershell terminal.
