@@ -22,5 +22,6 @@ server.port     = 5342
 
 # start server
 ```
-node index.js
+swagger project start
 ```
+Afterwards, you can test the API either via curl or through the web-UI "swagger project edit".
