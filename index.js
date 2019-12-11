@@ -19,6 +19,10 @@ app.get('/', (request, response) => {
     response.json({ info: 'Node.js, Express and Postgres API' });
 });
 
+app.get('/testAPI', (request,response) => {
+    response.send('The API works fine!');
+})
+
 // URI for tutor
 app.get('/tutor', db_tutor.getTutors);
 app.get('/tutor/:id', db_tutor.getTutorById);
