@@ -5,7 +5,7 @@ Read more on https://guides.github.com/introduction/flow/.
 
 # installation
 ```
-npm install express pg properties-reader
+npm install
 ```
 
 # setup
