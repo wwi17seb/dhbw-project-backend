@@ -1,25 +1,22 @@
 {
   "name": "dhbw-project-backend",
-  "version": "1.0.0",
-  "description": "Please create feature branches and then use pull requests to merge to master branch.\r Read more on https://guides.github.com/introduction/flow/.",
-  "main": "index.js",
-  "dependencies": {
-    "express": "^4.17.1",
-    "pg": "^7.14.0",
-    "properties-reader": "^0.3.1"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nikolockenvitz/dhbw-project-backend.git"
-  },
+  "version": "0.0.1",
+  "private": true,
+  "description": "New Swagger API Project",
+  "keywords": [],
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/nikolockenvitz/dhbw-project-backend/issues"
+  "license": "",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.12.3",
+    "swagger-express-mw": "^0.7.0"
   },
-  "homepage": "https://github.com/nikolockenvitz/dhbw-project-backend#readme"
+  "devDependencies": {
+    "should": "^7.1.0",
+    "supertest": "^1.0.0"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "test": "swagger project test"
+  }
 }
