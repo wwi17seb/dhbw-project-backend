@@ -4,12 +4,16 @@
   "private": true,
   "description": "New Swagger API Project",
   "keywords": [],
-  "author": "",
-  "license": "",
+  "author": "Awesome Developers",
+  "license": "ISC",
   "main": "app.js",
   "dependencies": {
-    "express": "^4.12.3",
-    "swagger-express-mw": "^0.7.0"
+    "connect": "^3.2.0",
+    "express": "^4.17.1",
+    "js-yaml": "^3.3.0",
+    "swagger-tools": "0.10.1",
+    "pg": "^7.14.0",
+    "properties-reader": "^0.3.1"
   },
   "devDependencies": {
     "should": "^7.1.0",
@@ -18,5 +22,13 @@
   "scripts": {
     "start": "node app.js",
     "test": "swagger project test"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nikolockenvitz/dhbw-project-backend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nikolockenvitz/dhbw-project-backend/issues"
+  },
+  "homepage": "https://github.com/nikolockenvitz/dhbw-project-backend#readme"
 }

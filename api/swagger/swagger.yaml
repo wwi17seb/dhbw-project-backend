@@ -1,60 +1,115 @@
 swagger: "2.0"
 info:
+  description: "This is the DHBW-Project server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters."
   version: "0.0.1"
-  title: Hello World App
-# during dev, should point to your local machine
-host: localhost:10010
-# basePath prefixes all resource paths 
-basePath: /
-# 
+  title: "API Documentation with Swagger - DHBW-Project-Backend"
+  contact:
+    email: "info@exoplan.it"
+host: "localhost"
+basePath: "/"
+tags:
+- name: "lecturers"
+  description: "Everything about your lecturer"
+- name: "directorOfStudies"
+  description: "Access to DirectorOfStudies"
+- name: "courses"
+  description: "Operations about courses"
 schemes:
-  # tip: remove http to make production-grade
-  - http
-  - https
-# format of bodies a client can send (Content-Type)
-consumes:
-  - application/json
-# format of the responses to the client (Accepts)
-produces:
-  - application/json
+- "http"
 paths:
-  /hello:
-    # binds a127 app logic to a route
-    x-swagger-router-controller: hello_world
-    get:
-      description: Returns 'Hello' to the caller
-      # used as the method name of the controller
-      operationId: hello
+  /lecturers:
+    post:
+      tags:
+      - "lecturer"
+      summary: "Add a new lecturer"
+      description: ""
+      operationId: "addLecturer"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
       parameters:
-        - name: name
-          in: query
-          description: The name of the person to whom to say hello
-          required: false
-          type: string
+      - in: "body"
+        name: "body"
+        description: "lecturer object that needs to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/lecturer"
       responses:
-        "200":
-          description: Success
-          schema:
-            # a pointer to a definition
-            $ref: "#/definitions/HelloWorldResponse"
-        # responses may fall through to errors
-        default:
-          description: Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
-  /swagger:
-    x-swagger-pipe: swagger_raw
-# complex objects have schema definitions
+        201:
+          description: "Lecturer successfull created"
+        405:
+          description: "Invalid input"
+      security:
+      - lecturer_auth:
+        - "write:lecturers"
+        - "read:lecturers"
+    put:
+      tags:
+      - "lecturer"
+      summary: "Update an existing lecturer"
+      description: ""
+      operationId: "updateLecturer"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "lecturer object that needs to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/lecturer"
+      responses:
+        201:
+          description: "Lecturer successfull updated"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "lecturer not found"
+        405:
+          description: "Validation exception"
+      security:
+      - lecturer_auth:
+        - "write:lecturers"
+        - "read:lecturers"
+securityDefinitions:
+  lecturer_auth:
+    type: "oauth2"
+    authorizationUrl: "http://exoplan.it/login"
+    flow: "implicit"
+    scopes:
+      write:lecturers: "modify lecturers in your account"
+      read:lecturers: "read your lecturers"
+  api_key:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"
 definitions:
-  HelloWorldResponse:
-    required:
-      - message
+  lecturer:
+    type: "object"
     properties:
-      message:
-        type: string
-  ErrorResponse:
-    required:
-      - message
+      id:
+        type: "integer"
+        example: 1
+      academic_title:
+        type: "string"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      email:
+        type: "string"
+      phonenumber:
+        type: "string"
+  course:
+    type: "object"
     properties:
-      message:
-        type: string
+      id:
+        type: "integer"
+      name:
+        type: "string"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
