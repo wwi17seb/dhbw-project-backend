@@ -1,11 +1,11 @@
 'use strict';
 const fs = require('fs'),
   path = require('path'),
-  http = require('http'),
-  https = require('https');
+  http = require('http');
 
+const express = require('express');
 const propertiesReader = require('./tools/propertyReader');
-const app = require('connect')();
+const app = express();
 const swaggerTools = require('swagger-tools');
 const jsyaml = require('js-yaml');
 const serverPort = propertiesReader.getProperty('app.port');
@@ -14,11 +14,8 @@ const jsonParser = bodyParser.json();
 
 const dbsync = require('./database/dbsync');
 
-// const privateKey = fs.readFileSync('./server.key');
-// const certificate = fs.readFileSync('./server.crt');
-
 // routes
-const authRoutes = require('./routes/authRoute');
+const authRoutes = require('./routes/auth');
 
 // swaggerRouter configuration
 const options = {
