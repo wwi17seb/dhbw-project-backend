@@ -13,20 +13,22 @@ env/app.properties:
 ```
 app.port = 3000
 
-server.user     = 'postgres'
-server.host     = 'localhost'
-server.database = 'becker'
-server.password = 'yourpasswordhere'
-server.port     = 5342
+server.user     = dhbw
+server.host     = localhost
+server.database = becker
+server.password = iH0p3youU5EaSecretPa$$word
+server.port     = 5432
+server.dialect  = postgres
+
+jwt.superSecret = TreevgQreNefpuUngHroreunhcgAvpugfTrznpug13
 ```
 
 # start server
+for deploying we suggest to use `nodemon` 
 ```
-swagger project start
+node app.js or nodemon app.js
 ```
 Afterwards, you can test the API either via curl or through the web-UI with 
 ```
-swagger project edit
+http://localhost:3000/docs
 ``` 
-
-There might be problems with curl if you're using it with the VSC powershell terminal.
