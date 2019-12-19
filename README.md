@@ -21,6 +21,8 @@ server.port     = 5432
 server.dialect  = postgres
 
 jwt.superSecret = TreevgQreNefpuUngHroreunhcgAvpugfTrznpug13
+
+pepper = ErarFgvaxg
 ```
 
 # start server
