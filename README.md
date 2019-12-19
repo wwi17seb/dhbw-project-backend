@@ -24,7 +24,7 @@ jwt.superSecret = TreevgQreNefpuUngHroreunhcgAvpugfTrznpug13
 ```
 
 # start server
-- for deploying we suggest to use `nodemon` 
+for deploying we suggest to use `nodemon` 
 ```
 node app.js or nodemon app.js
 ```
