@@ -7,8 +7,9 @@ const DirectorOfStudies = sequelize.define("directorOfStudies", {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         allowNull: false,
-        primaryKey: true
-    }
+        primaryKey: true,
+    },
+    name: Sequelize.STRING
 });
 
 module.exports = DirectorOfStudies;

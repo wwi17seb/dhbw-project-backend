@@ -9,6 +9,8 @@ const app = require('connect')();
 const swaggerTools = require('swagger-tools');
 const jsyaml = require('js-yaml');
 const serverPort = propertiesReader.getProperty('app.port');
+const bodyParser = require("body-parser");
+const jsonParser = bodyParser.json();
 
 const dbsync = require('./database/dbsync');
 
@@ -17,8 +19,6 @@ const dbsync = require('./database/dbsync');
 
 // routes
 const authRoutes = require('./routes/authRoute');
-
-
 
 // swaggerRouter configuration
 const options = {
@@ -54,6 +54,7 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
   // use defined options edited in line 27-28
   app.use(middleware.swaggerUi(swaggerUiOptions));
 
+  app.use(jsonParser);
   // authroute
   // ./login ./logout ./signup
   app.use(authRoutes);
