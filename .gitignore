@@ -2,3 +2,4 @@ node_modules/
 
 env/app.properties
 *.DS_Store
+postgres-data
