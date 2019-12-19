@@ -2,20 +2,25 @@ const Sequelize = require('sequelize');
 
 const sequelize = require("../database/database");
 
-const User = sequelize.define("user", {
+const Semester = sequelize.define("semester", {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true
     },
-    username: {
+    name: {
         type: Sequelize.STRING,
-        unique: true
     },
-    password: {
-        type: Sequelize.STRING
+    number: {
+        type: Sequelize.STRING, 
+    },
+    start_date: {
+        type: Sequelize.DATE,
+    },
+    end_date: {
+        type: Sequelize.DATE,
     }
 });
 
-module.exports = User;
+module.exports = Semester;

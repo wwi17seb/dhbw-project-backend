@@ -2,20 +2,22 @@ const Sequelize = require('sequelize');
 
 const sequelize = require("../database/database");
 
-const User = sequelize.define("user", {
+const AcademicRecord = sequelize.define("academicRecord", {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true
     },
-    username: {
-        type: Sequelize.STRING,
-        unique: true
-    },
-    password: {
+    abbreviation: {
         type: Sequelize.STRING
+    },
+    type: {
+        type: Sequelize.STRING, 
+    },
+    rated: {
+        type: Sequelize.BOOLEAN
     }
 });
 
-module.exports = User;
+module.exports = AcademicRecord;

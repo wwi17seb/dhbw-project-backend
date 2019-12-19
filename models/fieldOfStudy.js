@@ -2,20 +2,16 @@ const Sequelize = require('sequelize');
 
 const sequelize = require("../database/database");
 
-const User = sequelize.define("user", {
+const FieldOfStudy = sequelize.define("fieldOfStudy", {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true
     },
-    username: {
+    name: {
         type: Sequelize.STRING,
-        unique: true
-    },
-    password: {
-        type: Sequelize.STRING
     }
 });
 
-module.exports = User;
+module.exports = FieldOfStudy;
