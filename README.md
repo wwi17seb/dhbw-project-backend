@@ -16,11 +16,11 @@ app.port = 3000
 server.user     = dhbw
 server.host     = localhost
 server.database = becker
-server.password = [mySecretPw]
+server.password = iH0p3youU5EaSecretPa$$word
 server.port     = 5432
 server.dialect  = postgres
 
-jwt.superSecret = [mySecretJWT]
+jwt.superSecret = TreevgQreNefpuUngHroreunhcgAvpugfTrznpug13
 ```
 
 # start server
