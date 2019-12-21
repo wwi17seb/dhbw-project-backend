@@ -13,11 +13,16 @@ env/app.properties:
 ```
 app.port = 3000
 
-server.user     = 'postgres'
-server.host     = 'localhost'
-server.database = 'becker'
-server.password = 'yourpasswordhere'
+server.user     = postgres
+server.host     = localhost
+server.database = becker
+server.password = yourpasswordhere
 server.port     = 5342
+
+pepper = Jr4t4L3YPem6qQG9w6M3
+
+app.defaultUser = admin
+app.defaultPassword = defaultpasswordhere
 ```
 
 # start server
