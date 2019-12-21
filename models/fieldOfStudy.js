@@ -1,17 +1,21 @@
-const Sequelize = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+    const FieldOfStudy = sequelize.define("FieldOfStudy", {
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            allowNull: false,
+            primaryKey: true
+        },
+        name: {
+            type: DataTypes.STRING,
+        }
+    }, {
+        modelName: 'FieldOfStudy',
+        tableName: 'field_of_study'
+    });
 
-const sequelize = require("../database/database");
-
-const FieldOfStudy = sequelize.define("fieldOfStudy", {
-    id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
-        allowNull: false,
-        primaryKey: true
-    },
-    name: {
-        type: Sequelize.STRING,
-    }
-});
-
-module.exports = FieldOfStudy;
+    FieldOfStudy.associate = function (models) {
+        // todo
+    };
+    return FieldOfStudy;
+}

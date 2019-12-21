@@ -1,17 +1,34 @@
-const Sequelize = require('sequelize');
+'use strict';
+module.exports = (sequelize, DataTypes) => {
+    const Course = sequelize.define("Course", {
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            allowNull: false,
+            primaryKey: true
+        },
+        name: {
+            type: DataTypes.STRING,
+        }
+    }, {
+        modelName: 'Course',
+        tableName: 'course'
+    });
 
-const sequelize = require("../database/database");
+    Course.associate = function (models) {
+        models.Course.belongsToMany(models.DirectorOfStudies, {
+            through: "directorOfStudies_course" // only need a specific string to match 
+        });
 
-const Course = sequelize.define("course", {
-    id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
-        allowNull: false,
-        primaryKey: true
-    },
-    name: {
-        type: Sequelize.STRING,
-    }
-});
+        models.Course.belongsToMany(models.Lecture, {
+            through: 'lecture_course',
+            onDelete: "CASCADE",
+            foreignKey: {
+                allowNull: false,
+                name: "course_id",
+            }
+        })
+    };
 
-module.exports = Course;
+    return Course;
+};

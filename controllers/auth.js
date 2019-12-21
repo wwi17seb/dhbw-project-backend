@@ -1,11 +1,10 @@
-const User = require('../models/user');
-const DirectorOfStudies = require('../models/directorOfStudies');
-const bcrypt = require('bcrypt');
-const SALTS_ROUND = 12;
-const authHelper = require('../tools/authHelper');
+const authService = require('../services/auth');
 
-const jwt = require('jsonwebtoken');
-const propertiesReader = require('../tools/propertyReader');
+const userService = require('../services/user');
+
+const directorOfStudiesService = require('../services/directorOfStudies');
+
+// const models = require('../models');
 
 exports.postLogin = (req, res, next) => {
     const {
@@ -14,11 +13,7 @@ exports.postLogin = (req, res, next) => {
     } = req.body;
     let loadedUser;
     // check if a user exists
-    User.findOne({
-        where: {
-            username: username
-        }
-    })
+    userService.getUserByUsername(username)
         .then(user => {
             if (!user) {
                 const error = new Error('A user with this email could not be found.');
@@ -26,20 +21,15 @@ exports.postLogin = (req, res, next) => {
                 throw error;
             }
             loadedUser = user;
-            // if directorOfStudies exists compare the passwords to get log in
-            const preparedPassword = authHelper.preparePassword(password);
-            return bcrypt.compare(preparedPassword, user.password)
+            return loadedUser;
+        })
+        .then(() => {
+            // if user exists compare the passwords to get log in
+            return authService.verifyPassword(password, user.password);
         })
         .then(doMatch => {
             if (doMatch) {
-                const token = jwt.sign({
-                    username: loadedUser.username,
-                    userId: loadedUser.id
-                },
-                    propertiesReader.getProperty('jwt.superSecret'), {
-                    expiresIn: '1h'
-                }
-                );
+                const token = authService.generateToken(loadedUser);
                 res.status(200).json({
                     token: token,
                     userId: loadedUser.id
@@ -55,7 +45,7 @@ exports.postLogin = (req, res, next) => {
         })
 };
 
-exports.postSignup = (req, res, next) => {
+exports.postSignup = async (req, res, next) => {
     const {
         username,
         password,
@@ -70,39 +60,27 @@ exports.postSignup = (req, res, next) => {
             message: 'No password was given'
         });
     }
-    User.findOne({
-        where: {
-            username: username
-        }
+
+    const userExists = await userService.getUserByUsername(username);
+    console.log('userExists', userExists);
+    if (userExists) {
+        return res.status(403).send('Sorry: Username already exists');
+    }
+    const hashedPassword = await authService.hashPassword(password);
+
+    const userToCreate = {
+        username: username,
+        password: hashedPassword
+    };
+    const lecturerToCreate = {};
+    const Dos = await directorOfStudiesService.createDirectorOfStudies(userToCreate, lecturerToCreate);
+
+    res.status(201).send({
+        message: "successfull",
+        directorOfStudies: Dos
     })
-        .then(userExists => {
-            if (userExists) {
-                return res.status(403).send('Sorry: Username already exists');
-            }
-            // no user exists 
-            const directorOfStudies = new DirectorOfStudies({});
-            return directorOfStudies.save();
-        })
-        .then(savedDirectorOfStudies => {
-            const preparedPassword = authHelper.preparePassword(password);
-            bcrypt.hash(preparedPassword, SALTS_ROUND).then(
-                hashedPassword => {
-                    savedDirectorOfStudies.createUser({
-                        username: username,
-                        password: hashedPassword
-                    })
-                    return savedDirectorOfStudies.save()
-                }
-            )
-        })
-        .then(result => {
-            return res.status(201).send('User successful created!');
-        })
-        .catch(err => {
-            console.log(err);
-        });
 };
 
 exports.postLogout = (req, res, next) => {
     console.log('user was logged out');
-} 
+}

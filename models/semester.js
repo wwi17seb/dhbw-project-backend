@@ -1,26 +1,30 @@
-const Sequelize = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+    const Semester = sequelize.define("Semester", {
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            allowNull: false,
+            primaryKey: true
+        },
+        name: {
+            type: DataTypes.STRING,
+        },
+        number: {
+            type: DataTypes.STRING,
+        },
+        start_date: {
+            type: DataTypes.DATE,
+        },
+        end_date: {
+            type: DataTypes.DATE,
+        }
+    }, {
+        modelName: 'Semester',
+        tableName: 'semester'
+    });
 
-const sequelize = require("../database/database");
-
-const Semester = sequelize.define("semester", {
-    id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
-        allowNull: false,
-        primaryKey: true
-    },
-    name: {
-        type: Sequelize.STRING,
-    },
-    number: {
-        type: Sequelize.STRING, 
-    },
-    start_date: {
-        type: Sequelize.DATE,
-    },
-    end_date: {
-        type: Sequelize.DATE,
-    }
-});
-
-module.exports = Semester;
+    Semester.associate = function (models) {
+        // todo
+    };
+    return Semester;
+}

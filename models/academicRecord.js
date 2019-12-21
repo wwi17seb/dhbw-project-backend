@@ -1,23 +1,27 @@
-const Sequelize = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+    const AcademicRecord = sequelize.define("AcademicRecord", {
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            allowNull: false,
+            primaryKey: true
+        },
+        abbreviation: {
+            type: DataTypes.STRING
+        },
+        type: {
+            type: DataTypes.STRING, 
+        },
+        rated: {
+            type: DataTypes.BOOLEAN
+        }
+    }, {
+        modelName: 'AcademicRecord',
+        tableName: 'academic_record'
+    });
 
-const sequelize = require("../database/database");
-
-const AcademicRecord = sequelize.define("academicRecord", {
-    id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
-        allowNull: false,
-        primaryKey: true
-    },
-    abbreviation: {
-        type: Sequelize.STRING
-    },
-    type: {
-        type: Sequelize.STRING, 
-    },
-    rated: {
-        type: Sequelize.BOOLEAN
-    }
-});
-
-module.exports = AcademicRecord;
+    AcademicRecord.associate = function (models) {
+        // todo
+    };
+    return AcademicRecord;
+}

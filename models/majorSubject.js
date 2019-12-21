@@ -1,17 +1,21 @@
-const Sequelize = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+    const MajorSubject = sequelize.define("MajorSubject", {
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            allowNull: false,
+            primaryKey: true
+        },
+        name: {
+            type: DataTypes.STRING,
+        }
+    }, {
+        modelName: 'MajorSubject',
+        tableName: 'major_subject'
+    });
 
-const sequelize = require("../database/database");
-
-const MajorSubject = sequelize.define("majorSubject", {
-    id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
-        allowNull: false,
-        primaryKey: true
-    },
-    name: {
-        type: Sequelize.STRING,
-    }
-});
-
-module.exports = MajorSubject;
+    MajorSubject.associate = function (models) {
+        // todo
+    };
+    return MajorSubject;
+}

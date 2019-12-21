@@ -1,21 +1,26 @@
-const Sequelize = require('sequelize');
+'use strict';
+module.exports = (sequelize, DataTypes) => {
+    const User = sequelize.define('User', {
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            allowNull: false,
+            primaryKey: true
+        },
+        username: {
+            type: DataTypes.STRING,
+            unique: true
+        },
+        password: {
+            type: DataTypes.STRING
+        }
+    }, {
+        modelName: 'User',
+        tableName: 'user'
+    });
 
-const sequelize = require("../database/database");
+    User.associate = function (models) {
+    }; 
 
-const User = sequelize.define("user", {
-    id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
-        allowNull: false,
-        primaryKey: true
-    },
-    username: {
-        type: Sequelize.STRING,
-        unique: true
-    },
-    password: {
-        type: Sequelize.STRING
-    }
-});
-
-module.exports = User;
+    return User;
+}; 

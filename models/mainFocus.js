@@ -1,17 +1,21 @@
-const Sequelize = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+    const MainFocus = sequelize.define("MainFocus", {
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            allowNull: false,
+            primaryKey: true
+        },
+        name: {
+            type: DataTypes.STRING,
+        }
+    }, {
+        modelName: 'MainFocus',
+        tableName: 'main_focus'
+    });
 
-const sequelize = require("../database/database");
-
-const MainFocus = sequelize.define("mainFocus", {
-    id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
-        allowNull: false,
-        primaryKey: true
-    },
-    name: {
-        type: Sequelize.STRING,
-    }
-});
-
-module.exports = MainFocus;
+    MainFocus.associate = function (models) {
+        // todo
+    };
+    return MainFocus;
+}

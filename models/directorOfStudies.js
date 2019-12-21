@@ -1,15 +1,36 @@
-const Sequelize = require('sequelize');
+'use strict';
+module.exports = (sequelize, DataTypes) => {
+  const DirectorOfStudies = sequelize.define('DirectorOfStudies', {}, {
+    modelName: 'DirectorOfStudies',
+    tableName: 'directorOfStudies'
+  });
 
-const sequelize = require("../database/database");
-
-const DirectorOfStudies = sequelize.define("directorOfStudies", {
-    id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
+  DirectorOfStudies.associate = function (models) {
+    models.DirectorOfStudies.belongsTo(models.User, {
+      onDelete: "CASCADE",
+      foreignKey: {
         allowNull: false,
-        primaryKey: true,
-    },
-    name: Sequelize.STRING
-});
+        name: "user_id",
+      }
+    });
+    models.DirectorOfStudies.belongsTo(models.Lecturer, {
+      onDelete: "CASCADE",
+      foreignKey: {
+        allowNull: false,
+        name: "lecturer_id",
+      }
+    });
 
-module.exports = DirectorOfStudies;
+    // n:m DirectorOfStudies to Course
+    models.DirectorOfStudies.belongsToMany(models.Course, {
+      through: "directorOfStudies_course",
+      onDelete: "CASCADE",
+      foreignKey: { 
+        allowNull: false,
+        name: "course_id",
+      }
+    });
+  };
+
+  return DirectorOfStudies;
+};
