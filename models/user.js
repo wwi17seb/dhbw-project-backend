@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
         },
         password: {
             type: DataTypes.STRING
+        },
+        is_admin: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
         }
     }, {
         modelName: 'User',
@@ -20,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     User.associate = function (models) {
-    }; 
+    };
 
     return User;
-}; 
+};

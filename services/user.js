@@ -1,7 +1,6 @@
 const db = require('../database/database');
 
 const authService = require('./auth');
-
 module.exports.getUserByUsername = (username) => {
     return db.User.findOne({
         where: {
@@ -22,14 +21,16 @@ module.exports.createUser = async (user) => {
     let transaction;
     const {
         username,
-        password
+        password,
+        isAdmin
     } = user;
     try {
         transaction = await db.sequelize.transaction() // Managed Transaction
         const hashedPassword = await authService.hashPassword(password)
         const createdUser = await db.User.create({
             username: username,
-            password: hashedPassword
+            password: hashedPassword,
+            is_admin: isAdmin
         }, transaction);
 
         await transaction.commit();
@@ -40,4 +41,28 @@ module.exports.createUser = async (user) => {
         console.log('createUser', error);
         transation.rollback();
     }
+}
+
+module.exports.update = async user => {
+    console.log('userToUpdate', user);
+    let transaction;
+    try {
+        transaction = await db.sequelize.transaction();
+
+        const updatedUser = await db.User.update({
+            user
+        }, {
+            where: {
+                id: user.id
+            }
+        });
+
+        transaction = await transaction.commit();
+
+        return updatedUser;
+    } catch (error) {
+        console.log('update user', error);
+        transaction.rollback();
+    }
+
 }

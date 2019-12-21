@@ -18,7 +18,25 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Module.associate = function (models) {
-        // todo
-    };
+        // n:m betwenn module and main lecturer
+        models.Module.belongsToMany(models.Lecturer, {
+            through: "lecturer_module",
+            onDelete: "CASCADE",
+            foreignKey: {
+                allowNull: false,
+                name: "module_id",
+            },
+        });
+
+        // n:m betwenn module and academic record
+        models.Module.belongsToMany(models.AcademicRecord, {
+            through: "module_academic_record",
+            onDelete: "CASCADE",
+            foreignKey: {
+                allowNull: false,
+                name: "module_id",
+            },
+        })
+    }
     return Module;
 }

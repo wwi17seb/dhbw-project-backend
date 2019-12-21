@@ -15,7 +15,14 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     MajorSubject.associate = function (models) {
-        // todo
+        // 1:n between major subject and course
+          models.MajorSubject.hasMany(models.Course, {
+            onDelete: "CASCADE",
+            foreignKey: {
+                allowNull: false,
+                name: "majorSubject_id",
+            },
+        });
     };
     return MajorSubject;
 }

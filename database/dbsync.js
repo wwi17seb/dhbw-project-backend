@@ -16,7 +16,8 @@ db.sequelize
             .then(result => {
                 const userToCreate = {
                     username: propertiesReader.getProperty('app.defaultUser'),
-                    password: propertiesReader.getProperty('app.password')
+                    password: propertiesReader.getProperty('app.password'),
+                    isAdmin: propertiesReader.getProperty('app.isAdmin'),
                 };
                 userService.createUser(userToCreate);
                 console.log('Database successful synced');

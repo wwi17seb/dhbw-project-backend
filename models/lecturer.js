@@ -37,5 +37,28 @@ module.exports = (sequelize, DataTypes) => {
         modelName: 'Lecturer',
         tableName: 'lecturer'
     });
-    return Lecturer; 
+
+    Lecturer.associate = function (models) {
+
+        // n:m between lecturer and main focus
+        models.Lecturer.belongsToMany(models.MainFocus, {
+            through: "lecturer_main_focus",
+            onDelete: "CASCADE",
+            foreignKey: {
+                allowNull: false,
+                name: "lecturer_id",
+            },
+        });
+
+        // n:m between lecturer and main focus
+        models.Lecturer.belongsToMany(models.Module, {
+            through: "lecturer_module",
+            onDelete: "CASCADE",
+            foreignKey: {
+                allowNull: false,
+                name: "lecturer_id",
+            },
+        });
+    }
+    return Lecturer;
 }

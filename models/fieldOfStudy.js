@@ -15,7 +15,6 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     FieldOfStudy.associate = function (models) {
-        // todo
     };
     return FieldOfStudy;
 }

@@ -24,7 +24,6 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Semester.associate = function (models) {
-        // todo
     };
     return Semester;
 }

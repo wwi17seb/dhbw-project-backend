@@ -4,8 +4,6 @@ const userService = require('../services/user');
 
 const directorOfStudiesService = require('../services/directorOfStudies');
 
-// const models = require('../models');
-
 exports.postLogin = (req, res, next) => {
     const {
         username,

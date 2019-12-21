@@ -21,7 +21,15 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     AcademicRecord.associate = function (models) {
-        // todo
+             // n:m betwenn module and academic record
+             models.AcademicRecord.belongsToMany(models.Module, {
+                through: "module_academic_record",
+                onDelete: "CASCADE",
+                foreignKey: {
+                    allowNull: false,
+                    name: "academicRecord_id",
+                },
+            });
     };
     return AcademicRecord;
 }

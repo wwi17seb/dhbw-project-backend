@@ -17,9 +17,14 @@ module.exports = (sequelize, DataTypes) => {
 
     Course.associate = function (models) {
         models.Course.belongsToMany(models.DirectorOfStudies, {
-            through: "directorOfStudies_course" // only need a specific string to match 
+            /*               
+            only need a specific string to match 
+            this string is also the table
+              */
+            through: "directorOfStudies_course"
         });
 
+        // n:m betwenn course and lecturer
         models.Course.belongsToMany(models.Lecture, {
             through: 'lecture_course',
             onDelete: "CASCADE",
@@ -28,6 +33,15 @@ module.exports = (sequelize, DataTypes) => {
                 name: "course_id",
             }
         })
+
+        // 1:n between course and semester
+        models.Course.hasMany(models.Semester, {
+            onDelete: "CASCADE",
+            foreignKey: {
+                allowNull: false,
+                name: "course_id",
+            },
+        });
     };
 
     return Course;

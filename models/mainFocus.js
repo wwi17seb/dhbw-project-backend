@@ -15,7 +15,14 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     MainFocus.associate = function (models) {
-        // todo
+        models.MainFocus.belongsToMany(models.Lecturer, {
+            through: "lecturer_main_focus",
+            onDelete: "CASCADE",
+            foreignKey: {
+                allowNull: false,
+                name: "mainFocus_id",
+            },
+        });
     };
     return MainFocus;
 }
