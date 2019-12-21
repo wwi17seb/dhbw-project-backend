@@ -23,7 +23,7 @@ exports.postLogin = (req, res, next) => {
             loadedUser = user;
             return loadedUser;
         })
-        .then(() => {
+        .then((user) => {
             // if user exists compare the passwords to get log in
             return authService.verifyPassword(password, user.password);
         })
