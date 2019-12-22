@@ -1,7 +1,7 @@
 swagger: "2.0"
 info:
   version: "0.0.1"
-  title: Hello World App
+  title: ExoPlan Backend
 # during dev, should point to your local machine
 host: localhost:10010
 # basePath prefixes all resource paths 
@@ -18,43 +18,819 @@ consumes:
 produces:
   - application/json
 paths:
-  /hello:
-    # binds a127 app logic to a route
-    x-swagger-router-controller: hello_world
-    get:
-      description: Returns 'Hello' to the caller
-      # used as the method name of the controller
-      operationId: hello
+  /login:
+    post:
+      operationId: "login"
+      consumes:
+      - "application/json"
       parameters:
-        - name: name
-          in: query
-          description: The name of the person to whom to say hello
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/loginPost"
+      responses:
+        202:
+          description: "Accepted"
+        401:
+          description: "Unauthorized"
+  /logout:
+    post:
+      summary: "Logout"
+      description: "Ends session"
+      operationId: "logout"
+      consumes:
+      - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: ""
+          required: true
+          schema:
+            $ref: "#/definitions/logoutPost"
+      responses:
+        200:
+          description: "Successfully logged out"
+  /courses:
+    get:
+      summary: "Get all courses, including ID, name, director, links"
+      operationId: "getCourses"
+      produces:
+      - "application/json"
+      parameters:
+        - in: "query"
+          name: "directorOfStudies"
+          description: "ID of the course director"
           required: false
           type: string
       responses:
-        "200":
-          description: Success
+        200:
+          description: "successful operation"
           schema:
-            # a pointer to a definition
-            $ref: "#/definitions/HelloWorldResponse"
-        # responses may fall through to errors
-        default:
-          description: Error
+            $ref: "#/definitions/coursesGet"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Course not found"
+    post:
+      summary: "Create a new course"
+      operationId: "postCourse"
+      consumes:
+      - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Course object that is added to the database. Object defined under definitions/coursesPost"
+          required: true
           schema:
-            $ref: "#/definitions/ErrorResponse"
+            $ref: "#/definitions/coursesPost"
+      responses:
+        201:
+          description: "Created course"
+        405:
+          description: "Invalid input"
+  /courses/{courseID}:
+    put:
+      description: "Update one course"
+      operationId: "updateCourse"
+      consumes:
+        - "application/json"
+      parameters:
+        - name: "courseID"
+          in: "path"
+          description: "ID of the course"
+          required: true
+          type: "integer"
+        - name: body
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/coursesPut"
+      responses:
+        202: 
+          description: "Updated Course"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "ID not found"
+    delete:
+      description: "Delete one course"
+      operationId: "deleteCourse"
+      parameters:
+        - name: "courseID"
+          in: "path"
+          description: "ID of the course"
+          required: true
+          type: string
+      responses:
+        200:
+          description: "deleted course"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "ID not found"
+  /semesterview:
+    get:
+      summary: "Get all modules of all semesters of a course"
+      operationId: "getSemesterview"
+      produces:
+      - "application/json"
+      parameters:
+        - name: course_id
+          in: "body"
+          description: "Filter by course_ID"
+          required: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/semesterviewGet"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Course not found"
+  /semesterview/{id}:
+    put:
+      summary: "Updates a course"
+      operationId: "putCourse"
+      consumes:
+      - "application/json"
+      parameters:
+        - in: path
+          name: id
+          description: ""
+          required: true
+          type: integer
+          format: int64
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/semesterviewPut"  
+      responses:
+        201:
+          description: "Updated course"
+        404:
+          description: "ID not found"
+  /lecturers:
+    get:
+      summary: "Get all a list of lecturers, sorted by parameters"
+      operationId: "getLecturers"
+      produces:
+      - "application/json"
+      parameters:
+        - in: query
+          name: experience
+          type: string 
+        - in: query
+          name: comment
+          type: string 
+        - in: query
+          name: firstname
+          type: string
+        - in: query
+          name: lastname
+          type: string
+        - in: query
+          name: extern
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/lecturersGet"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Course not found"
+    post:
+      summary: "Create a new lecturer"
+      operationId: "postLecturers"
+      consumes:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "lecturersPost"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/lecturersPost"
+      responses:
+        202:
+          description: Accepted
+        405:
+          description: "Invalid input"
+  /lecturers/{id}:
+    put:
+      summary: "Updates a lecturer"
+      operationId: "putLecturer"
+      consumes:
+      - "application/json"
+      parameters:
+        - in: path
+          name: id
+          description: ""
+          required: true
+          type: integer
+          format: int64
+        - in: "body"
+          name: "body"
+          description: ""
+          required: true
+          schema:
+            $ref: "#/definitions/lecturersPut"  
+      responses:
+        201:
+          description: "Updated lecturer"
+        404:
+          description: "ID not found"
+    delete:
+      summary: "deletes a lecturer"
+      operationId: "deleteLecturer"
+      parameters:
+        - in: path
+          name: id
+          description: ""
+          required: true
+          type: integer
+          format: int64 
+      responses:
+        201:
+          description: "deleted lecturer"
+        404:
+          description: "ID not found"
+  /lectures:
+    post:
+      summary: "Create a new lecturer"
+      operationId: "postLecture"
+      consumes:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "lecturePost"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/lecturePost"
+      responses:
+        202:
+          description: Accepted
+        405:
+          description: "Invalid input"
+  /lectures/{id}:
+    put:
+      summary: "Updates a lecture"
+      operationId: "putLecture"
+      consumes:
+      - "application/json"
+      parameters:
+        - in: path
+          name: id
+          description: ""
+          required: true
+          type: integer
+          format: int64
+        - in: "body"
+          name: "body"
+          description: ""
+          required: true
+          schema:
+            $ref: "#/definitions/lecturePut"  
+      responses:
+        201:
+          description: "Updated lecture"
+        404:
+          description: "ID not found"
+    delete:
+      summary: "deletes a lecture"
+      operationId: "deleteLecture"
+      parameters:
+        - in: path
+          name: id
+          description: ""
+          required: true
+          type: integer
+          format: int64 
+      responses:
+        201:
+          description: "deleted lecture"
+        404:
+          description: "ID not found"
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
 definitions:
-  HelloWorldResponse:
-    required:
-      - message
+  loginPost:
+    type: object
     properties:
-      message:
+      username:
         type: string
-  ErrorResponse:
-    required:
-      - message
+      password:
+        type: string
+  logoutPost:
+    type: object
     properties:
-      message:
+      token:
         type: string
+  coursesGet:
+    type: "object"
+    properties:
+      coursesGetData:
+        type: array
+        items:
+          $ref: "#/definitions/coursesGetData"
+      coursesGetLinks:
+        $ref: "#/definitions/coursesGetLinks"
+      coursesGetMeta:
+        $ref: "#/definitions/coursesGetMeta"
+  coursesGetData:
+    type: "object"
+    properties:
+      course_id: 
+        type: "integer"
+        format: "int64"
+      name: 
+        type: "string"
+      directorOfStudies: 
+        type: "string"
+      majorSubject: 
+        type: "string"
+      fieldOfStudy: 
+        type: "string"
+  coursesGetLinks:
+    type: "object"
+    properties:
+      first: 
+        type: "string"
+      last: 
+        type: "string"
+      prev: 
+        type: "string"
+      next: 
+        type: "string"
+  coursesGetMeta:
+    type: "object"
+    properties:
+      type:  
+        type: "string"
+      current_page: 
+        type: "integer"
+        format: "int64"
+      from:  
+        type: "integer"
+        format: "int64"
+      last_page:  
+        type: "integer"
+        format: "int64"
+      path: 
+        type: "string"
+      per_page:   
+        type: "integer"
+        format: "int64"
+      to:   
+        type: "integer"
+        format: "int64"
+      total:   
+        type: "integer"
+        format: "int64"
+      tags:
+        type: array
+        items:
+          $ref: "#/definitions/coursesGetMetaTags"
+  coursesGetMetaTags:
+    type: object
+    properties:
+      coursesGetMetaTag:
+        type: string
+  coursesPut:
+    type: object
+    properties:
+      name:
+        type: string
+      directorOfStudies:
+        type: string
+      majorSubject:
+        type: string
+      fieldOfStudy:
+        type: string
+  coursesPost:
+    type: object
+    properties:
+      name:
+        type: string
+      directorOfStudies: 
+        type: "integer"
+        format: "int64"
+      majorSubject: 
+        type: "string"
+      fieldOfStudy: 
+        type: "string"
+      coursesPostSemester:
+        type: array
+        items:
+          $ref: "#/definitions/coursesPostSemester"
+  coursesPostSemester:
+    type: object
+    properties:
+      name: 
+        type: "string"
+      number:  
+        type: "integer"
+        format: "int64"
+      start_date:  
+        type: "string"
+        format: "date"
+      end_date:   
+        type: "string"
+        format: "date"
+  semesterviewGet:
+    type: object
+    properties:
+      semesterviewGetData:
+        $ref: "#/definitions/semesterviewGetData"
+      semesterviewGetLinks:
+        $ref: "#/definitions/semesterviewGetLinks"
+      semesterviewGetMeta:
+        $ref: "#/definitions/semesterviewGetMeta"
+  semesterviewGetData:
+    type: "object"
+    required:
+    - "semester_id"
+    - "name"
+    - "start_date"
+    - "end_date"
+    - "course_id"
+    - "semesterviewGetModuleGroups"
+    properties:
+      semester_id: 
+        type: string
+      name: 
+        type: string
+      start_date: 
+        type: string
+        format: date
+      end_date: 
+        type: string
+        format: date
+      course_id: 
+        type: integer
+        format: int64
+      semesterviewGetModuleGroups:
+        $ref: "#/definitions/semesterviewGetModuleGroups"
+  semesterviewGetModuleGroups:
+    type: object
+    required:
+    - moduleGroup_id
+    - name
+    - number_of_modules_to_attend
+    - from_semester_number
+    - to_semester_number
+    - semesterviewGetModules
+    properties:
+      moduleGroup_id: 
+        type: integer
+        format: int64
+      name: 
+        type: string
+      number_of_modules_to_attend: 
+        type: integer
+        format: int64
+      from_semester_number: 
+        type: integer
+        format: int64
+      to_semester_number: 
+        type: integer
+        format: int64
+      semesterviewGetModules:
+        $ref: "#/definitions/semesterviewGetModules"
+  semesterviewGetModules:
+    type: object
+    required:
+      - module_id
+      - name
+      - description
+      - catalog_id
+      - lectures
+      - academicRecord
+    properties:
+      module_id: 
+        type: integer
+        format: int64
+      name: 
+        type: string
+      description: 
+        type: string
+      catalog_id: 
+        type: string
+      lectures:
+        $ref: "#/definitions/semesterviewGetLectures"
+      academicRecord:
+        $ref: "#/definitions/semesterviewGetAcademicRecord"
+  semesterviewGetLectures:
+    type: object
+    properties:
+      lecture_id: 
+        type: integer
+        format: int64
+      name: 
+        type: string
+      workload_home: 
+        type: integer
+        format: int64
+      workload_dhbw: 
+        type: integer
+        format: int64
+      catalog_id: 
+        type: string
+      mainFocus:
+        $ref: "#/definitions/semesterviewGetMainFocus"
+      lecturer_state: 
+        type: string
+      dependend_lectures:
+        type: array
+        items:
+          type: integer
+          format: int64
+      lecturer:
+        $ref: "#/definitions/semesterviewGetLecturer"
+  semesterviewGetMainFocus:
+    type: object
+    properties:
+      name: 
+        type: string
+  semesterviewGetLecturer:
+    type: object
+    properties:
+      lecturer_id: 
+        type: integer
+        format: int64
+      firstname: 
+        type: string
+      lastname: 
+        type: string
+  semesterviewGetAcademicRecord:
+    type: object
+    properties:
+      academicRecord_id: 
+        type: integer
+        format: int64
+      abbreviation: 
+        type: string
+      type: 
+        type: string
+      rated: 
+        type: boolean
+  semesterviewGetLinks:
+    type: object
+    properties:
+      first: 
+        type: string
+      last: 
+        type: string
+      prev: 
+        type: string
+      next: 
+        type: string
+  semesterviewGetMeta:
+    type: object
+    properties:
+      type: 
+        type: string
+      current_page: 
+        type: integer
+        format: int64
+      from:  
+        type: integer
+        format: int64
+      last_page:  
+        type: integer
+        format: int64
+      path:
+        type: string
+      per_page:  
+        type: integer
+        format: int64
+      to:  
+        type: integer
+        format: int64
+      total:  
+        type: integer
+        format: int64
+      tags:
+        type: array
+        items:
+          type: integer
+          format: int64
+  semesterviewPut:
+    type: object
+    required:
+      - name
+      - number
+      - start_date
+      - end_date
+    properties:
+      name: 
+        type: string
+      number: 
+        type: integer
+        format: int64
+      start_date: 
+        type: string
+        format: date
+      end_date:
+        type: string
+        format: date
+  lecturersGet:
+    type: object
+    properties:
+      lecturersGetData:
+        $ref: "#/definitions/lecturersGetData"
+      lecturersGetLinks:
+        $ref: "#/definitions/lecturersGetLinks"
+      lecturersGetMeta:
+        $ref: "#/definitions/lecturersGetMeta"
+  lecturersGetData:
+    type: object
+    properties:
+      lecturer_id: 
+        type: integer
+        format: int64
+      firstname: 
+        type: string
+      lastname: 
+        type: string
+      academic_title: 
+        type: string
+      email: 
+        type: string
+      salutation: 
+        type: string
+      phonenumber: 
+        type: string
+      experience: 
+        type: string
+      comment: 
+        type: string
+      is_extern: 
+        type: integer
+        format: int64
+  lecturersGetLinks:
+    type: object
+    properties:
+      first: 
+        type: string
+      last: 
+        type: string
+      prev: 
+        type: string
+      next: 
+        type: string
+  lecturersGetMeta:
+    type: object
+    properties:
+      type: 
+        type: string
+      current_page: 
+        type: integer
+        format: int64
+      from:  
+        type: integer
+        format: int64
+      last_page:  
+        type: integer
+        format: int64
+      path:
+        type: string
+      per_page:  
+        type: integer
+        format: int64
+      to:  
+        type: integer
+        format: int64
+      total:  
+        type: integer
+        format: int64
+      tags:
+        type: array
+        items:
+          $ref: "#/definitions/lecturersGetMetaTags"
+  lecturersGetMetaTags:
+    type: object
+    properties:
+      experience: 
+        type: string
+      comment: 
+        type: string
+      firstname: 
+        type: string
+      lastname: 
+        type: string
+      extern: 
+        type: integer
+        format: int64
+  lecturersPost:
+    type: object
+    properties:
+      firstname: 
+        type: string
+      lastname:  
+        type: string
+      academic_title:  
+        type: string
+      email:  
+        type: string
+      salutation:  
+        type: string
+      phonenumber:  
+        type: string
+      experience:  
+        type: string
+      comment:  
+        type: string
+      is_extern: 
+        type: integer
+        format: int64
+  lecturersPut:
+    type: object
+    properties:
+      firstname: 
+        type: string
+      lastname: 
+        type: string
+      academic_title: 
+        type: string
+      email: 
+        type: string
+      salutation: 
+        type: string
+      phonenumber: 
+        type: string
+      experience: 
+        type: string
+      comment: 
+        type: string
+      is_extern: 
+        type: integer
+        format: int64
+  lecturePost:
+    type: object
+    properties:
+      name: 
+        type: string
+      workload_home: 
+        type: integer
+        format: int64
+      workload_dhbw:  
+        type: integer
+        format: int64
+      catalog_id: 
+        type: string
+      mainFocus:
+        type: "array"
+        items:
+          $ref: "#/definitions/lecturePostMainFocus_id"
+      lecturer_state: 
+        type: string
+      lecturer_id:  
+        type: integer
+        format: int64
+  lecturePostMainFocus_id: 
+    type: object
+    properties:
+      mainFocus_id:
+        type: integer
+        format: int64
+  lecturePut:
+    type: object
+    properties:
+      name: 
+        type: string
+      workload_home: 
+        type: integer
+        format: int64
+      workload_dhbw:  
+        type: integer
+        format: int64
+      catalog_id: 
+        type: string
+      mainFocus:
+        type: "array"
+        items:
+          $ref: "#/definitions/lecturePutMainFocus_id"
+      lecturer_state: 
+        type: string
+      lecturer_id:  
+        type: integer
+        format: int64
+  lecturePutMainFocus_id: 
+    type: object
+    properties:
+      mainFocus_id:
+        type: integer
+        format: int64
+
+
