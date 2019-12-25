@@ -1,0 +1,51 @@
+version: "3"
+services:
+  postgres:
+    image: postgres:12
+    hostname: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: ${postgres_password}
+      POSTGRES_USER: ${postgres_user}
+      POSTGRES_DB: backend
+    networks:
+      - dhbw-project-backend
+    volumes:
+      - ./database/:/docker-entrypoint-initdb.d/
+
+  pgadmin:
+    image: dpage/pgadmin4:4.16
+    hostname: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${pgadmin_user} 
+      PGADMIN_DEFAULT_PASSWORD: ${pgadmin_password}
+    networks:
+      - dhbw-project-backend
+    depends_on:
+      - postgres
+    ports:
+      - 8080:80
+    logging:
+      driver: none
+
+  dhbw-project-backend:
+    image: dhbw-project-backend
+    build:
+      context: ./../
+      dockerfile:  ./Docker/Dockerfile
+    networks:
+      - dhbw-project-backend
+    depends_on: 
+      - postgres
+
+  dhbw-project-frontend:
+    image: dhbw-project-frontend
+    build:
+      context: ./../../dhbw-project-frontend/
+    networks:
+      - dhbw-project-backend
+    depends_on: 
+      - postgres
+
+networks:
+  dhbw-project-backend:

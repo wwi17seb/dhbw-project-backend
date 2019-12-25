@@ -13,7 +13,13 @@ RUN npm install
 # RUN npm ci --only=production
 
 # Bundle app source
-COPY . .
+COPY api ./api
+COPY config ./config
+COPY queries ./queries
+COPY sql ./sql
+COPY tools ./tools
+COPY app.js ./app.js
+COPY env ./env
 
 EXPOSE 3000
 CMD [ "node", "app.js" ]
