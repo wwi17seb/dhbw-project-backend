@@ -9,9 +9,11 @@ services:
       POSTGRES_USER: ${postgres_user}
       POSTGRES_DB: backend
     networks:
-      - dhbw-project-backend
+      - exoplan
     volumes:
-      - ./database/:/docker-entrypoint-initdb.d/
+      - ./database/scripts/:/docker-entrypoint-initdb.d/
+      - ./database/data:/var/lib/postgresql/data
+
 
   pgadmin:
     image: dpage/pgadmin4:4.16
@@ -20,7 +22,7 @@ services:
       PGADMIN_DEFAULT_EMAIL: ${pgadmin_user} 
       PGADMIN_DEFAULT_PASSWORD: ${pgadmin_password}
     networks:
-      - dhbw-project-backend
+      - exoplan
     depends_on:
       - postgres
     ports:
@@ -28,24 +30,43 @@ services:
     logging:
       driver: none
 
-  dhbw-project-backend:
-    image: dhbw-project-backend
+  exoplan-backend:
+    hostname: exoplan-backend
+    image: exoplan-backend
     build:
       context: ./../
-      dockerfile:  ./Docker/Dockerfile
+      dockerfile:  ./docker/Dockerfile
     networks:
-      - dhbw-project-backend
+      - exoplan
     depends_on: 
       - postgres
 
-  dhbw-project-frontend:
-    image: dhbw-project-frontend
+  exoplan-frontend:
+    hostname: exoplan-frontend
+    image: exoplan-frontend
     build:
       context: ./../../dhbw-project-frontend/
     networks:
-      - dhbw-project-backend
+      - exoplan
     depends_on: 
       - postgres
 
+  nginx: 
+    image: nginx:latest
+    hostname: nginx
+    container_name: nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/ssl:/etc/nginx/certs
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+     - exoplan
+    depends_on: 
+      - postgres
+      - exoplan-frontend
+      - exoplan-backend
+
 networks:
-  dhbw-project-backend:
+  exoplan:
