@@ -12,7 +12,7 @@ services:
       - exoplan
     volumes:
       - ./database/scripts/:/docker-entrypoint-initdb.d/
-      - ./database/data:/var/lib/postgresql/data
+      #- ./database/data:/var/lib/postgresql/data
 
 
   pgadmin:

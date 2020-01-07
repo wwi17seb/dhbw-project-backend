@@ -18,11 +18,14 @@ RUN npm install
 # Bundle app source
 COPY api ./api
 COPY config ./config
-COPY queries ./queries
-COPY sql ./sql
 COPY tools ./tools
 COPY app.js ./app.js
+COPY models ./models
+COPY routes ./routes
+COPY services ./services
 COPY env ./env
+COPY database ./database
+COPY controllers ./controllers
 
 EXPOSE 3000
 CMD [ "node", "app.js" ]
