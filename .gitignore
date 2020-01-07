@@ -19,3 +19,5 @@ env
 *.csr.cnf
 *.key
 *.ext
+docker/.env
+
