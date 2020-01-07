@@ -30,16 +30,13 @@ fs
         return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
     })
     .forEach(file => { 
-        console.log('file', file);
         const model = sequelize['import'](path.join(PATH_MODELS, file));
-        console.log('model', model);
         db[model.name] = model;
     });
 
 
 Object.keys(db).forEach(modelName => {
     if (db[modelName].associate) {
-        console.log('asso', db[modelName]);
         db[modelName].associate(db);
     }
 });
