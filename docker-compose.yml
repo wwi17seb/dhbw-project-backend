@@ -1,0 +1,53 @@
+version: "3"
+services:
+#  Create a service named postgres.
+  postgres:
+#   Use the Docker Image postgres. This will pull the version 12.
+    image: postgres:12
+    restart: always
+    hostname: postgres
+#   Give the container the name my_postgres. You can changes to something else.
+    container_name: "my_postgres"
+#   Setup the username, password, and database name. You can changes these values.
+    environment:
+      - POSTGRES_USER=dhbw
+      - POSTGRES_PASSWORD=CcgNquB2EaYxtD2Bktv6BcGFJGEDQRaeS9yQd8KufBmy8NpnjZTGxS4fEd4dyWEEjG6zHjjt
+      - POSTGRES_DB=becker
+    networks:
+      - dhbw-project-backend
+    ports: 
+      - 5432:5432
+    # command: -c ssl=on -c ssl_cert_file=/var/lib/postgresql/server.crt -c ssl_key_file=/var/lib/postgresql/server.key
+#   Set a volume some that database is not lost after shutting down the container.
+#   I used the name postgres-data but you can changed it to something else.
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    #depends_on:
+     # - dhbw-project-backend
+      
+    #   https://hub.docker.com/r/dpage/pgadmin4/
+  pgadmin:
+      image: dpage/pgadmin4:4.16
+      depends_on:
+        - postgres
+      ports:
+        - 5454:5454/tcp
+      environment:
+        - PGADMIN_DEFAULT_EMAIL=admin@mydomain.com
+        - PGADMIN_DEFAULT_PASSWORD=postgres
+        - PGADMIN_LISTEN_PORT=5454
+      hostname: pgadmin
+      networks:
+        - dhbw-project-backend
+      logging:
+        driver: none
+  #dhbw-project-backend:
+   # image: dhbw-project-backend
+    #build:
+     # context: .
+    #ports:
+     # - 3000:3000
+    #networks:
+     # - dhbw-project-backend
+networks:
+  dhbw-project-backend:
