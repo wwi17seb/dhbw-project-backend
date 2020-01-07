@@ -5,3 +5,4 @@ env/app.properties
 *.pem
 *.crt
 *.key
+docker/.env
