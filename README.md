@@ -23,6 +23,9 @@ server.dialect  = postgres
 jwt.superSecret = TreevgQreNefpuUngHroreunhcgAvpugfTrznpug13
 
 pepper = ErarFgvaxg
+
+app.defaultUser = admin
+app.defaultPassword = defaultpasswordhere
 ```
 
 # start server
