@@ -1,14 +1,21 @@
 'use strict';
 const fs = require('fs'),
   path = require('path'),
-  http = require('http'),
-  https = require('https');
+  http = require('http');
 
+const express = require('express');
 const propertiesReader = require('./tools/propertyReader');
-const app = require('connect')();
+const app = express();
 const swaggerTools = require('swagger-tools');
 const jsyaml = require('js-yaml');
 const serverPort = propertiesReader.getProperty('app.port');
+const bodyParser = require("body-parser");
+const jsonParser = bodyParser.json();
+
+const dbsync = require('./database/dbsync');
+
+// routes
+const authRoutes = require('./routes/auth');
 
 // swaggerRouter configuration
 const options = {
@@ -44,10 +51,16 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
   // use defined options edited in line 27-28
   app.use(middleware.swaggerUi(swaggerUiOptions));
 
+  app.use(jsonParser);
+  // authroute
+  // ./login ./logout ./signup
+  app.use(authRoutes);
+
+  dbsync
   // // Start the server without SSL
-   http.createServer(app).listen(serverPort, () => {
-     console.log('Your server is listening on port %d (http://localhost:%d)', serverPort, serverPort);
-     console.log('Swagger-ui is available on http://localhost:%d/docs', serverPort);
-   });
+  http.createServer(app).listen(serverPort, () => {
+    console.log('Your server is listening on port %d (http://localhost:%d)', serverPort, serverPort);
+    console.log('Swagger-ui is available on http://localhost:%d/docs', serverPort);
+  });
 
 });

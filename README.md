@@ -19,7 +19,6 @@ server.database = becker
 server.password = iH0p3youU5EaSecretPa$$word
 server.port     = 5432
 server.dialect  = postgres
-
 jwt.superSecret = TreevgQreNefpuUngHroreunhcgAvpugfTrznpug13
 
 pepper = ErarFgvaxg
