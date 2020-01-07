@@ -2,7 +2,23 @@ node_modules/
 
 env/app.properties
 *.DS_Store
-*.pem
-*.crt
+
+# dotenv environment variables file
+.env
+.env.test
+.tern-port
+
+postgres-data
+.DS_Store
+env
 *.key
+*.pem
+*.srl
+*.crt
+*.csr
+*.csr.cnf
+*.key
+*.ext
 docker/.env
+
+
