@@ -30,10 +30,10 @@ paths:
           schema:
             $ref: "#/definitions/loginPost"
       responses:
-        202:
-          description: "Accepted"
-        401:
-          description: "Unauthorized"
+        200:
+          description: "Ok"
+        400:
+          description: "Bad Request"
   /logout:
     post:
       summary: "Logout"
@@ -50,7 +50,7 @@ paths:
             $ref: "#/definitions/logoutPost"
       responses:
         200:
-          description: "Successfully logged out"
+          description: "Ok"
   /courses:
     get:
       summary: "Get all courses, including ID, name, director, links"
@@ -65,11 +65,9 @@ paths:
           type: string
       responses:
         200:
-          description: "successful operation"
+          description: "Ok"
           schema:
             $ref: "#/definitions/coursesGet"
-        400:
-          description: "Invalid ID supplied"
         404:
           description: "Course not found"
     post:
@@ -87,16 +85,16 @@ paths:
       responses:
         201:
           description: "Created course"
-        405:
-          description: "Invalid input"
-  /courses/{courseID}:
+        400:
+          description: "Bad Request"
+  /courses/{id}:
     put:
       description: "Update one course"
       operationId: "updateCourse"
       consumes:
         - "application/json"
       parameters:
-        - name: "courseID"
+        - name: "id"
           in: "path"
           description: "ID of the course"
           required: true
@@ -107,26 +105,22 @@ paths:
           schema:
             $ref: "#/definitions/coursesPut"
       responses:
-        202: 
-          description: "Updated Course"
-        400:
-          description: "Invalid ID supplied"
+        200: 
+          description: "Ok"
         404:
           description: "ID not found"
     delete:
       description: "Delete one course"
       operationId: "deleteCourse"
       parameters:
-        - name: "courseID"
+        - name: "id"
           in: "path"
           description: "ID of the course"
           required: true
-          type: string
+          type: "integer"
       responses:
         200:
-          description: "deleted course"
-        400:
-          description: "Invalid ID supplied"
+          description: "Ok"
         404:
           description: "ID not found"
   /semesterview:
@@ -136,22 +130,19 @@ paths:
       produces:
       - "application/json"
       parameters:
-        - name: course_id
-          in: "body"
-          description: "Filter by course_ID"
+        - name: id
+          in: "query"
+          description: "Filter by id of the course"
           required: false
-          schema:
-            type: integer
-            format: int64
+          type: integer
+          format: int64
       responses:
         200:
-          description: "successful operation"
+          description: "Ok"
           schema:
             $ref: "#/definitions/semesterviewGet"
         400:
-          description: "Invalid ID supplied"
-        404:
-          description: "Course not found"
+          description: "Bad Request"
   /semesterview/{id}:
     put:
       summary: "Updates a course"
@@ -171,8 +162,8 @@ paths:
           schema:
             $ref: "#/definitions/semesterviewPut"  
       responses:
-        201:
-          description: "Updated course"
+        200:
+          description: "Ok"
         404:
           description: "ID not found"
   /lecturers:
@@ -184,29 +175,32 @@ paths:
       parameters:
         - in: query
           name: experience
+          description: "filters lecturers by experience"
           type: string 
         - in: query
           name: comment
+          description: "filters lecturers by comments/notes"
           type: string 
         - in: query
           name: firstname
+          description: "filters by first name"
           type: string
         - in: query
           name: lastname
+          description: "filters by family name"
           type: string
         - in: query
           name: extern
+          description: "filters by type of lecturer. 0 for internal, 1 for internal AND external, 2 for only external"
           type: integer
           format: int64
       responses:
         200:
-          description: "successful operation"
+          description: "Ok"
           schema:
             $ref: "#/definitions/lecturersGet"
         400:
-          description: "Invalid ID supplied"
-        404:
-          description: "Course not found"
+          description: "Bad Request"
     post:
       summary: "Create a new lecturer"
       operationId: "postLecturers"
@@ -220,10 +214,10 @@ paths:
         schema:
           $ref: "#/definitions/lecturersPost"
       responses:
-        202:
-          description: Accepted
-        405:
-          description: "Invalid input"
+        201:
+          description: "Created"
+        400:
+          description: "Bad Request"
   /lecturers/{id}:
     put:
       summary: "Updates a lecturer"
@@ -244,8 +238,8 @@ paths:
           schema:
             $ref: "#/definitions/lecturersPut"  
       responses:
-        201:
-          description: "Updated lecturer"
+        200:
+          description: "Ok"
         404:
           description: "ID not found"
     delete:
@@ -259,67 +253,10 @@ paths:
           type: integer
           format: int64 
       responses:
-        201:
-          description: "deleted lecturer"
-        404:
-          description: "ID not found"
-  /lectures:
-    post:
-      summary: "Create a new lecturer"
-      operationId: "postLecture"
-      consumes:
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "lecturePost"
-        description: ""
-        required: true
-        schema:
-          $ref: "#/definitions/lecturePost"
-      responses:
-        202:
-          description: Accepted
-        405:
-          description: "Invalid input"
-  /lectures/{id}:
-    put:
-      summary: "Updates a lecture"
-      operationId: "putLecture"
-      consumes:
-      - "application/json"
-      parameters:
-        - in: path
-          name: id
-          description: ""
-          required: true
-          type: integer
-          format: int64
-        - in: "body"
-          name: "body"
-          description: ""
-          required: true
-          schema:
-            $ref: "#/definitions/lecturePut"  
-      responses:
-        201:
-          description: "Updated lecture"
-        404:
-          description: "ID not found"
-    delete:
-      summary: "deletes a lecture"
-      operationId: "deleteLecture"
-      parameters:
-        - in: path
-          name: id
-          description: ""
-          required: true
-          type: integer
-          format: int64 
-      responses:
-        201:
-          description: "deleted lecture"
-        404:
-          description: "ID not found"
+        200:
+          description: "Ok"
+        400:
+          description: "Bad Request"
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
@@ -339,13 +276,13 @@ definitions:
   coursesGet:
     type: "object"
     properties:
-      coursesGetData:
+      data:
         type: array
         items:
           $ref: "#/definitions/coursesGetData"
-      coursesGetLinks:
+      links:
         $ref: "#/definitions/coursesGetLinks"
-      coursesGetMeta:
+      meta:
         $ref: "#/definitions/coursesGetMeta"
   coursesGetData:
     type: "object"
@@ -356,7 +293,9 @@ definitions:
       name: 
         type: "string"
       directorOfStudies: 
-        type: "string"
+        type: "integer"
+        format: "int64"
+        description: "filters response to only include courses of a given director"
       majorSubject: 
         type: "string"
       fieldOfStudy: 
@@ -398,13 +337,11 @@ definitions:
         type: "integer"
         format: "int64"
       tags:
-        type: array
-        items:
-          $ref: "#/definitions/coursesGetMetaTags"
+        $ref: "#/definitions/coursesGetMetaTags"
   coursesGetMetaTags:
     type: object
     properties:
-      coursesGetMetaTag:
+      directorOfStudies:
         type: string
   coursesPut:
     type: object
@@ -429,11 +366,11 @@ definitions:
         type: "string"
       fieldOfStudy: 
         type: "string"
-      coursesPostSemester:
+      semesters:
         type: array
         items:
-          $ref: "#/definitions/coursesPostSemester"
-  coursesPostSemester:
+          $ref: "#/definitions/coursesPostSemesters"
+  coursesPostSemesters:
     type: object
     properties:
       name: 
@@ -450,11 +387,13 @@ definitions:
   semesterviewGet:
     type: object
     properties:
-      semesterviewGetData:
-        $ref: "#/definitions/semesterviewGetData"
-      semesterviewGetLinks:
+      data:
+        type: array
+        items:
+          $ref: "#/definitions/semesterviewGetData"
+      links:
         $ref: "#/definitions/semesterviewGetLinks"
-      semesterviewGetMeta:
+      meta:
         $ref: "#/definitions/semesterviewGetMeta"
   semesterviewGetData:
     type: "object"
@@ -464,10 +403,11 @@ definitions:
     - "start_date"
     - "end_date"
     - "course_id"
-    - "semesterviewGetModuleGroups"
+    - "moduleGroups"
     properties:
       semester_id: 
-        type: string
+        type: "integer"
+        format: "int64"
       name: 
         type: string
       start_date: 
@@ -479,8 +419,10 @@ definitions:
       course_id: 
         type: integer
         format: int64
-      semesterviewGetModuleGroups:
-        $ref: "#/definitions/semesterviewGetModuleGroups"
+      moduleGroups:
+        type: array
+        items:
+          $ref: "#/definitions/semesterviewGetModuleGroups"
   semesterviewGetModuleGroups:
     type: object
     required:
@@ -489,7 +431,7 @@ definitions:
     - number_of_modules_to_attend
     - from_semester_number
     - to_semester_number
-    - semesterviewGetModules
+    - modules
     properties:
       moduleGroup_id: 
         type: integer
@@ -505,8 +447,10 @@ definitions:
       to_semester_number: 
         type: integer
         format: int64
-      semesterviewGetModules:
-        $ref: "#/definitions/semesterviewGetModules"
+      modules:
+        type: array
+        items:
+          $ref: "#/definitions/semesterviewGetModules"
   semesterviewGetModules:
     type: object
     required:
@@ -527,7 +471,9 @@ definitions:
       catalog_id: 
         type: string
       lectures:
-        $ref: "#/definitions/semesterviewGetLectures"
+        type: array
+        items:
+          $ref: "#/definitions/semesterviewGetLectures"
       academicRecord:
         $ref: "#/definitions/semesterviewGetAcademicRecord"
   semesterviewGetLectures:
@@ -550,7 +496,7 @@ definitions:
         $ref: "#/definitions/semesterviewGetMainFocus"
       lecturer_state: 
         type: string
-      dependend_lectures:
+      dependent_lectures:
         type: array
         items:
           type: integer
@@ -621,10 +567,11 @@ definitions:
         type: integer
         format: int64
       tags:
-        type: array
-        items:
-          type: integer
-          format: int64
+        type: object
+        properties:
+          course_id:
+            type: integer
+            format: int64
   semesterviewPut:
     type: object
     required:
@@ -647,11 +594,11 @@ definitions:
   lecturersGet:
     type: object
     properties:
-      lecturersGetData:
+      data:
         $ref: "#/definitions/lecturersGetData"
-      lecturersGetLinks:
+      links:
         $ref: "#/definitions/lecturersGetLinks"
-      lecturersGetMeta:
+      meta:
         $ref: "#/definitions/lecturersGetMeta"
   lecturersGetData:
     type: object
@@ -715,9 +662,7 @@ definitions:
         type: integer
         format: int64
       tags:
-        type: array
-        items:
-          $ref: "#/definitions/lecturersGetMetaTags"
+        $ref: "#/definitions/lecturersGetMetaTags"
   lecturersGetMetaTags:
     type: object
     properties:
@@ -776,61 +721,4 @@ definitions:
       is_extern: 
         type: integer
         format: int64
-  lecturePost:
-    type: object
-    properties:
-      name: 
-        type: string
-      workload_home: 
-        type: integer
-        format: int64
-      workload_dhbw:  
-        type: integer
-        format: int64
-      catalog_id: 
-        type: string
-      mainFocus:
-        type: "array"
-        items:
-          $ref: "#/definitions/lecturePostMainFocus_id"
-      lecturer_state: 
-        type: string
-      lecturer_id:  
-        type: integer
-        format: int64
-  lecturePostMainFocus_id: 
-    type: object
-    properties:
-      mainFocus_id:
-        type: integer
-        format: int64
-  lecturePut:
-    type: object
-    properties:
-      name: 
-        type: string
-      workload_home: 
-        type: integer
-        format: int64
-      workload_dhbw:  
-        type: integer
-        format: int64
-      catalog_id: 
-        type: string
-      mainFocus:
-        type: "array"
-        items:
-          $ref: "#/definitions/lecturePutMainFocus_id"
-      lecturer_state: 
-        type: string
-      lecturer_id:  
-        type: integer
-        format: int64
-  lecturePutMainFocus_id: 
-    type: object
-    properties:
-      mainFocus_id:
-        type: integer
-        format: int64
-
-
+  

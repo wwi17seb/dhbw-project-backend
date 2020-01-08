@@ -19,7 +19,6 @@ app.use('/logout', require('./routes/logout'));
 app.use('/courses', require('./routes/courses'));
 app.use('/semesterview', require('./routes/semesterview'));
 app.use('/lecturers', require('./routes/lecturers'));
-app.use('/lectures', require('./routes/lectures'));
 app.use('/swagger', require('./routes/swagger'));
 
 // catch 404
