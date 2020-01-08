@@ -20,7 +20,8 @@ server.password = 'yourpasswordhere'
 server.port     = 5342
 ```
 
-# start server
+# Test API (Swagger)
+go to api/swagger/ and type
 ```
 swagger project start
 ```
@@ -30,3 +31,9 @@ swagger project edit
 ``` 
 
 There might be problems with curl if you're using it with the VSC powershell terminal.
+
+# Start Node Server
+in the main folder, type this into the cmd:
+```
+node app.js
+``` 
