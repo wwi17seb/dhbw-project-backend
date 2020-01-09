@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
 
     // 1:n between lecturer and dos
     models.DirectorOfStudies.hasMany(models.Lecturer, {
-      as: "creator",
+      // as: "creator",
       onDelete: "CASCADE",
       foreignKey: "createdBy_id",
     });
