@@ -7,8 +7,8 @@ Read more on https://guides.github.com/introduction/flow/.
 
 ## common setup
  1. Clone this project and checkout the master branch. 
- 2. Create a folder "env".
- 3. Create a file "app.proporties" inside the env folder with the following proporties (example values):
+ 2. Create a folder `env`.
+ 3. Create a file `app.properties` inside the env folder with the following properties (example values):
 
     ```
     app.port = 3000
@@ -26,7 +26,7 @@ Read more on https://guides.github.com/introduction/flow/.
     app.defaultPassword = defaultpasswordhere
     ```
 
-4. Create a file ".env" inside the "docker" folder with the following proporties (example). Be sure, that the postgres password and user are like the server config in "app.proporties":
+4. Create a file `.env` inside the `docker` folder with the following properties (example). Be sure, that the postgres password and user are like the server config in `app.properties`:
 
     ```
     postgres_user=dhbw
@@ -34,7 +34,7 @@ Read more on https://guides.github.com/introduction/flow/.
     pgadmin_user=project@dhbw.de
     pgadmin_password=test1234
     ```
-5. Copy the server certifcates into the /docker/nginx/ssl directory. The certificate files can be found inside the "backend_doku->ssl" onedrive directory.
+5. Copy the server certifcates into the `/docker/nginx/ssl` directory. The certificate files can be found inside the `backend_doku->ssl` onedrive directory.
 
 ## for backend developers
 1. Do the common steps.
@@ -43,7 +43,7 @@ Read more on https://guides.github.com/introduction/flow/.
     ```
     npm install
     ```
-3. Change the "server.host" in the "app.proporties" file to "localhost". 
+3. Change the `server.host` in the `app.properties` file to `localhost`. 
 4. Open terminal and start docker:
 
     ```
@@ -64,7 +64,7 @@ Read more on https://guides.github.com/introduction/flow/.
     ...\dhbw-project-backend> cd .\docker\
     ...\dhbw-project-backend\docker> docker-compose -f docker-compose-frontend.yaml up 
     ```
-2. The backend APIs are available at: https://localhost/api/\<ressource>
+2. The backend APIs are available at: https://localhost/api/{ressource}
 
 ## for demo usage (exoplan project)
 1. Clone front- and backend into the same directory
