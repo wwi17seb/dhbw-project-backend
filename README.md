@@ -3,67 +3,79 @@
 Please create feature branches and then use pull requests to merge to master branch.
 Read more on https://guides.github.com/introduction/flow/.
 
-# installation
-```
-npm install
-```
+# How to use it
 
-# setup
-env/app.properties:
-```
-app.port = 3000
+## common setup
+ 1. Clone this project and checkout the master branch. 
+ 2. Create a folder "env".
+ 3. Create a file "app.proporties" inside the env folder with the following proporties (example values):
 
-server.user     = dhbw
-server.host     = localhost
-server.database = becker
-server.password = iH0p3youU5EaSecretPa$$word
-server.port     = 5432
-server.dialect  = postgres
-jwt.superSecret = TreevgQreNefpuUngHroreunhcgAvpugfTrznpug13
+    ```
+    app.port = 3000
+    server.user     = dhbw
+    server.database = becker
+    server.password = iH0p3youU5EaSecretPa$$word
+    server.port     = 5432
+    server.dialect  = postgres
+    jwt.superSecret = TreevgQreNefpuUngHroreunhcgAvpugfTrznpug13
+    server.host     = postgres
 
-pepper = ErarFgvaxg
+    pepper = ErarFgvaxg
 
-app.defaultUser = admin
-app.defaultPassword = defaultpasswordhere
-```
+    app.defaultUser = admin
+    app.defaultPassword = defaultpasswordhere
+    ```
 
-# start server
-for deploying we suggest to use `nodemon` 
-```
-node app.js or nodemon app.js
-```
-Afterwards, you can test the API either via curl or through the web-UI with 
-```
-http://localhost:3000/docs
-``` 
+4. Create a file ".env" inside the "docker" folder with the following proporties (example). Be sure, that the postgres password and user are like the server config in "app.proporties":
 
-# docker project setup 
-
-## before starting
-1. Clone front- and backend into the same directory
-2. Create an .env file inside the /docker/ directory of the backend repo with the following (example) values:
     ```
     postgres_user=dhbw
-    postgres_password=CcgNquB2EaYxtD2Bktv6BcGFJGEDQRaeS9yQd8KufBmy8NpnjZTGxS4fEd4dyWEEjG6zHjjt
+    postgres_password=iH0p3youU5EaSecretPa$$word
     pgadmin_user=project@dhbw.de
     pgadmin_password=test1234
     ```
-3. Copy the server certifcates into the /docker/nginx/ssl directory.
+5. Copy the server certifcates into the /docker/nginx/ssl directory. The certificate files can be found inside the "backend_doku->ssl" onedrive directory.
 
-## start hole project
+## for backend developers
+1. Do the common steps.
+2. Install all node modules:
 
-```
-...\dhbw-project-backend> cd .\docker\
-...\dhbw-project-backend\docker> docker-compose up --build 
-```
+    ```
+    npm install
+    ```
+3. Change the "server.host" in the "app.proporties" file to "localhost". 
+4. Open terminal and start docker:
 
-## start development envirnoment for backend
-```
-...\dhbw-project-backend> cd .\docker\
-...\dhbw-project-backend\docker> docker-compose -f docker-compose-backend.yaml up --build 
-```
+    ```
+    ...\dhbw-project-backend> cd .\docker\
+    ...\dhbw-project-backend\docker> docker-compose -f docker-compose-backend.yaml up 
+    ```
+5. Open a second terminal and start your app. For deploying we suggest to use `nodemon`:
+    ```
+    node app.js or nodemon app.js
+    ```
+    Afterwards, you can test the API either via curl or through the web-UI with 
+    ```
+    http://localhost:3000/docs
+    ``` 
+## for frontend developers
+1. After the common setup steps, please start the backend:
+    ```
+    ...\dhbw-project-backend> cd .\docker\
+    ...\dhbw-project-backend\docker> docker-compose -f docker-compose-frontend.yaml up 
+    ```
+2. The backend APIs are available at: https://localhost/api/\<ressource>
 
-## shutdown
+## for demo usage (exoplan project)
+1. Clone front- and backend into the same directory
+2. Be sure, that the common steps are done.
+3. Start the project.
+    ```
+    ...\dhbw-project-backend> cd .\docker\
+    ...\dhbw-project-backend\docker> docker-compose up --build 
+    ```
+
+## shutdown or rebuilding the hole docker network
 
 ```
 ...\dhbw-project-backend\docker> docker-compose down
@@ -72,5 +84,8 @@ OR
 
 ...\dhbw-project-backend\docker> docker-compose -f docker-compose-backend.yaml down
 
-```
+OR
 
+...\dhbw-project-backend\docker> docker-compose -f docker-compose-frontend.yaml down
+
+```
