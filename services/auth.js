@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const propertiesReader = require('../tools/propertyReader');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 const authHelper = require('../tools/authHelper');
 const SALTS_ROUND = 12;
