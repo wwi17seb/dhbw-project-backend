@@ -6,7 +6,7 @@ Read more on https://guides.github.com/introduction/flow/.
 # How to use it
 
 ## common setup
- 1. Clone this project and checkout the master branch. 
+ 1. Clone this project and checkout the master branch.
  2. Create a folder `env`.
  3. Create a file `app.properties` inside the env folder with the following properties (example values):
 
@@ -43,12 +43,12 @@ Read more on https://guides.github.com/introduction/flow/.
     ```
     npm install
     ```
-3. Change the `server.host` in the `app.properties` file to `localhost`. 
+3. Change the `server.host` in the `app.properties` file to `localhost`.
 4. Open terminal and start docker:
 
     ```
     ...\dhbw-project-backend> cd .\docker\
-    ...\dhbw-project-backend\docker> docker-compose -f docker-compose-backend.yaml up 
+    ...\dhbw-project-backend\docker> docker-compose -f docker-compose-backend.yaml up --build
     ```
 5. Open a second terminal and start your app. For deploying we suggest to use `nodemon`:
     ```
@@ -57,12 +57,12 @@ Read more on https://guides.github.com/introduction/flow/.
     Afterwards, you can test the API either via curl or through the web-UI with 
     ```
     http://localhost:3000/docs
-    ``` 
+    ```
 ## for frontend developers
 1. After the common setup steps, please start the backend:
     ```
     ...\dhbw-project-backend> cd .\docker\
-    ...\dhbw-project-backend\docker> docker-compose -f docker-compose-frontend.yaml up 
+    ...\dhbw-project-backend\docker> docker-compose -f docker-compose-frontend.yaml up
     ```
 2. The backend APIs are available at: https://localhost/api/{ressource}
 
@@ -72,7 +72,7 @@ Read more on https://guides.github.com/introduction/flow/.
 3. Start the project.
     ```
     ...\dhbw-project-backend> cd .\docker\
-    ...\dhbw-project-backend\docker> docker-compose up --build 
+    ...\dhbw-project-backend\docker> docker-compose up --build
     ```
 
 ## shutdown or rebuilding the hole docker network
