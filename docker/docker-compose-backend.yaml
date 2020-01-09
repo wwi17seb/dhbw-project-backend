@@ -7,13 +7,11 @@ services:
     environment:
       POSTGRES_PASSWORD: ${postgres_password}
       POSTGRES_USER: ${postgres_user}
-      POSTGRES_DB: backend
+      POSTGRES_DB: becker
     ports:
       - 5432:5432  
     networks:
       - exoplan-backend
-    volumes:
-      - ./database/:/docker-entrypoint-initdb.d/
 
   pgadmin:
     image: dpage/pgadmin4:4.16

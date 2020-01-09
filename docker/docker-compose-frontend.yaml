@@ -36,23 +36,16 @@ services:
       - exoplan
     depends_on: 
       - postgres
-
-  exoplan-frontend:
-    hostname: exoplan-frontend
-    image: exoplan-frontend
-    build:
-      context: ./../../dhbw-project-frontend/
-    networks:
-      - exoplan
-    depends_on: 
-      - postgres
+      - pgadmin
+    ports:
+      - 3000:3000
 
   nginx: 
     image: nginx:latest
     hostname: nginx
     container_name: nginx
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx_frontend/nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/ssl:/etc/nginx/certs
     ports:
       - 80:80
@@ -61,7 +54,6 @@ services:
      - exoplan
     depends_on: 
       - postgres
-      - exoplan-frontend
       - exoplan-backend
 
 networks:
