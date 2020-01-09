@@ -26,7 +26,7 @@ module.exports.createUser = async (user) => {
     } = user;
     try {
         transaction = await db.sequelize.transaction() // Managed Transaction
-        const hashedPassword = await authService.hashPassword(password)
+        const hashedPassword = await authService.hashPassword(password);
         const createdUser = await db.User.create({
             username: username,
             password: hashedPassword,
