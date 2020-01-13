@@ -24,6 +24,7 @@ Read more on https://guides.github.com/introduction/flow/.
 
     app.defaultUser = admin
     app.defaultPassword = defaultpasswordhere
+    app.isAdmin = true
     ```
 
 4. Create a file `.env` inside the `docker` folder with the following properties (example). Be sure, that the postgres password and user are like the server config in `app.properties`:
