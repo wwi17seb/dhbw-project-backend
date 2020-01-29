@@ -11,7 +11,7 @@ module.exports.generateToken = (user) => {
             userId: user.id
         },
         propertiesReader.getProperty('jwt.superSecret'), {
-            expiresIn: '1h'
+            expiresIn: '12h'
         }
     );
 }
