@@ -16,7 +16,7 @@ db.sequelize
             .then(result => {
                 const userToCreate = {
                     username: propertiesReader.getProperty('app.defaultUser'),
-                    password: propertiesReader.getProperty('app.password'),
+                    password: propertiesReader.getProperty('app.defaultPassword'),
                     isAdmin: propertiesReader.getProperty('app.isAdmin'),
                 };
                 userService.createUser(userToCreate);

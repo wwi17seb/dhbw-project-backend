@@ -4,6 +4,8 @@ const userService = require('../services/user');
 
 const directorOfStudiesService = require('../services/directorOfStudies');
 
+const ERROR_MESSAGE_AUTH_FAILED = "AUTH FAILED";
+
 exports.postLogin = (req, res, next) => {
     const {
         username,
@@ -14,7 +16,7 @@ exports.postLogin = (req, res, next) => {
     userService.getUserByUsername(username)
         .then(user => {
             if (!user) {
-                const error = new Error('A user with this email could not be found.');
+                const error = new Error(ERROR_MESSAGE_AUTH_FAILED);
                 error.statusCode = 401;
                 throw error;
             }
@@ -33,7 +35,7 @@ exports.postLogin = (req, res, next) => {
                     userId: loadedUser.id
                 });
             } else {
-                const error = new Error('Wrong password!');
+                const error = new Error(ERROR_MESSAGE_AUTH_FAILED);
                 error.statusCode = 401;
                 throw error;
             }
@@ -49,20 +51,19 @@ exports.postSignup = async (req, res, next) => {
         password,
     } = req.body;
     if (!username) {
-        return res.status(500).json({
+        return res.status(400).json({
             message: 'No username was given'
         });
     }
     if (!password) {
-        return res.status(500).json({
+        return res.status(400).json({
             message: 'No password was given'
         });
     }
 
     const userExists = await userService.getUserByUsername(username);
-    console.log('userExists', userExists);
     if (userExists) {
-        return res.status(403).send('Sorry: Username already exists');
+        return res.status(400).send('Username already exists');
     }
     const hashedPassword = await authService.hashPassword(password);
 
@@ -74,11 +75,11 @@ exports.postSignup = async (req, res, next) => {
     const Dos = await directorOfStudiesService.createDirectorOfStudies(userToCreate, lecturerToCreate);
 
     res.status(201).send({
-        message: "successfull",
+        message: "Successful",
         directorOfStudies: Dos
     })
 };
 
 exports.postLogout = (req, res, next) => {
-    console.log('user was logged out');
-}
+
+};
