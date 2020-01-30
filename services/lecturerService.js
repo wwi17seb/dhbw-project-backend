@@ -1,6 +1,6 @@
 const db = require('../database/database');
 
-const directorOfStudiesService = require('./directorOfStudies');
+const directorOfStudiesService = require('./directorOfStudiesService');
 
 module.exports.findLecturerById = async (lecturerId) => {
     let transaction;
@@ -22,6 +22,7 @@ module.exports.findLecturerById = async (lecturerId) => {
     }
 }
 
+// directorOfStudiesId represents the director of studies adding the new lecturer
 module.exports.createLecturer = async (lecturer, directorOfStudiesId) => {
     let transaction;
     try {
@@ -43,30 +44,6 @@ module.exports.createLecturer = async (lecturer, directorOfStudiesId) => {
         return Lecturer;
     } catch (error) {
         console.log('createLecturer', error);
-        transaction.rollback();
-    }
-}
-
-const db = require('../database/database');
-
-const directorOfStudiesService = require('./directorOfStudies');
-
-module.exports.findLecturerById = async (lecturerId) => {
-    let transaction;
-    try {
-        transaction = await db.sequelize.transaction() // Managed Transaction
-
-        const Lecturer = await db.Lecturer.findByPK({
-            where: {
-                id: lecturerId
-            }
-        }, transaction);
-
-        await transaction.commit();
-
-        return Lecturer;
-    } catch (error) {
-        console.log('findLecturerById', error);
         transaction.rollback();
     }
 }

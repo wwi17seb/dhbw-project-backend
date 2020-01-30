@@ -1,6 +1,6 @@
 // const sequelize = require("./database");
 const db = require('../database/database');
-const userService = require('../services/user');
+const userService = require('../services/userService');
 const propertiesReader = require('../tools/propertyReader');
 
 // verify that db is connected

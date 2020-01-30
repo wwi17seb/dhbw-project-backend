@@ -1,6 +1,6 @@
 const db = require('../database/database');
 
-const authService = require('./auth');
+const authService = require('./authService');
 module.exports.getUserByUsername = (username) => {
     return db.User.findOne({
         where: {

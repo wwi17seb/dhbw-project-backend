@@ -16,6 +16,10 @@ module.exports.generateToken = (user) => {
     );
 }
 
+module.exports.decodeToken = (token) => {
+    return jwt.decode(token);
+}
+
 module.exports.verifyPassword = (enteredPassword, userPassword) => {
     const preparedPassword = preparePassword(enteredPassword);
     return bcrypt.compare(preparedPassword, userPassword)
