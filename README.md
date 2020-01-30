@@ -55,10 +55,6 @@ Read more on https://guides.github.com/introduction/flow/.
     ```
     node app.js or nodemon app.js
     ```
-    Afterwards, you can test the API either via curl or through the web-UI with 
-    ```
-    http://localhost:3000/docs
-    ```
 ## for frontend developers
 1. After the common setup steps, please start the backend:
     ```
