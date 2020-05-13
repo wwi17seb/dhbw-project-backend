@@ -20,6 +20,7 @@ app.use(jsonParser);
 
 app.use(authRoutes); // authroute: ./login ./logout ./signup
 app.use(lecturerRoutes);
+app.get("/", (req, res) => res.json({ status: 'server running' }));
 
 dbsync
 // Start the server without SSL
