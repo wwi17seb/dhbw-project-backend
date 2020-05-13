@@ -12,11 +12,11 @@ const jsonParser = bodyParser.json();
 
 const dbsync = require('./database/dbsync');
 
+app.use(jsonParser);
+
 // routes
 const authRoutes = require('./routes/authRoutes');
 const lecturerRoutes = require('./routes/lecturerRoutes');
-
-app.use(jsonParser);
 
 app.use(authRoutes); // authroute: ./login ./logout ./signup
 app.use(lecturerRoutes);
