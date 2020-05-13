@@ -17,9 +17,8 @@ const authRoutes = require('./routes/authRoutes');
 const lecturerRoutes = require('./routes/lecturerRoutes');
 
 app.use(jsonParser);
-// authroute
-// ./login ./logout ./signup
-app.use(authRoutes);
+
+app.use(authRoutes); // authroute: ./login ./logout ./signup
 app.use(lecturerRoutes);
 
 dbsync

@@ -27,9 +27,9 @@ exports.postLecturer = async (req, res, next) => {
         is_extern: is_extern
     };
 
-    let curStudiesDirectorId = authService.decodeToken(token).userId;
-
     try {
+        let curStudiesDirectorId = authService.decodeToken(token).userId;
+
         const createdLecturer = await lecturerService.createLecturer(givenLecturer, curStudiesDirectorId);
         
         res.status(201).json(createdLecturer);

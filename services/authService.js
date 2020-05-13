@@ -16,6 +16,10 @@ module.exports.generateToken = (user) => {
     );
 }
 
+module.exports.verifyToken = (token) => {
+    return jwt.verify(token, propertiesReader.getProperty('jwt.superSecret'));
+}
+
 module.exports.decodeToken = (token) => {
     return jwt.decode(token);
 }
