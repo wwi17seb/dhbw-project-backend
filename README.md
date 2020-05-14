@@ -32,6 +32,7 @@ Read more on https://guides.github.com/introduction/flow/.
     ```
     postgres_user=dhbw
     postgres_password=iH0p3youU5EaSecretPa$$word
+    postgres_port=5432
     pgadmin_user=project@dhbw.de
     pgadmin_password=test1234
     ```
@@ -54,10 +55,6 @@ Read more on https://guides.github.com/introduction/flow/.
 5. Open a second terminal and start your app. For deploying we suggest to use `nodemon`:
     ```
     node app.js or nodemon app.js
-    ```
-    Afterwards, you can test the API either via curl or through the web-UI with 
-    ```
-    http://localhost:3000/docs
     ```
 ## for frontend developers
 1. After the common setup steps, please start the backend:

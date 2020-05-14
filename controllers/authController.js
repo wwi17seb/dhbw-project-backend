@@ -1,8 +1,8 @@
-const authService = require('../services/auth');
+const authService = require('../services/authService');
 
-const userService = require('../services/user');
+const userService = require('../services/userService');
 
-const directorOfStudiesService = require('../services/directorOfStudies');
+const directorOfStudiesService = require('../services/directorOfStudiesService');
 
 const ERROR_MESSAGE_AUTH_FAILED = "AUTH FAILED";
 

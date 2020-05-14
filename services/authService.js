@@ -16,6 +16,18 @@ module.exports.generateToken = (user) => {
     );
 }
 
+module.exports.verifyToken = (token) => {
+    try {
+        return jwt.verify(token, propertiesReader.getProperty('jwt.superSecret'));
+    } catch (err) {
+        return null;
+    }
+}
+
+module.exports.decodeToken = (token) => {
+    return jwt.decode(token);
+}
+
 module.exports.verifyPassword = (enteredPassword, userPassword) => {
     const preparedPassword = preparePassword(enteredPassword);
     return bcrypt.compare(preparedPassword, userPassword)
