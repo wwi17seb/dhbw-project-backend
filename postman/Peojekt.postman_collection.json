@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "8d9fd758-b0e9-410e-8a28-aa171077c613",
+		"_postman_id": "078d990f-1d29-4921-9dcd-6d8538078868",
 		"name": "Peojekt",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -69,6 +69,45 @@
 							],
 							"path": [
 								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Lecturers",
+			"item": [
+				{
+					"name": "create Lecturer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwidXNlcklkIjoxLCJpYXQiOjE1ODAyOTcwNjAsImV4cCI6MTU4MDM0MDI2MH0.Zm23x_JvdSUp7KamEW2PWFr18VMpxXXrqONWr-8Tux4\",\n    \"firstname\": \"string\",\n    \"lastname\": \"string\",\n    \"academic_title\": \"string\",\n    \"email\": \"string\",\n    \"salutation\": \"string\",\n    \"phonenumber\": \"string\",\n    \"experience\": \"string\",\n    \"comment\": \"string\",\n    \"is_extern\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/lecturer",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"lecturer"
 							]
 						}
 					},
