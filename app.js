@@ -17,10 +17,16 @@ app.use(jsonParser);
 // routes
 const authRoutes = require('./routes/authRoutes');
 const lecturerRoutes = require('./routes/lecturerRoutes');
+const routeNotImplementedRoutes = require('./routes/routeNotImplementedRoutes');
 
 app.use(authRoutes); // authroute: ./login ./logout ./signup
 app.use(lecturerRoutes);
+
 app.get("/", (req, res) => res.json({ status: 'server running' }));
+app.use(routeNotImplementedRoutes);
+app.use(function (err, req, res, next) {
+  res.status(500).json({});
+});
 
 dbsync
 // Start the server without SSL
