@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
         }
     }, {
         modelName: 'User',
-        tableName: 'user'
+        tableName: 'account'
     });
 
     User.associate = function (models) {
