@@ -32,6 +32,7 @@ Read more on https://guides.github.com/introduction/flow/.
     ```
     postgres_user=dhbw
     postgres_password=iH0p3youU5EaSecretPa$$word
+    postgres_port=5432
     pgadmin_user=project@dhbw.de
     pgadmin_password=test1234
     ```

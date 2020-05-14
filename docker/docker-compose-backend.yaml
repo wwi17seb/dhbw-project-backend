@@ -9,7 +9,7 @@ services:
       POSTGRES_USER: ${postgres_user}
       POSTGRES_DB: becker
     ports:
-      - 5432:5432  
+      - ${postgres_port}:5432
     networks:
       - exoplan-backend
 

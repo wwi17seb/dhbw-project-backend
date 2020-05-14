@@ -20,8 +20,9 @@ const sequelize = new Sequelize(
     propertiesReader.getProperty('server.database'),
     propertiesReader.getProperty('server.user'),
     propertiesReader.getProperty('server.password'), {
-        dialect: propertiesReader.getProperty('server.dialect'),
-        host: propertiesReader.getProperty('server.host')
+    dialect: propertiesReader.getProperty('server.dialect'),
+    host: propertiesReader.getProperty('server.host'),
+    port: propertiesReader.getProperty('server.port')
     }, options);
 
 fs
