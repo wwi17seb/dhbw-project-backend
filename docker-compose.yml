@@ -16,7 +16,7 @@ services:
     networks:
       - dhbw-project-backend
     ports: 
-      - 5432:5432
+      - ${postgres_port}:5432
     # command: -c ssl=on -c ssl_cert_file=/var/lib/postgresql/server.crt -c ssl_key_file=/var/lib/postgresql/server.key
 #   Set a volume some that database is not lost after shutting down the container.
 #   I used the name postgres-data but you can changed it to something else.
