@@ -68,5 +68,5 @@ exports.postSignup = async (req, res, next) => {
 };
 
 exports.postLogout = (req, res, next) => {
-
+    responseHelper(res, 200, 'Not yet implemented!');
 };
