@@ -63,7 +63,9 @@ exports.postSignup = async (req, res, next) => {
 
     const userExists = await userService.getUserByUsername(username);
     if (userExists) {
-        return res.status(400).send('Username already exists');
+        return res.status(400).json({
+            message: 'Username already exists'
+        });
     }
     const hashedPassword = await authService.hashPassword(password);
 
@@ -74,10 +76,10 @@ exports.postSignup = async (req, res, next) => {
     const lecturerToCreate = {};
     const Dos = await directorOfStudiesService.createDirectorOfStudies(userToCreate, lecturerToCreate);
 
-    res.status(201).send({
+    res.status(201).json({
         message: "Successful",
         directorOfStudies: Dos
-    })
+    });
 };
 
 exports.postLogout = (req, res, next) => {
