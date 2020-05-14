@@ -28,11 +28,11 @@ module.exports.createLecturer = async (lecturer, directorOfStudiesId) => {
     try {
         transaction = await db.sequelize.transaction() // Managed Transaction
 
-        DirectorOfStudies = await directorOfStudiesService.findDirectorOfStudiesById(directorOfStudiesId);
-
+        //const directorOfStudies = await directorOfStudiesService.findDirectorOfStudiesById(directorOfStudiesId);
+        //console.log('post dos directorOfStudies:', directorOfStudies);
         const Lecturer = await db.Lecturer.create({
             ...lecturer,
-            DirectorOfStudies: DirectorOfStudies
+            createdBy_id: directorOfStudiesId
         }, {
             include: [{
                 model: db.DirectorOfStudies
@@ -41,20 +41,19 @@ module.exports.createLecturer = async (lecturer, directorOfStudiesId) => {
 
         await transaction.commit();
 
-        return Lecturer;
+        return Lecturer.dataValues;
     } catch (error) {
         console.log('createLecturer', error);
         transaction.rollback();
     }
 }
 
-// TODO
 module.exports.findByDirectorOfStudiesId = async (directorOfStudiesId) => {
     let transaction;
     try {
         transaction = await db.sequelize.transaction() // Managed Transaction
 
-        const Lecturers = await db.Lecturer.findByPK({
+        const Lecturers = await db.Lecturer.find({
             where: {
                 directorOfStudies_id: directorOfStudiesId
             }
@@ -62,7 +61,7 @@ module.exports.findByDirectorOfStudiesId = async (directorOfStudiesId) => {
 
         await transaction.commit();
 
-        return Lecturers;
+        return Lecturers.dataValues;
     } catch (error) {
         console.log('findByDirectorOfStudiesId', error);
         transaction.rollback();
