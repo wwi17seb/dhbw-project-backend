@@ -17,17 +17,14 @@
     "pg": "^7.14.0",
     "pg-hstore": "^2.3.3",
     "properties-reader": "^0.3.1",
-    "sequelize": "^5.21.2",
-    "swagger": "^0.7.5",
-    "swagger-tools": "^0.10.4"
+    "sequelize": "^5.21.2"
   },
   "devDependencies": {
     "should": "^7.1.0",
     "supertest": "^1.0.0"
   },
   "scripts": {
-    "start": "node app.js",
-    "test": "swagger project test"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",

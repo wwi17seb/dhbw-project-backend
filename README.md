@@ -60,7 +60,7 @@ Read more on https://guides.github.com/introduction/flow/.
 1. After the common setup steps, please start the backend:
     ```
     ...\dhbw-project-backend> cd .\docker\
-    ...\dhbw-project-backend\docker> docker-compose -f docker-compose-frontend.yaml up
+    ...\dhbw-project-backend\docker> docker-compose -f docker-compose-frontend.yaml up --build
     ```
 2. The backend APIs are available at: https://localhost/api/{ressource}
 
