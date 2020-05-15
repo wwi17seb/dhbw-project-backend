@@ -59,6 +59,15 @@ module.exports = (sequelize, DataTypes) => {
                 name: "lecturer_id",
             },
         });
+
+        // 1:m between lecturer and main focus
+        models.Lecturer.belongsTo(models.DirectorOfStudies, {
+            onDelete: "CASCADE",
+            foreignKey: {
+                allowNull: false,
+                name: "createdBy_id",
+            },
+        });
     }
     return Lecturer;
 }
