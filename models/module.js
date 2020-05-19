@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         // n:m betwenn module and main lecturer
         models.Module.belongsToMany(models.Lecturer, {
             through: "lecturer_module",
+            as: "lecturers", 
             onDelete: "CASCADE",
             foreignKey: {
                 allowNull: false,

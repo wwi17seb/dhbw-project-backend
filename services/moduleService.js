@@ -1,7 +1,6 @@
 const db = require("../database/database");
 
-module.exports.createModule = async ({name, catalog_id, Lecturers}) => {
-
+module.exports.createModule = async ({ name, catalog_id, Lecturers }) => {
   const extractedModule = { name, catalog_id, Lecturers };
   let transaction;
   try {
@@ -25,7 +24,7 @@ module.exports.createModule = async ({name, catalog_id, Lecturers}) => {
 
 module.exports.getAllModules = async () => {
   const modules = await db.Module.findAll({
-    include: [{ model: db.Lecturer }],
+    include: [{ model: db.Lecturer, as: "lecturers" }],
   });
   return modules;
 };
@@ -35,6 +34,7 @@ module.exports.getModuleByName = async (nameOfModule) => {
     where: {
       name: nameOfModule,
     },
+    include: [{ model: db.Lecturer, as: "lecturers" }],
   });
   return moduleToFind;
 };
