@@ -7,7 +7,7 @@ module.exports.getUserByUsername = async (username) => {
       username: username,
     },
   });
-  return await userToFind.dataValues;
+  return await userToFind ? userToFind.dataValues : null;
 };
 
 module.exports.getUserById = async (user_id) => {
