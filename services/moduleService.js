@@ -3,7 +3,7 @@ const db = require("../database/database");
 /**
  * Receives { name, catalog_id, Lecturers }
  * 
- * Return a new, persistet module 
+ * Return a new, persisted module 
  */
 module.exports.createModule = async ({ name, catalog_id, Lecturers }) => {
   const extractedModule = { name, catalog_id, Lecturers };
