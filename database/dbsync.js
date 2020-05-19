@@ -3,7 +3,7 @@ const db = require("../database/database");
 const directorOfStudiesService = require("../services/directorOfStudiesService");
 const authService = require("../services/authService");
 const userService = require("../services/userService");
-const propertiesReader = require("../tools/propertyReader");
+const propertiesReader = require("../helpers/propertyReader");
 
 addDefaultUserAndDos = async () => {
 	const hashedPassword = await authService.hashPassword(propertiesReader.getProperty("app.defaultPassword"));

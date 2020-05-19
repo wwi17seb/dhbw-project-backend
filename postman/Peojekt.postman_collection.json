@@ -22,7 +22,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"username\": \"Nutzername\",\n\t\"password\": \"MeinSicheresPasswort1337\"\n}",
+							"raw": "{\n    \"username\": \"Nutzername\",\n    \"password\": \"MeinSicheresPasswort1337\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -55,7 +55,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"username\": \"test\",\n\t\"password\": \"1234\"\n}",
+							"raw": "{\n    \"username\": \"test\",\n    \"password\": \"1234\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -94,8 +94,66 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJ1c2VySWQiOjIsImlhdCI6MTU4OTg3MzY4OCwiZXhwIjoxNTk4NTEzNjg4fQ.KTjlx88ke7SWKhQAARMkoOlDtyjRyO73ksUMcThyOJ8\",\n    \"firstname\": \"string\",\n    \"lastname\": \"string\",\n    \"academic_title\": \"string\",\n    \"email\": \"string\",\n    \"salutation\": \"string\",\n    \"phonenumber\": \"string\",\n    \"experience\": \"string\",\n    \"comment\": \"string\",\n    \"is_extern\": true\n}",
+							"raw": "{\n    \"firstname\": \"string\",\n    \"lastname\": \"string\",\n    \"academic_title\": \"string\",\n    \"email\": \"string\",\n    \"salutation\": \"string\",\n    \"phonenumber\": \"string\",\n    \"experience\": \"string\",\n    \"comment\": \"string\",\n    \"is_extern\": true\n}",
 							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/lecturer?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"lecturer"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Courses",
+			"item": [
+				{
+					"name": "get Courses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/courses?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"courses"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}						"options": {
 								"raw": {
 									"language": "json"
 								}
@@ -108,6 +166,42 @@
 							],
 							"path": [
 								"lecturer"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "courses",
+			"item": [
+				{
+					"name": "get Courses",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwidXNlcklkIjoxLCJpYXQiOjE1ODk4ODA0NDksImV4cCI6MTU4OTkyMzY0OX0.T_laT4SwKNAjA_FOnXqCACq6dCndYYbg1UZaGSgqmQ8\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/courses",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"courses"
 							]
 						}
 					},

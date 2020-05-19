@@ -2,7 +2,7 @@ const db = require('../database/database');
 
 const directorOfStudiesService = require('./directorOfStudiesService');
 
-module.exports.findLecturerById = async (lecturerId) => {
+module.exports.findLecturersById = async (lecturerId) => {
     let transaction;
     try {
         transaction = await db.sequelize.transaction() // Managed Transaction
@@ -23,7 +23,7 @@ module.exports.findLecturerById = async (lecturerId) => {
 }
 
 // directorOfStudiesId represents the director of studies adding the new lecturer
-module.exports.createLecturer = async (lecturer, directorOfStudiesId) => {
+module.exports.createLecturers = async (lecturer, directorOfStudiesId) => {
     let transaction;
     try {
         transaction = await db.sequelize.transaction() // Managed Transaction

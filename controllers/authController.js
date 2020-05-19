@@ -6,7 +6,7 @@ const directorOfStudiesService = require('../services/directorOfStudiesService')
 
 const ERROR_MESSAGE_AUTH_FAILED = "AUTH FAILED";
 
-const responseHelper = require("../tools/responseHelper");
+const responseHelper = require("../helpers/responseHelper");
 
 exports.postLogin = (req, res, next) => {
     const {
