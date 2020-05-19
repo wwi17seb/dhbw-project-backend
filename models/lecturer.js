@@ -33,9 +33,6 @@ module.exports = (sequelize, DataTypes) => {
         is_extern: {
             type: DataTypes.BOOLEAN
         },
-        main_focus: {
-            type: DataTypes.STRING,
-        },
         profile: {
             type: DataTypes.STRING,
         },
