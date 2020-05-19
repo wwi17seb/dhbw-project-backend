@@ -1,13 +1,15 @@
 const db = require("../database/database");
 
-module.exports.createModule = async (moduleToCreate) => {
+module.exports.createModule = async ({name, catalog_id, Lecturers}) => {
+
+  const extractedModule = { name, catalog_id, Lecturers };
   let transaction;
   try {
     transaction = await db.sequelize.transaction(); // Managed Transaction
 
     const createdModule = await db.Module.create(
       {
-        ...moduleToCreate,
+        ...extractedModule,
       },
       transaction
     );
@@ -22,7 +24,9 @@ module.exports.createModule = async (moduleToCreate) => {
 };
 
 module.exports.getAllModules = async () => {
-  const modules = await db.Module.findAll();
+  const modules = await db.Module.findAll({
+    include: [{ model: db.Lecturer }],
+  });
   return modules;
 };
 
