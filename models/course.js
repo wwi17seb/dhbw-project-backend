@@ -9,6 +9,9 @@ module.exports = (sequelize, DataTypes) => {
         },
         name: {
             type: DataTypes.STRING,
+        },
+        googleCalendarId: {
+            type: DataTypes.INTEGER,
         }
     }, {
         modelName: 'Course',

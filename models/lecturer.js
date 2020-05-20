@@ -32,6 +32,15 @@ module.exports = (sequelize, DataTypes) => {
         },
         is_extern: {
             type: DataTypes.BOOLEAN
+        },
+        profile: {
+            type: DataTypes.STRING,
+        },
+        cv: {
+            type: DataTypes.STRING,
+        },
+        research: {
+            type: DataTypes.STRING,
         }
     }, {
         modelName: 'Lecturer',
