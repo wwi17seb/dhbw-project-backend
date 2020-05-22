@@ -12,7 +12,12 @@ Read more on https://guides.github.com/introduction/flow/.
 
     ```
     app.port = 3000
-    server.user = dhbw
+    app.defaultUser = admin
+    app.defaultPassword = defaultpasswordhere
+    app.isAdmin = true
+    app.forceSync = false
+
+    server.user     = dhbw
     server.database = becker
     server.password = iH0p3youU5EaSecretPa$$word
     server.port = 5432
@@ -22,15 +27,9 @@ Read more on https://guides.github.com/introduction/flow/.
 
     pepper = ErarFgvaxg
 
-    app.defaultUser = admin
-    app.defaultPassword = defaultpasswordhere
-    app.isAdmin = true
-
-    app.testUser = test
-    app.testPassword = 1234
     ```
 
-4. Create a file `.env` inside the `docker` folder with the following properties (example). Be sure, that the postgres password and user are like the server config in `app.properties`:
+1. Create a file `.env` inside the `docker` folder with the following properties (example). Be sure, that the postgres password and user are like the server config in `app.properties`:
 
     ```
     postgres_user = dhbw
@@ -39,7 +38,7 @@ Read more on https://guides.github.com/introduction/flow/.
     pgadmin_user = project@dhbw.de
     pgadmin_password = test1234
     ```
-5. Copy the server certifcates into the `/docker/nginx/ssl` directory. The certificate files can be found inside the `backend_doku->ssl` onedrive directory.
+2. Copy the server certifcates into the `/docker/nginx/ssl` directory. The certificate files can be found inside the `backend_doku->ssl` onedrive directory.
 
 ## for backend developers
 1. Do the common steps.

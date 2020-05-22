@@ -27,7 +27,7 @@ exports.postLogin = (req, res, next) => {
         .then(doMatch => {
             if (doMatch) {
                 const token = authService.generateToken(loadedUser);
-                responseHelper(res, 200, 'Token generated!', {token, userId: loadedUser.id});
+                responseHelper(res, 200, 'Token generated!', {token, userId: loadedUser.id, username: loadedUser.username});
             } else {
                 responseHelper(res, 401, ERROR_MESSAGE_AUTH_FAILED);
             }
