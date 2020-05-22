@@ -31,7 +31,6 @@ COPY models ./models
 COPY routes ./routes
 COPY services ./services
 COPY sql ./sql
-COPY tools ./tools
 COPY app.js ./app.js
 
 EXPOSE 3000

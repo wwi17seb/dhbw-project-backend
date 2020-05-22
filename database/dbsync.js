@@ -3,7 +3,8 @@ const db = require("../database/database");
 const directorOfStudiesService = require("../services/directorOfStudiesService");
 const userService = require("../services/userService");
 const authService = require("../services/authService");
-const propertiesReader = require("../tools/propertyReader");
+const userService = require("../services/userService");
+const propertiesReader = require("../helpers/propertyReader");
 
 addDefaultUserAndDos = async () => {
   const hashedPassword = await authService.hashPassword(
@@ -26,6 +27,14 @@ addDefaultUserAndDos = async () => {
     );
   }
 };
+addTestUser = async () => {
+  const userToCreate = {
+    username: propertiesReader.getProperty("app.testUser"),
+    password: await authService.hashPassword(propertiesReader.getProperty("app.testPassword")),
+    is_admin: false
+  };
+  const testUser = await userService.createUser(userToCreate);
+};
 // verify that db is connected
 db.sequelize
   .authenticate()
@@ -38,6 +47,7 @@ db.sequelize
       // .sync()
       .then(async (result) => {
         await addDefaultUserAndDos();
+        await addTestUser();
         console.log("Database successful synced");
       })
       .catch((err) => {
