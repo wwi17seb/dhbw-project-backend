@@ -38,7 +38,7 @@ services:
       - postgres
       - pgadmin
     ports:
-      - 3000:3000
+      - 3001:3001
     command: sh -c "dockerize -wait tcp://postgres:5432 -timeout 300s -wait-retry-interval 5s node app.js"
 
   nginx: 
