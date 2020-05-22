@@ -85,7 +85,8 @@ Rückgabe:
     "message": "[DEBUG-INFO/KOMMENTAR]", // Bspw. "Successful", "Failed", ...
     "payload": {
         "token": "[TOKEN]", // Bspw. "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJ1c2VySWQiOjIsImlhdCI6MTU4OTg3MzY4OCwiZXhwIjoxNTk4NTEzNjg4fQ.KTjlx88ke7SWKhQAARMkoOlDtyjRyO73ksUMcThyOJ8"
-        "userId": 0 // Bspw. "1"
+        "userId": 0, // Bspw. "1"
+        "username": "[NUTZERNAME]" // Bspw. "Nutzername"
     }
 }
 ````
@@ -110,7 +111,8 @@ Rückgabe:
     "message": "[DEBUG-INFO/KOMMENTAR]", // Bspw. "Successful", "Failed", ...
     "payload": {
         "token": "[TOKEN]", // Bspw. "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJ1c2VySWQiOjIsImlhdCI6MTU4OTg3MzY4OCwiZXhwIjoxNTk4NTEzNjg4fQ.KTjlx88ke7SWKhQAARMkoOlDtyjRyO73ksUMcThyOJ8"
-        "userId": 0 // Bspw. "1"
+        "userId": 0, // Bspw. "1"
+        "username": "[NUTZERNAME]" // Bspw. "Nutzername"
     }
 }
 ````
