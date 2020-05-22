@@ -1,12 +1,9 @@
 const authService = require('../services/authService');
-
 const userService = require('../services/userService');
 
-const directorOfStudiesService = require('../services/directorOfStudiesService');
+const responseHelper = require("../helpers/responseHelper");
 
 const ERROR_MESSAGE_AUTH_FAILED = "AUTH FAILED";
-
-const responseHelper = require("../helpers/responseHelper");
 
 exports.postLogin = (req, res, next) => {
     const {
@@ -30,7 +27,7 @@ exports.postLogin = (req, res, next) => {
         .then(doMatch => {
             if (doMatch) {
                 const token = authService.generateToken(loadedUser);
-                responseHelper(res, 200, 'Token generated!', {token: token, userId: loadedUser.id});
+                responseHelper(res, 200, 'Token generated!', {token, userId: loadedUser.id});
             } else {
                 responseHelper(res, 401, ERROR_MESSAGE_AUTH_FAILED);
             }
@@ -56,15 +53,11 @@ exports.postSignup = async (req, res, next) => {
     if (userExists) {
         responseHelper(res, 400, 'Username already exists');
     }
-    const hashedPassword = await authService.hashPassword(password);
 
-    const userToCreate = {
-        username: username,
-        password: hashedPassword
-    };
-    const lecturerToCreate = {};
-    const Dos = await directorOfStudiesService.createDirectorOfStudies(userToCreate, lecturerToCreate);
-    responseHelper(res, 201, 'Successful', {directorOfStudies: Dos});
+    const userToCreate = { username, password };
+    const user = await userService.createUser(userToCreate);
+    const token = authService.generateToken(user);
+    responseHelper(res, 201, 'Successful', { token, userId: user.id, username: user.username });
 };
 
 exports.postLogout = (req, res, next) => {
