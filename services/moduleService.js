@@ -1,6 +1,6 @@
-const db = require("../database/database");
+const db = require('../database/database');
 
-const lecService = require("./lecturerService");
+const lecService = require('./lecturerService');
 
 /**
  * Receives { name, catalog_id, Lecturers }
@@ -13,29 +13,31 @@ module.exports.createModule = async ({ name, catalog_id, Lecturers }) => {
   try {
     transaction = await db.sequelize.transaction(); // Managed Transaction
 
-    const createdModule = await db.Module.create(
-      {
-        ...extractedModule,
-      },
-      transaction
-    );
+    const createdModule = await db.Module.create({ ...extractedModule }, transaction);
 
     await transaction.commit();
 
     return createdModule.dataValues;
   } catch (error) {
-    console.log("createModule", error);
+    console.log('createModule', error);
     transaction.rollback();
   }
 };
 
-/**
+/*
+ * Receives object with { withLecture, withAcademicRecord, withModuleGroup }
+ *
  * Returns all modules in the database
  * as an array
  */
-module.exports.getAllModules = async () => {
+module.exports.getAllModules = async ({ withLecture, withAcademicRecord, withModuleGroup }) => {
+  const whatToInclude = [];
+  if (withLecture) whatToInclude.push({ model: db.Lecture, as: 'lectures' });
+  if (withAcademicRecord) whatToInclude.push({ model: db.AcademicRecord, as: 'academicRecords' });
+  if (withModuleGroup) whatToInclude.push({ model: db.ModuleGroup, as: 'moduleGroup' });
+
   const modules = await db.Module.findAll({
-    include: [{ model: db.Lecturer, as: "lecturers" }],
+    include: whatToInclude,
   });
   return modules;
 };
@@ -47,10 +49,8 @@ module.exports.getAllModules = async () => {
  */
 module.exports.findModuleById = async (moduleId) => {
   const moduleToFind = await db.Module.findOne({
-    where: {
-      id: moduleId,
-    },
-    include: [{ model: db.Lecturer, as: "lecturers" }],
+    where: { id: moduleId },
+    include: [{ model: db.Lecture, as: 'lectures' }],
   });
   return moduleToFind;
 };
@@ -62,10 +62,8 @@ module.exports.findModuleById = async (moduleId) => {
  */
 module.exports.findModuleByName = async (nameOfModule) => {
   const moduleToFind = await db.Module.findOne({
-    where: {
-      name: nameOfModule,
-    },
-    include: [{ model: db.Lecturer, as: "lecturers" }],
+    where: { name: nameOfModule },
+    include: [{ model: db.Lecture, as: 'lectures' }],
   });
   return moduleToFind;
 };
@@ -81,22 +79,17 @@ module.exports.delete = async (moduleId) => {
     where: {
       id: moduleId,
     },
-    include: [{ model: db.Lecturer, as: "lecturers" }],
+    include: [{ model: db.Lecture, as: 'lectures' }],
   });
   return moduleToDelete;
 };
 
 /**
- * Receives module: { name, catalog_id} and lecturerId
+ * Receives module: { name, catalog_id } and lecturerId
  *
  * Return a new, persisted module with
  */
-module.exports.createModuleWithLecturers = async ({
-  name,
-  catalog_id,
-  lecturerId,
-}) => {
-  console.log("lecturerId", lecturerId);
+module.exports.createModuleWithLecturers = async ({ name, catalog_id, lecturerId }) => {
   let transaction;
   try {
     transaction = await db.sequelize.transaction(); // Managed Transaction
@@ -121,7 +114,7 @@ module.exports.createModuleWithLecturers = async ({
 
     return createdModule.dataValues;
   } catch (error) {
-    console.log("createModule", error);
+    console.log('createModule', error);
     transaction.rollback();
   }
 };

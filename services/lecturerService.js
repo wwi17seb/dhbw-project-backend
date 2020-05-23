@@ -1,81 +1,50 @@
-const db = require("../database/database");
+const db = require('../database/database');
 
-const directorOfStudiesService = require("./directorOfStudiesService");
-
+/*
+ * Returns founded lecturer
+ */
 module.exports.findLecturerById = async (lecturerId) => {
-  let transaction;
-  try {
-    transaction = await db.sequelize.transaction(); // Managed Transaction
-
-    const Lecturer = await db.Lecturer.findOne(
-      {
-        where: {
-          id: lecturerId,
-        },
-      },
-      transaction
-    );
-
-    await transaction.commit();
-
-    return Lecturer;
-  } catch (error) {
-    console.log("findLecturerById", error);
-    transaction.rollback();
-  }
+  const lecturer = await db.Lecturer.findOne({ where: { id: lecturerId } }, transaction);
+  return lecturer;
 };
 
-// directorOfStudiesId represents the director of studies adding the new lecturer
-module.exports.createLecturer = async (lecturer, directorOfStudiesId) => {
-  let transaction;
-  try {
-    transaction = await db.sequelize.transaction(); // Managed Transaction
-
-    //const directorOfStudies = await directorOfStudiesService.findDirectorOfStudiesById(directorOfStudiesId);
-    //console.log('post dos directorOfStudies:', directorOfStudies);
-    const Lecturer = await db.Lecturer.create(
-      {
-        ...lecturer,
-        createdBy_id: directorOfStudiesId,
-      },
-      {
-        include: [
-          {
-            model: db.DirectorOfStudies,
-          },
-        ],
-      },
-      transaction
-    );
-
-    await transaction.commit();
-
-    return Lecturer.dataValues;
-  } catch (error) {
-    console.log("createLecturer", error);
-    transaction.rollback();
-  }
+/*
+ * Returns founded lecturer
+ */
+module.exports.findLecturerByName = async ({ lastname, firstname }, withFirstname, withLastname) => {
+  const searchParams = {};
+  if (withFirstname) searchParams.firstname = firstname;
+  if (withLastname) searchParams.lastname = lastname;
+  const lecturer = await db.Lecturer.findOne({ where: searchParams }, transaction);
+  return lecturer;
 };
 
+/*
+ * Receives  directorOfStudiesId
+ *
+ * Returns founded lecturers []
+ */
 module.exports.findByDirectorOfStudiesId = async (directorOfStudiesId) => {
-  let transaction;
-  try {
-    transaction = await db.sequelize.transaction(); // Managed Transaction
+  const lecturers = await db.Lecturer.find({ where: { directorOfStudies_id: directorOfStudiesId } });
+  return lecturers.dataValues;
+};
 
-    const Lecturers = await db.Lecturer.find(
-      {
-        where: {
-          directorOfStudies_id: directorOfStudiesId,
-        },
-      },
+/*
+ * directorOfStudiesId represents the director of studies adding the new lecturer
+ *
+ * Returns created lecturer
+ */
+module.exports.createLecturer = async (transaction, lecturer, directorOfStudiesId) => {
+  try {
+    const createdLecturer = await db.Lecturer.create(
+      { ...lecturer, createdBy_id: directorOfStudiesId },
+      { include: [{ model: db.DirectorOfStudies }] },
       transaction
     );
 
-    await transaction.commit();
-
-    return Lecturers.dataValues;
+    return createdLecturer.dataValues;
   } catch (error) {
-    console.log("findByDirectorOfStudiesId", error);
+    console.log('createLecturer', error);
     transaction.rollback();
   }
 };
