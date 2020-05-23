@@ -1,10 +1,10 @@
 # Schnittstellen - **STAND: 19.05.2020** <!-- omit in toc -->
 
-## Vorwort <!-- omit in toc -->
+## Inhalt <!-- omit in toc -->
 
 - [Allgemein](#allgemein)
   - [Authentifizierung](#authentifizierung)
-  - [Rückgabe](#r%c3%bcckgabe)
+  - [Rückgabe - Info](#r%c3%bcckgabe---info)
   - [Sonstiges](#sonstiges)
 - [/signup](#signup)
   - [POST /signup](#post-signup)
@@ -16,9 +16,9 @@
   - [POST /courses](#post-courses)
   - [PUT /courses?courseId={ID}](#put-coursescourseidid)
   - [DELETE /courses?courseId={ID}](#delete-coursescourseidid)
-- [/semester](#semester)
-  - [PUT /semester?semesterId={ID}](#put-semestersemesteridid)
-  - [DELETE /semester?semesterId={ID}](#delete-semestersemesteridid)
+- [/semesters](#semesters)
+  - [PUT /semesters?semesterId={ID}](#put-semesterssemesteridid)
+  - [DELETE /semesters?semesterId={ID}](#delete-semesterssemesteridid)
 - [/semesterview](#semesterview)
   - [GET /semesterview?courseId={ID}](#get-semesterviewcourseidid)
 - [/lecturers](#lecturers)
@@ -42,7 +42,7 @@ GET /courses?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3Qi
 ````
 Ein Beispiel für eine Route, bei der kein gültiger Token übergeben werden muss, ist ``POST /login``.
 
-### Rückgabe
+### Rückgabe - Info
 Allgemeiner Rückgabe-Aufbau:
 
 - Integer werden als ``0`` gekennzeichnet.
@@ -197,9 +197,9 @@ Body der Anfrage:
 
 **Info**: Löscht den angegebenen Kurs mit der ``course_id`` ``{ID}``, sofern man selbst Studiengangsleiter ist.
 
-## /semester
+## /semesters
 
-### PUT /semester?semesterId={ID}
+### PUT /semesters?semesterId={ID}
 
 **Info**: Aktualisiert die Einträge eines Semesters mit angegebener ``semester_id`` ``{ID}``, sofern das Semester Teil eines eigenen Kurses ist.
 Alle Attribute müssen erneut übergeben werden, da diese so aktualisiert werden bzw. alle notwendig sind.
@@ -214,7 +214,7 @@ Body der Anfrage:
 }
 ````
 
-### DELETE /semester?semesterId={ID}
+### DELETE /semesters?semesterId={ID}
 
 **Info**: Löscht das Semester mit der angegebenen ``{ID}``.
 
@@ -320,6 +320,7 @@ Rückgabe:
 Rückgabe:
 ````js
 {
+    "message": "[DEBUG-INFO/KOMMENTAR]", // Bspw. "Successful", "Failed", ...
     "payload": {
         "lecturers": [
             {
