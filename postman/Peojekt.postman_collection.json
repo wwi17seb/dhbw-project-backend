@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "078d990f-1d29-4921-9dcd-6d8538078868",
+		"_postman_id": "92a2d17c-012c-400d-8ea8-e69216135d5d",
 		"name": "Peojekt",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -9,7 +9,7 @@
 			"name": "Authentication",
 			"item": [
 				{
-					"name": "Register",
+					"name": "register User",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -42,7 +42,7 @@
 					"response": []
 				},
 				{
-					"name": "Login",
+					"name": "login User",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -78,51 +78,6 @@
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "Lecturers",
-			"item": [
-				{
-					"name": "create Lecturer",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"firstname\": \"string\",\n    \"lastname\": \"string\",\n    \"academic_title\": \"string\",\n    \"email\": \"string\",\n    \"salutation\": \"string\",\n    \"phonenumber\": \"string\",\n    \"experience\": \"string\",\n    \"comment\": \"string\",\n    \"is_extern\": true\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{backend}}/lecturer?token={{token}}",
-							"host": [
-								"{{backend}}"
-							],
-							"path": [
-								"lecturer"
-							],
-							"query": [
-								{
-									"key": "token",
-									"value": "{{token}}"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
 			"name": "Courses",
 			"item": [
 				{
@@ -144,50 +99,26 @@
 									"value": "{{token}}"
 								}
 							]
-						}
-					},
-					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		}
-	],
-	"protocolProfileBehavior": {}
-}						"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
 						},
-						"url": {
-							"raw": "{{backend}}/lecturer",
-							"host": [
-								"{{backend}}"
-							],
-							"path": [
-								"lecturer"
-							]
-						}
+						"description": "Get all courses connected to the given director of studies."
 					},
 					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "courses",
-			"item": [
+				},
 				{
-					"name": "get Courses",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
+					"name": "create Course",
 					"request": {
-						"method": "GET",
-						"header": [],
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwidXNlcklkIjoxLCJpYXQiOjE1ODk4ODA0NDksImV4cCI6MTU4OTkyMzY0OX0.T_laT4SwKNAjA_FOnXqCACq6dCndYYbg1UZaGSgqmQ8\"\n}",
+							"raw": "{\r\n    \"name\": \"WWI 17 SEB\",\r\n    \"majorSubject\": \"Wirtschaftsinformatik\",\r\n    \"fieldOfStudy\": \"Software Engineering\",\r\n    \"semesters\": [\r\n        {\r\n            \"name\": \"WS17/18\",\r\n            \"number\": 1,\r\n            \"start_date\": \"2017-10-23\",\r\n            \"end_date\": \"2018-02-19\"\r\n        },\r\n        {\r\n            \"name\": \"SS18\",\r\n            \"number\": 2,\r\n            \"start_date\": \"2018-05-07\",\r\n            \"end_date\": \"2018-08-03\"\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -195,15 +126,433 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/courses",
+							"raw": "{{backend}}/courses?token={{token}}",
 							"host": [
-								"localhost"
+								"{{backend}}"
 							],
-							"port": "3000",
 							"path": [
 								"courses"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
 							]
-						}
+						},
+						"description": "Create a course and link it with the given director of studies."
+					},
+					"response": []
+				},
+				{
+					"name": "update Course",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"WWI 17 SE B\",\r\n    \"majorSubject\": \"Wirtschaftsinformatik\",\r\n    \"fieldOfStudy\": \"Software Engineering\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/courses?token={{token}}&courseId=[REQUIRED]",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"courses"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "courseId",
+									"value": "[REQUIRED]"
+								}
+							]
+						},
+						"description": "Update a given course if it is linked with a given director of studies."
+					},
+					"response": []
+				},
+				{
+					"name": "delete Course",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/courses?token={{token}}&courseId=[REQUIRED]",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"courses"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "courseId",
+									"value": "[REQUIRED]"
+								}
+							]
+						},
+						"description": "Deletes a given course if it is linked with a given director of studies."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Semesters",
+			"item": [
+				{
+					"name": "update Semester",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"SS18\",\r\n    \"number\": 2,\r\n    \"start_date\": \"2018-05-07\",\r\n    \"end_date\": \"2018-08-03\" \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/semesters?token={{token}}&semesterId=[REQUIRED]",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"semesters"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "semesterId",
+									"value": "[REQUIRED]"
+								}
+							]
+						},
+						"description": "Update a given semester"
+					},
+					"response": []
+				},
+				{
+					"name": "delete Semester",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/semesters?token={{token}}&semesterId=[REQUIRED]",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"semesters"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "semesterId",
+									"value": "[REQUIRED]"
+								}
+							]
+						},
+						"description": "Deletes a given semester."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Semesterview",
+			"item": [
+				{
+					"name": "get Semesterview",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/semesterview?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"semesterview"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Gets all Semesterview for the given director of studies."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Lecturers",
+			"item": [
+				{
+					"name": "get Lecturers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/lecturers?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"lecturers"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Gets all lecturers linked to the given director of studies."
+					},
+					"response": []
+				},
+				{
+					"name": "create Lecturer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstname\": \"Sebastian\",\n    \"lastname\": \"Ritterbusch\",\n    \"academic_title\": \"Prof. Dr.\",\n    \"email\": \"sebastian.ritterbusch@dhbw-mannheim.de\",\n    \"salutation\": \"Herr\",\n    \"phonenumber\": \"+49 621 4105 - 1724\",\n    \"experience\": \"Mathematik, Podcasts\",\n    \"main_focus\": \"Software Engineering\",\n    \"profile\": \"...\",\n    \"research\": \"...\",\n    \"cv\": \"...\",\n    \"comment\": \"sehr engagiert\",\n    \"is_extern\": 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/lecturers?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"lecturers"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Create a lecturer and link him with the given director of studies."
+					},
+					"response": []
+				},
+				{
+					"name": "update Lecturer",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstname\": \"Sebastian\",\n    \"lastname\": \"Ritterbusch\",\n    \"academic_title\": \"Prof. Dr.\",\n    \"email\": \"sebastian.ritterbusch@dhbw-mannheim.de\",\n    \"salutation\": \"Herr\",\n    \"phonenumber\": \"+49 621 4105 - 1724\",\n    \"experience\": \"Mathematik, Podcasts\",\n    \"main_focus\": \"Software Engineering\",\n    \"profile\": \"...\",\n    \"research\": \"...\",\n    \"cv\": \"...\",\n    \"comment\": \"sehr engagiert\",\n    \"is_extern\": 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/lecturers?token={{token}}&lecturerId=[REQUIRED]",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"lecturers"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "lecturerId",
+									"value": "[REQUIRED]"
+								}
+							]
+						},
+						"description": "Update a given lecturer if he is linked with a given director of studies."
+					},
+					"response": []
+				},
+				{
+					"name": "delete Lecturer",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/lecturers?token={{token}}&lecturerId=[REQUIRED]",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"lecturers"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "lecturerId",
+									"value": "[REQUIRED]"
+								}
+							]
+						},
+						"description": "Deletes a given lecturer if he is linked with a given director of studies."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Lectures",
+			"item": [
+				{
+					"name": "create Lecture",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Marketing\",\r\n    \"workload_home\": \"36 Stunden\",\r\n    \"workload_dhbw\": \"24 Stunden\",\r\n    \"catalog_id\": \"WWISE_301.2\",\r\n    \"mainFocus\": [\r\n        {\r\n            \"mainFocus_id\": 1,\r\n            \"mainFocus_name\": \"Unternehmensführung\"\r\n        }\r\n    ],\r\n    \"lecturer_state\": \"Offen\",\r\n    \"lecturer_id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/lectures?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"lectures"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Create a lecture."
+					},
+					"response": []
+				},
+				{
+					"name": "update Lecture",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Marketing\",\r\n    \"workload_home\": \"36 Stunden\",\r\n    \"workload_dhbw\": \"24 Stunden\",\r\n    \"catalog_id\": \"WWISE_301.2\",\r\n    \"mainFocus\": [\r\n        {\r\n            \"mainFocus_id\": 1,\r\n            \"mainFocus_name\": \"Unternehmensführung\"\r\n        }\r\n    ],\r\n    \"lecturer_state\": \"Offen\",\r\n    \"lecturer_id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/lectures?token={{token}}&lectureId=[REQUIRED]",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"lectures"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "lectureId",
+									"value": "[REQUIRED]"
+								}
+							]
+						},
+						"description": "Update a given lecture."
+					},
+					"response": []
+				},
+				{
+					"name": "delete Lecture",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/lectures?token={{token}}&lectureId=[REQUIRED]",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"lectures"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "lectureId",
+									"value": "[REQUIRED]"
+								}
+							]
+						},
+						"description": "Deletes a given lecture."
 					},
 					"response": []
 				}
