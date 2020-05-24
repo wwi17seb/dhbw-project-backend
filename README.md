@@ -3,7 +3,7 @@
 Please create feature branches and then use pull requests to merge to master branch.
 Read more on https://guides.github.com/introduction/flow/.
 
-## Inhalt <!-- omit in toc -->
+## Content <!-- omit in toc -->
 - [backend usage](#backend-usage)
   - [common setup](#common-setup)
   - [for backend developers](#for-backend-developers)
@@ -127,8 +127,8 @@ To see how authentication with the token works take a look at the postman collec
 
 ## general information
 If you want to know how to use the routes you can simply look at the postman collection.
-Every route mentioned in the [api docs](docs/api.md) is listed with example values for you to test.
-All routes will be implemented as mentioned in the [api docs](docs/api.md) &rarr; i. e. you can simply mock for frontend development by creating a json.file that consists of the specified answer in the [api docs](docs/api.md).
+Every route mentioned in the [api docs](/docs/api.md) is listed with example values for you to test.
+All routes will be implemented as mentioned in the [api docs](/docs/api.md) &rarr; i. e. you can simply mock for frontend development by creating a json.file that consists of the specified answer in the [api docs](/docs/api.md).
 
 ### example file for frontend developers
 Insted of using the unfinished route `lecturers` use json files like the following:
@@ -179,7 +179,7 @@ Please note:
 - In general respones are prone to change in the foreseeable future because of still to be caught up requirements.
 
 Because you use [axios](https://github.com/axios/axios) you can import the file just like using the route.
-(You need to replace [JSON-FILE] with your json file.)
+(You need to replace `[JSON-FILE]` with your json file.)
 ````js
 axios.get('[JSON-FILE]') // use file instead of route
   .then(
@@ -212,7 +212,7 @@ axios.get('[JSON-FILE]') // use file instead of route
 | Get everything needed to display a modulecatalog | `GET`       | `/modulecatalog` | `token`                                                                    | :eight_pointed_black_star: |
 | Get every major subject and field of study       | `GET`       | `/subjects`      | `token`                                                                    | :eight_pointed_black_star: |
 
-For more information on the api please take a look at the [api docs](docs/api.md).
+For more information on the api please take a look at the [api docs](/docs/api.md).
 
 Legend:
 - :white_check_mark: - finished
