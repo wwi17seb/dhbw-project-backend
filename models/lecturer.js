@@ -62,18 +62,7 @@ module.exports = (sequelize, DataTypes) => {
       },
     });
 
-    // TODO FIX
-    // n:m between lecturer and main focus
-    /* models.Lecturer.belongsToMany(models.Module, {
-      through: "lecturer_module",
-      onDelete: "CASCADE",
-      foreignKey: {
-        allowNull: false,
-        name: "lecturer_id",
-      },
-    }); */
-
-    // 1:n between lecturer and main focus
+    // 1:n between lecturer and director of studies
     models.Lecturer.belongsTo(models.DirectorOfStudies, {
       onDelete: 'CASCADE',
       foreignKey: {
