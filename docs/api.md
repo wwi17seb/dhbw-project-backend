@@ -1,10 +1,10 @@
-# Schnittstellen - **STAND: 24.05.2020** <!-- omit in toc -->
+# Schnittstellen - **STAND: 25.05.2020** <!-- omit in toc -->
 
 ## Inhalt <!-- omit in toc -->
 
 - [Allgemein](#allgemein)
   - [Authentifizierung](#authentifizierung)
-  - [Rückgabe - Info](#r%c3%bcckgabe---info)
+  - [Rückgabe - Info](#rückgabe---info)
   - [Sonstiges](#sonstiges)
 - [/signup](#signup)
   - [POST /signup](#post-signup)
@@ -31,6 +31,17 @@
   - [POST /lectures](#post-lectures)
   - [PUT /lectures?lectureId={ID}](#put-lectureslectureidid)
   - [DELETE /lectures?lectureId={ID}](#delete-lectureslectureidid)
+- [/fieldOfStudies](#fieldofstudies)
+  - [GET /fieldOfStudies](#get-fieldofstudies)
+    - [Optionale Parameter /fieldOfStudies](#optionale-parameter-fieldofstudies)
+  - [POST /fieldOfStudies](#post-fieldofstudies)
+  - [PUT /fieldOfStudies?fieldOfStudyId={ID}](#put-fieldofstudiesfieldofstudyidid)
+  - [DELETE /fieldOfStudies?fieldOfStudyId={ID}](#delete-fieldofstudiesfieldofstudyidid)
+- [/majorSubjects](#majorsubjects)
+  - [GET /majorSubjects?fieldOfStudyId={ID}](#get-majorsubjectsfieldofstudyidid)
+  - [POST /majorSubjects?fieldOfStudyId={ID}](#post-majorsubjectsfieldofstudyidid)
+  - [PUT /majorSubjects?majorSubjectId={ID}](#put-majorsubjectsmajorsubjectidid)
+  - [DELETE /majorSubjects?majorSubjectId={ID}](#delete-majorsubjectsmajorsubjectidid)
 
 ## Allgemein
 ### Authentifizierung
@@ -467,3 +478,133 @@ Body der Anfrage:
 ### DELETE /lectures?lectureId={ID}
 
 **Info**: Löscht die Vorlesung mit der angegebenen ``{ID}``.
+
+## /fieldOfStudies
+
+### GET /fieldOfStudies
+
+**Info**: Gibt alle Studiengänge zurück.
+
+Rückgabe:
+````js
+{
+    "message": "[DEBUG-INFO/KOMMENTAR]", // Bspw. "Successful", "Failed", ...
+    "payload": {
+        "fieldOfStudies": [
+            {
+                "id": 0, // Bspw. "1"
+                "name": "[NAME]", // Bspw. "Wirtschaftsinformatik"
+            }
+        ]
+    }
+}
+````
+
+#### Optionale Parameter /fieldOfStudies
+
+- ``withMajorSubjects``
+  - sofern ``true`` werden hier die Studienrichtungen mitübergeben.
+
+Rückgabe:
+````js
+{
+    "message": "[DEBUG-INFO/KOMMENTAR]", // Bspw. "Successful", "Failed", ...
+    "payload": {
+        "fieldOfStudies": [
+            {
+                "id": 0, // Bspw. "1"
+                "name": "[NAME]", // Bspw. "Wirtschaftsinformatik",
+                "majorSubjects": [
+                    {
+                        "id": 0, // Bspw. "1"
+                        "name": "[NAME]" // Bspw. "Software Entwicklung"
+                    }
+                ]
+            }
+        ]
+    }
+}
+````
+
+
+
+### POST /fieldOfStudies
+
+**Info**: Erstellt einen Studiengang.
+
+Body der Anfrage:
+````js
+{
+    "name": "[NAME]", // Bspw. "Wirtschaftsinformatik"
+}
+````
+
+### PUT /fieldOfStudies?fieldOfStudyId={ID}
+
+**Info**: Aktualisiert den Studiengang mit der angegebenen ``fieldOfStudy_id`` ``{ID}``.
+Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attributen einfach zu ermöglichen.
+
+Body der Anfrage:
+````js
+{
+    "name": "[NAME]", // Bspw. "Wirtschaftsinformatik"
+}
+````
+
+### DELETE /fieldOfStudies?fieldOfStudyId={ID}
+
+**Info**: Löscht den Studiengang mit der angegebenen ``fieldOfStudy_id`` ``{ID}``.
+
+## /majorSubjects
+
+### GET /majorSubjects?fieldOfStudyId={ID}
+
+**Info**: Gibt alle Studienrichtungen zum Studiengang mit der angegebenen ``{ID}`` zurück. (Muss eine ``{ID}`` beinhalten.)
+
+Rückgabe:
+````js
+{
+    "message": "[DEBUG-INFO/KOMMENTAR]", // Bspw. "Successful", "Failed", ...
+    "payload": {
+        "fieldOfStudy": {
+            "id": 0, // Bspw. "1"
+            "name": "[NAME]", // Bspw. "Wirtschaftsinformatik"
+        },
+        "majorSubjects": [
+            {
+                "id": 0, // Bspw. "1"
+                "name": "[NAME]" // Bspw. "Software Entwicklung"
+            }
+        ]
+    }
+}
+````
+
+### POST /majorSubjects?fieldOfStudyId={ID}
+
+**Info**: Erstellt eine Studienrichtung.
+
+Body der Anfrage:
+````js
+{
+    "name": "[NAME]", // Bspw. "Software Entwicklung"
+}
+````
+
+### PUT /majorSubjects?majorSubjectId={ID}
+
+**Info**: Aktualisiert die Studienrichtung mit der angegebenen ``majorSubject_id`` ``{ID}``.
+Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attributen einfach zu ermöglichen.
+
+Body der Anfrage:
+````js
+{
+    "name": "[NAME]", // Bspw. "Software Entwicklung"
+}
+````
+
+### DELETE /majorSubjects?majorSubjectId={ID}
+
+**Info**: Löscht die Studienrichtung mit der angegebenen ``majorSubject_id`` ``{ID}``.
+
+
