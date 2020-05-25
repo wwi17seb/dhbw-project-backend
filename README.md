@@ -46,11 +46,11 @@ Read more on https://guides.github.com/introduction/flow/.
 1. Create a file `.env` inside the `docker` folder with the following properties (example). Be sure, that the postgres password and user are like the server config in `app.properties`:
 
     ```
-    postgres_user = dhbw
-    postgres_password = iH0p3youU5EaSecretPa$$word
-    postgres_port = 5432
-    pgadmin_user = project@dhbw.de
-    pgadmin_password = test1234
+    postgres_user=dhbw
+    postgres_password=iH0p3youU5EaSecretPa$$word
+    postgres_port=5432
+    pgadmin_user=project@dhbw.de
+    pgadmin_password=test1234
     ```
 2. Copy the server certifcates into the `/docker/nginx/ssl` directory. The certificate files can be found inside the `backend_doku->ssl` onedrive directory.
 
