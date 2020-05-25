@@ -11,8 +11,8 @@ module.exports.findFieldOfStudieById = async (fieldOfStudieId) => {
 /*
  * Returns founded FieldOfStudie
  */
-module.exports.findFieldOfStudieByName = async (FieldOfStudieName) => {
-  const fieldOfStudie = await db.FieldOfStudie.findOne({ where: { name: FieldOfStudieName } });
+module.exports.findFieldOfStudieByName = async (fieldOfStudieName) => {
+  const fieldOfStudie = await db.FieldOfStudie.findOne({ where: { name: fieldOfStudieName } });
   return fieldOfStudie;
 };
 
