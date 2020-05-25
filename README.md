@@ -191,26 +191,33 @@ axios.get('[JSON-FILE]') // use file instead of route
 
 [Coming soon...] Routes that are defined but still in development will respond with http code `501` and message `Not yet implemented.`.
 
-| route name                                       | http method | route            | parameters                                                                 | status                     |
-| ------------------------------------------------ | ----------- | ---------------- | -------------------------------------------------------------------------- | -------------------------- |
-| Register                                         | `POST`      | `/signup`        |                                                                            | :white_check_mark:         |
-| Login                                            | `POST`      | `/login`         |                                                                            | :white_check_mark:         |
-| Get all courses                                  | `GET`       | `/courses`       | `token`                                                                    | :soon:                     |
-| Create a course                                  | `POST`      | `/courses`       | `token`                                                                    | :parking:                  |
-| Update a course                                  | `PUT`       | `/courses`       | `token`, `courseId`                                                        | :parking:                  |
-| Delete a course                                  | `DELETE`    | `/courses`       | `token`, `courseId`                                                        | :parking:                  |
-| Update a semester                                | `PUT`       | `/semesters`     | `token`, `semesterId`                                                      | :parking:                  |
-| Delete a semester                                | `DELETE`    | `/semesters`     | `token`, `semesterId`                                                      | :parking:                  |
-| Get everything needed for the semesterview       | `GET`       | `/semesterview`  | `token`                                                                    | :soon:                     |
-| Get all lecturers                                | `GET`       | `/lecturers`     | `token`, optional: `experience`, `comment`, `extern`, `lastname`, `extern` | :parking:                  |
-| Create a new lecturer                            | `POST`      | `/lecturers`     | `token`                                                                    | :parking:                  |
-| Update a lecturer                                | `PUT`       | `/lecturers`     | `token`, `lecturerId`                                                      | :parking:                  |
-| Delete a lecturer                                | `DELETE`    | `/lecturers`     | `token`, `lecturerId`                                                      | :parking:                  |
-| Create a lecture                                 | `POST`      | `/lectures`      | `token`                                                                    | :parking:                  |
-| Update a lecture                                 | `PUT`       | `/lectures`      | `token`, `lectureId`                                                       | :parking:                  |
-| Delete a lecture                                 | `DELETE`    | `/lectures`      | `token`, `lectureId`                                                       | :parking:                  |
-| Get everything needed to display a modulecatalog | `GET`       | `/modulecatalog` | `token`                                                                    | :eight_pointed_black_star: |
-| Get every major subject and field of study       | `GET`       | `/subjects`      | `token`                                                                    | :eight_pointed_black_star: |
+| route name                                       | http method | route             | parameters                                                                 | status                     |
+| ------------------------------------------------ | ----------- | ----------------- | -------------------------------------------------------------------------- | -------------------------- |
+| Register                                         | `POST`      | `/signup`         |                                                                            | :white_check_mark:         |
+| Login                                            | `POST`      | `/login`          |                                                                            | :white_check_mark:         |
+| Get all courses                                  | `GET`       | `/courses`        | `token`                                                                    | :soon:                     |
+| Create a course                                  | `POST`      | `/courses`        | `token`                                                                    | :parking:                  |
+| Update a course                                  | `PUT`       | `/courses`        | `token`, `courseId`                                                        | :parking:                  |
+| Delete a course                                  | `DELETE`    | `/courses`        | `token`, `courseId`                                                        | :parking:                  |
+| Update a semester                                | `PUT`       | `/semesters`      | `token`, `semesterId`                                                      | :parking:                  |
+| Delete a semester                                | `DELETE`    | `/semesters`      | `token`, `semesterId`                                                      | :parking:                  |
+| Get everything needed for the semesterview       | `GET`       | `/semesterview`   | `token`                                                                    | :soon:                     |
+| Get all lecturers                                | `GET`       | `/lecturers`      | `token`, optional: `experience`, `comment`, `extern`, `lastname`, `extern` | :parking:                  |
+| Create a new lecturer                            | `POST`      | `/lecturers`      | `token`                                                                    | :parking:                  |
+| Update a lecturer                                | `PUT`       | `/lecturers`      | `token`, `lecturerId`                                                      | :parking:                  |
+| Delete a lecturer                                | `DELETE`    | `/lecturers`      | `token`, `lecturerId`                                                      | :parking:                  |
+| Create a lecture                                 | `POST`      | `/lectures`       | `token`                                                                    | :parking:                  |
+| Update a lecture                                 | `PUT`       | `/lectures`       | `token`, `lectureId`                                                       | :parking:                  |
+| Delete a lecture                                 | `DELETE`    | `/lectures`       | `token`, `lectureId`                                                       | :parking:                  |
+| Get every field of study                         | `GET`       | `/fieldOfStudies` | `token`, optional: `withMajorSubject`                                      | :parking:                  |
+| Create a new field of study                      | `POST`      | `/fieldOfStudies` | `token`                                                                    | :parking:                  |
+| Update a field of study                          | `PUT`       | `/fieldOfStudies` | `token`, `fieldOfStudyId`                                                  | :parking:                  |
+| Delete a field of study                          | `DELETE`    | `/fieldOfStudies` | `token`, `fieldOfStudyId`                                                  | :parking:                  |
+| Get every major subject                          | `GET`       | `/majorSubjects`  | `token`, `fieldOfStudyId`                                                  | :parking:                  |
+| Create a new major subject                       | `POST`      | `/majorSubjects`  | `token`                                                                    | :parking:                  |
+| Update a major subject                           | `PUT`       | `/majorSubjects`  | `token`, `majorSubjectId`                                                  | :parking:                  |
+| Delte a major subject                            | `DELETE`    | `/majorSubjects`  | `token`, `majorSubjectId`                                                  | :parking:                  |
+| Get everything needed to display a modulecatalog | `GET`       | `/modulecatalog`  | `token`                                                                    | :eight_pointed_black_star: |
 
 For more information on the api please take a look at the [api docs](/docs/api.md).
 

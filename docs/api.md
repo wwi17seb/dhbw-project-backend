@@ -39,7 +39,7 @@
   - [DELETE /fieldOfStudies?fieldOfStudyId={ID}](#delete-fieldofstudiesfieldofstudyidid)
 - [/majorSubjects](#majorsubjects)
   - [GET /majorSubjects?fieldOfStudyId={ID}](#get-majorsubjectsfieldofstudyidid)
-  - [POST /majorSubjects?fieldOfStudyId={ID}](#post-majorsubjectsfieldofstudyidid)
+  - [POST /majorSubjects](#post-majorsubjects)
   - [PUT /majorSubjects?majorSubjectId={ID}](#put-majorsubjectsmajorsubjectidid)
   - [DELETE /majorSubjects?majorSubjectId={ID}](#delete-majorsubjectsmajorsubjectidid)
 
@@ -535,7 +535,7 @@ Rückgabe:
 Body der Anfrage:
 ````js
 {
-    "name": "[NAME]", // Bspw. "Wirtschaftsinformatik"
+    "name": "[NAME]" // Bspw. "Wirtschaftsinformatik"
 }
 ````
 
@@ -547,7 +547,7 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
 Body der Anfrage:
 ````js
 {
-    "name": "[NAME]", // Bspw. "Wirtschaftsinformatik"
+    "name": "[NAME]" // Bspw. "Wirtschaftsinformatik"
 }
 ````
 
@@ -559,7 +559,7 @@ Body der Anfrage:
 
 ### GET /majorSubjects?fieldOfStudyId={ID}
 
-**Info**: Gibt alle Studienrichtungen zum Studiengang mit der angegebenen ``{ID}`` zurück. (Muss eine ``{ID}`` beinhalten.)
+**Info**: Gibt alle Studienrichtungen zum Studiengang mit der angegebenen ``fieldOfStudy_id`` ``{ID}`` zurück. (Muss eine ``{ID}`` beinhalten.)
 
 Rückgabe:
 ````js
@@ -580,14 +580,15 @@ Rückgabe:
 }
 ````
 
-### POST /majorSubjects?fieldOfStudyId={ID}
+### POST /majorSubjects
 
-**Info**: Erstellt eine Studienrichtung.
+**Info**: Erstellt eine Studienrichtung für einen Studiengang mit angegebener ``fieldOfStudy_id``.
 
 Body der Anfrage:
 ````js
 {
-    "name": "[NAME]", // Bspw. "Software Entwicklung"
+    "fieldOfStudy_id": 0, // Bspw. "1"
+    "name": "[NAME]" // Bspw. "Software Entwicklung"
 }
 ````
 
@@ -599,7 +600,8 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
 Body der Anfrage:
 ````js
 {
-    "name": "[NAME]", // Bspw. "Software Entwicklung"
+    "fieldOfStudy_id": 0, // Bspw. "1"
+    "name": "[NAME]" // Bspw. "Software Entwicklung"
 }
 ````
 
