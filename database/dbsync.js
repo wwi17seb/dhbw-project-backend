@@ -1,7 +1,6 @@
 // const sequelize = require("./database");
 const db = require("../database/database");
 const directorOfStudiesService = require("../services/directorOfStudiesService");
-const userService = require("../services/userService");
 const authService = require("../services/authService");
 const userService = require("../services/userService");
 const propertiesReader = require("../helpers/propertyReader");
