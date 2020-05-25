@@ -70,6 +70,16 @@ module.exports = (sequelize, DataTypes) => {
         name: 'createdBy_id',
       },
     });
+
+    // n:m betwenn presentation and lecturer
+    models.Lecturer.belongsToMany(models.Presentation, {
+      through: 'presentation_lecturer',
+      onDelete: 'CASCADE',
+      foreignKey: {
+        allowNull: false,
+        name: 'presentation_id',
+      },
+    });
   };
   return Lecturer;
 };

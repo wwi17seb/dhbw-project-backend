@@ -34,8 +34,9 @@ module.exports = (sequelize, DataTypes) => {
       },
     });
 
-    // 1:1 betwenn presentation and lecturer
-    models.Presentation.belongsTo(models.Lecturer, {
+    // n:m betwenn presentation and lecturer
+    models.Presentation.belongsToMany(models.Lecturer, {
+      through: 'presentation_lecturer',
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,
