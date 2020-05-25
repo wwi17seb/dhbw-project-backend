@@ -26,17 +26,19 @@ module.exports.findAll = async (withMajorSubject, withSemesters, withFieldOfStud
   if (withMajorSubject) withInclude.push({ model: db.MajorSubject });
   if (withSemesters) withInclude.push({ model: db.Semester });
   if (withFieldOfStudy) withInclude.push({ model: db.FieldOfStudy });
-  const course = await db.Course.findOne({ where: { name: courseName } }, { include: withInclude });
-  return course;
+  const courses = await db.Course.findAll({ include: withInclude });
+  return courses;
 };
 
 // POST
 // name of course
 // + major subject id, DosId
+// TODO: majorSubjectId find by id 
 module.exports.createCourse = async (transaction, { name, majorSubjectId, directorOfStudiesId }, withMajorSubject, withDirectorOfStudies) => {
   const withInclude = [];
   if (withDirectorOfStudies) withInclude.push({ model: db.DirectorOfStudies });
   if (withMajorSubject) withInclude.push({ model: db.MajorSubject });
+  // TODO: check if majorSubjectId is in Database
 
   const course = await db.Course.create({ name, createdBy_id: directorOfStudiesId }, { include: withInclude }, transaction);
 
@@ -46,7 +48,7 @@ module.exports.createCourse = async (transaction, { name, majorSubjectId, direct
 // PUT
 // wie post s.o.
 // receives (course) -> id, name, majorSubjectId, DoSID
-module.exports.createCourse = async (transaction, { name, majorSubjectId, directorOfStudiesId }, withMajorSubject, withDirectorOfStudies) => {
+module.exports.updateCourse = async (transaction, { name, majorSubjectId, directorOfStudiesId }, withMajorSubject, withDirectorOfStudies) => {
   const withInclude = [];
   if (withDirectorOfStudies) withInclude.push({ model: db.DirectorOfStudies });
   if (withMajorSubject) withInclude.push({ model: db.MajorSubject });

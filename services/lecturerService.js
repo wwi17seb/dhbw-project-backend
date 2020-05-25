@@ -1,4 +1,5 @@
 const db = require('../database/database');
+const directorOfStudiesService = require('./directorOfStudiesService');
 
 /*
  * Returns founded lecturer
@@ -34,11 +35,17 @@ module.exports.findByDirectorOfStudiesId = async (directorOfStudiesId) => {
  *
  * Returns created lecturer
  */
-module.exports.createLecturer = async (transaction, lecturer, directorOfStudiesId) => {
+module.exports.createLecturer = async (transaction, lecturer, directorOfStudiesId, isDirectorOfStudies) => {
+  let whatToinclude = [];
+  let directorOfStudies = {};
+  if (isDirectorOfStudies) {
+    directorOfStudies = await directorOfStudiesService.findDirectorOfStudiesById(directorOfStudiesId);
+    whatToinclude.push({ model: db.DirectorOfStudies });
+  }
   try {
     const createdLecturer = await db.Lecturer.create(
-      { ...lecturer, createdBy_id: directorOfStudiesId },
-      { include: [{ model: db.DirectorOfStudies }] },
+      { ...lecturer, createdBy_id: directorOfStudiesId, directorOfStudies },
+      { include: whatToinclude },
       transaction
     );
 
