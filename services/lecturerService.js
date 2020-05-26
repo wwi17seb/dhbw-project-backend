@@ -4,8 +4,8 @@ const directorOfStudiesService = require('./directorOfStudiesService');
 /*
  * Returns founded lecturer
  */
-module.exports.findLecturerById = async (lecturerId) => {
-  const lecturer = await db.Lecturer.findOne({ where: { id: lecturerId } }, transaction);
+module.exports.findLecturerById = async (lecturer_id) => {
+  const lecturer = await db.Lecturer.findOne({ where: { lecturer_id } }, transaction);
   return lecturer;
 };
 
@@ -25,8 +25,8 @@ module.exports.findLecturerByName = async ({ lastname, firstname }, withFirstnam
  *
  * Returns founded lecturers []
  */
-module.exports.findByDirectorOfStudiesId = async (directorOfStudiesId) => {
-  const lecturers = await db.Lecturer.find({ where: { directorOfStudies_id: directorOfStudiesId } });
+module.exports.findByDirectorOfStudiesId = async (directorOfStudies_id) => {
+  const lecturers = await db.Lecturer.find({ where: { directorOfStudies_id } });
   return lecturers.dataValues;
 };
 
@@ -37,12 +37,11 @@ module.exports.findByDirectorOfStudiesId = async (directorOfStudiesId) => {
  */
 module.exports.createLecturer = async (
   transaction,
-  { lecturerId, academic_title, firstname, lastname, email, salutation, phonenumber, experience, rating, is_extern, profile, cv, research },
-  directorOfStudiesId,
+  { academic_title, firstname, lastname, email, salutation, phonenumber, experience, rating, is_extern, profile, cv, research },
+  directorOfStudies_id,
   isDirectorOfStudies
 ) => {
   const lecturerToCreate = {
-    lecturerId,
     academic_title,
     firstname,
     lastname,
@@ -56,10 +55,10 @@ module.exports.createLecturer = async (
     cv,
     research,
   };
-  const createdLecturer = await db.Lecturer.create({ ...lecturerToCreate, createdBy_id: directorOfStudiesId });
+  const createdLecturer = await db.Lecturer.create({ ...lecturerToCreate, createdBy_id: directorOfStudies_id }, transaction);
   if (isDirectorOfStudies) {
-    const directorOfStudies = await directorOfStudiesService.findDirectorOfStudiesById(directorOfStudiesId);
-    await directorOfStudies.update({ lecturer_id: createdLecturer.dataValues.id });
+    const directorOfStudies = await directorOfStudiesService.findDirectorOfStudiesById(directorOfStudies_id);
+    await directorOfStudies.update({ lecturer_id: createdLecturer.dataValues.lecturer_id });
   }
   return createdLecturer.dataValues;
 };
@@ -67,11 +66,11 @@ module.exports.createLecturer = async (
 // PUT
 module.exports.updateLecturer = async (
   transaction,
-  { lecturerId, academic_title, firstname, lastname, email, salutation, phonenumber, experience, rating, is_extern, profile, cv, research }
+  { lecturer_id, academic_title, firstname, lastname, email, salutation, phonenumber, experience, rating, is_extern, profile, cv, research }
 ) => {
-  const lecturer = await this.findLecturerById(lecturerId);
+  const lecturer = await this.findLecturerById(lecturer_id);
   const lecturerToUpdate = {
-    lecturerId,
+    lecturer_id,
     academic_title,
     firstname,
     lastname,
@@ -90,7 +89,7 @@ module.exports.updateLecturer = async (
 };
 
 // Delete
-module.exports.deleteLecturer = async (transaction, lecturerId) => {
-  const counter = await db.Lecturer.destroy({ where: { id: lecturerId } }, transaction);
+module.exports.deleteLecturer = async (transaction, lecturer_id) => {
+  const counter = await db.Lecturer.destroy({ where: { lecturer_id } }, transaction);
   return counter > 0;
 };

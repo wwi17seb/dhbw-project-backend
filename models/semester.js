@@ -2,7 +2,7 @@ module.exports = (sequelize, DataTypes) => {
   const Semester = sequelize.define(
     'Semester',
     {
-      id: {
+      semester_id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         allowNull: false,

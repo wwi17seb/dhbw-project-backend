@@ -2,7 +2,7 @@ module.exports = (sequelize, DataTypes) => {
   const MainFocus = sequelize.define(
     'MainFocus',
     {
-      id: {
+      mainFocus_id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         allowNull: false,
@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       modelName: 'MainFocus',
-      tableName: 'main_focus',
+      tableName: 'mainFocus',
     }
   );
 

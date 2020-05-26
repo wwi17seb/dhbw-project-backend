@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
   const Lecture = sequelize.define(
     'Lecture',
     {
-      id: {
+      lecture_id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         allowNull: false,

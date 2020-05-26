@@ -3,8 +3,8 @@ const db = require('../database/database');
 /*
  * Returns founded FieldOfStudie
  */
-module.exports.findFieldOfStudieById = async (fieldOfStudieId) => {
-  const fieldOfStudie = await db.FieldOfStudie.findOne({ where: { id: fieldOfStudieId } });
+module.exports.findFieldOfStudieById = async (fieldOfStudie_id) => {
+  const fieldOfStudie = await db.FieldOfStudie.findOne({ where: { fieldOfStudie_id } });
   return fieldOfStudie;
 };
 
@@ -37,8 +37,8 @@ module.exports.createFieldOfStudie = async (transaction, name) => {
 // PUT
 // wie post s.o.
 // receives (FieldOfStudie) -> id, name
-module.exports.updateFieldOfStudie = async (transaction, { fieldOfStudieId, name }) => {
-  const fieldOfStudie = await this.findFieldOfStudieById(fieldOfStudieId);
+module.exports.updateFieldOfStudie = async (transaction, { fieldOfStudie_id, name }) => {
+  const fieldOfStudie = await this.findFieldOfStudieById(fieldOfStudie_id);
   fieldOfStudie.update({ name }, transaction);
   return fieldOfStudie.dataValues;
 };
@@ -48,7 +48,7 @@ module.exports.updateFieldOfStudie = async (transaction, { fieldOfStudieId, name
 /*
  * Returns boolean
  */
-module.exports.deleteFieldOfStudie = async (transaction, fieldOfStudieId) => {
-  const counter = await db.FieldOfStudie.destroy({ where: { id: fieldOfStudieId } }, transaction);
+module.exports.deleteFieldOfStudie = async (transaction, fieldOfStudie_id) => {
+  const counter = await db.FieldOfStudie.destroy({ where: { fieldOfStudie_id } }, transaction);
   return counter > 0;
 };

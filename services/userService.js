@@ -7,8 +7,8 @@ module.exports.getUserByUsername = async (username) => {
   return (await userToFind) ? userToFind.dataValues : null;
 };
 
-module.exports.getUserById = async (user_id) => {
-  const userToFind = await db.User.findOne({ where: { id: user_id } });
+module.exports.getUserById = async (account_id) => {
+  const userToFind = await db.User.findOne({ where: { account_id } });
   return userToFind.dataValues;
 };
 
@@ -26,10 +26,10 @@ module.exports.createUser = async (transaction, user) => {
  * Returns updated values
  */
 
-module.exports.update = async (transaction, { id, username, password, is_admin }) => {
-  const updatedUser = await this.getUserById(id);
+module.exports.update = async (transaction, { user_id, username, password, is_admin }) => {
+  const updatedUser = await this.getUserById(user_id);
   const hashedPassword = await authService.hashPassword(password);
-  await updatedUser.update({ username, password: hashedPassword, is_admin }, { where: { id } }, transaction);
+  await updatedUser.update({ username, password: hashedPassword, is_admin }, { where: { user_id } }, transaction);
 
   return updatedUser.dataValues;
 };
@@ -38,7 +38,7 @@ module.exports.update = async (transaction, { id, username, password, is_admin }
 /*
  * Returns boolean
  */
-module.exports.deleteUser = async (transaction, userId) => {
-  const counter = await db.User.destroy({ where: { id: userId } }, transaction);
+module.exports.deleteUser = async (transaction, user_id) => {
+  const counter = await db.User.destroy({ where: { user_id } }, transaction);
   return counter > 0;
 };

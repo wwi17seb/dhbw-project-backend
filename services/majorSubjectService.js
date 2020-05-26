@@ -3,8 +3,8 @@ const db = require('../database/database');
 /*
  * Returns founded MajorSubject
  */
-module.exports.findMajorSubjectById = async (majorSubjectId) => {
-  const majorSubject = await db.MajorSubject.findOne({ where: { id: majorSubjectId } });
+module.exports.findMajorSubjectById = async (majorSubject_id) => {
+  const majorSubject = await db.MajorSubject.findOne({ where: { majorSubject_id } });
   return majorSubject;
 };
 
@@ -29,16 +29,16 @@ module.exports.findAll = async () => {
 /*
  * Returns created MajorSubject
  */
-module.exports.createMajorSubject = async (transaction, name, fieldOfStudyId) => {
-  const majorSubject = await db.MajorSubject.create({ name, fieldOfStudy_id: fieldOfStudyId }, transaction);
+module.exports.createMajorSubject = async (transaction, name, fieldOfStudy_id) => {
+  const majorSubject = await db.MajorSubject.create({ name, fieldOfStudy_id }, transaction);
   return majorSubject.dataValues;
 };
 
 // PUT
 // wie post s.o.
 // receives (MajorSubject) -> id, name
-module.exports.updateMajorSubject = async (transaction, { majorSubjectId, name }) => {
-  const majorSubject = await this.findMajorSubjectById(majorSubjectId);
+module.exports.updateMajorSubject = async (transaction, { majorSubject_id, name }) => {
+  const majorSubject = await this.findMajorSubjectById(majorSubject_id);
   await majorSubject.update({ name }, transaction);
 
   return majorSubject.dataValues;
@@ -49,7 +49,7 @@ module.exports.updateMajorSubject = async (transaction, { majorSubjectId, name }
 /*
  * Returns boolean
  */
-module.exports.deleteMajorSubject = async (transaction, majorSubjectId) => {
-  const counter = await db.MajorSubject.destroy({ where: { id: majorSubjectId } }, transaction);
+module.exports.deleteMajorSubject = async (transaction, majorSubject_id) => {
+  const counter = await db.MajorSubject.destroy({ where: { majorSubject_id } }, transaction);
   return counter > 0;
 };

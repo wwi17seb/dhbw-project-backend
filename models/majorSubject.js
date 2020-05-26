@@ -2,7 +2,7 @@ module.exports = (sequelize, DataTypes) => {
   const MajorSubject = sequelize.define(
     'MajorSubject',
     {
-      id: {
+      majorSubject_id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         allowNull: false,
@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       modelName: 'MajorSubject',
-      tableName: 'major_subject',
+      tableName: 'majorSubject',
     }
   );
 

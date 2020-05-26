@@ -2,7 +2,7 @@ module.exports = (sequelize, DataTypes) => {
   const FieldOfStudy = sequelize.define(
     'FieldOfStudy',
     {
-      id: {
+      fieldOfStudy_id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         allowNull: false,
@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       modelName: 'FieldOfStudy',
-      tableName: 'field_of_study',
+      tableName: 'fieldOfStudy',
     }
   );
 

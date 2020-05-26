@@ -5,8 +5,8 @@ const db = require('../database/database');
  *
  * Returns founded lecture
  */
-module.exports.findLectureById = async (lectureId) => {
-  const lectureToFind = await db.Lecture.findOne({ where: { id: lectureId } });
+module.exports.findLectureById = async (lecture_id) => {
+  const lectureToFind = await db.Lecture.findOne({ where: { lecture_id } });
   return lectureToFind;
 };
 
@@ -49,15 +49,15 @@ module.exports.createLecture = async (transaction, { name, workload_home, worklo
 // PUT
 // wie post s.o.
 // receives (lecture) -> lectureId, name, workload_home, workload_dhbw, catalog_id
-module.exports.updateLecture = async (transaction, { lectureId, name, workload_home, workload_dhbw }) => {
-  const lecture = await this.findLectureById(lectureId);
+module.exports.updateLecture = async (transaction, { lecture_id, name, workload_home, workload_dhbw }) => {
+  const lecture = await this.findLectureById(lecture_id);
   await lecture.update({ name, workload_home, workload_dhbw }, transaction);
   return lecture.dataValues;
 };
 
 // Delete
 // receives (lectureId)
-module.exports.deleteLecture = async (transaction, lectureId) => {
-  const counter = await db.Lecture.destroy({ where: { id: lectureId } }, transaction);
+module.exports.deleteLecture = async (transaction, lecture_id) => {
+  const counter = await db.Lecture.destroy({ where: { lecture_id } }, transaction);
   return counter > 0;
 };

@@ -87,7 +87,7 @@ module.exports.updatePresentation = async (transaction, { id, name, directorOfSt
 /*
  * Returns boolean
  */
-module.exports.deletePresentation = async (transaction, presentationId) => {
-  const counter = await db.Presentation.destroy({ where: { id: presentationId } }, transaction);
+module.exports.deletePresentation = async (transaction, presentation_id) => {
+  const counter = await db.Presentation.destroy({ where: { presentation_id } }, transaction);
   return counter > 0;
 };

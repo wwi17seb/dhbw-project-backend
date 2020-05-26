@@ -2,7 +2,7 @@ module.exports = (sequelize, DataTypes) => {
   const AcademicRecord = sequelize.define(
     'AcademicRecord',
     {
-      id: {
+      academicRecord_id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         allowNull: false,
@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       modelName: 'AcademicRecord',
-      tableName: 'academic_record',
+      tableName: 'academicRecord',
     }
   );
 

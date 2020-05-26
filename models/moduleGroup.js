@@ -2,7 +2,7 @@ module.exports = (sequelize, DataTypes) => {
   const ModuleGroup = sequelize.define(
     'ModuleGroup',
     {
-      id: {
+      moduleGroup_id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         allowNull: false,
@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       modelName: 'ModuleGroup',
-      tableName: 'module_group',
+      tableName: 'moduleGroup',
     }
   );
 

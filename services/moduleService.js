@@ -34,11 +34,9 @@ module.exports.getAllModules = async ({ withLecture, withAcademicRecord, withMod
  *
  * Returns a module
  */
-module.exports.findModuleById = async (moduleId) => {
+module.exports.findModuleById = async (module_id) => {
   const moduleToFind = await db.Module.findOne({
-    where: { id: moduleId },
-    include: [{ model: db.Lecture, as: 'lectures' }],
-  });
+    where: {  module_id },    include: [{ model: db.Lecture, as: 'lectures' }],  });
   return moduleToFind;
 };
 
@@ -74,8 +72,8 @@ module.exports.createModuleWithLecturers = async ({ name, catalog_id, lecturerId
     );
 
     // add lectureres to association 
-    lecturerIds.forEach(lecturerId => {
-      const lecturer = await lecService.findLecturerById(lecturerId);
+    lecturerIds.forEach(lecturer_id => {
+      const lecturer = await lecService.findLecturerById(lecturer_id);
       await createdModule.addLecturer(lecturer, {
         through: { model: db.Lecturer_Module },
       });
@@ -93,8 +91,8 @@ module.exports.createModuleWithLecturers = async ({ name, catalog_id, lecturerId
 // PUT
 // wie post s.o.
 // receives (Module) -> moduleId, name, requirements, ects
-module.exports.updateModule = async (transaction, { moduleId, name, requirements, ects }) => {
-  const module = await this.findMajorSubjectById(moduleId);
+module.exports.updateModule = async (transaction, { module_id, name, requirements, ects }) => {
+  const module = await this.findMajorSubjectById(module_id);
   await module.update({ name, requirements, ects }, transaction);
 
   return module.dataValues;
@@ -106,9 +104,9 @@ module.exports.updateModule = async (transaction, { moduleId, name, requirements
  * Returns number of deleted entries e.g. 1
  * @type {number}
  */
-module.exports.delete = async (moduleId) => {
+module.exports.delete = async (module_id) => {
   const counter = await db.Module.destroy({
-    where: { id: moduleId },
+    where: { module_id },
     include: [{ model: db.Lecture, as: 'lectures' }],
   });
   return counter > 0;

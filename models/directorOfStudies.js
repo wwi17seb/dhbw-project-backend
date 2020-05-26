@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   const DirectorOfStudies = sequelize.define(
     'DirectorOfStudies',
     {
-      id: {
+      directorOfStudies_id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         allowNull: false,
@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       misc: {
         type: DataTypes.TEXT,
+        allowNull: true,
       },
       lecturer_id: {
         type: DataTypes.INTEGER,
