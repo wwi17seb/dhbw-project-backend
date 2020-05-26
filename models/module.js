@@ -11,6 +11,12 @@ module.exports = (sequelize, DataTypes) => {
       name: {
         type: DataTypes.STRING,
       },
+      requirements: {
+        type: DataTypes.STRING,
+      },
+      ects: {
+        type: DataTypes.INTEGER,
+      },
       catalog_id: {
         type: DataTypes.STRING,
       },
