@@ -6,13 +6,9 @@ const userService = require("../services/userService");
 const propertiesReader = require("../helpers/propertyReader");
 
 addDefaultUserAndDos = async () => {
-  const hashedPassword = await authService.hashPassword(
-    propertiesReader.getProperty("app.defaultPassword")
-  );
-
   const userToCreate = {
     username: propertiesReader.getProperty("app.defaultUser"),
-    password: hashedPassword,
+    password: propertiesReader.getProperty("app.defaultPassword"),
     is_admin: propertiesReader.getProperty("app.isAdmin"),
   };
   const userAvaliable = await userService.getUserByUsername(
@@ -29,7 +25,7 @@ addDefaultUserAndDos = async () => {
 addTestUser = async () => {
   const userToCreate = {
     username: propertiesReader.getProperty("app.testUser"),
-    password: await authService.hashPassword(propertiesReader.getProperty("app.testPassword")),
+    password: propertiesReader.getProperty("app.testPassword"),
     is_admin: false
   };
   const testUser = await userService.createUser(userToCreate);

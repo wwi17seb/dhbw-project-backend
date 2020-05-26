@@ -6,11 +6,10 @@
   - [Authentifizierung](#authentifizierung)
   - [Rückgabe - Info](#rückgabe---info)
   - [Sonstiges](#sonstiges)
-- [/signup](#signup)
+- [Auth-Routen](#auth-routen)
   - [POST /signup](#post-signup)
-- [/login](#login)
   - [POST /login](#post-login)
-- [/logout](#logout)
+  - [POST /logout](#post-logout)
 - [/courses](#courses)
   - [GET /courses](#get-courses)
   - [POST /courses](#post-courses)
@@ -92,11 +91,11 @@ Wenn im Folgenden keine Rückgabe gezeigt ist, dann wird lediglich eine ``messag
 
 Routen, die nicht existieren, werden nicht dargestellt.
 
-## /signup
-
-**Info**: Route zum Account anlegen, meldet nach erfolgreichem Anlegen automatisch an.
+## Auth-Routen
 
 ### POST /signup
+
+**Info**: Route zum Account anlegen, meldet nach erfolgreichem Anlegen automatisch an.
 
 Body der Anfrage:
 ````js
@@ -118,11 +117,9 @@ Rückgabe:
 }
 ````
 
-## /login
+### POST /login
 
 **Info**: Route zum Anmelden.
-
-### POST /login
 
 Body der Anfrage:
 ````js
@@ -144,7 +141,7 @@ Rückgabe:
 }
 ````
 
-## /logout
+### POST /logout
 
 **Info**: Route existiert, ändert jedoch nichts.
 Jeder Token ist für eine Dauer von `12h` gültig und muss danach erneuert werden.
@@ -257,7 +254,7 @@ Rückgabe:
     "payload": {
         "lecturers": [
             {
-                "lecturer_id": 0 // Bspw. "1"
+                "lecturer_id": 0, // Bspw. "1"
                 "firstname": "[VORNAME]", // Bspw. "Sebastian"
                 "lastname": "[NACHNAME]", // Bspw. "Ritterbusch"
                 "academic_title": "[AKADEMISCHER TITEL]", // Bspw. "Prof. Dr."
@@ -265,7 +262,10 @@ Rückgabe:
                 "salutation": "[ANREDE]", // Bspw. "Herr"
                 "phonenumber": "[TELEFONNUMMER]", // Bspw. "+49 621 4105 - 1724"
                 "experience": "[ERFAHRUNG]", // Bspw. "Mathematik, Podcasts, ..."
-                "main_focus": "[SCHWERPUNKT]", // Bspw. "Software Engineering"
+                "main_focus": [
+                    "[SCHWERPUNKT]", // Bspw. "Software Engineering"
+                    "...",
+                ],
                 "profile": "[PROFIL]", // Geplant als String
                 "research": "[LEHRE]", // Geplant als String
                 "cv": "[VITA]", // Geplant als String

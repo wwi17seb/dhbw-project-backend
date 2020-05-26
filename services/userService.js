@@ -1,6 +1,6 @@
 const db = require("../database/database");
-
 const authService = require("./authService");
+
 module.exports.getUserByUsername = async (username) => {
   const userToFind = await db.User.findOne({
     where: {

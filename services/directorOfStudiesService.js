@@ -1,8 +1,8 @@
 const db = require("../database/database");
+const authService = require("./authService");
 
 module.exports.createDirectorOfStudies = async (user, lecturer) => {
-  console.log("user:", user);
-  console.log("lecturer:", lecturer);
+  user.password = await authService.hashPassword(user.password);
   let transaction;
   try {
     transaction = await db.sequelize.transaction(); // Managed Transaction
