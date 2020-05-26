@@ -1,4 +1,5 @@
 const db = require('../database/database');
+const majorSubjectService = require('./majorSubjectService');
 
 /*
  * Returns founded course
@@ -31,16 +32,14 @@ module.exports.findAll = async (withMajorSubject, withSemesters, withFieldOfStud
 };
 
 // POST
-// name of course
-// + major subject id, DosId
-// TODO: majorSubjectId find by id 
+// name of course, majorSubjectId, directorOfStudiesId
 module.exports.createCourse = async (transaction, { name, majorSubjectId, directorOfStudiesId }, withMajorSubject, withDirectorOfStudies) => {
   const withInclude = [];
   if (withDirectorOfStudies) withInclude.push({ model: db.DirectorOfStudies });
-  if (withMajorSubject) withInclude.push({ model: db.MajorSubject });
-  // TODO: check if majorSubjectId is in Database
-
-  const course = await db.Course.create({ name, createdBy_id: directorOfStudiesId }, { include: withInclude }, transaction);
+  if (withMajorSubject) {
+    const majorSubject = await majorSubjectService.findMajorSubjectById(majorSubjectId);
+    if (!majorSubject) return { error: 'No such major subject found!' };
+  }
 
   return course.dataValues;
 };
@@ -48,13 +47,9 @@ module.exports.createCourse = async (transaction, { name, majorSubjectId, direct
 // PUT
 // wie post s.o.
 // receives (course) -> id, name, majorSubjectId, DoSID
-module.exports.updateCourse = async (transaction, { name, majorSubjectId, directorOfStudiesId }, withMajorSubject, withDirectorOfStudies) => {
-  const withInclude = [];
-  if (withDirectorOfStudies) withInclude.push({ model: db.DirectorOfStudies });
-  if (withMajorSubject) withInclude.push({ model: db.MajorSubject });
-
-  const course = await db.Course.update({ name, createdBy_id: directorOfStudiesId }, { include: withInclude }, transaction);
-
+module.exports.updateCourse = async (transaction, { courseId, name }) => {
+  const course = await this.findCourseById(courseId);
+  await course.update({ name }, transaction);
   return course.dataValues;
 };
 

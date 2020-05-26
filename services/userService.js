@@ -21,9 +21,24 @@ module.exports.createUser = async (transaction, user) => {
   return createdUser.dataValues;
 };
 
-module.exports.update = async (transaction, user) => {
-  const updatedUser = await db.User.update({ user }, { where: { id: user.id } }, transaction);
-  transaction = await transaction.commit();
+// PUT
+/*
+ * Returns updated values
+ */
+
+module.exports.update = async (transaction, { id, username, password, is_admin }) => {
+  const updatedUser = await this.getUserById(id);
+  const hashedPassword = await authService.hashPassword(password);
+  await updatedUser.update({ username, password: hashedPassword, is_admin }, { where: { id } }, transaction);
 
   return updatedUser.dataValues;
+};
+
+// DELETE
+/*
+ * Returns boolean
+ */
+module.exports.deleteUser = async (transaction, userId) => {
+  const counter = await db.User.destroy({ where: { id: userId } }, transaction);
+  return counter > 0;
 };

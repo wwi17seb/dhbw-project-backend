@@ -39,7 +39,7 @@ module.exports.createMajorSubject = async (transaction, name, fieldOfStudyId) =>
 // receives (MajorSubject) -> id, name
 module.exports.updateMajorSubject = async (transaction, { majorSubjectId, name }) => {
   const majorSubject = await this.findMajorSubjectById(majorSubjectId);
-  majorSubject.update({ name }, transaction);
+  await majorSubject.update({ name }, transaction);
 
   return majorSubject.dataValues;
 };

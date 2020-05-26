@@ -7,21 +7,10 @@ const lecService = require('./lecturerService');
  *
  * Return a new, persisted module
  */
-module.exports.createModule = async ({ name, catalog_id, Lecturers }) => {
-  const extractedModule = { name, catalog_id, Lecturers };
-  let transaction;
-  try {
-    transaction = await db.sequelize.transaction(); // Managed Transaction
-
-    const createdModule = await db.Module.create({ ...extractedModule }, transaction);
-
-    await transaction.commit();
-
-    return createdModule.dataValues;
-  } catch (error) {
-    console.log('createModule', error);
-    transaction.rollback();
-  }
+module.exports.createModule = async (transaction, { name, catalog_id, Lecturers, ects, requirements }) => {
+  const extractedModule = { name, catalog_id, Lecturers, ects, requirements };
+  const createdModule = await db.Module.create({ ...extractedModule }, transaction);
+  return createdModule.dataValues;
 };
 
 /*
@@ -36,9 +25,7 @@ module.exports.getAllModules = async ({ withLecture, withAcademicRecord, withMod
   if (withAcademicRecord) whatToInclude.push({ model: db.AcademicRecord, as: 'academicRecords' });
   if (withModuleGroup) whatToInclude.push({ model: db.ModuleGroup, as: 'moduleGroup' });
 
-  const modules = await db.Module.findAll({
-    include: whatToInclude,
-  });
+  const modules = await db.Module.findAll({ include: whatToInclude });
   return modules;
 };
 
@@ -69,27 +56,11 @@ module.exports.findModuleByName = async (nameOfModule) => {
 };
 
 /**
- * Receives the id of the module
- *
- * Returns number of deleted entries e.g. 1
- * @type {number}
- */
-module.exports.delete = async (moduleId) => {
-  const moduleToDelete = await db.Module.destroy({
-    where: {
-      id: moduleId,
-    },
-    include: [{ model: db.Lecture, as: 'lectures' }],
-  });
-  return moduleToDelete;
-};
-
-/**
  * Receives module: { name, catalog_id } and lecturerId
  *
  * Return a new, persisted module with
  */
-module.exports.createModuleWithLecturers = async ({ name, catalog_id, lecturerId }) => {
+module.exports.createModuleWithLecturers = async ({ name, catalog_id, lecturerIds }) => {
   let transaction;
   try {
     transaction = await db.sequelize.transaction(); // Managed Transaction
@@ -102,14 +73,14 @@ module.exports.createModuleWithLecturers = async ({ name, catalog_id, lecturerId
       transaction
     );
 
-    const lec = await lecService.findLecturerById(lecturerId);
-
-    const moduleId = createdModule.dataValues.id;
-
-    await createdModule.addLecturer(lec, {
-      through: { model: db.Lecturer_Module },
+    // add lectureres to association 
+    lecturerIds.forEach(lecturerId => {
+      const lecturer = await lecService.findLecturerById(lecturerId);
+      await createdModule.addLecturer(lecturer, {
+        through: { model: db.Lecturer_Module },
+      });
     });
-
+    
     await transaction.commit();
 
     return createdModule.dataValues;
@@ -117,4 +88,28 @@ module.exports.createModuleWithLecturers = async ({ name, catalog_id, lecturerId
     console.log('createModule', error);
     transaction.rollback();
   }
+};
+
+// PUT
+// wie post s.o.
+// receives (Module) -> moduleId, name, requirements, ects
+module.exports.updateModule = async (transaction, { moduleId, name, requirements, ects }) => {
+  const module = await this.findMajorSubjectById(moduleId);
+  await module.update({ name, requirements, ects }, transaction);
+
+  return module.dataValues;
+};
+
+/**
+ * Receives the id of the module
+ *
+ * Returns number of deleted entries e.g. 1
+ * @type {number}
+ */
+module.exports.delete = async (moduleId) => {
+  const counter = await db.Module.destroy({
+    where: { id: moduleId },
+    include: [{ model: db.Lecture, as: 'lectures' }],
+  });
+  return counter > 0;
 };
