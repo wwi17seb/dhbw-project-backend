@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  MainFocus.associate = function (models) {
+  MainFocus.associate = (models) => {
     models.MainFocus.belongsToMany(models.Lecturer, {
       through: 'lecturer_main_focus',
       onDelete: 'CASCADE',

@@ -51,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  Lecturer.associate = function (models) {
+  Lecturer.associate = (models) => {
     // n:m between lecturer and main focus
     models.Lecturer.belongsToMany(models.MainFocus, {
       through: 'lecturer_main_focus',
@@ -62,14 +62,16 @@ module.exports = (sequelize, DataTypes) => {
       },
     });
 
-    // 1:n between lecturer and director of studies
+    /*     // 1:n between lecturer and director of studies
     models.Lecturer.belongsTo(models.DirectorOfStudies, {
-      onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,
-        name: 'createdBy_id',
+        name: 'lecturer_id',
       },
-    });
+      allowNull: true,
+      defaultValue: null,
+      constraints: false,
+    }); */
 
     // n:m betwenn presentation and lecturer
     models.Lecturer.belongsToMany(models.Presentation, {

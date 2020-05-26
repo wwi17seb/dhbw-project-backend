@@ -8,6 +8,9 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         primaryKey: true,
       },
+      status: {
+        type: DataTypes.STRING,
+      },
     },
     {
       modelName: 'Presentation',

@@ -36,22 +36,11 @@ module.exports.findByDirectorOfStudiesId = async (directorOfStudiesId) => {
  * Returns created lecturer
  */
 module.exports.createLecturer = async (transaction, lecturer, directorOfStudiesId, isDirectorOfStudies) => {
-  let whatToinclude = [];
-  let directorOfStudies = {};
+  const createdLecturer = await db.Lecturer.create({ ...lecturer, createdBy_id: directorOfStudiesId });
   if (isDirectorOfStudies) {
-    directorOfStudies = await directorOfStudiesService.findDirectorOfStudiesById(directorOfStudiesId);
-    whatToinclude.push({ model: db.DirectorOfStudies });
+    const directorOfStudies = await directorOfStudiesService.findDirectorOfStudiesById(directorOfStudiesId);
+    await directorOfStudies.update({ lecturer_id: createdLecturer.dataValues.id });
   }
-  try {
-    const createdLecturer = await db.Lecturer.create(
-      { ...lecturer, createdBy_id: directorOfStudiesId, directorOfStudies },
-      { include: whatToinclude },
-      transaction
-    );
 
-    return createdLecturer.dataValues;
-  } catch (error) {
-    console.log('createLecturer', error);
-    transaction.rollback();
-  }
+  return createdLecturer.dataValues;
 };

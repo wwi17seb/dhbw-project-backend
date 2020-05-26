@@ -22,9 +22,6 @@ module.exports = (sequelize, DataTypes) => {
       catalog_id: {
         type: DataTypes.STRING,
       },
-      lecturer_status: {
-        type: DataTypes.STRING,
-      },
     },
     {
       modelName: 'Lecture',
@@ -32,16 +29,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  Lecture.associate = function (models) {
-    models.Lecture.belongsToMany(models.Course, {
-      through: 'lecture_course',
-      onDelete: 'CASCADE',
-      foreignKey: {
-        allowNull: false,
-        name: 'lecture_id',
-      },
-    });
-
+  Lecture.associate = (models) => {
     models.Lecture.belongsToMany(models.MainFocus, {
       through: 'lecture_main_focus',
       onDelete: 'CASCADE',

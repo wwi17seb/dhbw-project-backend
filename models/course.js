@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  Course.associate = function (models) {
+  Course.associate = (models) => {
     //n:m
     models.Course.belongsToMany(models.DirectorOfStudies, {
       onDelete: 'CASCADE',

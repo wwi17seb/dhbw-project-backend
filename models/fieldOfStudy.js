@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  FieldOfStudy.associate = function (models) {
+  FieldOfStudy.associate = (models) => {
     // 1:n between FieldOfStudy and MajorSubject
     models.FieldOfStudy.hasMany(models.MajorSubject, {
       onDelete: 'CASCADE',

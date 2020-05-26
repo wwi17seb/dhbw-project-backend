@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  ModuleGroup.associate = function (models) {
+  ModuleGroup.associate = (models) => {
     // 1:n betwenn module and module groupe
     models.ModuleGroup.belongsTo(models.Module, {
       onDelete: 'CASCADE',

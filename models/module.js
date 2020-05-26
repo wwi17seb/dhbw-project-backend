@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  Module.associate = function (models) {
+  Module.associate = (models) => {
     // n:m betwenn module and main lecturer
     models.Module.belongsToMany(models.Lecture, {
       through: 'lecture_module',
