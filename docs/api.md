@@ -657,10 +657,14 @@ Rückgabe:
 {
     "message": "[DEBUG-INFO/KOMMENTAR]", // Bspw. "Successful", "Failed", ...
     "payload": {
-        "fieldOfStudy_id": 0, // Bspw. "1"
-        "fieldOfStudy": "[STUDIENGANG]", // Bspw. "Wirtschaftsinformatik"
-        "majorSubject_id": 0, // Bspw. "1"
-        "majorSubject": "[STUDIENRICHTUNG]" // Bspw. "Software Engineering ab 2011"
+        "fieldOfStudy": {
+            "fieldOfStudy_id": 0, // Bspw. "1"
+            "name": "[STUDIENGANG]" // Bspw. "Wirtschaftsinformatik"
+        },
+        "majorSubject": {
+            "majorSubject_id": 0, // Bspw. "1"
+            "name": "[STUDIENRICHTUNG]" // Bspw. "Software Engineering ab 2011"
+        },
         "moduleGroups": [
             {
                 "moduleGroup_id": 0, // Bspw. "1"
@@ -723,6 +727,7 @@ Rückgabe:
         },
         "semesters": [
             {
+                "semester_id": 0, // Bspw. "1"
                 "name": "[SEMESTERNAME]", // Bspw. "WS17/18"
                 "number": 0, // Bspw. "1"
                 "start_date": "[STARTDATUM]", // Bspw. "2017-10-23"
@@ -751,11 +756,12 @@ Rückgabe:
                                             "catalog_id": "string", // Bspw. "WWISE_713.1"
                                             "mainFocus": {
                                                 "mainFocus_id": 0, // Bspw. "1"
-                                                "mainFocus_name": "[THEMENGEBIET]" // Bspw. "Mobile Applikationen"
+                                                "name": "[THEMENGEBIET]" // Bspw. "Mobile Applikationen"
                                             }
                                         },
                                         "status": "[STATUS]", // Bspw. "Dozent offen", "Dozent angeschrieben", ...
                                         "lecturer": { // falls vorhanden
+                                            "lecturer_id": 0, // Bspw. "1"
                                             "firstname": "[VORNAME]", // Bspw. "Sebastian"
                                             "lastname": "[NACHNAME]", // Bspw. "Ritterbusch"
                                             "academic_title": "[AKADEMISCHER TITEL]", // Bspw. "Prof. Dr."
