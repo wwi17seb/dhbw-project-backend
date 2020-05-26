@@ -48,6 +48,10 @@
   - [POST /majorSubjects](#post-majorsubjects)
   - [PUT /majorSubjects?majorSubjectId={ID}](#put-majorsubjectsmajorsubjectidid)
   - [DELETE /majorSubjects?majorSubjectId={ID}](#delete-majorsubjectsmajorsubjectidid)
+- [/presentations](#presentations)
+  - [POST /presentations](#post-presentations)
+  - [PUT /presentations?presentationId={ID}](#put-presentationspresentationidid)
+  - [DELETE /presentations?presentationId={ID}](#delete-presentationspresentationidid)
 - [/modulecatalog](#modulecatalog)
   - [GET /modulecatalog?majorSubjectId={ID}](#get-modulecatalogmajorsubjectidid)
 - [/semesterview](#semesterview)
@@ -600,6 +604,47 @@ Body der Anfrage:
 
 **Info**: Löscht die Studienrichtung mit der angegebenen ``majorSubject_id`` ``{ID}``.
 
+## /presentations
+
+**Info**: Nur zum Erstellen, Bearbeiten und Löschen der Dozenten-Anfragen und **konkreten** Vorlesungen.
+
+### POST /presentations
+
+**Info**: Erzeugt eine neue **konkrete** Vorlesung (bzw. eine Anfrage an einen Dozenten).
+
+Body der Anfrage:
+````js
+{
+    "lecture_id": 0, // Bspw. "1"
+    "lecturer_id": 0, // Bspw. "1"
+    "academicRecord_id": 0, // Bspw. "1"
+    "semester_id": 0, // Bspw. "1"
+    "course_id": 0, // Bspw. "1"
+    "status": "[STATUS]", // Bspw. "Dozent offen", "Dozent angeschrieben", ...
+}
+````
+
+### PUT /presentations?presentationId={ID}
+
+**Info**: Aktualisiert die Vorlesung bzw. den Status der Dozentenanfrage mit der angegebenen ``presentation_id`` ``{ID}``.
+Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attributen einfach zu ermöglichen.
+
+Body der Anfrage:
+````js
+{
+    "lecture_id": 0, // Bspw. "1"
+    "lecturer_id": 0, // Bspw. "1"
+    "academicRecord_id": 0, // Bspw. "1"
+    "semester_id": 0, // Bspw. "1"
+    "course_id": 0, // Bspw. "1"
+    "status": "[STATUS]", // Bspw. "Dozent offen", "Dozent angeschrieben", ...
+}
+````
+
+### DELETE /presentations?presentationId={ID}
+
+**Info**: Löscht die Vorlesung mit der angegebenen ``presentation_id`` ``{ID}``.
+
 ## /modulecatalog
 
 ### GET /modulecatalog?majorSubjectId={ID}
@@ -709,7 +754,7 @@ Rückgabe:
                                                 "mainFocus_name": "[THEMENGEBIET]" // Bspw. "Mobile Applikationen"
                                             }
                                         },
-                                        "status": "[STATUS]", //  // Bspw. "Offen", "Angeschrieben", ...
+                                        "status": "[STATUS]", // Bspw. "Dozent offen", "Dozent angeschrieben", ...
                                         "lecturer": { // falls vorhanden
                                             "firstname": "[VORNAME]", // Bspw. "Sebastian"
                                             "lastname": "[NACHNAME]", // Bspw. "Ritterbusch"
