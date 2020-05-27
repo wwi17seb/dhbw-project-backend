@@ -1,4 +1,4 @@
-const lecturersService = require('../services/lecturersService');
+const lecturerService = require('../services/lecturerService');
 const authService = require('../services/authService');
 
 const responseHelper = require("../helpers/responseHelper");
@@ -36,7 +36,7 @@ exports.postLecturers = async (req, res, next) => {
 
     try {
         const curStudiesDirectorId = req.token.userId;
-        const createdLecturer = await lecturersService.createLecturers(givenLecturer, curStudiesDirectorId);
+        const createdLecturer = await lecturerService.createLecturers(givenLecturer, curStudiesDirectorId);
         responseHelper(res, 201, "Successfully created lecturer", createdLecturer);
     } catch (error) {
         responseHelper(res, 400, "Could not create lecturer");

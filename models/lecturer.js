@@ -1,82 +1,91 @@
 module.exports = (sequelize, DataTypes) => {
-    const Lecturer = sequelize.define("Lecturer", {
-        id: {
-            type: DataTypes.INTEGER,
-            autoIncrement: true,
-            allowNull: false,
-            primaryKey: true
-        },
-        academic_title: {
-            type: DataTypes.STRING,
-        },
-        firstname: {
-            type: DataTypes.STRING
-        },
-        lastname: {
-            type: DataTypes.STRING
-        },
-        email: {
-            type: DataTypes.STRING
-        },
-        salutation: {
-            type: DataTypes.STRING
-        },
-        phonenumber: {
-            type: DataTypes.STRING
-        },
-        experience: {
-            type: DataTypes.STRING
-        },
-        rating: {
-            type: DataTypes.STRING
-        },
-        is_extern: {
-            type: DataTypes.BOOLEAN
-        },
-        profile: {
-            type: DataTypes.STRING,
-        },
-        cv: {
-            type: DataTypes.STRING,
-        },
-        research: {
-            type: DataTypes.STRING,
-        }
-    }, {
-        modelName: 'Lecturer',
-        tableName: 'lecturer'
+  const Lecturer = sequelize.define(
+    'Lecturer',
+    {
+      lecturer_id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        allowNull: false,
+        primaryKey: true,
+      },
+      academic_title: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      firstname: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      lastname: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      salutation: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      phonenumber: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      experience: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      is_extern: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+      },
+      profile: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      cv: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      research: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+    },
+    {
+      modelName: 'Lecturer',
+      tableName: 'lecturer',
+    }
+  );
+
+  Lecturer.associate = (models) => {
+    // n:m between lecturer and main focus
+    models.Lecturer.belongsToMany(models.MainFocus, {
+      through: 'lecturer_mainFocus',
+      onDelete: 'CASCADE',
+      foreignKey: {
+        allowNull: false,
+        name: 'lecturer_id',
+      },
     });
 
-    Lecturer.associate = function (models) {
+    // 1:n between lecturer and presentation
+    models.Lecturer.hasMany(models.Presentation, {
+      onDelete: 'CASCADE',
+      foreignKey: {
+        allowNull: false,
+        name: 'lecturer_id',
+      },
+    });
 
-        // n:m between lecturer and main focus
-        models.Lecturer.belongsToMany(models.MainFocus, {
-            through: "lecturer_main_focus",
-            onDelete: "CASCADE",
-            foreignKey: {
-                allowNull: false,
-                name: "lecturer_id",
-            },
-        });
-
-        // n:m between lecturer and main focus
-        models.Lecturer.belongsToMany(models.Module, {
-            through: "lecturer_module",
-            onDelete: "CASCADE",
-            foreignKey: {
-                allowNull: false,
-                name: "lecturer_id",
-            },
-        });
-
-        // 1:m between lecturer and main focus
-        models.Lecturer.belongsTo(models.DirectorOfStudies, {
-            onDelete: "CASCADE",
-            foreignKey: {
-                allowNull: false,
-                name: "createdBy_id",
-            },
-        });
-    }
-    return Lecturer;
-}
+    // 1:n between lecturer and directorOfStudies
+    models.Lecturer.belongsTo(models.DirectorOfStudies, {
+      foreignKey: {
+        allowNull: true,
+        name: 'createdBy_id',
+      },
+    });
+  };
+  return Lecturer;
+};
