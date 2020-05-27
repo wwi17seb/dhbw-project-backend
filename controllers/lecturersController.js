@@ -4,29 +4,6 @@ const responseHelper = require("../helpers/responseHelper");
 const copyObjectHelper = require("../helpers/propertyCopyHelper");
 
 exports.getLecturers = async (req, res) => {
-    return responseHelper(res, 501, "Not yet implemented", {
-        "lecturers": [
-            {
-                "lecturer_id": 1,
-                "firstname": "Peter",
-                "lastname": "Programmier",
-                "academic_title": "Prof.",
-                "email": "prof.p@programmier.er",
-                "salutation": "Herr",
-                "phonenumber": "+1 555 1234",
-                "experience": "kann gut programmieren",
-                "main_focus": [
-                    "Software-Entwicklung",
-                    "Programmierung"
-                ],
-                "profile": "",
-                "research": "",
-                "cv": "",
-                "comment": "sehr guter Programmierer",
-                "is_extern": "0",
-            }
-        ]
-    });
     try {
         const curStudiesDirectorId = req.token.userId;
         const lecturers = await lecturersService.findByDirectorOfStudiesId(curStudiesDirectorId);
@@ -37,14 +14,15 @@ exports.getLecturers = async (req, res) => {
 };
 
 exports.postLecturers = async (req, res) => {
-    const givenLecturer = copyObjectHelper(req.body, "firstname", "lastname",
+    const givenLecturer = copyObjectHelper(req.body, ["firstname", "lastname",
         "academic_title", "email", "salutation", "phonenumber", "experience",
-        "main_focus", "profile", "research", "cv", "comment", "is_extern"
-    );
+        "profile", "research", "cv", "comment", "is_extern" // TODO: add "mainFocus"
+    ]);
+    givenLecturer.is_extern = givenLecturer.is_extern !== 0;
 
     try {
         const curStudiesDirectorId = req.token.userId;
-        const createdLecturer = await lecturersService.createLecturers(givenLecturer, curStudiesDirectorId);
+        const createdLecturer = await lecturersService.createLecturer(givenLecturer, curStudiesDirectorId);
         responseHelper(res, 201, "Successfully created lecturer", createdLecturer);
     } catch (error) {
         responseHelper(res, 400, "Could not create lecturer");

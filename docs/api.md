@@ -262,7 +262,7 @@ Rückgabe:
                 "salutation": "[ANREDE]", // Bspw. "Herr"
                 "phonenumber": "[TELEFONNUMMER]", // Bspw. "+49 621 4105 - 1724"
                 "experience": "[ERFAHRUNG]", // Bspw. "Mathematik, Podcasts, ..."
-                "main_focus": [
+                "mainFocus": [
                     "[SCHWERPUNKT]", // Bspw. "Software Engineering"
                     "...",
                 ],
@@ -310,7 +310,11 @@ Body der Anfrage:
     "salutation": "[ANREDE]", // Bspw. "Herr"
     "phonenumber": "[TELEFONNUMMER]", // Bspw. "+49 621 4105 - 1724"
     "experience": "[ERFAHRUNG]", // Bspw. "Mathematik, Podcasts, ..."
-    "main_focus": "[SCHWERPUNKT]", // Bspw. "Software Engineering"
+    "mainFocus": [
+        {
+            "name": "[SCHWERPUNKT]", // Bspw. "Software Engineering"
+        }
+    ],
     "profile": "[PROFIL]", // Geplant als String
     "research": "[LEHRE]", // Geplant als String
     "cv": "[VITA]", // Geplant als String
@@ -334,7 +338,11 @@ Body der Anfrage:
     "salutation": "[ANREDE]", // Bspw. "Herr"
     "phonenumber": "[TELEFONNUMMER]", // Bspw. "+49 621 4105 - 1724"
     "experience": "[ERFAHRUNG]", // Bspw. "Mathematik, Podcasts, ..."
-    "main_focus": "[SCHWERPUNKT]", // Bspw. "Software Engineering"
+    "mainFocus": [
+        {
+            "name": "[SCHWERPUNKT]", // Bspw. "Software Engineering"
+        }
+    ],
     "profile": "[PROFIL]", // Geplant als String
     "research": "[LEHRE]", // Geplant als String
     "cv": "[VITA]", // Geplant als String
@@ -401,7 +409,7 @@ Body der Anfrage:
     "name": "[NAME]", // Bspw. "Technische Grundlagen mobiler Applikationen"
     "description": "[BESCHREIBUNG]", // Bspw. "Lorem Ipsum..."
     "ects": 0, // Bspw. "6"
-    "catalog_id": "[KATALOG-ID]", // Bspw. "WWISE_1337
+    "catalog_id": "[KATALOG-ID]", // Bspw. "WWISE_1337"
 }
 ````
 
@@ -417,7 +425,7 @@ Body der Anfrage:
     "name": "[NAME]", // Bspw. "Technische Grundlagen mobiler Applikationen"
     "description": "[BESCHREIBUNG]", // Bspw. "Lorem Ipsum..."
     "ects": 0, // Bspw. "6"
-    "catalog_id": "[KATALOG-ID]", // Bspw. "WWISE_1337
+    "catalog_id": "[KATALOG-ID]", // Bspw. "WWISE_1337"
 }
 ````
 
@@ -444,7 +452,7 @@ Body der Anfrage:
     "catalog_id": "[KATALOG-ID]", // Bspw. "WWISE_301.2"
     "mainFocus": [
         {
-            "mainFocus_name": "[THEMENGEBIET]" // Bspw. "Unternehmensführung"
+            "name": "[THEMENGEBIET]" // Bspw. "Unternehmensführung"
         }
     ]
 }
@@ -466,7 +474,7 @@ Body der Anfrage:
     "catalog_id": "[KATALOG-ID]", // Bspw. "WWISE_301.2"
     "mainFocus": [
         {
-            "mainFocus_name": "[THEMENGEBIET]" // Bspw. "Unternehmensführung"
+            "name": "[THEMENGEBIET]" // Bspw. "Unternehmensführung"
         }
     ]
 }
@@ -510,7 +518,7 @@ Rückgabe:
         "fieldOfStudies": [
             {
                 "id": 0, // Bspw. "1"
-                "name": "[NAME]", // Bspw. "Wirtschaftsinformatik",
+                "name": "[NAME]", // Bspw. "Wirtschaftsinformatik"
                 "majorSubjects": [
                     {
                         "id": 0, // Bspw. "1"
@@ -677,9 +685,10 @@ Rückgabe:
                     "name": "[NAME]", // Bspw. "Technische Grundlagen mobiler Applikationen"
                     "description": "[BESCHREIBUNG]", // Bspw. "Lorem Ipsum..."
                     "ects": 0, // Bspw. "6"
-                    "catalog_id": "[KATALOG-ID]", // Bspw. "WWISE_1337
+                    "catalog_id": "[KATALOG-ID]", // Bspw. "WWISE_1337"
                     "lectures": [
                         {
+                            "lecture_id": 0, // Bspw. "1"
                             "name": "[NAME]", // Bspw. "Netzwerk- und Betriebssystemstrukturen für mobile Applikationen"
                             "workload_home": "[SELBSTSTUDIUM]", // Bspw. "57 Stunden"
                             "workload_dhbw": "[PRÄSENZZEIT]", // Bspw. "33 Stunden"
@@ -687,8 +696,7 @@ Rückgabe:
                             "catalog_id": "[KATALOG-ID]", // Bspw. "WWISE_301.2"
                             "mainFocus": [
                                 {   
-                                    "mainFocus_id": 0, //Bspw. "1"
-                                    "mainFocus_name": "[THEMENGEBIET]" // Bspw. "Unternehmensführung"
+                                    "name": "[THEMENGEBIET]" // Bspw. "Unternehmensführung"
                                 }
                             ] 
                         }
@@ -754,10 +762,11 @@ Rückgabe:
                                             "workload_home": "[SELBSTSTUDIUM]", // Bspw. "57"
                                             "workload_dhbw": "[PRÄSENZZEIT]", // Bspw. "33"
                                             "catalog_id": "string", // Bspw. "WWISE_713.1"
-                                            "mainFocus": {
-                                                "mainFocus_id": 0, // Bspw. "1"
-                                                "name": "[THEMENGEBIET]" // Bspw. "Mobile Applikationen"
-                                            }
+                                            "mainFocus": [
+                                                {
+                                                    "name": "[THEMENGEBIET]" // Bspw. "Mobile Applikationen"
+                                                }
+                                            ]
                                         },
                                         "status": "[STATUS]", // Bspw. "Dozent offen", "Dozent angeschrieben", ...
                                         "lecturer": { // falls vorhanden
@@ -769,7 +778,11 @@ Rückgabe:
                                             "salutation": "[ANREDE]", // Bspw. "Herr"
                                             "phonenumber": "[TELEFONNUMMER]", // Bspw. "+49 621 4105 - 1724"
                                             "experience": "[ERFAHRUNG]", // Bspw. "Mathematik, Podcasts, ..."
-                                            "main_focus": "[SCHWERPUNKT]", // Bspw. "Software Engineering"
+                                            "mainFocus": [
+                                                {
+                                                    "name": "[SCHWERPUNKT]", // Bspw. "Software Engineering"
+                                                }
+                                            ],
                                             "profile": "[PROFIL]", // Geplant als String
                                             "research": "[LEHRE]", // Geplant als String
                                             "cv": "[VITA]", // Geplant als String

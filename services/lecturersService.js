@@ -58,24 +58,16 @@ module.exports.createLecturer = async (lecturer, directorOfStudiesId) => {
 };
 
 module.exports.findByDirectorOfStudiesId = async (directorOfStudiesId) => {
-  let transaction;
   try {
-    transaction = await db.sequelize.transaction(); // Managed Transaction
+    const lecturers = await db.Lecturer.findAll({ where: { createdBy_id: directorOfStudiesId } });
+    
+    let result = [];
+    for (let lecturer of lecturers) {
+      result.push(lecturer.dataValues);
+    }
 
-    const Lecturers = await db.Lecturer.find(
-      {
-        where: {
-          directorOfStudies_id: directorOfStudiesId,
-        },
-      },
-      transaction
-    );
-
-    await transaction.commit();
-
-    return Lecturers.dataValues;
+    return result;
   } catch (error) {
     console.log("findByDirectorOfStudiesId", error);
-    transaction.rollback();
   }
 };
