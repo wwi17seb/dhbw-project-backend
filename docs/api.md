@@ -16,6 +16,7 @@
   - [PUT /courses?courseId={ID}](#put-coursescourseidid)
   - [DELETE /courses?courseId={ID}](#delete-coursescourseidid)
 - [/semesters](#semesters)
+  - [POST /semesters](#post-semesters)
   - [PUT /semesters?semesterId={ID}](#put-semesterssemesteridid)
   - [DELETE /semesters?semesterId={ID}](#delete-semesterssemesteridid)
 - [/lecturers](#lecturers)
@@ -95,8 +96,6 @@ Routen, die nicht existieren, werden nicht dargestellt.
 
 ### POST /signup
 
-**Info**: Route zum Account anlegen, meldet nach erfolgreichem Anlegen automatisch an.
-
 Body der Anfrage:
 ````js
 {
@@ -125,7 +124,7 @@ Body der Anfrage:
 ````js
 {
     "username": "[NAME]", // Bspw. "Nutzername"
-    "password": "[PASSWORT]" // Bspw. "MeinSicheresPasswort1337""
+    "password": "[PASSWORT]" // Bspw. "MeinSicheresPasswort1337"
 }
 ````
 
@@ -162,7 +161,7 @@ Rückgabe:
                 "course_id": 0, // Bspw. "1"
                 "name": "[KURSNAME]", // Bspw. "WWI 17 SE B"
                 "directorOfStudies": {
-                    // Inhalt folgt...
+                    "misc": "[VERSCHIEDENES]" // Bspw. "{ "email-template": "blablabla, was auch immer ihr wollt, könnt ihr hier speichern.", "oder": "auch einfach anders. ihr seid hier frei.", "bitte": "jedoch als text und kein blob." }"
                 },
                 "majorSubject": "[STUDIENGANG]", // Bspw. "Wirtschaftsinformatik"
                 "fieldOfStudy": "[STUDIENRICHTUNG]" // Bspw. "Software Engineering"
@@ -222,6 +221,22 @@ Body der Anfrage:
 
 ## /semesters
 
+### POST /semesters
+
+**Info**: Aktualisiert die Einträge eines Semesters mit angegebener ``semester_id`` ``{ID}``, sofern das Semester Teil eines eigenen Kurses ist.
+Alle Attribute müssen erneut übergeben werden, da diese so aktualisiert werden bzw. alle notwendig sind.
+
+Body der Anfrage:
+````js
+{
+    "course_id": 0, // Bspw. "1"
+    "name": "[SEMESTERNAME]", // Bspw. "SS18"
+    "number": 0, // Bspw. "2"
+    "start_date": "[STARTDATUM]", // Bspw. "2018-05-07"
+    "end_date": "[ENDDATUM]" // Bspw. "2018-08-03"
+}
+````
+
 ### PUT /semesters?semesterId={ID}
 
 **Info**: Aktualisiert die Einträge eines Semesters mit angegebener ``semester_id`` ``{ID}``, sofern das Semester Teil eines eigenen Kurses ist.
@@ -230,6 +245,7 @@ Alle Attribute müssen erneut übergeben werden, da diese so aktualisiert werden
 Body der Anfrage:
 ````js
 {
+    "course_id": 0, // Bspw. "1"
     "name": "[SEMESTERNAME]", // Bspw. "SS18"
     "number": 0, // Bspw. "2"
     "start_date": "[STARTDATUM]", // Bspw. "2018-05-07"
@@ -263,8 +279,9 @@ Rückgabe:
                 "phonenumber": "[TELEFONNUMMER]", // Bspw. "+49 621 4105 - 1724"
                 "experience": "[ERFAHRUNG]", // Bspw. "Mathematik, Podcasts, ..."
                 "mainFocus": [
-                    "[SCHWERPUNKT]", // Bspw. "Software Engineering"
-                    "...",
+                    {
+                        "name": "[THEMENGEBIET]", // Bspw. "Software Engineering"
+                    }
                 ],
                 "profile": "[PROFIL]", // Geplant als String
                 "research": "[LEHRE]", // Geplant als String
@@ -312,7 +329,7 @@ Body der Anfrage:
     "experience": "[ERFAHRUNG]", // Bspw. "Mathematik, Podcasts, ..."
     "mainFocus": [
         {
-            "name": "[SCHWERPUNKT]", // Bspw. "Software Engineering"
+            "name": "[THEMENGEBIET]", // Bspw. "Software Engineering"
         }
     ],
     "profile": "[PROFIL]", // Geplant als String
@@ -340,7 +357,7 @@ Body der Anfrage:
     "experience": "[ERFAHRUNG]", // Bspw. "Mathematik, Podcasts, ..."
     "mainFocus": [
         {
-            "name": "[SCHWERPUNKT]", // Bspw. "Software Engineering"
+            "name": "[THEMENGEBIET]", // Bspw. "Software Engineering"
         }
     ],
     "profile": "[PROFIL]", // Geplant als String
@@ -498,7 +515,7 @@ Rückgabe:
         "fieldOfStudies": [
             {
                 "id": 0, // Bspw. "1"
-                "name": "[NAME]", // Bspw. "Wirtschaftsinformatik"
+                "name": "[NAME]" // Bspw. "Wirtschaftsinformatik"
             }
         ]
     }
@@ -570,12 +587,12 @@ Rückgabe:
     "message": "[DEBUG-INFO/KOMMENTAR]", // Bspw. "Successful", "Failed", ...
     "payload": {
         "fieldOfStudy": {
-            "id": 0, // Bspw. "1"
+            "fieldOfStudy_id": 0, // Bspw. "1"
             "name": "[NAME]", // Bspw. "Wirtschaftsinformatik"
         },
         "majorSubjects": [
             {
-                "id": 0, // Bspw. "1"
+                "majorSubject_id": 0, // Bspw. "1"
                 "name": "[NAME]" // Bspw. "Software Engineering ab 2018"
             }
         ]
@@ -688,7 +705,6 @@ Rückgabe:
                     "catalog_id": "[KATALOG-ID]", // Bspw. "WWISE_1337"
                     "lectures": [
                         {
-                            "lecture_id": 0, // Bspw. "1"
                             "name": "[NAME]", // Bspw. "Netzwerk- und Betriebssystemstrukturen für mobile Applikationen"
                             "workload_home": "[SELBSTSTUDIUM]", // Bspw. "57 Stunden"
                             "workload_dhbw": "[PRÄSENZZEIT]", // Bspw. "33 Stunden"
@@ -766,7 +782,6 @@ Rückgabe:
                                                 {
                                                     "name": "[THEMENGEBIET]" // Bspw. "Mobile Applikationen"
                                                 }
-                                            ]
                                         },
                                         "status": "[STATUS]", // Bspw. "Dozent offen", "Dozent angeschrieben", ...
                                         "lecturer": { // falls vorhanden
@@ -780,7 +795,7 @@ Rückgabe:
                                             "experience": "[ERFAHRUNG]", // Bspw. "Mathematik, Podcasts, ..."
                                             "mainFocus": [
                                                 {
-                                                    "name": "[SCHWERPUNKT]", // Bspw. "Software Engineering"
+                                                    "name": "[THEMENGEBIET]", // Bspw. "Software Engineering"
                                                 }
                                             ],
                                             "profile": "[PROFIL]", // Geplant als String
