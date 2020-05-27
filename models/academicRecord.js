@@ -1,35 +1,48 @@
 module.exports = (sequelize, DataTypes) => {
-    const AcademicRecord = sequelize.define("AcademicRecord", {
-        id: {
-            type: DataTypes.INTEGER,
-            autoIncrement: true,
-            allowNull: false,
-            primaryKey: true
-        },
-        abbreviation: {
-            type: DataTypes.STRING
-        },
-        type: {
-            type: DataTypes.STRING, 
-        },
-        rated: {
-            type: DataTypes.BOOLEAN
-        }
-    }, {
-        modelName: 'AcademicRecord',
-        tableName: 'academic_record'
+  const AcademicRecord = sequelize.define(
+    'AcademicRecord',
+    {
+      academicRecord_id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        allowNull: false,
+        primaryKey: true,
+      },
+      abbreviation: {
+        type: DataTypes.STRING,
+      },
+      type: {
+        type: DataTypes.STRING,
+      },
+      rated: {
+        type: DataTypes.BOOLEAN,
+      },
+    },
+    {
+      modelName: 'AcademicRecord',
+      tableName: 'academicRecord',
+    }
+  );
+
+  AcademicRecord.associate = (models) => {
+    // n:m between module and academic record
+    models.AcademicRecord.belongsToMany(models.Module, {
+      through: 'module_academicRecord',
+      onDelete: 'CASCADE',
+      foreignKey: {
+        allowNull: false,
+        name: 'academicRecord_id',
+      },
     });
 
-    AcademicRecord.associate = function (models) {
-             // n:m betwenn module and academic record
-             models.AcademicRecord.belongsToMany(models.Module, {
-                through: "module_academic_record",
-                onDelete: "CASCADE",
-                foreignKey: {
-                    allowNull: false,
-                    name: "academicRecord_id",
-                },
-            });
-    };
-    return AcademicRecord;
-}
+    // 1:n between academic record and presentation
+    models.AcademicRecord.hasMany(models.Presentation, {
+      onDelete: 'CASCADE',
+      foreignKey: {
+        allowNull: false,
+        name: 'academicRecord_id',
+      },
+    });
+  };
+  return AcademicRecord;
+};
