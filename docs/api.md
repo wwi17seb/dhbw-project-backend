@@ -1,4 +1,4 @@
-# Schnittstellen - **STAND: 26.05.2020** <!-- omit in toc -->
+# Schnittstellen <!-- omit in toc -->
 
 ## Inhalt <!-- omit in toc -->
 
