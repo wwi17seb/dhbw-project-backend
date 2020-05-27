@@ -1,13 +1,14 @@
-const semesterviewService = require('../services/semesterService');
+const semesterviewService = require('../services/semesterviewService');
 const authService = require('../services/authService');
-const responseHelper = require('../helpers/responseHelper');
+const responseHelper = require("../helpers/responseHelper");
 
 exports.getSemesterview = async (req, res, next) => {
-  responseHelper(res, 501, 'Not yet implemented.');
+    responseHelper(res, 501, "Not yet implemented.");
 };
 exports.putSemesterview = async (req, res, next) => {
-  responseHelper(res, 501, 'Not yet implemented.');
+    responseHelper(res, 501, "Not yet implemented.");
 };
+
 
 // not used - see ../docs/api.md for more info
 // exports.deleteSemesterview = async (req, res, next) => {

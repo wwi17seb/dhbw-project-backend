@@ -1,4 +1,5 @@
 const authService = require('../services/authService');
+const directorOfStudiesService = require('../services/directorOfStudiesService');
 
 const responseHelper = require('../helpers/responseHelper');
 
@@ -8,8 +9,8 @@ exports.postLogin = (req, res, next) => {
   const { username, password } = req.body;
   let loadedUser;
   // check if a user exists
-  accountService
-    .getUserByUsername(username)
+  directorOfStudiesService
+    .getByUsername(username)
     .then((user) => {
       if (!user) {
         return responseHelper(res, 401, ERROR_MESSAGE_AUTH_FAILED);
@@ -44,13 +45,13 @@ exports.postSignup = async (req, res, next) => {
     responseHelper(res, 400, 'No password was given!');
   }
 
-  const userExists = await accountService.getUserByUsername(username);
+  const userExists = await directorOfStudiesService.getByUsername(username);
   if (userExists) {
     responseHelper(res, 400, 'Username already exists');
   }
 
   const userToCreate = { username, password };
-  const user = await accountService.createUser(userToCreate);
+  const user = await directorOfStudiesService.createUser(userToCreate);
   const token = authService.generateToken(user);
   responseHelper(res, 201, 'Successful', { token, userId: user.id, username: user.username });
 };

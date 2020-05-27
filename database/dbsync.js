@@ -16,7 +16,6 @@ addDefaultDos = async () => {
     await directorOfStudiesService.createDirectorOfStudies(null, directorOfStudiesToCreate, lecturer);
   }
 };
-
 // verify that db is connected
 db.sequelize
   .authenticate()
