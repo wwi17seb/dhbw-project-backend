@@ -27,6 +27,24 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  Semester.associate = (models) => {};
+  Semester.associate = (models) => {
+    // 1:n between semester and presentation
+    models.Semester.hasMany(models.Presentation, {
+      onDelete: 'CASCADE',
+      foreignKey: {
+        allowNull: false,
+        name: 'semester_id',
+      },
+    });
+
+    // n:1 between semester and course
+    models.Semester.belongsTo(models.Course, {
+      onDelete: 'CASCADE',
+      foreignKey: {
+        allowNull: false,
+        name: 'course_id',
+      },
+    });
+  };
   return Semester;
 };

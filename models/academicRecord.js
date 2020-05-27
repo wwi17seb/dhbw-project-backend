@@ -25,9 +25,18 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   AcademicRecord.associate = (models) => {
-    // n:m betwenn module and academic record
+    // n:m between module and academic record
     models.AcademicRecord.belongsToMany(models.Module, {
-      through: 'module_academic_record',
+      through: 'module_academicRecord',
+      onDelete: 'CASCADE',
+      foreignKey: {
+        allowNull: false,
+        name: 'academicRecord_id',
+      },
+    });
+
+    // 1:n between academic record and presentation
+    models.AcademicRecord.hasMany(models.Presentation, {
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,

@@ -28,12 +28,21 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   ModuleGroup.associate = (models) => {
-    // 1:n betwenn module and module groupe
-    models.ModuleGroup.belongsTo(models.Module, {
+    // 1:n between module and moduleGroup
+    models.ModuleGroup.hasMany(models.Module, {
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,
-        name: 'module_id',
+        name: 'moduleGroup_id',
+      },
+    });
+
+    // 1:n between module and majorSubject
+    models.ModuleGroup.belongsTo(models.MajorSubject, {
+      onDelete: 'CASCADE',
+      foreignKey: {
+        allowNull: false,
+        name: 'majorSubject_id',
       },
     });
   };

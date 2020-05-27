@@ -29,17 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,
-        name: 'user_id',
-      },
-    });
-
-    // TODO: Cyclic dependency found. directorOfStudies is dependent of itself.
-    // 1:1 between lecturer and director of studies
-    models.DirectorOfStudies.hasOne(models.Lecturer, {
-      onDelete: 'CASCADE',
-      foreignKey: {
-        allowNull: true,
-        name: 'createdBy_id',
+        name: 'account_id',
       },
     });
 
@@ -49,9 +39,37 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,
-        name: 'course_id',
+        name: 'directorOfStudies_id',
       },
     });
+
+    // 1:n betwenn director of studies and presentation
+    models.DirectorOfStudies.hasMany(models.Presentation, {
+      onDelete: 'CASCADE',
+      foreignKey: {
+        allowNull: false,
+        name: 'createdBy_id',
+      },
+    });
+
+    // 1:n between director of studies and lecturer
+    models.DirectorOfStudies.hasMany(models.Lecturer, {
+      onDelete: 'CASCADE',
+      foreignKey: {
+        allowNull: false,
+        name: 'createdBy_id',
+      },
+    });
+
+    // TODO:
+    // 1:0,1 between director of studies and lecturer
+    //models.DirectorOfStudies.belongsTo(models.Lecturer, {
+    //   onDelete: 'CASCADE',
+    //   foreignKey: {
+    //     allowNull: true,
+    //     name: 'lecturer_id',
+    //   },
+    // });
   };
 
   return DirectorOfStudies;

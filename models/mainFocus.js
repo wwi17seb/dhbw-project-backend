@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
 
   MainFocus.associate = (models) => {
     models.MainFocus.belongsToMany(models.Lecturer, {
-      through: 'lecturer_main_focus',
+      through: 'lecturer_mainFocus',
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,
@@ -29,11 +29,11 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     models.MainFocus.belongsToMany(models.Lecture, {
-      through: 'lecture_main_focus',
+      through: 'lecture_mainFocus',
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,
-        name: 'main_focus_id',
+        name: 'mainFocus_id',
       },
     });
   };

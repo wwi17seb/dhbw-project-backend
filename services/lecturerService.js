@@ -26,7 +26,7 @@ module.exports.findLecturerByName = async ({ lastname, firstname }, withFirstnam
  * Returns founded lecturers []
  */
 module.exports.findByDirectorOfStudiesId = async (directorOfStudies_id) => {
-  const lecturers = await db.Lecturer.find({ where: { directorOfStudies_id } });
+  const lecturers = await db.Lecturer.findAll({ where: { directorOfStudies_id } });
   return lecturers.dataValues;
 };
 
@@ -37,9 +37,8 @@ module.exports.findByDirectorOfStudiesId = async (directorOfStudies_id) => {
  */
 module.exports.createLecturer = async (
   transaction,
-  { academic_title, firstname, lastname, email, salutation, phonenumber, experience, rating, is_extern, profile, cv, research },
-  directorOfStudies_id,
-  isDirectorOfStudies
+  { academic_title, firstname, lastname, email, salutation, phonenumber, experience, is_extern, profile, cv, research },
+  directorOfStudies_id
 ) => {
   const lecturerToCreate = {
     academic_title,
@@ -49,18 +48,23 @@ module.exports.createLecturer = async (
     salutation,
     phonenumber,
     experience,
-    rating,
     is_extern,
     profile,
     cv,
     research,
+    createdBy_id: directorOfStudies_id,
   };
-  const createdLecturer = await db.Lecturer.create({ ...lecturerToCreate, createdBy_id: directorOfStudies_id }, transaction);
-  if (isDirectorOfStudies) {
-    const directorOfStudies = await directorOfStudiesService.findDirectorOfStudiesById(directorOfStudies_id);
-    await directorOfStudies.update({ lecturer_id: createdLecturer.dataValues.lecturer_id });
-  }
-  return createdLecturer.dataValues;
+
+  const buildedLecturer = await db.Lecturer.build(lecturerToCreate);
+  console.log('builded', buildedLecturer);
+  await buildedLecturer.save();
+  console.log('createdLecturer', buildedLecturer);
+  //const createdLecturer = await db.Lecturer.create({ ...lecturerToCreate }, transaction);
+
+  //const directorOfStudies = await directorOfStudiesService.findDirectorOfStudiesById(directorOfStudies_id);
+  //await directorOfStudies.update({ lecturer_id: createdLecturer.dataValues.lecturer_id });
+
+  return buildedLecturer.dataValues;
 };
 
 // PUT

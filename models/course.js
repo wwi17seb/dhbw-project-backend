@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       name: {
         type: DataTypes.STRING,
       },
-      googleCalendarId: {
+      google_calendar_id: {
         type: DataTypes.INTEGER,
       },
     },
@@ -26,11 +26,11 @@ module.exports = (sequelize, DataTypes) => {
     //n:m
     models.Course.belongsToMany(models.DirectorOfStudies, {
       onDelete: 'CASCADE',
+      through: 'directorOfStudies_course',
       foreignKey: {
         allowNull: false,
         name: 'course_id',
       },
-      through: 'directorOfStudies_course',
     });
 
     // 1:n between course and semester
@@ -39,6 +39,24 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: {
         allowNull: false,
         name: 'course_id',
+      },
+    });
+
+    // 1:n between course and presentation
+    models.Course.hasMany(models.Presentation, {
+      onDelete: 'CASCADE',
+      foreignKey: {
+        allowNull: false,
+        name: 'course_id',
+      },
+    });
+
+    // n:1 between course and majorSubject
+    models.Course.belongsTo(models.MajorSubject, {
+      onDelete: 'CASCADE',
+      foreignKey: {
+        allowNull: false,
+        name: 'majorSubject_id',
       },
     });
   };

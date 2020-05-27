@@ -9,7 +9,7 @@ module.exports.findDirectorOfStudiesById = async (directorOfStudies_id) => {
 
 module.exports.createDirectorOfStudies = async (transaction, User, Lecturer) => {
   const createdDirectorOfStudies = await db.DirectorOfStudies.create({ User }, { include: [{ model: db.User }] }, transaction);
-  await lecService.createLecturer(null, Lecturer, createdDirectorOfStudies.dataValues.directorOfStudies_id, true);
+  await lecService.createLecturer(null, Lecturer, createdDirectorOfStudies.dataValues.directorOfStudies_id);
   return createdDirectorOfStudies.dataValues;
 };
 

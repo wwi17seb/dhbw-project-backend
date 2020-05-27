@@ -36,7 +36,7 @@ module.exports.createMajorSubject = async (transaction, name, fieldOfStudy_id) =
 
 // PUT
 // wie post s.o.
-// receives (MajorSubject) -> id, name
+// receives majorSubject: { id, name }
 module.exports.updateMajorSubject = async (transaction, { majorSubject_id, name }) => {
   const majorSubject = await this.findMajorSubjectById(majorSubject_id);
   await majorSubject.update({ name }, transaction);

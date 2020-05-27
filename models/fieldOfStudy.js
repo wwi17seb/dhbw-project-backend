@@ -27,15 +27,6 @@ module.exports = (sequelize, DataTypes) => {
         name: 'fieldOfStudy_id',
       },
     });
-
-    // 1:n between course and semester
-    models.FieldOfStudy.hasMany(models.ModuleGroup, {
-      onDelete: 'CASCADE',
-      foreignKey: {
-        allowNull: false,
-        name: 'fieldOfStudy_id',
-      },
-    });
   };
   return FieldOfStudy;
 };

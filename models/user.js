@@ -27,7 +27,16 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  User.associate = (models) => {};
+  User.associate = (models) => {
+    // 1:1 between user and director of studies
+    models.User.hasOne(models.DirectorOfStudies, {
+      onDelete: 'CASCADE',
+      foreignKey: {
+        allowNull: false,
+        name: 'account_id',
+      },
+    });
+  };
 
   return User;
 };

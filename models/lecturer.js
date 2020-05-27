@@ -10,39 +10,47 @@ module.exports = (sequelize, DataTypes) => {
       },
       academic_title: {
         type: DataTypes.STRING,
+        allowNull: true,
       },
       firstname: {
         type: DataTypes.STRING,
+        allowNull: true,
       },
       lastname: {
         type: DataTypes.STRING,
+        allowNull: true,
       },
       email: {
         type: DataTypes.STRING,
+        allowNull: true,
       },
       salutation: {
         type: DataTypes.STRING,
+        allowNull: true,
       },
       phonenumber: {
         type: DataTypes.STRING,
+        allowNull: true,
       },
       experience: {
         type: DataTypes.STRING,
-      },
-      rating: {
-        type: DataTypes.STRING,
+        allowNull: true,
       },
       is_extern: {
         type: DataTypes.BOOLEAN,
+        allowNull: true,
       },
       profile: {
         type: DataTypes.STRING,
+        allowNull: true,
       },
       cv: {
         type: DataTypes.STRING,
+        allowNull: true,
       },
       research: {
         type: DataTypes.STRING,
+        allowNull: true,
       },
     },
     {
@@ -54,7 +62,7 @@ module.exports = (sequelize, DataTypes) => {
   Lecturer.associate = (models) => {
     // n:m between lecturer and main focus
     models.Lecturer.belongsToMany(models.MainFocus, {
-      through: 'lecturer_main_focus',
+      through: 'lecturer_mainFocus',
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,
@@ -62,26 +70,33 @@ module.exports = (sequelize, DataTypes) => {
       },
     });
 
-    /*     // 1:n between lecturer and director of studies
+    // 1:n between lecturer and presentation
+    models.Lecturer.hasMany(models.Presentation, {
+      onDelete: 'CASCADE',
+      foreignKey: {
+        allowNull: false,
+        name: 'lecturer_id',
+      },
+    });
+
+    // 1:n between lecturer and directorOfStudies
     models.Lecturer.belongsTo(models.DirectorOfStudies, {
-      foreignKey: {
-        allowNull: false,
-        name: 'lecturer_id',
-      },
-      allowNull: true,
-      defaultValue: null,
-      constraints: false,
-    }); */
-
-    // n:m betwenn presentation and lecturer
-    models.Lecturer.belongsToMany(models.Presentation, {
-      through: 'presentation_lecturer',
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,
-        name: 'presentation_id',
+        name: 'createdBy_id',
       },
     });
+
+    // TODO:
+    // 1: 0,1 between director of studies and lecturer
+    //models.Lecturer.belongsTo(models.DirectorOfStudies, {
+    //   onDelete: 'CASCADE',
+    //   foreignKey: {
+    //     allowNull: true,
+    //     name: 'directorOfStudies_id',
+    //   },
+    // });
   };
   return Lecturer;
 };

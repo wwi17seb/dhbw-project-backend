@@ -28,10 +28,8 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Module.associate = (models) => {
-    // n:m betwenn module and main lecturer
-    models.Module.belongsToMany(models.Lecture, {
-      through: 'lecture_module',
-      as: 'lectures',
+    // 1:n between module and lecture
+    models.Module.hasMany(models.Lecture, {
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,
@@ -39,13 +37,22 @@ module.exports = (sequelize, DataTypes) => {
       },
     });
 
-    // n:m betwenn module and academic record
+    // n:m between module and academic record
     models.Module.belongsToMany(models.AcademicRecord, {
-      through: 'module_academic_record',
+      through: 'module_academicRecord',
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,
         name: 'module_id',
+      },
+    });
+
+    // n:1 between module and modulegroup
+    models.Module.belongsTo(models.ModuleGroup, {
+      onDelete: 'CASCADE',
+      foreignKey: {
+        allowNull: false,
+        name: 'moduleGroup_id',
       },
     });
   };

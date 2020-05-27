@@ -31,11 +31,29 @@ module.exports = (sequelize, DataTypes) => {
 
   Lecture.associate = (models) => {
     models.Lecture.belongsToMany(models.MainFocus, {
-      through: 'lecture_main_focus',
+      through: 'lecture_mainFocus',
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,
         name: 'lecture_id',
+      },
+    });
+
+    // 1:n between lecture and presentation
+    models.Lecture.hasMany(models.Presentation, {
+      onDelete: 'CASCADE',
+      foreignKey: {
+        allowNull: false,
+        name: 'lecture_id',
+      },
+    });
+
+    // n:1 between lecture and module
+    models.Lecture.belongsTo(models.Module, {
+      onDelete: 'CASCADE',
+      foreignKey: {
+        allowNull: false,
+        name: 'module_id',
       },
     });
   };

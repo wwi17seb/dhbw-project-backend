@@ -57,7 +57,7 @@ module.exports.updateSemester = async (transaction, { semester_id, name, number,
  * Receives transaction and semester_id
  * deletes a semester
  */
-module.export.deleteSemester = async (transaction, semester_id) => {
+module.exports.deleteSemester = async (transaction, semester_id) => {
   const counter = await db.Semester.destroy({ where: { semester_id } }, transaction);
   return counter > 0;
 };
