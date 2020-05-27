@@ -25,11 +25,11 @@ module.exports.createAccount = async (transaction, { username, password, isAdmin
  */
 
 module.exports.update = async (transaction, { account_id, usernmae, password, is_admin }) => {
-  const updatedAccount = await this.getAccountById(account_id);
+  const accountToUpdate = await this.getAccountById(account_id);
   const hashedPassword = await authService.hashPassword(password);
-  await updatedAccount.update({ usernmae, password: hashedPassword, is_admin }, { where: { account_id } }, transaction);
+  await accountToUpdate.update({ usernmae, password: hashedPassword, is_admin }, { where: { account_id } }, transaction);
 
-  return updatedAccount.dataValues;
+  return accountToUpdate.dataValues;
 };
 
 // DELETE

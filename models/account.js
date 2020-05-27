@@ -14,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
       },
       password: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(64),
+        is: /^[0-9a-f]{64}$/i,
       },
       is_admin: {
         type: DataTypes.BOOLEAN,
