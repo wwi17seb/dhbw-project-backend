@@ -27,7 +27,7 @@ db.sequelize
       })
       .then(async (result) => {
         await addDefaultDos();
-        console.log('Database successful synced');
+        console.log('Database successfully synced');
       })
       .catch((err) => {
         console.log(err);

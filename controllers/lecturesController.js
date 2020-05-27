@@ -1,4 +1,3 @@
-const lecturesService = require('../services/lecturesService');
 const authService = require('../services/authService');
 const responseHelper = require("../helpers/responseHelper");
 

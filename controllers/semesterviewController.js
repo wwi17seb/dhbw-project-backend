@@ -1,4 +1,3 @@
-const semesterviewService = require('../services/semesterviewService');
 const authService = require('../services/authService');
 const responseHelper = require("../helpers/responseHelper");
 
