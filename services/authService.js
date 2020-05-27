@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
-const propertiesReader = require('../tools/propertyReader');
+const propertiesReader = require('../helpers/propertyReader');
 const bcrypt = require('bcryptjs');
 
-const authHelper = require('../tools/authHelper');
+const authHelper = require('../helpers/authHelper');
 const SALTS_ROUND = 12;
 
 module.exports.generateToken = (user) => {

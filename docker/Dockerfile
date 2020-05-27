@@ -1,4 +1,4 @@
-FROM node:11-alpine
+FROM node:13.12.0-alpine
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -31,7 +31,6 @@ COPY models ./models
 COPY routes ./routes
 COPY services ./services
 COPY sql ./sql
-COPY tools ./tools
 COPY app.js ./app.js
 
 EXPOSE 3000

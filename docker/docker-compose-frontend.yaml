@@ -38,15 +38,16 @@ services:
       - postgres
       - pgadmin
     ports:
-      - 3000:3000
+      - 3001:3001 # THIS PORT IS ONLY USED FOR TESTING APIs IF SOMETHING DOESNT WORK!
     command: sh -c "dockerize -wait tcp://postgres:5432 -timeout 300s -wait-retry-interval 5s node app.js"
 
   nginx: 
-    image: nginx:latest
+    image: my-nginx
     hostname: nginx
-    container_name: nginx
+    build:
+      context: ./nginx
     volumes:
-      - ./nginx_frontend/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/nginx-frontend.conf:/etc/nginx/nginx.conf
       - ./nginx/ssl:/etc/nginx/certs
     ports:
       - 80:80

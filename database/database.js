@@ -4,7 +4,7 @@ const path = require('path');
 const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
 const db = {};
-const propertiesReader = require('../tools/propertyReader');
+const propertiesReader = require('../helpers/propertyReader');
 const PATH_MODELS = '../models';
 
 // https://sequelize.org/master/manual/models-definition.html#configuration
