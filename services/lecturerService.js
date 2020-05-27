@@ -56,13 +56,11 @@ module.exports.createLecturer = async (
   };
 
   const buildedLecturer = await db.Lecturer.build(lecturerToCreate);
-  console.log('builded', buildedLecturer);
   await buildedLecturer.save();
-  console.log('createdLecturer', buildedLecturer);
-  //const createdLecturer = await db.Lecturer.create({ ...lecturerToCreate }, transaction);
+  const createdLecturer = await db.Lecturer.create({ ...lecturerToCreate }, transaction);
 
-  //const directorOfStudies = await directorOfStudiesService.findDirectorOfStudiesById(directorOfStudies_id);
-  //await directorOfStudies.update({ lecturer_id: createdLecturer.dataValues.lecturer_id });
+  const directorOfStudies = await directorOfStudiesService.findDirectorOfStudiesById(directorOfStudies_id);
+  await directorOfStudies.update({ lecturer_id: createdLecturer.dataValues.lecturer_id });
 
   return buildedLecturer.dataValues;
 };

@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define(
-    'User',
+  const Account = sequelize.define(
+    'Account',
     {
       account_id: {
         type: DataTypes.INTEGER,
@@ -22,14 +22,14 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     {
-      modelName: 'User',
+      modelName: 'Account',
       tableName: 'account',
     }
   );
 
-  User.associate = (models) => {
-    // 1:1 between user and director of studies
-    models.User.hasOne(models.DirectorOfStudies, {
+  Account.associate = (models) => {
+    // 1:1 between Account and director of studies
+    models.Account.hasOne(models.DirectorOfStudies, {
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,
@@ -38,5 +38,5 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
 
-  return User;
+  return Account;
 };

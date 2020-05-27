@@ -24,8 +24,8 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   DirectorOfStudies.associate = (models) => {
-    // 1:1 between director of studies and user
-    models.DirectorOfStudies.belongsTo(models.User, {
+    // 1:1 between director of studies and account
+    models.DirectorOfStudies.belongsTo(models.Account, {
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,

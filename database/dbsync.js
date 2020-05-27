@@ -2,7 +2,7 @@
 
 const db = require('../database/database');
 const directorOfStudiesService = require('../services/directorOfStudiesService');
-const userService = require('../services/userService');
+const accountService = require('../services/accountService');
 const authService = require('../services/authService');
 const propertiesReader = require('../helpers/propertyReader');
 
@@ -14,8 +14,8 @@ addDefaultUserAndDos = async () => {
     password: hashedPassword,
     is_admin: propertiesReader.getProperty('app.isAdmin'),
   };
-  const userAvaliable = await userService.getUserByUsername(userToCreate.username);
-  if (!userAvaliable) {
+  const accountAvaliable = await accountService.getAccountByUsername(userToCreate.username);
+  if (!accountAvaliable) {
     const lecturerToCreate = {};
     await directorOfStudiesService.createDirectorOfStudies(null, userToCreate, lecturerToCreate);
   }
