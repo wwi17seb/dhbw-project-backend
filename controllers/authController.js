@@ -1,5 +1,4 @@
 const authService = require('../services/authService');
-const accountService = require('../services/accountService');
 
 const responseHelper = require('../helpers/responseHelper');
 

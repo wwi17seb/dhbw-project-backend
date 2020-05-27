@@ -81,22 +81,11 @@ module.exports = (sequelize, DataTypes) => {
 
     // 1:n between lecturer and directorOfStudies
     models.Lecturer.belongsTo(models.DirectorOfStudies, {
-      onDelete: 'CASCADE',
       foreignKey: {
-        allowNull: false,
+        allowNull: true,
         name: 'createdBy_id',
       },
     });
-
-    // TODO:
-    // 1: 0,1 between director of studies and lecturer
-    //models.Lecturer.belongsTo(models.DirectorOfStudies, {
-    //   onDelete: 'CASCADE',
-    //   foreignKey: {
-    //     allowNull: true,
-    //     name: 'directorOfStudies_id',
-    //   },
-    // });
   };
   return Lecturer;
 };

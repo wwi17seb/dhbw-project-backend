@@ -7,8 +7,13 @@ module.exports.findDirectorOfStudiesById = async (directorOfStudies_id) => {
   return null;
 };
 
-module.exports.createDirectorOfStudies = async (transaction, Account, Lecturer) => {
-  const createdDirectorOfStudies = await db.DirectorOfStudies.create({ Account }, { include: [{ model: db.Account }] }, transaction);
+module.exports.getByUsername = async (username) => {
+  const directorOfStudiesToFind = await db.DirectorOfStudies.findOne({ where: { username } });
+  return (await directorOfStudiesToFind) ? directorOfStudiesToFind.dataValues : null;
+};
+
+module.exports.createDirectorOfStudies = async (transaction, DirectorOfStudies, Lecturer) => {
+  const createdDirectorOfStudies = await db.DirectorOfStudies.create(DirectorOfStudies, transaction);
   await lecturerService.createLecturer(null, Lecturer, createdDirectorOfStudies.dataValues.directorOfStudies_id);
   return createdDirectorOfStudies.dataValues;
 };

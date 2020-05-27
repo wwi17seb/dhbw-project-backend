@@ -1,4 +1,8 @@
 'use strict';
+
+const authService = require('../services/authService');
+const authHelper = require('../helpers/authHelper');
+
 module.exports = (sequelize, DataTypes) => {
   const DirectorOfStudies = sequelize.define(
     'DirectorOfStudies',
@@ -8,6 +12,18 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
         allowNull: false,
         primaryKey: true,
+      },
+      username: {
+        type: DataTypes.STRING,
+        unique: true,
+      },
+      password: {
+        type: DataTypes.STRING(64),
+        is: /^[0-9a-f]{64}$/i,
+      },
+      is_admin: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
       },
       misc: {
         type: DataTypes.TEXT,
@@ -24,15 +40,6 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   DirectorOfStudies.associate = (models) => {
-    // 1:1 between director of studies and account
-    models.DirectorOfStudies.belongsTo(models.Account, {
-      onDelete: 'CASCADE',
-      foreignKey: {
-        allowNull: false,
-        name: 'account_id',
-      },
-    });
-
     // n:m between DirectorOfStudies to Course
     models.DirectorOfStudies.belongsToMany(models.Course, {
       through: 'directorOfStudies_course',
@@ -56,21 +63,18 @@ module.exports = (sequelize, DataTypes) => {
     models.DirectorOfStudies.hasMany(models.Lecturer, {
       onDelete: 'CASCADE',
       foreignKey: {
-        allowNull: false,
+        allowNull: true,
         name: 'createdBy_id',
       },
     });
-
-    // TODO:
-    // 1:0,1 between director of studies and lecturer
-    //models.DirectorOfStudies.belongsTo(models.Lecturer, {
-    //   onDelete: 'CASCADE',
-    //   foreignKey: {
-    //     allowNull: true,
-    //     name: 'lecturer_id',
-    //   },
-    // });
   };
+
+  // Before Create
+  DirectorOfStudies.beforeCreate((DirectorOfStudies) => {
+    return authService.hashPassword(authHelper.preparePassword(DirectorOfStudies.password)).then((hashedPw) => {
+      DirectorOfStudies.password = hashedPw;
+    });
+  });
 
   return DirectorOfStudies;
 };

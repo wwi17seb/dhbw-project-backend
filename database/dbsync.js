@@ -2,35 +2,20 @@
 
 const db = require('../database/database');
 const directorOfStudiesService = require('../services/directorOfStudiesService');
-const accountService = require('../services/accountService');
-const authService = require('../services/authService');
 const propertiesReader = require('../helpers/propertyReader');
 
-addDefaultUserAndDos = async () => {
-  const hashedPassword = await authService.hashPassword(propertiesReader.getProperty('app.defaultPassword'));
-
-  const userToCreate = {
+addDefaultDos = async () => {
+  const directorOfStudiesToCreate = {
     username: propertiesReader.getProperty('app.defaultUser'),
-    password: hashedPassword,
+    password: propertiesReader.getProperty('app.defaultPassword'),
     is_admin: propertiesReader.getProperty('app.isAdmin'),
   };
-  const accountAvaliable = await accountService.getAccountByUsername(userToCreate.username);
-  if (!accountAvaliable) {
-    const lecturerToCreate = {};
-    await directorOfStudiesService.createDirectorOfStudies(null, userToCreate, lecturerToCreate);
+  const directorOfStudiesIsAvaliable = await directorOfStudiesService.getByUsername(directorOfStudiesToCreate.username);
+  if (!directorOfStudiesIsAvaliable) {
+    const lecturer = {};
+    await directorOfStudiesService.createDirectorOfStudies(null, directorOfStudiesToCreate, lecturer);
   }
 };
-/* addTestUser = async () => {
-  const userToCreate = {
-    username: propertiesReader.getProperty('app.testUser'),
-    password: await authService.hashPassword(propertiesReader.getProperty('app.testPassword')),
-    is_admin: false,
-  };
-  const userAvaliable = await userService.getUserByUsername(userToCreate.username);
-  if (!userAvaliable) {
-    const testUser = await userService.createUser(userToCreate);
-  }
-}; */
 
 // verify that db is connected
 db.sequelize
@@ -42,8 +27,7 @@ db.sequelize
         force: propertiesReader.getProperty('app.forceSync'),
       })
       .then(async (result) => {
-        await addDefaultUserAndDos();
-        // await addTestUser();
+        await addDefaultDos();
         console.log('Database successful synced');
       })
       .catch((err) => {
