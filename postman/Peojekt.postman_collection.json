@@ -216,13 +216,53 @@
 			"name": "Semesters",
 			"item": [
 				{
+					"name": "create Semester",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"course_id\": \"1\",\r\n\t\"name\": \"SS18\", \r\n\t\"number\": 0, \r\n\t\"start_date\": \"2018-05-07\",\r\n\t\"end_date\": \"2018-08-03\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/semesters?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"semesters"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Create a course and link it with the given director of studies."
+					},
+					"response": []
+				},
+				{
 					"name": "update Semester",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"SS18\",\r\n    \"number\": 2,\r\n    \"start_date\": \"2018-05-07\",\r\n    \"end_date\": \"2018-08-03\" \r\n}",
+							"raw": "{\r\n\t\"course_id\": 1,\r\n    \"name\": \"SS18\",\r\n    \"number\": 2,\r\n    \"start_date\": \"2018-05-07\",\r\n    \"end_date\": \"2018-08-03\" \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -354,7 +394,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstname\": \"Sebastian\",\n    \"lastname\": \"Ritterbusch\",\n    \"academic_title\": \"Prof. Dr.\",\n    \"email\": \"sebastian.ritterbusch@dhbw-mannheim.de\",\n    \"salutation\": \"Herr\",\n    \"phonenumber\": \"+49 621 4105 - 1724\",\n    \"experience\": \"Mathematik, Podcasts\",\n    \"main_focus\": \"Software Engineering\",\n    \"profile\": \"...\",\n    \"research\": \"...\",\n    \"cv\": \"...\",\n    \"comment\": \"sehr engagiert\",\n    \"is_extern\": 0\n}",
+							"raw": "{\n    \"firstname\": \"Sebastian\",\n    \"lastname\": \"Ritterbusch\",\n    \"academic_title\": \"Prof. Dr.\",\n    \"email\": \"sebastian.ritterbusch@dhbw-mannheim.de\",\n    \"salutation\": \"Herr\",\n    \"phonenumber\": \"+49 621 4105 - 1724\",\n    \"experience\": \"Mathematik, Podcasts\",\n    \"main_focus\": [\n    \t{\n    \t\t\"name\": \"Software Engineering\"\n    \t}\t\n    ],\n    \"profile\": \"...\",\n    \"research\": \"...\",\n    \"cv\": \"...\",\n    \"comment\": \"sehr engagiert\",\n    \"is_extern\": 0\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -387,7 +427,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstname\": \"Sebastian\",\n    \"lastname\": \"Ritterbusch\",\n    \"academic_title\": \"Prof. Dr.\",\n    \"email\": \"sebastian.ritterbusch@dhbw-mannheim.de\",\n    \"salutation\": \"Herr\",\n    \"phonenumber\": \"+49 621 4105 - 1724\",\n    \"experience\": \"Mathematik, Podcasts\",\n    \"main_focus\": \"Software Engineering\",\n    \"profile\": \"...\",\n    \"research\": \"...\",\n    \"cv\": \"...\",\n    \"comment\": \"sehr engagiert\",\n    \"is_extern\": 0\n}",
+							"raw": "{\n    \"firstname\": \"Sebastian\",\n    \"lastname\": \"Ritterbusch\",\n    \"academic_title\": \"Prof. Dr.\",\n    \"email\": \"sebastian.ritterbusch@dhbw-mannheim.de\",\n    \"salutation\": \"Herr\",\n    \"phonenumber\": \"+49 621 4105 - 1724\",\n    \"experience\": \"Mathematik, Podcasts\",\n    \"main_focus\": [\n    \t{\n    \t\t\"name\": \"Software Engineering\"\n    \t}\t\n    ],\n    \"profile\": \"...\",\n    \"research\": \"...\",\n    \"cv\": \"...\",\n    \"comment\": \"sehr engagiert\",\n    \"is_extern\": 0\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -687,7 +727,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"module_id\": 1, \r\n    \"name\": \"Marketing\",\r\n    \"workload_home\": \"36 Stunden\",\r\n    \"workload_dhbw\": \"24 Stunden\",\r\n    \"requirements\": \"Keine.\",\r\n    \"catalog_id\": \"WWISE_301.2\",\r\n    \"mainFocus\": [\r\n        {\r\n            \"mainFocus_name\": \"Unternehmensführung\"\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n\t\"module_id\": 1, \r\n    \"name\": \"Marketing\",\r\n    \"workload_home\": \"36 Stunden\",\r\n    \"workload_dhbw\": \"24 Stunden\",\r\n    \"requirements\": \"Keine.\",\r\n    \"catalog_id\": \"WWISE_301.2\",\r\n    \"mainFocus\": [\r\n        {\r\n            \"name\": \"Unternehmensführung\"\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -720,7 +760,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"module_id\": 1, \r\n    \"name\": \"Marketing\",\r\n    \"workload_home\": \"36 Stunden\",\r\n    \"workload_dhbw\": \"24 Stunden\",\r\n    \"requirements\": \"Keine.\",\r\n    \"catalog_id\": \"WWISE_301.2\",\r\n    \"mainFocus\": [\r\n        {\r\n            \"mainFocus_name\": \"Unternehmensführung\"\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n\t\"module_id\": 1, \r\n    \"name\": \"Marketing\",\r\n    \"workload_home\": \"36 Stunden\",\r\n    \"workload_dhbw\": \"24 Stunden\",\r\n    \"requirements\": \"Keine.\",\r\n    \"catalog_id\": \"WWISE_301.2\",\r\n    \"mainFocus\": [\r\n        {\r\n            \"name\": \"Unternehmensführung\"\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
