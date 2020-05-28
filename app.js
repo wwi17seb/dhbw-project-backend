@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
 });
 app.use(require('./routes/routeNotImplementedRoutes'));
 app.use(function (err, req, res, next) {
-  console.errror(`[ERROR]: ${err.message}`);
+  console.error(`[ERROR]: ${err.message}`);
   res.status(500).json({ message: "Internal Server Error", payload: null });
 });
 

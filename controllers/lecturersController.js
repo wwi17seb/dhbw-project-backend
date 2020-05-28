@@ -22,7 +22,8 @@ exports.postLecturers = async (req, res) => {
 
     try {
         const curStudiesDirectorId = req.token.userId;
-        const createdLecturer = await lecturerService.createLecturer(givenLecturer, curStudiesDirectorId);
+        // TODO: transaction?!
+        const createdLecturer = await lecturerService.createLecturer(null, givenLecturer, curStudiesDirectorId);
         responseHelper(res, 201, "Successfully created lecturer", createdLecturer);
     } catch (error) {
         responseHelper(res, 400, "Could not create lecturer");
