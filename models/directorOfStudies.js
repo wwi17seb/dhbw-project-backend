@@ -71,7 +71,7 @@ module.exports = (sequelize, DataTypes) => {
 
   // Before Create
   DirectorOfStudies.beforeCreate((DirectorOfStudies) => {
-    return authService.hashPassword(authHelper.preparePassword(DirectorOfStudies.password)).then((hashedPw) => {
+    return authService.hashPassword(DirectorOfStudies.password).then((hashedPw) => {
       DirectorOfStudies.password = hashedPw;
     });
   });
