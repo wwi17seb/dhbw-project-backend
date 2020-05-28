@@ -1,5 +1,3 @@
-const coursesService = require('../services/coursesService');
-
 const responseHelper = require("../helpers/responseHelper");
 
 const testReturnValue = {

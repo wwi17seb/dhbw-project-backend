@@ -1,43 +1,32 @@
-const db = require("../database/database");
-const authService = require("./authService");
+const db = require('../database/database');
+const lecturerService = require('./lecturerService');
 
-module.exports.createDirectorOfStudies = async (user, lecturer) => {
-  user.password = await authService.hashPassword(user.password);
-  let transaction;
-  try {
-    transaction = await db.sequelize.transaction(); // Managed Transaction
-
-    const DirectorOfStudies = await db.DirectorOfStudies.create(
-      {
-        User: user,
-        Lecturer: lecturer,
-      },
-      {
-        include: [
-          {
-            model: db.User,
-          },
-          {
-            model: db.Lecturer,
-          },
-        ],
-      },
-      transaction
-    );
-
-    await transaction.commit();
-
-    return DirectorOfStudies;
-  } catch (error) {
-    console.log("createDirectorOfStudies", error);
-    transaction.rollback();
-  }
+module.exports.findDirectorOfStudiesById = async (directorOfStudies_id) => {
+  const foundedDirectorOfStudies = await db.DirectorOfStudies.findOne({ where: { directorOfStudies_id }, include: [{ model: db.Lecturer }] });
+  if (foundedDirectorOfStudies) return foundedDirectorOfStudies;
+  return null;
 };
 
-module.exports.findDirectorOfStudiesById = async (directorOfStudiesId) => {
+module.exports.getByUsername = async (username) => {
+  const directorOfStudiesToFind = await db.DirectorOfStudies.findOne({ where: { username } });
+  return (await directorOfStudiesToFind) ? directorOfStudiesToFind.dataValues : null;
+};
 
-  const directorOfStudies = await db.DirectorOfStudies.findByPk(directorOfStudiesId);
-  if (directorOfStudies) return directorOfStudies.dataValues;
-  return null
-  ;
+module.exports.createDirectorOfStudies = async (transaction, DirectorOfStudies, Lecturer) => {
+  const createdDirectorOfStudies = await db.DirectorOfStudies.create(DirectorOfStudies, transaction);
+  await lecturerService.createLecturer(null, Lecturer, createdDirectorOfStudies.dataValues.directorOfStudies_id);
+  return createdDirectorOfStudies.dataValues;
+};
+
+// PUT
+module.exports.updateDiretorOfStudies = async (transaction, { directorOfStudies_id, misc }) => {
+  const directorOfStudies = await this.findDirectorOfStudiesById(directorOfStudies_id);
+  await directorOfStudies.update({ misc }, transaction);
+  return directorOfStudies.dataValues;
+};
+
+// Delete
+module.exports.deleteDiretorOfStudies = async (transaction, directorOfStudies_id) => {
+  const counter = await db.DirectorOfStudies.destroy({ where: { directorOfStudies_id } }, transaction);
+  return counter > 0;
 };

@@ -1,4 +1,3 @@
-const lecturesService = require('../services/lecturesService');
 const responseHelper = require("../helpers/responseHelper");
 
 exports.postLectures = async (req, res) => {

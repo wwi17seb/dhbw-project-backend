@@ -1,4 +1,3 @@
-const semesterviewService = require('../services/semesterviewService');
 const responseHelper = require("../helpers/responseHelper");
 
 exports.getSemesterview = async (req, res) => {
