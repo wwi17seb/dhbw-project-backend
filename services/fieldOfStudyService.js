@@ -1,54 +1,54 @@
 const db = require('../database/database');
 
 /*
- * Returns founded FieldOfStudie
+ * Returns found FieldOfStudy
  */
-module.exports.findFieldOfStudieById = async (fieldOfStudie_id) => {
-  const fieldOfStudie = await db.FieldOfStudie.findOne({ where: { fieldOfStudie_id } });
-  return fieldOfStudie;
+module.exports.findFieldOfStudyById = async (fieldOfStudy_id) => {
+  const fieldOfStudy = await db.FieldOfStudy.findOne({ where: { fieldOfStudy_id } });
+  return fieldOfStudy;
 };
 
 /*
- * Returns founded FieldOfStudie
+ * Returns found FieldOfStudy
  */
-module.exports.findFieldOfStudieByName = async (fieldOfStudieName) => {
-  const fieldOfStudie = await db.FieldOfStudie.findOne({ where: { name: fieldOfStudieName } });
-  return fieldOfStudie;
+module.exports.findFieldOfStudyByName = async (fieldOfStudyName) => {
+  const fieldOfStudy = await db.FieldOfStudy.findOne({ where: { name: fieldOfStudyName } });
+  return fieldOfStudy;
 };
 
 // GET
 /*
- * Returns founded FieldOfStudies
+ * Returns found FieldOfStudies
  */
 module.exports.findAll = async () => {
-  const fieldOfStudies = await db.FieldOfStudie.findAll();
+  const fieldOfStudies = await db.FieldOfStudy.findAll();
   return fieldOfStudies;
 };
 
 // POST
 /*
- * Returns created FieldOfStudie
+ * Returns created FieldOfStudy
  */
-module.exports.createFieldOfStudie = async (transaction, name) => {
-  const fieldOfStudie = await db.FieldOfStudie.create({ name }, transaction);
-  return fieldOfStudie.dataValues;
+module.exports.createFieldOfStudy = async (transaction, name) => {
+  const fieldOfStudy = await db.FieldOfStudy.create({ name }, transaction);
+  return fieldOfStudy.dataValues;
 };
 
 // PUT
 // wie post s.o.
-// receives (FieldOfStudie) -> id, name
-module.exports.updateFieldOfStudie = async (transaction, { fieldOfStudie_id, name }) => {
-  const fieldOfStudie = await this.findFieldOfStudieById(fieldOfStudie_id);
-  fieldOfStudie.update({ name }, transaction);
-  return fieldOfStudie.dataValues;
+// receives (FieldOfStudy) -> id, name
+module.exports.updateFieldOfStudy = async (transaction, { fieldOfStudy_id, name }) => {
+  const fieldOfStudy = await this.findFieldOfStudyById(fieldOfStudy_id);
+  fieldOfStudy.update({ name }, transaction);
+  return fieldOfStudy.dataValues;
 };
 
 // Delete
-// receives (fieldOfStudieId)
+// receives (fieldOfStudyId)
 /*
  * Returns boolean
  */
-module.exports.deleteFieldOfStudie = async (transaction, fieldOfStudie_id) => {
-  const counter = await db.FieldOfStudie.destroy({ where: { fieldOfStudie_id } }, transaction);
+module.exports.deleteFieldOfStudy = async (transaction, fieldOfStudy_id) => {
+  const counter = await db.FieldOfStudy.destroy({ where: { fieldOfStudy_id } }, transaction);
   return counter > 0;
 };
