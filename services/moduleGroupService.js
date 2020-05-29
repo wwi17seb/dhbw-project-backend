@@ -5,8 +5,8 @@ const db = require('../database/database');
  *
  * Returns founded moduleGroup
  */
-module.exports.findModuleGroupById = async (semester_id) => {
-  const moduleGroupToFind = await db.ModuleGroup.findOne({ where: { semester_id } });
+module.exports.findModuleGroupById = async (moduleGroup_id) => {
+  const moduleGroupToFind = await db.ModuleGroup.findOne({ where: { moduleGroup_id } });
   return moduleGroupToFind;
 };
 
@@ -33,8 +33,17 @@ module.exports.getAllModuleGroup = async () => {
  * Receives moduleGroup: { name, number_of_modules_to_attend, from_semester_number, to_semester_number }
  * creates a new moduleGroup
  */
-module.exports.createModuleGroup = async (transaction, { name, number_of_modules_to_attend, from_semester_number, to_semester_number }) => {
-  const moduleGroupToCreate = { name, number_of_modules_to_attend, from_semester_number, to_semester_number };
+module.exports.createModuleGroup = async (
+  transaction,
+  { majorSubject_id, name, number_of_modules_to_attend, from_semester_number, to_semester_number }
+) => {
+  const moduleGroupToCreate = {
+    majorSubject_id,
+    name,
+    number_of_modules_to_attend,
+    from_semester_number,
+    to_semester_number,
+  };
 
   const moduleGroup = await db.ModuleGroup.create({ ...moduleGroupToCreate }, transaction);
 
@@ -46,9 +55,15 @@ module.exports.createModuleGroup = async (transaction, { name, number_of_modules
  * Receives moduleGroup: { moduleGroup_id, name, number_of_modules_to_attend, from_semester_number, to_semester_number }
  * updates a moduleGroup
  */
-module.exports.updateModuleGroup = async (transaction, { moduleGroup_id, name, number_of_modules_to_attend, from_semester_number, to_semester_number }) => {
+module.exports.updateModuleGroup = async (
+  transaction,
+  { moduleGroup_id, majorSubject_id, name, number_of_modules_to_attend, from_semester_number, to_semester_number }
+) => {
   const moduleGroup = await this.findModuleGroupById(moduleGroup_id);
-  await moduleGroup.update({ name, number_of_modules_to_attend, from_semester_number, to_semester_number }, transaction);
+  await moduleGroup.update(
+    { majorSubject_id, name, number_of_modules_to_attend, from_semester_number, to_semester_number },
+    transaction
+  );
   return moduleGroup.dataValues;
 };
 
@@ -57,7 +72,7 @@ module.exports.updateModuleGroup = async (transaction, { moduleGroup_id, name, n
  * Receives transaction, moduleGroup_id
  * deletes a moduleGroup
  */
-module.export.deleteModuleGroup = async (transaction, moduleGroup_id) => {
+module.exports.deleteModuleGroup = async (transaction, moduleGroup_id) => {
   const counter = await db.ModuleGroup.destroy({ where: { moduleGroup_id } }, transaction);
   return counter > 0;
 };
