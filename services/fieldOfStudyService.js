@@ -3,9 +3,12 @@ const db = require('../database/database');
 /*
  * Returns found FieldOfStudy
  */
-module.exports.findFieldOfStudyById = async (fieldOfStudy_id) => {
-  const fieldOfStudy = await db.FieldOfStudy.findOne({ where: { fieldOfStudy_id } });
-  return fieldOfStudy;
+module.exports.findFieldOfStudyById = async (fieldOfStudy_id, withMajorSubjects = false) => {
+  let options = { where: { fieldOfStudy_id } };
+  if (withMajorSubjects) {
+    options.include = db.MajorSubject;
+  }
+  return await db.FieldOfStudy.findOne(options);
 };
 
 /*
@@ -21,11 +24,11 @@ module.exports.findFieldOfStudyByName = async (fieldOfStudyName) => {
  * Returns found FieldOfStudies
  */
 module.exports.findAll = async (withMajorSubjects = false) => {
+  let options = {};
   if (withMajorSubjects) {
-    return await db.FieldOfStudy.findAll({ include: db.MajorSubject });
-  } else {
-    return await db.FieldOfStudy.findAll();
+    options.include = db.MajorSubject;
   }
+  return await db.FieldOfStudy.findAll(options);
 };
 
 // POST

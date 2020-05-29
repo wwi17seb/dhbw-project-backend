@@ -5,8 +5,8 @@ const copyObjectHelper = require('../helpers/propertyCopyHelper');
 
 exports.getFieldOfStudies = async (req, res) => {
   const withMajorSubjects = req.query.withMajorSubjects;
-  const fieldOfStudies = await fieldOfStudyService.findAll(withMajorSubjects === 'true' ? true : false);
-  responseHelper(res, 200, 'Successful', { fieldOfStudies });
+  const FieldOfStudies = await fieldOfStudyService.findAll(withMajorSubjects === 'true' ? true : false);
+  responseHelper(res, 200, 'Successful', { FieldOfStudies });
 };
 exports.postFieldOfStudies = async (req, res) => {
   let transaction = await db.sequelize.transaction();

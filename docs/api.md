@@ -512,7 +512,7 @@ Rückgabe:
 {
     "message": "[DEBUG-INFO/KOMMENTAR]", // Bspw. "Successful", "Failed", ...
     "payload": {
-        "fieldOfStudies": [
+        "FieldOfStudies": [
             {
                 "id": 0, // Bspw. "1"
                 "name": "[NAME]" // Bspw. "Wirtschaftsinformatik"
@@ -532,11 +532,11 @@ Rückgabe:
 {
     "message": "[DEBUG-INFO/KOMMENTAR]", // Bspw. "Successful", "Failed", ...
     "payload": {
-        "fieldOfStudies": [
+        "FieldOfStudies": [
             {
                 "id": 0, // Bspw. "1"
                 "name": "[NAME]", // Bspw. "Wirtschaftsinformatik"
-                "majorSubjects": [
+                "MajorSubjects": [
                     {
                         "id": 0, // Bspw. "1"
                         "name": "[NAME]" // Bspw. "Software Engineering 2018"
@@ -586,11 +586,11 @@ Rückgabe:
 {
     "message": "[DEBUG-INFO/KOMMENTAR]", // Bspw. "Successful", "Failed", ...
     "payload": {
-        "fieldOfStudy": {
+        "FieldOfStudy": {
             "fieldOfStudy_id": 0, // Bspw. "1"
             "name": "[NAME]", // Bspw. "Wirtschaftsinformatik"
         },
-        "majorSubjects": [
+        "MajorSubjects": [
             {
                 "majorSubject_id": 0, // Bspw. "1"
                 "name": "[NAME]" // Bspw. "Software Engineering ab 2018"

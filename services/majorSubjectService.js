@@ -1,7 +1,7 @@
 const db = require('../database/database');
 
 /*
- * Returns founded MajorSubject
+ * Returns found MajorSubject
  */
 module.exports.findMajorSubjectById = async (majorSubject_id) => {
   const majorSubject = await db.MajorSubject.findOne({ where: { majorSubject_id } });
@@ -9,7 +9,7 @@ module.exports.findMajorSubjectById = async (majorSubject_id) => {
 };
 
 /*
- * Returns founded MajorSubject
+ * Returns found MajorSubject
  */
 module.exports.findMajorSubjectByName = async (majorSubjectName) => {
   const majorSubject = await db.MajorSubject.findOne({ where: { name: majorSubjectName } });
@@ -18,7 +18,7 @@ module.exports.findMajorSubjectByName = async (majorSubjectName) => {
 
 // GET
 /*
- * Returns founded MajorSubjects
+ * Returns found MajorSubjects
  */
 module.exports.findAll = async () => {
   const majorSubjects = await db.MajorSubject.findAll();
@@ -37,9 +37,9 @@ module.exports.createMajorSubject = async (transaction, name, fieldOfStudy_id) =
 // PUT
 // wie post s.o.
 // receives majorSubject: { id, name }
-module.exports.updateMajorSubject = async (transaction, { majorSubject_id, name }) => {
+module.exports.updateMajorSubject = async (transaction, { majorSubject_id, name, fieldOfStudy_id }) => {
   const majorSubject = await this.findMajorSubjectById(majorSubject_id);
-  await majorSubject.update({ name }, transaction);
+  await majorSubject.update({ name, fieldOfStudy_id }, transaction);
 
   return majorSubject.dataValues;
 };
