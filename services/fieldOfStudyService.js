@@ -20,9 +20,12 @@ module.exports.findFieldOfStudyByName = async (fieldOfStudyName) => {
 /*
  * Returns found FieldOfStudies
  */
-module.exports.findAll = async () => {
-  const fieldOfStudies = await db.FieldOfStudy.findAll();
-  return fieldOfStudies;
+module.exports.findAll = async (withMajorSubjects = false) => {
+  if (withMajorSubjects) {
+    return await db.FieldOfStudy.findAll({ include: db.MajorSubject });
+  } else {
+    return await db.FieldOfStudy.findAll();
+  }
 };
 
 // POST
