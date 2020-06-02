@@ -52,12 +52,11 @@
   - [POST /presentations](#post-presentations)
   - [PUT /presentations?presentationId={ID}](#put-presentationspresentationidid)
   - [DELETE /presentations?presentationId={ID}](#delete-presentationspresentationidid)
-- [/academicRecord](#academicrecord)
-  - [GET /academicRecord](#get-academicrecord)
-    - [Optionale Parameter](#optionale-parameter)
-  - [POST /academicRecord](#post-academicrecord)
-  - [PUT /academicRecord?academicRecordId={ID}](#put-academicrecordacademicrecordidid)
-  - [DELETE /academicRecord?academicRecordId={ID}](#delete-academicrecordacademicrecordidid)
+- [/academicRecords](#academicrecords)
+  - [GET /academicRecords](#get-academicrecords)
+  - [POST /academicRecords](#post-academicrecords)
+  - [PUT /academicRecords?academicRecordId={ID}](#put-academicrecordsacademicrecordidid)
+  - [DELETE /academicRecords?academicRecordId={ID}](#delete-academicrecordsacademicrecordidid)
 - [/modulecatalog](#modulecatalog)
   - [GET /modulecatalog?majorSubjectId={ID}](#get-modulecatalogmajorsubjectidid)
 - [/semesterview](#semesterview)
@@ -676,40 +675,31 @@ Body der Anfrage:
 
 **Info**: Löscht die Vorlesung mit der angegebenen ``presentation_id`` ``{ID}``.
 
-## /academicRecord
+## /academicRecords
 
 **Info**: Verwalten von Prüfungsleistungen
 
-### GET /academicRecord
+### GET /academicRecords
 
-**Info**: Erhalte eine Prüfungsleistung
+**Info**: Erhalte eine Übersicht über mögliche Prüfungsleistungen
+
 Rückgabe:
 ````js
 {
     "message": "[DEBUG-INFO/KOMMENTAR]", // Bspw. "Successful", "Failed", ...
     "payload": {
-        "academicRecord": [
+        "academicRecords": [
             {
-            "academicRecord_id": 0, // Bspw. "1"
-            "module_id": 0 // Bspw. 1
-            "abbreviation": "[ABKÜRZUNG]", // Bspw. "K, SE"
-            "type": "[TYP]", // Bspw. "Klausur"
-            "rated": TRUE //  Bspw. "TRUE/FALSE
+                "abbreviation": "[ABKÜRZUNG]", // Bspw. "K, SE"
+                "type": "[TYP]", // Bspw. "Klausur"
+                "rated": TRUE //  Bspw. "TRUE/FALSE"
             }
         ]
     }
 }
 ````
 
-#### Optionale Parameter 
-
-Ideen:
-- ``withModules``
-  - sofern ``true`` werden hier die dazugehörigen Module mitübergeben.
-- ``module_id``
-  - filtert die Anfrage nach einem bestimmten Modul anhand der ID von diesem
-
-### POST /academicRecord
+### POST /academicRecords
 
 Body der Anfrage:
 
@@ -717,32 +707,28 @@ Body der Anfrage:
 
 ````js
 {
-    "academicRecord_id": 0, // Bspw. "1"
-    "module_id": 0 // Bspw. 1
     "abbreviation": "[ABKÜRZUNG]", // Bspw. "K, SE"
     "type": "[TYP]", // Bspw. "Klausur"
     "rated": TRUE //  Bspw. "TRUE/FALSE
 }
 ````
 
-### PUT /academicRecord?academicRecordId={ID}
+### PUT /academicRecords?academicRecordId={ID}
 
 **Info**: Update eine Prüfungsleistung anhand der ID
 
 Body der Anfrage:
 ````js
 {
-    "academicRecord_id": 0, // Bspw. "1"
-    "module_id": 0 // Bspw. 1
     "abbreviation": "[ABKÜRZUNG]", // Bspw. "K, SE"
     "type": "[TYP]", // Bspw. "Klausur"
     "rated": TRUE //  Bspw. "TRUE/FALSE
 }
 ````
 
-### DELETE /academicRecord?academicRecordId={ID}
+### DELETE /academicRecords?academicRecordId={ID}
 
-**Info**: Lösche eine Prüfungsleistung
+**Info**: Löscht eine Prüfungsleistung
 
 ## /modulecatalog
 
