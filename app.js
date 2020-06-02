@@ -20,7 +20,6 @@ app.use(require('./routes/coursesRoutes'));
 app.use(require('./routes/semestersRoutes'));
 app.use(require('./routes/lecturersRoutes'));
 app.use(require('./routes/moduleGroupsRoutes'));
-app.use(require('./routes/modulesRoutes'));
 app.use(require('./routes/lecturesRoutes'));
 app.use(require('./routes/fieldOfStudiesRoutes'));
 app.use(require('./routes/majorSubjectsRoutes'));

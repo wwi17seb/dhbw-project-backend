@@ -9,7 +9,7 @@ exports.getLecturers = async (req, res) => {
     const lecturers = await lecturersService.findByDirectorOfStudiesId(curStudiesDirectorId);
     responseHelper(res, 200, '', { lecturers });
   } catch (error) {
-    responseHelper(res, 400, 'Could not create lecturer');
+    responseHelper(res, 500, 'Internal Server Error');
   }
 };
 
@@ -30,12 +30,14 @@ exports.postLecturers = async (req, res) => {
   ]);
   givenLecturer.is_extern = givenLecturer.is_extern !== 0;
 
+  let transaction = await db.sequelize.transaction();
   try {
     const curStudiesDirectorId = req.token.userId;
-    // TODO: transaction?!
-    const createdLecturer = await lecturerService.createLecturer(null, givenLecturer, curStudiesDirectorId);
+    const createdLecturer = await lecturerService.createLecturer(transaction, givenLecturer, curStudiesDirectorId);
+    transaction.commit();
     responseHelper(res, 201, 'Successfully created lecturer', createdLecturer);
   } catch (error) {
+    transaction.rollback();
     responseHelper(res, 400, 'Could not create lecturer');
   }
 };
