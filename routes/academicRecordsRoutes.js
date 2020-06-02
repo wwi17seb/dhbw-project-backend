@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/academicRecords', authorize(), academicRecordsController.getAcademicRecords);
 router.post('/academicRecords', authorize(), academicRecordsController.postAcademicRecords);
-router.put('/academicRecords/:id', authorize(), academicRecordsController.putAcademicRecords);
-router.delete('/academicRecords/:id', authorize(), academicRecordsController.deleteAcademicRecords);
+router.put('/academicRecords', authorize(), academicRecordsController.putAcademicRecords);
+router.delete('/academicRecords', authorize(), academicRecordsController.deleteAcademicRecords);
 
 module.exports = router;

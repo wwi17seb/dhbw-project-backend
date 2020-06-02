@@ -27,7 +27,7 @@ app.use(require('./routes/majorSubjectsRoutes'));
 app.use(require('./routes/presentationsRoutes'));
 app.use(require('./routes/modulecatalogRoutes'));
 app.use(require('./routes/semesterviewRoutes'));
-app.use(require('./routes/academicRecordRoutes'));
+app.use(require('./routes/academicRecordsRoutes'));
 
 app.get('/', (req, res) => {
   res.json({ message: "Server Running", payload: null });
