@@ -677,11 +677,11 @@ Body der Anfrage:
 
 ## /academicRecords
 
-**Info**: Verwalten von Prüfungsleistungen
+**Info**: Verwalten von Prüfungsleistungen.
 
 ### GET /academicRecords
 
-**Info**: Erhalte eine Übersicht über mögliche Prüfungsleistungen
+**Info**: Erhalte eine Übersicht über mögliche Prüfungsleistungen.
 
 Rückgabe:
 ````js
@@ -690,6 +690,7 @@ Rückgabe:
     "payload": {
         "academicRecords": [
             {
+                "academicRecord_id": 0 // Bspw. "1"
                 "abbreviation": "[ABKÜRZUNG]", // Bspw. "K, SE"
                 "type": "[TYP]", // Bspw. "Klausur"
                 "rated": TRUE //  Bspw. "TRUE/FALSE"
@@ -703,7 +704,7 @@ Rückgabe:
 
 Body der Anfrage:
 
-**Info**: Erzeugt eine neue Prüfungsleistung
+**Info**: Erzeugt eine neue Prüfungsleistung.
 
 ````js
 {
@@ -715,7 +716,7 @@ Body der Anfrage:
 
 ### PUT /academicRecords?academicRecordId={ID}
 
-**Info**: Update eine Prüfungsleistung anhand der ID
+**Info**: Update eine Prüfungsleistung anhand der ID.
 
 Body der Anfrage:
 ````js
@@ -728,7 +729,7 @@ Body der Anfrage:
 
 ### DELETE /academicRecords?academicRecordId={ID}
 
-**Info**: Löscht eine Prüfungsleistung
+**Info**: Löscht eine Prüfungsleistung.
 
 ## /modulecatalog
 
