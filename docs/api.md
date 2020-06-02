@@ -720,7 +720,7 @@ Body der Anfrage:
 Body der Anfrage:
 ````js
 {
-    "abbreviation": "[ABKÜRZUNG]", // Bspw. "K, SE"
+    "abbreviation": "[ABKÜRZUNG]", // Bspw. "K, SE" 
     "type": "[TYP]", // Bspw. "Klausur"
     "rated": TRUE //  Bspw. "TRUE/FALSE
 }
