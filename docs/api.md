@@ -52,6 +52,11 @@
   - [POST /presentations](#post-presentations)
   - [PUT /presentations?presentationId={ID}](#put-presentationspresentationidid)
   - [DELETE /presentations?presentationId={ID}](#delete-presentationspresentationidid)
+- [/academicRecords](#academicrecords)
+  - [GET /academicRecords](#get-academicrecords)
+  - [POST /academicRecords](#post-academicrecords)
+  - [PUT /academicRecords?academicRecordId={ID}](#put-academicrecordsacademicrecordidid)
+  - [DELETE /academicRecords?academicRecordId={ID}](#delete-academicrecordsacademicrecordidid)
 - [/modulecatalog](#modulecatalog)
   - [GET /modulecatalog?majorSubjectId={ID}](#get-modulecatalogmajorsubjectidid)
 - [/semesterview](#semesterview)
@@ -669,6 +674,62 @@ Body der Anfrage:
 ### DELETE /presentations?presentationId={ID}
 
 **Info**: Löscht die Vorlesung mit der angegebenen ``presentation_id`` ``{ID}``.
+
+## /academicRecords
+
+**Info**: Verwalten von Prüfungsleistungen.
+
+### GET /academicRecords
+
+**Info**: Erhalte eine Übersicht über mögliche Prüfungsleistungen.
+
+Rückgabe:
+````js
+{
+    "message": "[DEBUG-INFO/KOMMENTAR]", // Bspw. "Successful", "Failed", ...
+    "payload": {
+        "academicRecords": [
+            {
+                "academicRecord_id": 0 // Bspw. "1"
+                "abbreviation": "[ABKÜRZUNG]", // Bspw. "K, SE"
+                "type": "[TYP]", // Bspw. "Klausur"
+                "rated": TRUE //  Bspw. "TRUE/FALSE"
+            }
+        ]
+    }
+}
+````
+
+### POST /academicRecords
+
+Body der Anfrage:
+
+**Info**: Erzeugt eine neue Prüfungsleistung.
+
+````js
+{
+    "abbreviation": "[ABKÜRZUNG]", // Bspw. "K, SE"
+    "type": "[TYP]", // Bspw. "Klausur"
+    "rated": TRUE //  Bspw. "TRUE/FALSE
+}
+````
+
+### PUT /academicRecords?academicRecordId={ID}
+
+**Info**: Update eine Prüfungsleistung anhand der ID.
+
+Body der Anfrage:
+````js
+{
+    "abbreviation": "[ABKÜRZUNG]", // Bspw. "K, SE" 
+    "type": "[TYP]", // Bspw. "Klausur"
+    "rated": TRUE //  Bspw. "TRUE/FALSE
+}
+````
+
+### DELETE /academicRecords?academicRecordId={ID}
+
+**Info**: Löscht eine Prüfungsleistung.
 
 ## /modulecatalog
 
