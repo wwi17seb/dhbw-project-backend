@@ -51,7 +51,7 @@ exports.postSignup = async (req, res, next) => {
   }
 
   const userToCreate = { username, password };
-  const user = await directorOfStudiesService.createUser(userToCreate);
+  const user = await directorOfStudiesService.createDirectorOfStudies(null, userToCreate);
   const token = authService.generateToken(user);
   responseHelper(res, 201, 'Successful', { token, userId: user.id, username: user.username });
 };

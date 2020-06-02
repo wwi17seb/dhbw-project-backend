@@ -21,7 +21,7 @@ module.exports.findMajorSubjectByName = async (majorSubjectName) => {
  * Returns found MajorSubjects
  */
 module.exports.findAll = async () => {
-  const majorSubjects = await db.MajorSubject.findAll();
+  const majorSubjects = await db.MajorSubject.findAll({ plain: true, raw: true, include: [db.FieldOfStudy] });
   return majorSubjects;
 };
 
