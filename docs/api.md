@@ -29,10 +29,6 @@
   - [POST /moduleGroups](#post-modulegroups)
   - [PUT /moduleGroups?moduleGroupId={ID}](#put-modulegroupsmodulegroupidid)
   - [DELETE /moduleGroups?moduleGroupId={ID}](#delete-modulegroupsmodulegroupidid)
-- [/modules](#modules)
-  - [POST /modules](#post-modules)
-  - [PUT /modules?moduleId={ID}](#put-modulesmoduleidid)
-  - [DELETE /modules?moduleId={ID}](#delete-modulesmoduleidid)
 - [/lectures](#lectures)
   - [POST /lectures](#post-lectures)
   - [PUT /lectures?lectureId={ID}](#put-lectureslectureidid)
@@ -49,6 +45,8 @@
   - [PUT /majorSubjects?majorSubjectId={ID}](#put-majorsubjectsmajorsubjectidid)
   - [DELETE /majorSubjects?majorSubjectId={ID}](#delete-majorsubjectsmajorsubjectidid)
 - [/presentations](#presentations)
+  - [GET /presentations?courseId={ID}](#get-presentationscourseidid)
+    - [Optionale Parameter /presentations](#optionale-parameter-presentations)
   - [POST /presentations](#post-presentations)
   - [PUT /presentations?presentationId={ID}](#put-presentationspresentationidid)
   - [DELETE /presentations?presentationId={ID}](#delete-presentationspresentationidid)
@@ -59,8 +57,6 @@
   - [DELETE /academicRecords?academicRecordId={ID}](#delete-academicrecordsacademicrecordidid)
 - [/modulecatalog](#modulecatalog)
   - [GET /modulecatalog?majorSubjectId={ID}](#get-modulecatalogmajorsubjectidid)
-- [/semesterview](#semesterview)
-  - [GET /semesterview?courseId={ID}](#get-semesterviewcourseidid)
 
 ## Allgemein
 ### Authentifizierung
@@ -161,15 +157,30 @@ Rückgabe:
 {
     "message": "[DEBUG-INFO/KOMMENTAR]", // Bspw. "Successful", "Failed", ...
     "payload": {
-        "courses": [
+        "Courses": [
             {
                 "course_id": 0, // Bspw. "1"
                 "name": "[KURSNAME]", // Bspw. "WWI 17 SE B"
-                "directorOfStudies": {
+                "DirectorOfStudies": {
                     "misc": "[VERSCHIEDENES]" // Bspw. "{ "email-template": "blablabla, was auch immer ihr wollt, könnt ihr hier speichern.", "oder": "auch einfach anders. ihr seid hier frei.", "bitte": "jedoch als text und kein blob." }"
                 },
-                "majorSubject": "[STUDIENGANG]", // Bspw. "Wirtschaftsinformatik"
-                "fieldOfStudy": "[STUDIENRICHTUNG]" // Bspw. "Software Engineering"
+                "MajorSubject": {
+                    "majorSubject_id": 0, // Bspw. "1"
+                    "name": "[STUDIENGANG]", // Bspw. "Software Engineering"
+                    "FieldOfStudy": {
+                        "fieldOfStudy_id": 0, // Bspw. "1"
+                        "name": "[STUDIENRICHTUNG]" // Bspw. "Wirtschaftsinformatik"
+                    }
+                },
+                "Semesters": [
+                    {
+                        "semester_id": 0, // Bspw. "1"
+                        "name": "[SEMESTERNAME]", // Bspw. "WS17/18"
+                        "number": 0, // Bspw. "1"
+                        "start_date": "[STARTDATUM]", // Bspw. "2017-10-23"
+                        "end_date": "[ENDDATUM]" // Bspw. "2018-02-19"
+                    }
+                ]
             }
         ]
     }
@@ -184,8 +195,7 @@ Body der Anfrage:
 ````js
 {
     "name": "[KURSNAME]", // Bspw. "WWI 17 SEB"
-    "majorSubject": "[STUDIENGANG]", // Bspw. "Wirtschaftsinformatik"
-    "fieldOfStudy": "[STUDIENRICHTUNG]", // Bspw. "Software Engineering"
+    "majorSubject_id": 0, // Bspw. "1" - impliziert das field of study.
     "semesters": [
         {
             "name": "[SEMESTERNAME]", // Bspw. "WS17/18"
@@ -215,8 +225,7 @@ Body der Anfrage:
 ````js
 {
     "name": "[KURSNAME]", // Bspw. "WWI 17 SE B"
-    "majorSubject": "[STUDIENGANG]", // Bspw. "Wirtschaftsinformatik"
-    "fieldOfStudy": "[STUDIENRICHTUNG]" // Bspw. "Software Engineering"
+    "majorSubject_id": 0 // Bspw. "1"
 }
 ````
 
@@ -228,8 +237,7 @@ Body der Anfrage:
 
 ### POST /semesters
 
-**Info**: Aktualisiert die Einträge eines Semesters mit angegebener ``semester_id`` ``{ID}``, sofern das Semester Teil eines eigenen Kurses ist.
-Alle Attribute müssen erneut übergeben werden, da diese so aktualisiert werden bzw. alle notwendig sind.
+**Info**: Erstellt einen neuen Eintrag eines Semesters zum angegebenen Kurs, sofern es in einem eigenen Kurs angelegt wird.
 
 Body der Anfrage:
 ````js
@@ -260,7 +268,7 @@ Body der Anfrage:
 
 ### DELETE /semesters?semesterId={ID}
 
-**Info**: Löscht das Semester mit der angegebenen ``{ID}``.
+**Info**: Löscht das Semester mit der angegebenen ``{ID}``, sofern es zu einem eigenen Kurs gehört.
 
 ## /lecturers
 
@@ -273,7 +281,7 @@ Rückgabe:
 {
     "message": "[DEBUG-INFO/KOMMENTAR]", // Bspw. "Successful", "Failed", ...
     "payload": {
-        "lecturers": [
+        "Lecturers": [
             {
                 "lecturer_id": 0, // Bspw. "1"
                 "firstname": "[VORNAME]", // Bspw. "Sebastian"
@@ -283,16 +291,17 @@ Rückgabe:
                 "salutation": "[ANREDE]", // Bspw. "Herr"
                 "phonenumber": "[TELEFONNUMMER]", // Bspw. "+49 621 4105 - 1724"
                 "experience": "[ERFAHRUNG]", // Bspw. "Mathematik, Podcasts, ..."
-                "mainFocus": [
+                "MainFocus": [
                     {
-                        "name": "[THEMENGEBIET]", // Bspw. "Software Engineering"
+                        "mainFocus_id": 0, // Bspw. "1"
+                        "name": "[THEMENGEBIET]" // Bspw. "Software Engineering"
                     }
                 ],
                 "profile": "[PROFIL]", // Geplant als String
                 "research": "[LEHRE]", // Geplant als String
                 "cv": "[VITA]", // Geplant als String
                 "comment": "[KOMMENTAR]", // Bspw. "Sehr engagiert"
-                "is_extern": "[KENNZEICHNER, OB EXTERN]" // 0 = intern, 2 = extern
+                "is_extern": TRUE // false = intern, true = extern
             }
         ]
     }
@@ -304,9 +313,11 @@ Rückgabe:
 - ``experience``
   - filtert die Rückgabe.
   - gibt lediglich Dozenten mit dem angegebenen String im Freitextfeld ``experience`` zurück.
+  - kommagetrennt.
 - ``comment``
   - filtert die Rückgabe.
   - gibt lediglich Dozenten mit dem angegebenen String im Freitextfeld ``comment`` zurück.
+  - kommagetrennt.
 - ``firstname``
   - filtert die Rückgabe.
   - gibt lediglich Dozenten mit dem angegebenen String als Vornamen zurück (evtl. auch ähnliche? &rarr; Mueller = Müller etc.).
@@ -332,16 +343,12 @@ Body der Anfrage:
     "salutation": "[ANREDE]", // Bspw. "Herr"
     "phonenumber": "[TELEFONNUMMER]", // Bspw. "+49 621 4105 - 1724"
     "experience": "[ERFAHRUNG]", // Bspw. "Mathematik, Podcasts, ..."
-    "mainFocus": [
-        {
-            "name": "[THEMENGEBIET]", // Bspw. "Software Engineering"
-        }
-    ],
+    "mainFocus_ids": [ 0, 0 ], // Bspw. "[1]" oder "[1, 2]"
     "profile": "[PROFIL]", // Geplant als String
     "research": "[LEHRE]", // Geplant als String
     "cv": "[VITA]", // Geplant als String
     "comment": "[KOMMENTAR]", // Bspw. "Sehr engagiert"
-    "is_extern": "[KENNZEICHNER, OB EXTERN]" // 0 = intern, 2 = extern
+    "is_extern": TRUE // false = intern, true = extern
 }
 ````
 
@@ -360,16 +367,12 @@ Body der Anfrage:
     "salutation": "[ANREDE]", // Bspw. "Herr"
     "phonenumber": "[TELEFONNUMMER]", // Bspw. "+49 621 4105 - 1724"
     "experience": "[ERFAHRUNG]", // Bspw. "Mathematik, Podcasts, ..."
-    "mainFocus": [
-        {
-            "name": "[THEMENGEBIET]", // Bspw. "Software Engineering"
-        }
-    ],
+    "mainFocus_ids": [ 0, 0 ], // Bspw. "[1]" oder "[1, 2]"
     "profile": "[PROFIL]", // Geplant als String
     "research": "[LEHRE]", // Geplant als String
     "cv": "[VITA]", // Geplant als String
     "comment": "[KOMMENTAR]", // Bspw. "Sehr engagiert"
-    "is_extern": "[KENNZEICHNER, OB EXTERN]" // 0 = intern, 2 = extern
+    "is_extern": TRUE // false = intern, true = extern
 }
 ````
 
@@ -392,7 +395,16 @@ Body der Anfrage:
     "name": "[NAME]", // Bspw. "Profil I"
     "number_of_modules_to_attend": 0, // Bspw. "1"
     "from_semester_number": 0, // Bspw. "1"
-    "to_semester_number": 0 // Bspw. "2"
+    "to_semester_number": 0, // Bspw. "2"
+    "modules": [
+        {
+            "name": "[NAME]", // Bspw. "Technische Grundlagen mobiler Applikationen"
+            "description": "[BESCHREIBUNG]", // Bspw. "Lorem Ipsum..."
+            "ects": 0, // Bspw. "6"
+            "catalog_id": "[KATALOG-ID]" // Bspw. "WWISE_1337"
+            "academicRecord_ids": [ 0, 0 ], // Bspw. "[1]" oder "[1, 2]" - mögliche Bewertungsverfahren
+        }
+    ]
 }
 ````
 
@@ -408,52 +420,22 @@ Body der Anfrage:
     "name": "[NAME]", // Bspw. "Profil I"
     "number_of_modules_to_attend": 0, // Bspw. "1"
     "from_semester_number": 0, // Bspw. "1"
-    "to_semester_number": 0 // Bspw. "2"
+    "to_semester_number": 0, // Bspw. "2"
+    "modules": [
+        {
+            "name": "[NAME]", // Bspw. "Technische Grundlagen mobiler Applikationen"
+            "description": "[BESCHREIBUNG]", // Bspw. "Lorem Ipsum..."
+            "ects": 0, // Bspw. "6"
+            "catalog_id": "[KATALOG-ID]" // Bspw. "WWISE_1337"
+            "academicRecord_ids": [ 0, 0 ], // Bspw. "[1]" oder "[1, 2]" - mögliche Bewertungsverfahren
+        }
+    ]
 }
 ````
 
 ### DELETE /moduleGroups?moduleGroupId={ID}
 
-**Info**: Löscht die Modulgruppe mit der angegebenen ``moduleGroup_id`` ``{ID}``.
-
-## /modules
-
-**Info**: Nur zum Erstellen, Bearbeiten und Löschen des Moduls.
-
-### POST /modules
-
-**Info**: Erzeugt eine neues Modul.
-
-Body der Anfrage:
-````js
-{
-    "moduleGroup_id": 0, // Bspw. "1"
-    "name": "[NAME]", // Bspw. "Technische Grundlagen mobiler Applikationen"
-    "description": "[BESCHREIBUNG]", // Bspw. "Lorem Ipsum..."
-    "ects": 0, // Bspw. "6"
-    "catalog_id": "[KATALOG-ID]", // Bspw. "WWISE_1337"
-}
-````
-
-### PUT /modules?moduleId={ID}
-
-**Info**: Aktualisiert das Modul mit der angegebenen ``module_id`` ``{ID}``.
-Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attributen einfach zu ermöglichen.
-
-Body der Anfrage:
-````js
-{
-    "moduleGroup_id": 0, // Bspw. "1"
-    "name": "[NAME]", // Bspw. "Technische Grundlagen mobiler Applikationen"
-    "description": "[BESCHREIBUNG]", // Bspw. "Lorem Ipsum..."
-    "ects": 0, // Bspw. "6"
-    "catalog_id": "[KATALOG-ID]", // Bspw. "WWISE_1337"
-}
-````
-
-### DELETE /modules?moduleId={ID}
-
-**Info**: Löscht das Modul mit der angegebenen ``module_id`` ``{ID}``.
+**Info**: Löscht die Modulgruppe (inklusive der dazugehörigen Module) mit der angegebenen ``moduleGroup_id`` ``{ID}``.
 
 ## /lectures
 
@@ -472,17 +454,13 @@ Body der Anfrage:
     "workload_dhbw": "[PRÄSENZZEIT]", // Bspw. "24 Stunden"
     "requirements": "[ANFODERUNGEN]" // Bspw. "Keine."
     "catalog_id": "[KATALOG-ID]", // Bspw. "WWISE_301.2"
-    "mainFocus": [
-        {
-            "name": "[THEMENGEBIET]" // Bspw. "Unternehmensführung"
-        }
-    ]
+    "mainFocus_ids": [ 0, 0 ] // Bspw. ["1"]
 }
 ````
 
 ### PUT /lectures?lectureId={ID}
 
-**Info**: Aktualisiert die Vorlesung mit der angegebenen ``lecture_id`` ``{ID}``.
+**Info**: Aktualisiert die **abstrakte** Vorlesung mit der angegebenen ``lecture_id`` ``{ID}``.
 Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attributen einfach zu ermöglichen.
 
 Body der Anfrage:
@@ -494,17 +472,13 @@ Body der Anfrage:
     "workload_dhbw": "[PRÄSENZZEIT]", // Bspw. "24 Stunden"
     "requirements": "[ANFODERUNGEN]" // Bspw. "Keine."
     "catalog_id": "[KATALOG-ID]", // Bspw. "WWISE_301.2"
-    "mainFocus": [
-        {
-            "name": "[THEMENGEBIET]" // Bspw. "Unternehmensführung"
-        }
-    ]
+    "mainFocus_ids": [ 0, 0 ] // Bspw. ["1"]
 }
 ````
 
 ### DELETE /lectures?lectureId={ID}
 
-**Info**: Löscht die Vorlesung mit der angegebenen ``{ID}``.
+**Info**: Löscht die **abstrakte** Vorlesung mit der angegebenen ``{ID}``.
 
 ## /fieldOfStudies
 
@@ -519,7 +493,7 @@ Rückgabe:
     "payload": {
         "FieldOfStudies": [
             {
-                "id": 0, // Bspw. "1"
+                "fieldOfStudy_id": 0, // Bspw. "1"
                 "name": "[NAME]" // Bspw. "Wirtschaftsinformatik"
             }
         ]
@@ -539,12 +513,12 @@ Rückgabe:
     "payload": {
         "FieldOfStudies": [
             {
-                "id": 0, // Bspw. "1"
+                "fieldOfStudy_id": 0, // Bspw. "1"
                 "name": "[NAME]", // Bspw. "Wirtschaftsinformatik"
                 "MajorSubjects": [
                     {
-                        "id": 0, // Bspw. "1"
-                        "name": "[NAME]" // Bspw. "Software Engineering 2018"
+                        "majorSubject_id": 0, // Bspw. "1"
+                        "name": "[NAME]"  // Bspw. "Software Engineering 2018"
                     }
                 ]
             }
@@ -636,7 +610,98 @@ Body der Anfrage:
 
 ## /presentations
 
-**Info**: Nur zum Erstellen, Bearbeiten und Löschen der Dozenten-Anfragen und **konkreten** Vorlesungen.
+### GET /presentations?courseId={ID}
+
+**Info**: Gibt alle **konkreten** Vorlesungen (inkl. der noch in Planung befindlichen) für einen bestimmten Kurs zurück.
+
+````js
+{
+    "Presentations": [
+        {
+            "presentation_id": 0, // Bspw. "1"
+            "status": "[STATUS]", // Bspw. "Dozent offen", "Dozent angeschrieben", ...
+            "Lecture": {
+                "lecture_id": 0, // Bspw. "3"
+                "name": "[NAME]", // Bspw. "Netzwerk- und Betriebssystemstrukturen für mobile Applikationen"
+                "workload_home": "[SELBSTSTUDIUM]", // Bspw. "57"
+                "workload_dhbw": "[PRÄSENZZEIT]", // Bspw. "33"
+                "catalog_id": "string", // Bspw. "WWISE_713.1"
+                "MainFocus": [
+                    {
+                        "mainFocus_id": 0, // Bspw. "1"
+                        "name": "[THEMENGEBIET]" // Bspw. "Mobile Applikationen"
+                    }
+                ],
+                "Module": {
+                    "module_id": 0, // Bspw. "1"
+                    "name": "[NAME]", // Bspw. "Technische Grundlagen mobiler Applikationen"
+                    "description": "[BESCHREIBUNG]", // Bspw. "Lorem Ipsum..."
+                    "ects": 0, // Bspw. "6"
+                    "catalog_id": "[KATALOG-ID]", // Bspw. "WWISE_1337"
+                    "AcademicRecords": [ // mögliche Bewertungsverfahren
+                        {
+                            "academicRecord_id": 0, // Bspw. "1"
+                            "abbreviation": "[ABKÜRZUNG]", // Bspw. "K, SE"
+                            "type": "[TYP]", // Bspw. "Klausur"
+                            "rated": TRUE //  Bspw. "TRUE/FALSE
+                        }
+                    ],
+                    "ModuleGroup": {
+                        "moduleGroup_id": 0, // Bspw. "1"
+                        "name": "[NAME]", // Bspw. "Profil I"
+                        "number_of_modules_to_attend": 0, // Bspw. "1"
+                        "from_semester_number": 0, // Bspw. "1"
+                        "to_semester_number": 0 // Bspw. "2"
+                    }
+                }
+            },
+            "Lecturer": { // falls vorhanden
+                "lecturer_id": 0, // Bspw. "1"
+                "firstname": "[VORNAME]", // Bspw. "Sebastian"
+                "lastname": "[NACHNAME]", // Bspw. "Ritterbusch"
+                "academic_title": "[AKADEMISCHER TITEL]", // Bspw. "Prof. Dr."
+                "email": "[E-MAIL]", // Bspw. "sebastian.ritterbusch@dhbw-mannheim.de"
+                "salutation": "[ANREDE]", // Bspw. "Herr"
+                "phonenumber": "[TELEFONNUMMER]", // Bspw. "+49 621 4105 - 1724"
+                "experience": "[ERFAHRUNG]", // Bspw. "Mathematik, Podcasts, ..."
+                "MainFocus": [
+                    {
+                        "mainFocus_id": 0, // Bspw. "1"
+                        "name": "[THEMENGEBIET]" // Bspw. "Software Engineering"
+                    }
+                ],
+                "profile": "[PROFIL]", // Geplant als String
+                "research": "[LEHRE]", // Geplant als String
+                "cv": "[VITA]", // Geplant als String
+                "comment": "[KOMMENTAR]", // Bspw. "Sehr engagiert"
+                "is_extern": "[KENNZEICHNER, OB EXTERN]" // 0 = intern, 2 = extern
+            },
+            "DirectorOfStudies": {
+                "misc": "[VERSCHIEDENES]" // Bspw. "{ "email-template": "blablabla, was auch immer ihr wollt, könnt ihr hier speichern.", "oder": "auch einfach anders. ihr seid hier frei.", "bitte": "jedoch als text und kein blob." }"
+            },
+            "AcademicRecord": { // gewähltes Bewertungsverfahren
+                "academicRecord_id": 0, // Bspw. "1"
+                "abbreviation": "[ABKÜRZUNG]", // Bspw. "K, SE"
+                "type": "[TYP]", // Bspw. "Klausur"
+                "rated": TRUE //  Bspw. "TRUE/FALSE
+            },
+            "Semester": {
+                "semester_id": 0, // Bspw. "1"
+                "name": "[SEMESTERNAME]", // Bspw. "WS17/18"
+                "number": 0, // Bspw. "1"
+                "start_date": "[STARTDATUM]", // Bspw. "2017-10-23"
+                "end_date": "[ENDDATUM]" // Bspw. "2018-02-19"
+            }
+        }
+    ]
+}
+````
+
+#### Optionale Parameter /presentations
+
+- ``semesterId``
+  - filtert die Rückgabe.
+  - gibt alle Presentations zum angegebenen Kurs&Semester zurück.
 
 ### POST /presentations
 
@@ -688,7 +753,7 @@ Rückgabe:
 {
     "message": "[DEBUG-INFO/KOMMENTAR]", // Bspw. "Successful", "Failed", ...
     "payload": {
-        "academicRecords": [
+        "AcademicRecords": [
             {
                 "academicRecord_id": 0 // Bspw. "1"
                 "abbreviation": "[ABKÜRZUNG]", // Bspw. "K, SE"
@@ -743,42 +808,43 @@ Rückgabe:
 {
     "message": "[DEBUG-INFO/KOMMENTAR]", // Bspw. "Successful", "Failed", ...
     "payload": {
-        "fieldOfStudy": {
+        "FieldOfStudy": {
             "fieldOfStudy_id": 0, // Bspw. "1"
             "name": "[STUDIENGANG]" // Bspw. "Wirtschaftsinformatik"
         },
-        "majorSubject": {
+        "MajorSubject": {
             "majorSubject_id": 0, // Bspw. "1"
             "name": "[STUDIENRICHTUNG]" // Bspw. "Software Engineering ab 2011"
         },
-        "moduleGroups": [
+        "ModuleGroups": [
             {
                 "moduleGroup_id": 0, // Bspw. "1"
                 "name": "[NAME]", // Bspw. "Profil I"
                 "number_of_modules_to_attend": 0, // Bspw. "1"
                 "from_semester_number": 0, // Bspw. "1"
                 "to_semester_number": 0 // Bspw. "2"
-                "modules": [
+                "Modules": [
                     "module_id": 0, // Bspw. "1"
                     "name": "[NAME]", // Bspw. "Technische Grundlagen mobiler Applikationen"
                     "description": "[BESCHREIBUNG]", // Bspw. "Lorem Ipsum..."
                     "ects": 0, // Bspw. "6"
                     "catalog_id": "[KATALOG-ID]", // Bspw. "WWISE_1337"
-                    "lectures": [
+                    "Lectures": [
                         {
                             "name": "[NAME]", // Bspw. "Netzwerk- und Betriebssystemstrukturen für mobile Applikationen"
                             "workload_home": "[SELBSTSTUDIUM]", // Bspw. "57 Stunden"
                             "workload_dhbw": "[PRÄSENZZEIT]", // Bspw. "33 Stunden"
                             "requirements": "[ANFODERUNGEN]" // Bspw. "Keine."
                             "catalog_id": "[KATALOG-ID]", // Bspw. "WWISE_301.2"
-                            "mainFocus": [
-                                {   
+                            "MainFocus": [
+                                {
+                                    "mainFocus_id": 0, // Bspw. "1"
                                     "name": "[THEMENGEBIET]" // Bspw. "Unternehmensführung"
                                 }
                             ] 
                         }
                     ],
-                    "academicRecords": [
+                    "AcademicRecords": [
                         {
                             "academicRecord_id": 0, // Bspw. "1"
                             "abbreviation": "[ABKÜRZUNG]", // Bspw. "K, SE"
@@ -786,107 +852,6 @@ Rückgabe:
                             "rated": TRUE //  Bspw. "TRUE/FALSE
                         }
                     ]
-                ]
-            }
-        ]
-    }
-}
-````
-
-
-## /semesterview
-
-### GET /semesterview?courseId={ID}
-
-**Info**: Gibt alle Semesterinformationen zu einem angegebenen Kurs zurück.
-
-Rückgabe:
-````js
-{
-    "message": "[DEBUG-INFO/KOMMENTAR]", // Bspw. "Successful", "Failed", ...
-    "payload": {
-        "course": {
-            "name": "[KURSNAME]", // Bspw. "WWI 17 SEB"
-            "majorSubject": "[STUDIENGANG]", // Bspw. "Wirtschaftsinformatik"
-            "fieldOfStudy": "[STUDIENRICHTUNG]", // Bspw. "Software Engineering
-        },
-        "semesters": [
-            {
-                "semester_id": 0, // Bspw. "1"
-                "name": "[SEMESTERNAME]", // Bspw. "WS17/18"
-                "number": 0, // Bspw. "1"
-                "start_date": "[STARTDATUM]", // Bspw. "2017-10-23"
-                "end_date": "[ENDDATUM]" // Bspw. "2018-02-19"
-                "moduleGroups": [
-                    {
-                        "moduleGroup_id": 0, // Bspw. "1"
-                        "name": "[MODULGRUPPE]", // Bspw. "Profil I" oder "Management"
-                        "number_of_modules_to_attend": 0, // Bspw. "2"
-                        "from_semester_number": 0, // Bspw. "3"
-                        "to_semester_number": 0, // Bspw. "4"
-                        "modules": [
-                            {
-                                "module_id": 0, // Bspw. "2"
-                                "name": "[MODULNAME]", // Bspw. "Technische Grundlagen mobiler Applikationen"
-                                "description": "[BESCHREIBUNG]", // Bspw. "Lorem Ipsum..."
-                                "ects": 0, // Bspw. "6"
-                                "catalog_id": "[KATALOG-ID]", // Bspw. "WWISE_713"
-                                "presentations": [
-                                    {
-                                        "lecture": {
-                                            "lecture_id": 0, // Bspw. "3"
-                                            "name": "[NAME]", // Bspw. "Netzwerk- und Betriebssystemstrukturen für mobile Applikationen"
-                                            "workload_home": "[SELBSTSTUDIUM]", // Bspw. "57"
-                                            "workload_dhbw": "[PRÄSENZZEIT]", // Bspw. "33"
-                                            "catalog_id": "string", // Bspw. "WWISE_713.1"
-                                            "mainFocus": [
-                                                {
-                                                    "name": "[THEMENGEBIET]" // Bspw. "Mobile Applikationen"
-                                                }
-                                        },
-                                        "status": "[STATUS]", // Bspw. "Dozent offen", "Dozent angeschrieben", ...
-                                        "lecturer": { // falls vorhanden
-                                            "lecturer_id": 0, // Bspw. "1"
-                                            "firstname": "[VORNAME]", // Bspw. "Sebastian"
-                                            "lastname": "[NACHNAME]", // Bspw. "Ritterbusch"
-                                            "academic_title": "[AKADEMISCHER TITEL]", // Bspw. "Prof. Dr."
-                                            "email": "[E-MAIL]", // Bspw. "sebastian.ritterbusch@dhbw-mannheim.de"
-                                            "salutation": "[ANREDE]", // Bspw. "Herr"
-                                            "phonenumber": "[TELEFONNUMMER]", // Bspw. "+49 621 4105 - 1724"
-                                            "experience": "[ERFAHRUNG]", // Bspw. "Mathematik, Podcasts, ..."
-                                            "mainFocus": [
-                                                {
-                                                    "name": "[THEMENGEBIET]", // Bspw. "Software Engineering"
-                                                }
-                                            ],
-                                            "profile": "[PROFIL]", // Geplant als String
-                                            "research": "[LEHRE]", // Geplant als String
-                                            "cv": "[VITA]", // Geplant als String
-                                            "comment": "[KOMMENTAR]", // Bspw. "Sehr engagiert"
-                                            "is_extern": "[KENNZEICHNER, OB EXTERN]" // 0 = intern, 2 = extern
-                                        },
-                                        "directorOfStudies": {
-                                            "misc": "[VERSCHIEDENES]" // Bspw. "{ "email-template": "blablabla, was auch immer ihr wollt, könnt ihr hier speichern.", "oder": "auch einfach anders. ihr seid hier frei.", "bitte": "jedoch als text und kein blob." }"
-                                        }
-                                    }
-                                ],
-                                "academicRecords": [ // mögliche Bewertungsverfahren
-                                    {
-                                        "academicRecord_id": 0, // Bspw. "1"
-                                        "abbreviation": "[ABKÜRZUNG]", // Bspw. "K, SE"
-                                        "type": "[TYP]", // Bspw. "Klausur"
-                                        "rated": TRUE //  Bspw. "TRUE/FALSE
-                                    }
-                                ],
-                                "academicRecord": { // gewähltes Bewertungsverfahren
-                                    "academicRecord_id": 0, // Bspw. "1"
-                                    "abbreviation": "[ABKÜRZUNG]", // Bspw. "K, SE"
-                                    "type": "[TYP]", // Bspw. "Klausur"
-                                    "rated": TRUE //  Bspw. "TRUE/FALSE
-                                }
-                            }
-                        ]
-                    }
                 ]
             }
         ]
