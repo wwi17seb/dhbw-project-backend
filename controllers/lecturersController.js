@@ -1,5 +1,5 @@
 const lecturerService = require('../services/lecturerService');
-
+const db = require('../database/database');
 const responseHelper = require('../helpers/responseHelper');
 const copyObjectHelper = require('../helpers/propertyCopyHelper');
 

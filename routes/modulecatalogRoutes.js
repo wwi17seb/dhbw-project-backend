@@ -1,10 +1,10 @@
 const express = require('express');
 const authorize = require('../helpers/authorize');
 
-const modulcatalogController = require('../controllers/modulcatalogController');
+const modulcatalogController = require('../controllers/modulecatalogController');
 
 const router = express.Router();
 
-router.get('/modulcatalog/', authorize(), modulcatalogController.getModulcatalog);
+router.get('/modulecatalog/', authorize(), modulcatalogController.getModulcatalog);
 
 module.exports = router;
