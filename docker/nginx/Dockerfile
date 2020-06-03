@@ -1,4 +1,4 @@
-FROM nginx:alpine AS builder
+FROM nginx:1.17.10-alpine AS builder
 
 ENV MORE_HTTP_VERSION 0.33
 ENV NGINX_VERSION 1.17.10
@@ -31,7 +31,7 @@ RUN CONFARGS=$(nginx -V 2>&1 | sed -n -e 's/^.*arguments: //p') \
   ./configure --with-compat $CONFARGS --add-dynamic-module=$NCHANDIR && \
   make && make install
 
-FROM nginx:alpine
+FROM nginx:1.17.10-alpine
 # Extract the dynamic module NCHAN from the builder image
 COPY --from=builder /usr/local/nginx/modules/ngx_http_headers_more_filter_module.so /usr/lib/nginx/modules/ngx_http_headers_more_filter_module.so
 
