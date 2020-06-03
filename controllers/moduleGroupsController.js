@@ -22,7 +22,7 @@ exports.putModuleGroups = async (req, res) => {
     let moduleGroupToUpdate = { ...req.body, moduleGroup_id: moduleGroupId };
     let updatedModuleGroup = await moduleGroupService.updateModuleGroup(transaction, moduleGroupToUpdate);
     transaction.commit();
-    return responseHelper(res, 200, 'Successfully created', updatedModuleGroup);
+    return responseHelper(res, 200, 'Successfully updated.', updatedModuleGroup);
   } catch (error) {
     transaction.rollback();
     return responseHelper(res, 500, 'Internal Server Error.');

@@ -25,7 +25,7 @@ exports.postAcademicRecords = async (req, res) => {
     let academicRecordToCreate = req.body;
     let createdAcademicRecord = await academicRecordService.createAcademicRecord(transaction, academicRecordToCreate);
     transaction.commit();
-    return responseHelper(res, 201, 'Successfully created', createdModuleGroup);
+    return responseHelper(res, 201, 'Successfully created', createdAcademicRecord);
   } catch (error) {
     transaction.rollback();
     return responseHelper(res, 500, 'Internal Server Error.');
