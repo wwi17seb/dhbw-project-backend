@@ -161,6 +161,7 @@ Rückgabe:
             {
                 "course_id": 0, // Bspw. "1"
                 "name": "[KURSNAME]", // Bspw. "WWI 17 SE B"
+                "google_calendar_id": "[GOOGLE_KALENDER_ID]",
                 "DirectorOfStudies": {
                     "misc": "[VERSCHIEDENES]" // Bspw. "{ "email-template": "blablabla, was auch immer ihr wollt, könnt ihr hier speichern.", "oder": "auch einfach anders. ihr seid hier frei.", "bitte": "jedoch als text und kein blob." }"
                 },
@@ -195,6 +196,7 @@ Body der Anfrage:
 ````js
 {
     "name": "[KURSNAME]", // Bspw. "WWI 17 SEB"
+    "google_calendar_id": "[GOOGLE_KALENDER_ID]",
     "majorSubject_id": 0, // Bspw. "1" - impliziert das field of study.
     "directorOfStudy_ids": [ 0, 0 ], // Bspw. [1] oder [1, 2] - die eigene Id wird automatisch gesetzt, hier können weitere Verantwortlichen hinzugefügt werden
     "semesters": [
@@ -226,6 +228,7 @@ Body der Anfrage:
 ````js
 {
     "name": "[KURSNAME]", // Bspw. "WWI 17 SE B"
+    "google_calendar_id": "[GOOGLE_KALENDER_ID]",
     "majorSubject_id": 0, // Bspw. "1"
     "directorOfStudy_ids": [ 0, 0 ] // Bspw. [1] oder [1, 2] - die eigene Id wird automatisch gesetzt, hier können weitere Verantwortlichen hinzugefügt werden
 }
