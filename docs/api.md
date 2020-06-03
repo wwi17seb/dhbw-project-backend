@@ -196,6 +196,7 @@ Body der Anfrage:
 {
     "name": "[KURSNAME]", // Bspw. "WWI 17 SEB"
     "majorSubject_id": 0, // Bspw. "1" - impliziert das field of study.
+    "directorOfStudy_ids": [ 0, 0 ], // Bspw. [1] oder [1, 2] - die eigene Id wird automatisch gesetzt, hier können weitere Verantwortlichen hinzugefügt werden
     "semesters": [
         {
             "name": "[SEMESTERNAME]", // Bspw. "WS17/18"
@@ -225,7 +226,8 @@ Body der Anfrage:
 ````js
 {
     "name": "[KURSNAME]", // Bspw. "WWI 17 SE B"
-    "majorSubject_id": 0 // Bspw. "1"
+    "majorSubject_id": 0, // Bspw. "1"
+    "directorOfStudy_ids": [ 0, 0 ] // Bspw. [1] oder [1, 2] - die eigene Id wird automatisch gesetzt, hier können weitere Verantwortlichen hinzugefügt werden
 }
 ````
 
