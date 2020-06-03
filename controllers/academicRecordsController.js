@@ -14,7 +14,7 @@ exports.getAcademicRecords = async (req, res) => {
     const AcademicRecords = await academicRecordService.findAll();
     responseHelper(res, 200, '', { AcademicRecords });
   } catch (error) {
-    responseHelper(res, 500, 'Internal Server Error');
+    responseHelper(res, 500, 'Internal Server Error.');
   }
 };
 
@@ -25,7 +25,7 @@ exports.postAcademicRecords = async (req, res) => {
     let academicRecordToCreate = req.body;
     let createdAcademicRecord = await academicRecordService.createAcademicRecord(transaction, academicRecordToCreate);
     transaction.commit();
-    return responseHelper(res, 201, 'Successfully created', createdAcademicRecord);
+    return responseHelper(res, 201, 'Successfully created.', createdAcademicRecord);
   } catch (error) {
     transaction.rollback();
     return responseHelper(res, 500, 'Internal Server Error.');
@@ -45,7 +45,7 @@ exports.putAcademicRecords = async (req, res) => {
       rated: academicRecordToUpdate.rated,
     });
     transaction.commit();
-    return responseHelper(res, 200, 'Successfully updated', updatedAcademicRecord);
+    return responseHelper(res, 200, 'Successfully updated.', updatedAcademicRecord);
   } catch (error) {
     transaction.rollback();
     return responseHelper(res, 500, 'Internal Server Error.');
@@ -59,7 +59,7 @@ exports.deleteAcademicRecords = async (req, res) => {
     throwError(); // TODO: REMOVE!
     let deletedAcademicRecord = await academicRecordService.deleteAcademicRecord(transaction, academicRecordId);
     transaction.commit();
-    return responseHelper(res, 200, 'Successfully deleted', deletedAcademicRecord);
+    return responseHelper(res, 200, 'Successfully deleted.', deletedAcademicRecord);
   } catch (error) {
     transaction.rollback();
     return responseHelper(res, 500, 'Internal Server Error.');
