@@ -1,21 +1,7 @@
 const responseHelper = require('../helpers/responseHelper');
 const courseService = require('../services/courseService');
-const semesterService = require('../services/semesterService');
+const copyObjectHelper = require('../helpers/propertyCopyHelper');
 const db = require('../database/database');
-
-const testReturnValue = {
-  courses: [
-    {
-      course_id: 1,
-      name: 'WWI 17 SE B',
-      directorOfStudies: {
-        // Inhalt folgt...
-      },
-      majorSubject: 'Wirtschaftsinformatik',
-      fieldOfStudy: 'Software Engineering (ab 2011)',
-    },
-  ],
-};
 
 // TODO: remove error as soon as they are implemented.
 
