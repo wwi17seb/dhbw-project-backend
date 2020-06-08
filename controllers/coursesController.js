@@ -1,47 +1,89 @@
+const responseHelper = require('../helpers/responseHelper');
 const courseService = require('../services/courseService');
-const authService = require('../services/authService');
+const copyObjectHelper = require('../helpers/propertyCopyHelper');
+const db = require('../database/database');
 
-const responseHelper = require("../helpers/responseHelper");
+// TODO: remove error as soon as they are implemented.
 
-const testReturnValue = {
-    "data": [
-        {"course_id": 42,
-        "name": "WWI17SEB",
-        "directorOfStudies": "Ritterbusch",
-        "majorSubject": "Wirtschaftsinformatik",
-        "fieldOfStudy": "SE"}
-    ],
-    "links": {
-        "first": "https://exoplan.it/courses?page=1",
-        "last": "https://exoplan.it/courses?page=1",
-        "prev": null,
-        "next": null
-    },
-    "meta": {
-        "type": "courses",
-        "current_page": 42,
-        "from": 42,
-        "last_page": 42,
-        "path": "https://exoplan.it/courses",
-        "per_page": 42,
-        "to": 42,
-        "total": 42,
-        "tags": {
-            "directorOfStudies": "Ritterbusch",
-        }
+const throwError = () => {
+  throw false;
+};
+
+exports.getCourses = async (req, res) => {
+  const directorOfStudiesId = req.token.userId;
+  try {
+    // find all to current dos
+    const courses = await courseService.findAll(true, true, false, directorOfStudiesId);
+    responseHelper(res, 200, { courses });
+  } catch (error) {
+    responseHelper(res, 500, 'Internal Server Error.');
+  }
+};
+
+exports.postCourses = async (req, res) => {
+  const directorOfStudiesId = req.token.userId;
+
+  let transaction = await db.sequelize.transaction();
+  try {
+    let courseToCreate = copyObjectHelper(req.body, ['name', 'majorSubject_id', 'directorOfStudy_ids', 'semesters']);
+
+    if (!courseToCreate.directorOfStudy_ids) {
+      courseToCreate.directorOfStudy_ids = [];
     }
-}
+    courseToCreate.directorOfStudy_ids.push(directorOfStudiesId);
 
+    let createdCourse = await courseService.createCourse(transaction, { ...courseToCreate }, true, true);
 
-exports.getCourses = async (req, res, next) => {
-    responseHelper(res, 501, testReturnValue);
+    transaction.commit();
+
+    return responseHelper(res, 201, 'Successfully created.', createdCourse);
+  } catch (error) {
+    transaction.rollback();
+    return responseHelper(res, 500, 'Internal Server Error.');
+  }
 };
-exports.postCourses = async (req, res, next) => {
-    responseHelper(res, 501, "Not yet implemented.");
+
+exports.putCourses = async (req, res) => {
+  // TODO: security: only if courseId belongs to DoS
+  const courseId = req.query.courseId;
+  const directorOfStudiesId = req.token.userId;
+
+  let transaction = await db.sequelize.transaction();
+
+  try {
+    let courseToUpdate = copyObjectHelper(req.body, ['name', 'majorSubject_id', 'directorOfStudy_ids']);
+
+    if (!courseToUpdate.directorOfStudy_ids) {
+      courseToUpdate.directorOfStudy_ids = [];
+    }
+    courseToUpdate.directorOfStudy_ids.push(directorOfStudiesId);
+
+    let updatedCourse = await courseService.updateCourse(transaction, { courseId, ...courseToUpdate });
+
+    transaction.commit();
+
+    return responseHelper(res, 200, 'Successfully updated.', updatedCourse);
+  } catch (error) {
+    transaction.rollback();
+    return responseHelper(res, 500, 'Internal Server Error.');
+  }
 };
-exports.putCourses = async (req, res, next) => {
-    responseHelper(res, 501, "Not yet implemented.");
-};
-exports.deleteCourses = async (req, res, next) => {
-    responseHelper(res, 501, "Not yet implemented.");
+
+exports.deleteCourses = async (req, res) => {
+  // TODO: security: only if courseId belongs to DoS
+  const courseId = req.query.courseId;
+  const directorOfStudiesId = req.token.userId;
+
+  let transaction = await db.sequelize.transaction();
+
+  try {
+    let deletedCourse = await courseService.deleteCourse(transaction, courseId);
+
+    transaction.commit();
+
+    return responseHelper(res, 200, 'Successfully deleted.', deletedCourse);
+  } catch (error) {
+    transaction.rollback();
+    return responseHelper(res, 500, 'Internal Server Error.');
+  }
 };

@@ -15,23 +15,26 @@ const dbsync = require('./database/dbsync');
 app.use(jsonParser);
 
 // routes
-const authRoutes = require('./routes/authRoutes');
-const lecturesRoute = require('./routes/lecturesRoutes');
-const lecturersRoute = require('./routes/lecturersRoutes');
-const coursesRoute = require('./routes/coursesRoutes');
-const semesterviewRoute = require('./routes/semesterviewRoutes');
-const routeNotImplementedRoutes = require('./routes/routeNotImplementedRoutes');
+app.use(require('./routes/authRoutes'));
+app.use(require('./routes/coursesRoutes'));
+app.use(require('./routes/semestersRoutes'));
+app.use(require('./routes/lecturersRoutes'));
+app.use(require('./routes/moduleGroupsRoutes'));
+app.use(require('./routes/lecturesRoutes'));
+app.use(require('./routes/fieldOfStudiesRoutes'));
+app.use(require('./routes/majorSubjectsRoutes'));
+app.use(require('./routes/presentationsRoutes'));
+app.use(require('./routes/modulecatalogRoutes'));
+app.use(require('./routes/semesterviewRoutes'));
+app.use(require('./routes/academicRecordsRoutes'));
 
-app.use(authRoutes); // authroute: ./login ./logout ./signup
-app.use(lecturersRoute);
-app.use(lecturesRoute);
-app.use(coursesRoute);
-app.use(semesterviewRoute);
-
-app.get("/", (req, res) => res.json({ status: 'server running' }));
-app.use(routeNotImplementedRoutes);
+app.get('/', (req, res) => {
+  res.json({ message: "Server Running", payload: null });
+});
+app.use(require('./routes/routeNotImplementedRoutes'));
 app.use(function (err, req, res, next) {
-  res.status(500).json({});
+  console.error(`[ERROR]: ${err.message}`);
+  res.status(500).json({ message: "Internal Server Error", payload: null });
 });
 
 dbsync

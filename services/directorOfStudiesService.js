@@ -2,7 +2,10 @@ const db = require('../database/database');
 const lecturerService = require('./lecturerService');
 
 module.exports.findDirectorOfStudiesById = async (directorOfStudies_id) => {
-  const foundedDirectorOfStudies = await db.DirectorOfStudies.findOne({ where: { directorOfStudies_id }, include: [{ model: db.Lecturer }] });
+  const foundedDirectorOfStudies = await db.DirectorOfStudies.findOne({
+    where: { directorOfStudies_id },
+    include: [{ model: db.Lecturer }],
+  });
   if (foundedDirectorOfStudies) return foundedDirectorOfStudies;
   return null;
 };
@@ -12,9 +15,8 @@ module.exports.getByUsername = async (username) => {
   return (await directorOfStudiesToFind) ? directorOfStudiesToFind.dataValues : null;
 };
 
-module.exports.createDirectorOfStudies = async (transaction, DirectorOfStudies, Lecturer) => {
+module.exports.createDirectorOfStudies = async (transaction, DirectorOfStudies) => {
   const createdDirectorOfStudies = await db.DirectorOfStudies.create(DirectorOfStudies, transaction);
-  await lecturerService.createLecturer(null, Lecturer, createdDirectorOfStudies.dataValues.directorOfStudies_id);
   return createdDirectorOfStudies.dataValues;
 };
 
