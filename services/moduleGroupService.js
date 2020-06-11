@@ -30,9 +30,19 @@ module.exports.findModuleGroupByName = async (moduleGroupName) => {
 /*
  * Returns all moduleGroups []
  */
-module.exports.getAllModuleGroup = async () => {
+module.exports.getAllModuleGroups = async () => {
   const moduleGroup = await db.ModuleGroup.findAll({ include: whatToInclude });
-  return moduleGroup.dataValues;
+
+  return moduleGroup;
+};
+
+/*
+ * Returns all moduleGroups []
+ */
+module.exports.getAllModuleGroupsByMajorSubjectId = async (majorSubject_id) => {
+  const moduleGroup = await db.ModuleGroup.findAll({ where: { majorSubject_id }, include: whatToInclude });
+
+  return moduleGroup;
 };
 
 // whatToPersist = [{ association: db.Module, include: [db.Module] }];
@@ -43,7 +53,7 @@ module.exports.getAllModuleGroup = async () => {
  */
 module.exports.createModuleGroup = async (
   transaction,
-  { majorSubject_id, name, number_of_modules_to_attend, from_semester_number, to_semester_number }
+  { majorSubject_id, name, number_of_modules_to_attend, from_semester_number, to_semester_number, Modules }
 ) => {
   const moduleGroupToCreate = {
     majorSubject_id,
@@ -51,9 +61,23 @@ module.exports.createModuleGroup = async (
     number_of_modules_to_attend,
     from_semester_number,
     to_semester_number,
+    Modules,
   };
 
-  const moduleGroup = await db.ModuleGroup.create({ ...moduleGroupToCreate }, { transaction });
+  console.log('moduleGroupToCreate', moduleGroupToCreate);
+
+  const moduleGroup = await db.ModuleGroup.create(
+    { ...moduleGroupToCreate },
+    {
+      transaction,
+      include: [
+        {
+          association: db.ModuleGroup.Module,
+          include: [{ association: db.Module.Lecture, include: [{ association: db.Lecture.MainFocus }] }],
+        },
+      ],
+    }
+  );
 
   return moduleGroup.dataValues;
 };
