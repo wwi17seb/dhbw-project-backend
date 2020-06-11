@@ -22,7 +22,8 @@ module.exports.findMajorSubjectByName = async (majorSubjectName) => {
  */
 module.exports.findAll = async () => {
   const majorSubjects = await db.MajorSubject.findAll({ plain: true, raw: true, include: [db.FieldOfStudy] });
-  return majorSubjects.dataValues;
+
+  return majorSubjects;
 };
 
 // POST
@@ -39,6 +40,8 @@ module.exports.createMajorSubject = async (transaction, name, fieldOfStudy_id) =
 // receives majorSubject: { id, name }
 module.exports.updateMajorSubject = async (transaction, { majorSubject_id, name, fieldOfStudy_id }) => {
   const majorSubject = await this.findMajorSubjectById(majorSubject_id);
+
+  // FIXME: update is not a function
   await majorSubject.update({ name, fieldOfStudy_id }, { transaction });
 
   return majorSubject.dataValues;

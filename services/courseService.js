@@ -6,7 +6,7 @@ const majorSubjectService = require('./majorSubjectService');
  */
 module.exports.findCourseById = async (course_id) => {
   const course = await db.Course.findOne({ where: { course_id } });
-  return course;
+  return course ? course.dataValues : null;
 };
 
 /*
@@ -14,7 +14,7 @@ module.exports.findCourseById = async (course_id) => {
  */
 module.exports.findCourseByName = async (courseName) => {
   const course = await db.Course.findOne({ where: { name: courseName } });
-  return course;
+  return course.dataValues;
 };
 
 // GET
@@ -28,6 +28,7 @@ module.exports.findAll = async (withMajorSubject, withSemesters, withFieldOfStud
   if (withSemesters) withInclude.push({ model: db.Semester });
   if (withFieldOfStudy) withInclude.push({ model: db.FieldOfStudy });
   const courses = await db.Course.findAll({ include: withInclude });
+
   return courses;
 };
 

@@ -9,7 +9,7 @@ const throwError = () => {
   throw false;
 };
 
-exports.getCourses = async (req, res) => {
+exports.getCourses = async (req, res, next) => {
   const directorOfStudiesId = req.token.userId;
   try {
     // find all to current dos
@@ -20,7 +20,7 @@ exports.getCourses = async (req, res) => {
   }
 };
 
-exports.postCourses = async (req, res) => {
+exports.postCourses = async (req, res, next) => {
   const directorOfStudiesId = req.token.userId;
 
   let transaction = await db.sequelize.transaction();
@@ -43,7 +43,7 @@ exports.postCourses = async (req, res) => {
   }
 };
 
-exports.putCourses = async (req, res) => {
+exports.putCourses = async (req, res, next) => {
   // TODO: security: only if courseId belongs to DoS
   const courseId = req.query.courseId;
   const directorOfStudiesId = req.token.userId;
@@ -69,7 +69,7 @@ exports.putCourses = async (req, res) => {
   }
 };
 
-exports.deleteCourses = async (req, res) => {
+exports.deleteCourses = async (req, res, next) => {
   // TODO: security: only if courseId belongs to DoS
   const courseId = req.query.courseId;
   const directorOfStudiesId = req.token.userId;

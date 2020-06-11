@@ -43,7 +43,7 @@ module.exports.getAllModules = async ({ withLecture, withAcademicRecord, withMod
 
   const modules = await db.Module.findAll({ include: whatToInclude });
 
-  return modules.dataValues;
+  return modules;
 };
 
 /**

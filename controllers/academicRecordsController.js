@@ -8,7 +8,7 @@ const throwError = () => {
   throw false;
 };
 
-exports.getAcademicRecords = async (req, res) => {
+exports.getAcademicRecords = async (req, res, next) => {
   try {
     throwError(); // TODO: REMOVE!
     const AcademicRecords = await academicRecordService.findAll();
@@ -18,7 +18,7 @@ exports.getAcademicRecords = async (req, res) => {
   }
 };
 
-exports.postAcademicRecords = async (req, res) => {
+exports.postAcademicRecords = async (req, res, next) => {
   let transaction = await db.sequelize.transaction();
   try {
     throwError(); // TODO: REMOVE!
@@ -32,7 +32,7 @@ exports.postAcademicRecords = async (req, res) => {
   }
 };
 
-exports.putAcademicRecords = async (req, res) => {
+exports.putAcademicRecords = async (req, res, next) => {
   const academicRecordId = req.query.academicRecordId;
   let transaction = await db.sequelize.transaction();
   try {
@@ -52,7 +52,7 @@ exports.putAcademicRecords = async (req, res) => {
   }
 };
 
-exports.deleteAcademicRecords = async (req, res) => {
+exports.deleteAcademicRecords = async (req, res, next) => {
   const academicRecordId = req.query.academicRecordId;
   let transaction = await db.sequelize.transaction();
   try {

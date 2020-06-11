@@ -12,8 +12,7 @@ addDefaultDos = async () => {
   };
   const directorOfStudiesIsAvaliable = await directorOfStudiesService.getByUsername(directorOfStudiesToCreate.username);
   if (!directorOfStudiesIsAvaliable) {
-    const lecturer = {};
-    await directorOfStudiesService.createDirectorOfStudies(null, directorOfStudiesToCreate, lecturer);
+    await directorOfStudiesService.createDirectorOfStudies(null, directorOfStudiesToCreate);
   }
 };
 // verify that db is connected

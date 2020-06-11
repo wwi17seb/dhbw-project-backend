@@ -1,5 +1,6 @@
 const authService = require('../services/authService');
 const directorOfStudiesService = require('../services/directorOfStudiesService');
+const db = require('../database/database');
 
 const responseHelper = require('../helpers/responseHelper');
 
@@ -49,22 +50,25 @@ exports.postSignup = async (req, res, next) => {
     responseHelper(res, 400, 'No password was given!');
   }
 
-  const userExists = await directorOfStudiesService.getByUsername(username);
-  if (userExists) {
+  const directorOfStudiesExists = await directorOfStudiesService.getByUsername(username);
+  if (directorOfStudiesExists) {
     responseHelper(res, 400, 'Username already exists');
   }
 
-  const userToCreate = { username, password };
+  const directorOfStudiesToCreate = { username, password };
   let transaction = await db.sequelize.transaction();
   try {
-    const user = await directorOfStudiesService.createDirectorOfStudies(transaction, userToCreate);
-    const token = authService.generateToken(user);
+    const createdDirectorOfStudies = await directorOfStudiesService.createDirectorOfStudies(
+      transaction,
+      directorOfStudiesToCreate
+    );
+    const token = authService.generateToken(createdDirectorOfStudies);
 
     transaction.commit();
     return responseHelper(res, 201, 'Successful', {
       token,
-      directorOfStudies_id: user.directorOfStudies_id,
-      username: user.username,
+      directorOfStudies_id: createdDirectorOfStudies.directorOfStudies_id,
+      username: createdDirectorOfStudies.username,
     });
   } catch (error) {
     transaction.rollback();

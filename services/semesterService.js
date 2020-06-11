@@ -25,7 +25,8 @@ module.exports.findLectureByName = async (semesterName) => {
  */
 module.exports.getAllSemesters = async () => {
   const semesters = await db.Semester.findAll();
-  return semesters.dataValues;
+
+  return semesters;
 };
 
 // POST

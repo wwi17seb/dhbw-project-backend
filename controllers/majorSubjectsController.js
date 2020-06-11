@@ -6,21 +6,33 @@ const copyObjectHelper = require('../helpers/propertyCopyHelper');
 
 exports.getMajorSubjects = async (req, res) => {
   const fieldOfStudyId = req.query.fieldOfStudyId;
-  const fieldOfStudyWithMajorSubjects = await fieldOfStudyService.findFieldOfStudyById(fieldOfStudyId, true);
-  responseHelper(res, 200, 'Successful', {
-    FieldOfStudy: {
-      fieldOfStudy_id: fieldOfStudyWithMajorSubjects.fieldOfStudy_id,
-      name: fieldOfStudyWithMajorSubjects.name,
-    },
-    MajorSubjects: fieldOfStudyWithMajorSubjects.MajorSubjects,
-  });
+
+  try {
+    const fieldOfStudyWithMajorSubjects = await fieldOfStudyService.findFieldOfStudyById(fieldOfStudyId, true);
+
+    if (fieldOfStudyWithMajorSubjects) {
+      return responseHelper(res, 200, 'Successful', {
+        FieldOfStudy: {
+          fieldOfStudy_id: fieldOfStudyWithMajorSubjects.fieldOfStudy_id,
+          name: fieldOfStudyWithMajorSubjects.name,
+        },
+        MajorSubjects: fieldOfStudyWithMajorSubjects.MajorSubjects,
+      });
+    } else {
+      return responseHelper(res, 404, 'Not Found');
+    }
+  } catch (error) {
+    transaction.rollback();
+    return next(error);
+  }
 };
 
-exports.postMajorSubjects = async (req, res) => {
-  let transaction = await db.sequelize.transaction();
+exports.postMajorSubjects = async (req, res, next) => {
+  const transaction = await db.sequelize.transaction();
+
   try {
-    let majorSubjectToCreate = copyObjectHelper(req.body, ['fieldOfStudy_id', 'name']);
-    let createdMajorSubject = await majorSubjectService.createMajorSubject(
+    const majorSubjectToCreate = copyObjectHelper(req.body, ['fieldOfStudy_id', 'name']);
+    const createdMajorSubject = await majorSubjectService.createMajorSubject(
       transaction,
       majorSubjectToCreate.name,
       majorSubjectToCreate.fieldOfStudy_id
@@ -33,12 +45,14 @@ exports.postMajorSubjects = async (req, res) => {
   }
 };
 
-exports.putMajorSubjects = async (req, res) => {
-  let transaction = await db.sequelize.transaction();
+exports.putMajorSubjects = async (req, res, next) => {
+  const transaction = await db.sequelize.transaction();
+
   try {
     const majorSubjectId = req.query.majorSubjectId;
-    let majorSubjectToUpdate = copyObjectHelper(req.body, ['fieldOfStudy_id', 'name']);
-    let updatedMajorSubject = await majorSubjectService.updateMajorSubject(transaction, {
+    const majorSubjectToUpdate = copyObjectHelper(req.body, ['fieldOfStudy_id', 'name']);
+
+    const updatedMajorSubject = await majorSubjectService.updateMajorSubject(transaction, {
       majorSubject_id: majorSubjectId,
       name: majorSubjectToUpdate.name,
       fieldOfStudy_id: majorSubjectToUpdate.fieldOfStudy_id,
@@ -51,11 +65,12 @@ exports.putMajorSubjects = async (req, res) => {
   }
 };
 
-exports.deleteMajorSubjects = async (req, res) => {
+exports.deleteMajorSubjects = async (req, res, next) => {
   const majorSubjectId = req.query.majorSubjectId;
-  let transaction = await db.sequelize.transaction();
+  const transaction = await db.sequelize.transaction();
+
   try {
-    let deleteMajorSubject = await majorSubjectService.deleteMajorSubject(transaction, majorSubjectId);
+    const deleteMajorSubject = await majorSubjectService.deleteMajorSubject(transaction, majorSubjectId);
     transaction.commit();
     return responseHelper(res, 200, 'Successfully deleted');
   } catch (error) {

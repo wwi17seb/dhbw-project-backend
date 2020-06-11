@@ -29,7 +29,8 @@ module.exports.findAll = async (withMajorSubjects = false) => {
     options.include = db.MajorSubject;
   }
   const fieldOfStudies = await db.FieldOfStudy.findAll(options);
-  return fieldOfStudies.dataValues;
+
+  return fieldOfStudies;
 };
 
 // POST
