@@ -32,20 +32,18 @@ module.exports.getAllLectures = async (withPresentations) => {
 };
 
 /*
- * Receives lecture, { withMainFocus, withModule }
+ * returns createdLecturer
  */
 module.exports.createLecture = async (
   transaction,
-  { name, workload_home, workload_dhbw, catalog_id },
-  { withMainFocus, withModule }
+  { module_id, name, workload_home, workload_dhbw, catalog_id, mainFocus_ids }
 ) => {
-  const withInclude = [];
-  if (withMainFocus) withInclude.push({ model: db.MainFocus });
-  if (withModule) withInclude.push({ model: db.Module });
+  const lectureToCreate = { module_id, name, workload_home, workload_dhbw, catalog_id };
 
-  const lectureToCreate = { name, workload_home, workload_dhbw, catalog_id };
-
-  const createdLecturer = await db.Lecture.create({ ...lectureToCreate }, { include: withInclude, transaction });
+  console.log('lectureToCreate', lectureToCreate);
+  const createdLecturer = await db.Lecture.create(lectureToCreate, { transaction });
+  console.log('createdLecturer', createdLecturer);
+  createdLecturer.addMainFocuses(mainFocus_ids);
 
   return createdLecturer.dataValues;
 };
