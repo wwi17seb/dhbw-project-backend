@@ -10,15 +10,27 @@ module.exports = (sequelize, DataTypes) => {
       },
       name: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
-      requirements: {
+      description: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
       ects: {
         type: DataTypes.INTEGER,
+        allowNull: false,
       },
       catalog_id: {
         type: DataTypes.STRING,
+        allowNull: false,
+      },
+      number_of_lectures_to_attend: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      requirements: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
     },
     {
