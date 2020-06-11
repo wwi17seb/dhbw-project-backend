@@ -23,7 +23,8 @@ module.exports.findAcademicRecordByName = async (academicRecordName) => {
  */
 module.exports.findAll = async () => {
   const academicRecord = await db.AcademicRecord.findAll();
-  return academicRecord.dataValues;
+
+  return academicRecord;
 };
 
 // POST
