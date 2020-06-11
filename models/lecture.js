@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
       },
       workload_dhbw: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
       },
       catalog_id: {
         type: DataTypes.STRING,
@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Lecture.associate = (models) => {
-    models.Lecture.belongsToMany(models.MainFocus, {
+    Lecture.MainFocus = models.Lecture.belongsToMany(models.MainFocus, {
       through: 'lecture_mainFocus',
       onDelete: 'CASCADE',
       foreignKey: {
@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // 1:n between lecture and presentation
-    models.Lecture.hasMany(models.Presentation, {
+    Lecture.Presentation = models.Lecture.hasMany(models.Presentation, {
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,
@@ -49,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // n:1 between lecture and module
-    models.Lecture.belongsTo(models.Module, {
+    Lecture.Module = models.Lecture.belongsTo(models.Module, {
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,

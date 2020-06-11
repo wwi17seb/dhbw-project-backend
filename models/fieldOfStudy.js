@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
 
   FieldOfStudy.associate = (models) => {
     // 1:n between FieldOfStudy and MajorSubject
-    models.FieldOfStudy.hasMany(models.MajorSubject, {
+    FieldOfStudy.MajorSubject = models.FieldOfStudy.hasMany(models.MajorSubject, {
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,

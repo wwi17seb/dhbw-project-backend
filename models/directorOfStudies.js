@@ -29,9 +29,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
         allowNull: true,
       },
-      lecturer_id: {
-        type: DataTypes.INTEGER,
-      },
     },
     {
       modelName: 'DirectorOfStudies',
@@ -41,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
 
   DirectorOfStudies.associate = (models) => {
     // n:m between DirectorOfStudies to Course
-    models.DirectorOfStudies.belongsToMany(models.Course, {
+    DirectorOfStudies.Course = models.DirectorOfStudies.belongsToMany(models.Course, {
       through: 'directorOfStudies_course',
       onDelete: 'CASCADE',
       foreignKey: {
@@ -51,7 +48,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // 1:n betwenn director of studies and presentation
-    models.DirectorOfStudies.hasMany(models.Presentation, {
+    DirectorOfStudies.Presentation = models.DirectorOfStudies.hasMany(models.Presentation, {
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,
@@ -60,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // 1:n between director of studies and lecturer
-    models.DirectorOfStudies.hasMany(models.Lecturer, {
+    DirectorOfStudies.Lecturer = models.DirectorOfStudies.hasMany(models.Lecturer, {
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: true,

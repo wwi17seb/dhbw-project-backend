@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Module.associate = (models) => {
     // 1:n between module and lecture
-    models.Module.hasMany(models.Lecture, {
+    Module.Lecture = models.Module.hasMany(models.Lecture, {
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,
@@ -50,7 +50,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // n:m between module and academic record
-    models.Module.belongsToMany(models.AcademicRecord, {
+    Module.AcademicRecord = models.Module.belongsToMany(models.AcademicRecord, {
       through: 'module_academicRecord',
       onDelete: 'CASCADE',
       foreignKey: {
@@ -60,7 +60,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // n:1 between module and modulegroup
-    models.Module.belongsTo(models.ModuleGroup, {
+    Module.ModuleGroup = models.Module.belongsTo(models.ModuleGroup, {
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,
