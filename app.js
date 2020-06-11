@@ -24,6 +24,7 @@ app.use(require('./routes/majorSubjectsRoutes'));
 app.use(require('./routes/presentationsRoutes'));
 app.use(require('./routes/academicRecordsRoutes'));
 app.use(require('./routes/modulecatalogRoutes'));
+app.use(require('./routes/moduleGroupsRoutes'));
 
 app.get('/', (req, res) => {
   res.json({ message: 'Server Running', payload: null });
@@ -31,6 +32,7 @@ app.get('/', (req, res) => {
 app.use(require('./routes/routeNotImplementedRoutes'));
 app.use(function (err, req, res, next) {
   console.error(`[ERROR]: ${err.message}`);
+  console.error(err);
   res.status(500).json({ message: 'Internal Server Error', payload: null });
 });
 
