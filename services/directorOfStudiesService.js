@@ -16,7 +16,7 @@ module.exports.getByUsername = async (username) => {
 };
 
 module.exports.createDirectorOfStudies = async (transaction, DirectorOfStudies) => {
-  const createdDirectorOfStudies = await db.DirectorOfStudies.create(DirectorOfStudies, transaction);
+  const createdDirectorOfStudies = await db.DirectorOfStudies.create(DirectorOfStudies, { transaction });
   return createdDirectorOfStudies.dataValues;
 };
 
@@ -29,6 +29,6 @@ module.exports.updateDiretorOfStudies = async (transaction, { directorOfStudies_
 
 // Delete
 module.exports.deleteDiretorOfStudies = async (transaction, directorOfStudies_id) => {
-  const counter = await db.DirectorOfStudies.destroy({ where: { directorOfStudies_id } }, transaction);
+  const counter = await db.DirectorOfStudies.destroy({ where: { directorOfStudies_id, transaction } });
   return counter > 0;
 };

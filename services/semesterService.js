@@ -7,7 +7,7 @@ const db = require('../database/database');
  */
 module.exports.findSemesterById = async (semester_id) => {
   const semesterToFind = await db.Semester.findOne({ where: { semester_id } });
-  return semesterToFind;
+  return semesterToFind.dataValues;
 };
 
 /*
@@ -17,7 +17,7 @@ module.exports.findSemesterById = async (semester_id) => {
  */
 module.exports.findLectureByName = async (semesterName) => {
   const semesterToFind = await db.Semester.findOne({ where: { name: semesterName } });
-  return semesterToFind;
+  return semesterToFind.dataValues;
 };
 
 /*
@@ -25,7 +25,7 @@ module.exports.findLectureByName = async (semesterName) => {
  */
 module.exports.getAllSemesters = async () => {
   const semesters = await db.Semester.findAll();
-  return semesters;
+  return semesters.dataValues;
 };
 
 // POST
@@ -36,7 +36,7 @@ module.exports.getAllSemesters = async () => {
 module.exports.createSemester = async (transaction, { name, number, start_date, end_date }) => {
   const semesterToCreate = { name, number, start_date, end_date };
 
-  const Semester = await db.Semester.create({ ...semesterToCreate }, transaction);
+  const Semester = await db.Semester.create({ ...semesterToCreate }, { transaction });
 
   return Semester.dataValues;
 };
@@ -48,7 +48,7 @@ module.exports.createSemester = async (transaction, { name, number, start_date, 
  */
 module.exports.updateSemester = async (transaction, { semester_id, name, number, start_date, end_date }) => {
   const semester = await this.findSemesterById(semester_id);
-  await semester.update({ name, number, start_date, end_date }, transaction);
+  await semester.update({ name, number, start_date, end_date }, { transaction });
   return semester.dataValues;
 };
 
@@ -58,6 +58,6 @@ module.exports.updateSemester = async (transaction, { semester_id, name, number,
  * deletes a semester
  */
 module.exports.deleteSemester = async (transaction, semester_id) => {
-  const counter = await db.Semester.destroy({ where: { semester_id } }, transaction);
+  const counter = await db.Semester.destroy({ where: { semester_id }, transaction });
   return counter > 0;
 };

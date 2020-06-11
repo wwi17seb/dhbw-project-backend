@@ -16,7 +16,7 @@ module.exports.findFieldOfStudyById = async (fieldOfStudy_id, withMajorSubjects 
  */
 module.exports.findFieldOfStudyByName = async (fieldOfStudyName) => {
   const fieldOfStudy = await db.FieldOfStudy.findOne({ where: { name: fieldOfStudyName } });
-  return fieldOfStudy;
+  return fieldOfStudy.dataValues;
 };
 
 // GET
@@ -28,7 +28,8 @@ module.exports.findAll = async (withMajorSubjects = false) => {
   if (withMajorSubjects) {
     options.include = db.MajorSubject;
   }
-  return await db.FieldOfStudy.findAll(options);
+  const fieldOfStudies = await db.FieldOfStudy.findAll(options);
+  return fieldOfStudies.dataValues;
 };
 
 // POST
@@ -36,7 +37,7 @@ module.exports.findAll = async (withMajorSubjects = false) => {
  * Returns created FieldOfStudy
  */
 module.exports.createFieldOfStudy = async (transaction, name) => {
-  const fieldOfStudy = await db.FieldOfStudy.create({ name }, transaction);
+  const fieldOfStudy = await db.FieldOfStudy.create({ name }, { transaction });
   return fieldOfStudy.dataValues;
 };
 
@@ -44,9 +45,8 @@ module.exports.createFieldOfStudy = async (transaction, name) => {
 // wie post s.o.
 // receives (FieldOfStudy) -> id, name
 module.exports.updateFieldOfStudy = async (transaction, { fieldOfStudy_id, name }) => {
-  const fieldOfStudy = await this.findFieldOfStudyById(fieldOfStudy_id);
-  fieldOfStudy.update({ name }, transaction);
-  return fieldOfStudy.dataValues;
+  const updatedFiledOfStudy = await db.FieldOfStudy.update({ name }, { where: { fieldOfStudy_id }, transaction });
+  return updatedFiledOfStudy > 0;
 };
 
 // Delete
@@ -55,6 +55,6 @@ module.exports.updateFieldOfStudy = async (transaction, { fieldOfStudy_id, name 
  * Returns boolean
  */
 module.exports.deleteFieldOfStudy = async (transaction, fieldOfStudy_id) => {
-  const counter = await db.FieldOfStudy.destroy({ where: { fieldOfStudy_id } }, transaction);
+  const counter = await db.FieldOfStudy.destroy({ where: { fieldOfStudy_id }, transaction });
   return counter > 0;
 };

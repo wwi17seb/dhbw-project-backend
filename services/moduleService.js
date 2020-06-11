@@ -1,16 +1,32 @@
 const db = require('../database/database');
-
-const lecService = require('./lecturerService');
+const acService = require('./academicRecordsService');
 
 /**
- * Receives { name, catalog_id, Lecturers }
+ * Receives the id of module
  *
- * Return a new, persisted module
+ * Returns a module
  */
-module.exports.createModule = async (transaction, { name, catalog_id, Lecturers, ects, requirements }) => {
-  const extractedModule = { name, catalog_id, Lecturers, ects, requirements };
-  const createdModule = await db.Module.create({ ...extractedModule }, transaction);
-  return createdModule.dataValues;
+module.exports.findModuleById = async (module_id) => {
+  const moduleToFind = await db.Module.findOne({
+    where: { module_id },
+    include: [{ model: db.Lecture, as: 'lectures' }],
+  });
+
+  return moduleToFind.dataValues;
+};
+
+/**
+ * Receives the name of module
+ *
+ * Returns a module
+ */
+module.exports.findModuleByName = async (nameOfModule) => {
+  const moduleToFind = await db.Module.findOne({
+    where: { name: nameOfModule },
+    include: [{ model: db.Lecture, as: 'lectures' }],
+  });
+
+  return moduleToFind.dataValues;
 };
 
 /*
@@ -26,83 +42,66 @@ module.exports.getAllModules = async ({ withLecture, withAcademicRecord, withMod
   if (withModuleGroup) whatToInclude.push({ model: db.ModuleGroup, as: 'moduleGroup' });
 
   const modules = await db.Module.findAll({ include: whatToInclude });
-  return modules;
+
+  return modules.dataValues;
 };
 
 /**
- * Receives the id of module
+ * Receives { moduleGroup_id, name, description, ects, catalog_id, academicRecord_ids, number_of_lectures_to_attend }
  *
- * Returns a module
- */
-module.exports.findModuleById = async (module_id) => {
-  const moduleToFind = await db.Module.findOne({
-    where: {  module_id },    include: [{ model: db.Lecture, as: 'lectures' }],  });
-  return moduleToFind;
-};
-
-/**
- * Receives the name of module
  *
- * Returns a module
+ * Return a new, persisted module
  */
-module.exports.findModuleByName = async (nameOfModule) => {
-  const moduleToFind = await db.Module.findOne({
-    where: { name: nameOfModule },
-    include: [{ model: db.Lecture, as: 'lectures' }],
-  });
-  return moduleToFind;
-};
-
-/**
- * Receives module: { name, catalog_id } and lecturerId
- *
- * Return a new, persisted module with
- */
-module.exports.createModuleWithLecturers = async ({ name, catalog_id, lecturerIds }) => {
-  let transaction;
-  try {
-    transaction = await db.sequelize.transaction(); // Managed Transaction
-
-    const createdModule = await db.Module.create(
-      {
-        name,
-        catalog_id,
-      },
-      transaction
-    );
-
-    // add lectureres to association 
-    lecturerIds.forEach(lecturer_id => {
-      const lecturer = await lecService.findLecturerById(lecturer_id);
-      await createdModule.addLecturer(lecturer, {
-        through: { model: db.Lecturer_Module },
-      });
-    });
-    
-    await transaction.commit();
-
-    return createdModule.dataValues;
-  } catch (error) {
-    console.log('createModule', error);
-    transaction.rollback();
+module.exports.createModule = async (
+  transaction,
+  {
+    moduleGroup_id,
+    name,
+    description,
+    ects,
+    catalog_id,
+    number_of_lectures_to_attend,
+    requirements,
+    academicRecord_ids,
   }
+) => {
+  const extractedModule = {
+    moduleGroup_id,
+    name,
+    description,
+    ects,
+    catalog_id,
+    number_of_lectures_to_attend,
+    requirements,
+    academicRecord_ids,
+  };
+  // first parameter value, second parameter is option: { transaction, where: {} ...}
+  const createdModule = await db.Module.create(extractedModule, { transaction });
+
+  createdModule.addAcademicRecords(academicRecord_ids);
+
+  return createdModule.dataValues;
 };
 
 // PUT
 // wie post s.o.
 // receives (Module) -> moduleId, name, requirements, ects
 module.exports.updateModule = async (transaction, { module_id, name, requirements, ects }) => {
-  const module = await this.findMajorSubjectById(module_id);
-  await module.update({ name, requirements, ects }, transaction);
+  const moduleToUpdate = await db.Module.update(
+    { module_id, name, requirements, ects },
+    { where: { module_id }, transaction }
+  );
+  // await module.update({ name, requirements, ects }, { transaction });
 
-  return module.dataValues;
+  return moduleToUpdate > 0;
 };
 
-/**
+// Delete
+/*
  * Receives the id of the module
  *
- * Returns number of deleted entries e.g. 1
- * @type {number}
+ * returns boolean of succeeding
+ * @type {boolean}
  */
 module.exports.delete = async (module_id) => {
   const counter = await db.Module.destroy({

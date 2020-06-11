@@ -26,7 +26,10 @@ module.exports.findAll = async (withCourse, withSemesters, withAcademicRecord, w
 
 // POST
 // TODO:
-module.exports.createPresentation = async (transaction, { directorOfStudiesId, course_id, semester_id, academicRecord_id, lecture_id, lecturer_id }) => {
+module.exports.createPresentation = async (
+  transaction,
+  { directorOfStudiesId, course_id, semester_id, academicRecord_id, lecture_id, lecturer_id }
+) => {
   const withInclude = [
     { model: db.DirectorOfStudies },
     { model: db.Lecturer },
@@ -45,7 +48,7 @@ module.exports.createPresentation = async (transaction, { directorOfStudiesId, c
       lecturer_id,
       createdBy_id: directorOfStudiesId,
     },
-    transaction
+    { transaction }
   );
 
   return presentation.dataValues;
@@ -54,7 +57,10 @@ module.exports.createPresentation = async (transaction, { directorOfStudiesId, c
 // PUT
 // wie post s.o.
 // receives (course) -> id, name, majorSubjectId, DoSID
-module.exports.updatePresentation = async (transaction, { id, name, directorOfStudiesId, courseId, semesterId, academicRecordId, lectureId, lecturerId }) => {
+module.exports.updatePresentation = async (
+  transaction,
+  { presentation_id, name, directorOfStudiesId, courseId, semesterId, academicRecordId, lectureId, lecturerId }
+) => {
   const withInclude = [
     { model: db.DirectorOfStudies },
     { model: db.Lecturer },
@@ -64,9 +70,7 @@ module.exports.updatePresentation = async (transaction, { id, name, directorOfSt
     { model: db.Lecture },
   ];
 
-  const presentation = await this.findPresentationById(id);
-
-  await presentation.update(
+  const updatedRows = await db.Presentation.update(
     {
       name,
       createdBy_id: directorOfStudiesId,
@@ -76,18 +80,18 @@ module.exports.updatePresentation = async (transaction, { id, name, directorOfSt
       lecture_id: lectureId,
       lecturer_id: lecturerId,
     },
-    transaction
+    { where: { presentation_id }, transaction }
   );
 
-  return presentation.dataValues;
+  return updatedRows > 0;
 };
 
 // Delete
-// receives (presentationId)
+// receives (presentation_id)
 /*
  * Returns boolean
  */
 module.exports.deletePresentation = async (transaction, presentation_id) => {
-  const counter = await db.Presentation.destroy({ where: { presentation_id } }, transaction);
+  const counter = await db.Presentation.destroy({ where: { presentation_id }, transaction });
   return counter > 0;
 };

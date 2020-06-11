@@ -33,14 +33,19 @@ module.exports.findAll = async (withMajorSubject, withSemesters, withFieldOfStud
 
 // POST
 // name of course, majorSubjectId, directorOfStudiesId
-module.exports.createCourse = async (transaction, { name, majorSubject_id, directorOfStudies_id }, withMajorSubject, withDirectorOfStudies) => {
+module.exports.createCourse = async (
+  transaction,
+  { name, majorSubject_id, directorOfStudies_id },
+  withMajorSubject,
+  withDirectorOfStudies
+) => {
   const withInclude = [];
   if (withDirectorOfStudies) withInclude.push({ model: db.DirectorOfStudies });
   if (withMajorSubject) {
     const majorSubject = await majorSubjectService.findMajorSubjectById(majorSubject_id);
     if (!majorSubject) return { error: 'No such major subject found!' };
   }
-  db.Course.create({ name, majorSubject_id, directorOfStudies_id }, transaction);
+  const course = await db.Course.create({ name, majorSubject_id, directorOfStudies_id }, { transaction });
 
   return course.dataValues;
 };
@@ -57,6 +62,6 @@ module.exports.updateCourse = async (transaction, { course_id, name }) => {
 // Delete
 // receives (courseId, dosId)
 module.exports.deleteCourse = async (transaction, course_id) => {
-  const counter = await db.Course.destroy({ where: { course_id } }, transaction);
+  const counter = await db.Course.destroy({ where: { course_id }, transaction });
   return counter > 0;
 };
