@@ -28,9 +28,8 @@ exports.postMajorSubjects = async (req, res) => {
     transaction.commit();
     return responseHelper(res, 201, 'Successfully created', createdMajorSubject);
   } catch (error) {
-    console.log(error);
     transaction.rollback();
-    return responseHelper(res, 500, 'Internal Server Error.');
+    return next(error);
   }
 };
 
@@ -48,7 +47,7 @@ exports.putMajorSubjects = async (req, res) => {
     return responseHelper(res, 200, 'Successfully updated', updatedMajorSubject);
   } catch (error) {
     transaction.rollback();
-    return responseHelper(res, 500, 'Internal Server Error.');
+    return next(error);
   }
 };
 
@@ -61,6 +60,6 @@ exports.deleteMajorSubjects = async (req, res) => {
     return responseHelper(res, 200, 'Successfully deleted');
   } catch (error) {
     transaction.rollback();
-    return responseHelper(res, 500, 'Internal Server Error');
+    return next(error);
   }
 };

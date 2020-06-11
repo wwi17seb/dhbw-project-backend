@@ -9,7 +9,7 @@ exports.getLecturers = async (req, res) => {
     const lecturers = await lecturersService.findByDirectorOfStudiesId(curStudiesDirectorId);
     responseHelper(res, 200, '', { lecturers });
   } catch (error) {
-    responseHelper(res, 500, 'Internal Server Error');
+    return next(error);
   }
 };
 
@@ -38,7 +38,7 @@ exports.postLecturers = async (req, res) => {
     responseHelper(res, 201, 'Successfully created lecturer', createdLecturer);
   } catch (error) {
     transaction.rollback();
-    responseHelper(res, 400, 'Could not create lecturer');
+    return next(error);
   }
 };
 

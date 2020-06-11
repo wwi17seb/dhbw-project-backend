@@ -16,7 +16,7 @@ exports.getCourses = async (req, res) => {
     const courses = await courseService.findAll(true, true, false, directorOfStudiesId);
     responseHelper(res, 200, { courses });
   } catch (error) {
-    responseHelper(res, 500, 'Internal Server Error.');
+    return next(error);
   }
 };
 
@@ -39,7 +39,7 @@ exports.postCourses = async (req, res) => {
     return responseHelper(res, 201, 'Successfully created.', createdCourse);
   } catch (error) {
     transaction.rollback();
-    return responseHelper(res, 500, 'Internal Server Error.');
+    return next(error);
   }
 };
 
@@ -65,7 +65,7 @@ exports.putCourses = async (req, res) => {
     return responseHelper(res, 200, 'Successfully updated.', updatedCourse);
   } catch (error) {
     transaction.rollback();
-    return responseHelper(res, 500, 'Internal Server Error.');
+    return next(error);
   }
 };
 
@@ -84,6 +84,6 @@ exports.deleteCourses = async (req, res) => {
     return responseHelper(res, 200, 'Successfully deleted.', deletedCourse);
   } catch (error) {
     transaction.rollback();
-    return responseHelper(res, 500, 'Internal Server Error.');
+    return next(error);
   }
 };

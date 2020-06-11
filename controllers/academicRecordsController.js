@@ -14,7 +14,7 @@ exports.getAcademicRecords = async (req, res) => {
     const AcademicRecords = await academicRecordService.findAll();
     responseHelper(res, 200, '', { AcademicRecords });
   } catch (error) {
-    responseHelper(res, 500, 'Internal Server Error.');
+    return next(error);
   }
 };
 
@@ -28,7 +28,7 @@ exports.postAcademicRecords = async (req, res) => {
     return responseHelper(res, 201, 'Successfully created.', createdAcademicRecord);
   } catch (error) {
     transaction.rollback();
-    return responseHelper(res, 500, 'Internal Server Error.');
+    return next(error);
   }
 };
 
@@ -48,7 +48,7 @@ exports.putAcademicRecords = async (req, res) => {
     return responseHelper(res, 200, 'Successfully updated.', updatedAcademicRecord);
   } catch (error) {
     transaction.rollback();
-    return responseHelper(res, 500, 'Internal Server Error.');
+    return next(error);
   }
 };
 
@@ -62,6 +62,6 @@ exports.deleteAcademicRecords = async (req, res) => {
     return responseHelper(res, 200, 'Successfully deleted.', deletedAcademicRecord);
   } catch (error) {
     transaction.rollback();
-    return responseHelper(res, 500, 'Internal Server Error.');
+    return next(error);
   }
 };

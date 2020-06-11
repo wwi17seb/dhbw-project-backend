@@ -25,7 +25,11 @@ exports.postLogin = (req, res, next) => {
     .then((doMatch) => {
       if (doMatch) {
         const token = authService.generateToken(loadedUser);
-        responseHelper(res, 200, 'Token generated!', { token, userId: loadedUser.id, username: loadedUser.username });
+        responseHelper(res, 200, 'Token generated!', {
+          token,
+          directorOfStudies_id: loadedUser.directorOfStudies_id,
+          username: loadedUser.username,
+        });
       } else {
         responseHelper(res, 401, ERROR_MESSAGE_AUTH_FAILED);
       }
@@ -51,9 +55,21 @@ exports.postSignup = async (req, res, next) => {
   }
 
   const userToCreate = { username, password };
-  const user = await directorOfStudiesService.createDirectorOfStudies(null, userToCreate);
-  const token = authService.generateToken(user);
-  responseHelper(res, 201, 'Successful', { token, userId: user.id, username: user.username });
+  let transaction = await db.sequelize.transaction();
+  try {
+    const user = await directorOfStudiesService.createDirectorOfStudies(transaction, userToCreate);
+    const token = authService.generateToken(user);
+
+    transaction.commit();
+    return responseHelper(res, 201, 'Successful', {
+      token,
+      directorOfStudies_id: user.directorOfStudies_id,
+      username: user.username,
+    });
+  } catch (error) {
+    transaction.rollback();
+    return next(error);
+  }
 };
 
 exports.postLogout = (req, res, next) => {

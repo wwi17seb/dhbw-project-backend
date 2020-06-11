@@ -17,7 +17,7 @@ exports.postFieldOfStudies = async (req, res) => {
     return responseHelper(res, 201, 'Successfully created', createdFieldOfStudy);
   } catch (error) {
     transaction.rollback();
-    return responseHelper(res, 500, 'Internal Server Error.');
+    return next(error);
   }
 };
 exports.putFieldOfStudies = async (req, res) => {
@@ -33,7 +33,7 @@ exports.putFieldOfStudies = async (req, res) => {
     return responseHelper(res, 200, 'Successfully updated', updateFieldOfStudy);
   } catch (error) {
     transaction.rollback();
-    return responseHelper(res, 500, 'Internal Server Error.');
+    return next(error);
   }
 };
 exports.deleteFieldOfStudies = async (req, res) => {
@@ -45,6 +45,6 @@ exports.deleteFieldOfStudies = async (req, res) => {
     return responseHelper(res, 200, 'Successfully deleted', deletedFieldOfStudy);
   } catch (error) {
     transaction.rollback();
-    return responseHelper(res, 500, 'Internal Server Error.');
+    return next(error);
   }
 };
