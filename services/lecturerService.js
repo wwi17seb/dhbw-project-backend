@@ -2,15 +2,18 @@ const db = require('../database/database');
 const directorOfStudiesService = require('./directorOfStudiesService');
 
 /*
- * Returns founded lecturer
+ * Returns found lecturer
  */
-module.exports.findLecturerById = async (lecturer_id) => {
-  const lecturer = await db.Lecturer.findOne({ where: { lecturer_id }, transaction });
-  return lecturer;
+module.exports.findLecturerById = async (lecturer_id, transaction) => {
+  const lecturer = await db.Lecturer.findOne({
+    where: { lecturer_id },
+    transaction,
+  });
+  return lecturer.dataValues;
 };
 
 /*
- * Returns founded lecturer
+ * Returns found lecturer
  */
 module.exports.findLecturerByName = async ({ lastname, firstname }, withFirstname, withLastname) => {
   const searchParams = {};
@@ -21,11 +24,14 @@ module.exports.findLecturerByName = async ({ lastname, firstname }, withFirstnam
 };
 
 /*
- * Returns founded lecturers []
+ * Returns found lecturers []
  */
 module.exports.findAllLecturer = async () => {
-  const lecturers = await db.Lecturer.findAll();
-  return lecturers.dataValues;
+  const lecturers = await db.Lecturer.findAll({
+    include: [{ model: db.DirectorOfStudies, attributes: ['directorOfStudies_id', 'username', 'is_admin', 'misc'] }],
+  });
+
+  return lecturers;
 };
 
 /*
@@ -35,66 +41,82 @@ module.exports.findAllLecturer = async () => {
  */
 module.exports.createLecturer = async (
   transaction,
-  { academic_title, firstname, lastname, email, salutation, phonenumber, experience, is_extern, profile, cv, research },
-  directorOfStudies_id
-) => {
-  const lecturerToCreate = {
-    academic_title,
+  {
     firstname,
     lastname,
+    academic_title,
     email,
     salutation,
     phonenumber,
     experience,
-    is_extern,
     profile,
-    cv,
     research,
-    createdBy_id: directorOfStudies_id,
+    cv,
+    comment,
+    is_extern,
+    MainFocuses,
+  },
+  directorOfStudies_id
+) =>
+  // TODO: Add MainFocuses
+  {
+    const lecturerToCreate = {
+      firstname,
+      lastname,
+      academic_title,
+      email,
+      salutation,
+      phonenumber,
+      experience,
+      profile,
+      research,
+      cv,
+      comment,
+      is_extern,
+      createdBy_id: directorOfStudies_id,
+    };
+
+    console.log('lecturerToCreate', lecturerToCreate);
+
+    const createdLecturer = await db.Lecturer.create(lecturerToCreate, { transaction });
+
+    return createdLecturer.dataValues;
   };
-
-  const buildedLecturer = await db.Lecturer.build(lecturerToCreate);
-  await buildedLecturer.save();
-  const createdLecturer = await db.Lecturer.create({ ...lecturerToCreate }, { transaction });
-
-  const directorOfStudies = await directorOfStudiesService.findDirectorOfStudiesById(directorOfStudies_id);
-  await directorOfStudies.update({ lecturer_id: createdLecturer.dataValues.lecturer_id });
-
-  return buildedLecturer.dataValues;
-};
 
 // PUT
 module.exports.updateLecturer = async (
   transaction,
   {
-    lecturer_id,
-    academic_title,
     firstname,
     lastname,
+    academic_title,
     email,
     salutation,
     phonenumber,
     experience,
-    rating,
-    is_extern,
     profile,
-    cv,
     research,
-  }
+    cv,
+    comment,
+    is_extern,
+    MainFocuses,
+  },
+  lecturer_id,
+  directorOfStudies_id
 ) => {
   const lecturerToUpdate = {
-    academic_title,
     firstname,
     lastname,
+    academic_title,
     email,
     salutation,
     phonenumber,
     experience,
-    rating,
-    is_extern,
     profile,
-    cv,
     research,
+    cv,
+    comment,
+    is_extern,
   };
   const updatedLecturere = await db.Lecturer.update({ ...lecturerToUpdate }, { where: { lecturer_id }, transaction });
   return updatedLecturere > 0;

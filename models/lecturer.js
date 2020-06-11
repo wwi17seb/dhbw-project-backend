@@ -8,15 +8,15 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         primaryKey: true,
       },
-      academic_title: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
       firstname: {
         type: DataTypes.STRING,
         allowNull: true,
       },
       lastname: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      academic_title: {
         type: DataTypes.STRING,
         allowNull: true,
       },
@@ -36,11 +36,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      is_extern: {
-        type: DataTypes.BOOLEAN,
+      profile: {
+        type: DataTypes.STRING,
         allowNull: true,
       },
-      profile: {
+      research: {
         type: DataTypes.STRING,
         allowNull: true,
       },
@@ -48,8 +48,12 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      research: {
+      comment: {
         type: DataTypes.STRING,
+        allowNull: true,
+      },
+      is_extern: {
+        type: DataTypes.BOOLEAN,
         allowNull: true,
       },
     },
@@ -61,7 +65,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Lecturer.associate = (models) => {
     // n:m between lecturer and main focus
-    models.Lecturer.belongsToMany(models.MainFocus, {
+    Lecturer.MainFocus = models.Lecturer.belongsToMany(models.MainFocus, {
       through: 'lecturer_mainFocus',
       onDelete: 'CASCADE',
       foreignKey: {
@@ -71,7 +75,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // 1:n between lecturer and presentation
-    models.Lecturer.hasMany(models.Presentation, {
+    Lecturer.Presentation = models.Lecturer.hasMany(models.Presentation, {
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,
@@ -79,8 +83,8 @@ module.exports = (sequelize, DataTypes) => {
       },
     });
 
-    // 1:n between lecturer and directorOfStudies
-    models.Lecturer.belongsTo(models.DirectorOfStudies, {
+    // n:1 between lecturer and directorOfStudies
+    Lecturer.DirectorOfStudies = models.Lecturer.belongsTo(models.DirectorOfStudies, {
       foreignKey: {
         allowNull: true,
         name: 'createdBy_id',
