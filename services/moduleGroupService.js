@@ -1,4 +1,5 @@
 const db = require('../database/database');
+const lectureService = require('./lectureService');
 
 const whatToInclude = [
   {
@@ -45,7 +46,6 @@ module.exports.getAllModuleGroupsByMajorSubjectId = async (majorSubject_id) => {
   return moduleGroup;
 };
 
-// whatToPersist = [{ association: db.Module, include: [db.Module] }];
 // POST
 /*
  * Receives moduleGroup: { name, number_of_modules_to_attend, from_semester_number, to_semester_number }
@@ -66,20 +66,57 @@ module.exports.createModuleGroup = async (
 
   console.log('moduleGroupToCreate', moduleGroupToCreate);
 
-  const moduleGroup = await db.ModuleGroup.create(
-    { ...moduleGroupToCreate },
-    {
-      transaction,
-      include: [
-        {
-          association: db.ModuleGroup.Module,
-          include: [{ association: db.Module.Lecture, include: [{ association: db.Lecture.MainFocus }] }],
-        },
-      ],
-    }
+  const moduleGroup = await db.ModuleGroup.create(moduleGroupToCreate, {
+    transaction,
+    include: [
+      {
+        association: db.ModuleGroup.Module,
+        include: [{ association: db.Module.Lecture }],
+      },
+    ],
+  });
+
+  const createdModuleGroup = moduleGroup.get({ plain: true });
+  let createdModules = createdModuleGroup.Modules;
+  const moduleIds = {},
+    lectureIds = {};
+  function getModuleIdentifier(mod) {
+    return `${mod.name} ${mod.catalog_id}`;
+  }
+  function getLectureIdentifier(mod, lect) {
+    return `${mod.module_id} ${lect.name} ${lect.catalog_id}`;
+  }
+  createdModules.forEach((createdModule) => {
+    moduleIds[getModuleIdentifier(createdModule)] = createdModule.module_id;
+    createdModule.Lectures.forEach((createdLecture) => {
+      lectureIds[getLectureIdentifier(createdModule, createdLecture)] = createdLecture.lecture_id;
+    });
+  });
+
+  // result = createdModules.reduce((map, obj) => ((map[getModuleIdentifier(obj)] = obj.module_id), map), {});
+  // console.log('result', result);
+
+  createdModules = await Promise.all(
+    createdModules.map(async (Module) => {
+      const moduleToCreate = Modules.find((mod) => moduleIds[getModuleIdentifier(mod)] === Module.module_id);
+      await (
+        await db.Module.findOne({ where: { module_id: Module.module_id }, transaction })
+      ).addAcademicRecords(moduleToCreate.academicRecord_ids, { transaction });
+      Module.Lectures = await Promise.all(
+        Module.Lectures.map(async (Lecture) => {
+          const lectureToCreate = moduleToCreate.Lectures.find(
+            (lec) => lectureIds[getLectureIdentifier(Module, lec)] === Lecture.lecture_id
+          );
+          return await (
+            await db.Lecture.findOne({ where: { lecture_id: Lecture.lecture_id }, transaction })
+          ).addMainFocuses(lectureToCreate.mainFocus_ids, { transaction });
+        })
+      );
+      return Module;
+    })
   );
 
-  return moduleGroup.dataValues;
+  return createdModuleGroup;
 };
 
 // PUT
@@ -95,7 +132,19 @@ module.exports.updateModuleGroup = async (
 ) => {
   const moduleGroup = await db.ModuleGroup.update(
     { majorSubject_id, name, number_of_modules_to_attend, from_semester_number, to_semester_number },
-    { where: { moduleGroup_id }, transaction }
+    {
+      where: { moduleGroup_id },
+      transaction,
+      include: [
+        {
+          model: db.ModuleGroup.Module,
+          include: [
+            { model: db.Module.AcademicRecord },
+            { model: db.Module.Lecture, include: [{ model: db.Lecture.MainFocus }] },
+          ],
+        },
+      ],
+    }
   );
   return moduleGroup > 0;
 };
