@@ -1,7 +1,16 @@
 /* Main objective of this script is to fill the database with data, but it can
- * also be used to test whether everything works fine. It uses the API instead
- * of invoking controllers/services. It's recommended to clear the database
- * before.
+ * also be used to test whether everything works fine (only creating data). It
+ * uses the API instead of invoking controllers/services. It is recommended to
+ * clear the database before executing this script (otherwise you'll have some
+ * records multiple times). When you already have records in the database that
+ * need to be unique, you will probably receive an error.
+ *
+ * You can start this script with 'node createTestData.js'. If you specify the
+ * option 'log', i.e. 'node createTestData.js -- log', you'll additionally see
+ * the request details (url + body) and the received response.
+ * It's recommended to add 'node createTestData.js' to package.json as npm run
+ * command, e.g. 'testdata'. You can then use it as 'npm run testdata' or also
+ * as 'npm run testdata -- log'.
  */
 const nodeFetch = require('node-fetch');
 const propertiesReader = require('./helpers/propertyReader');
@@ -9,7 +18,7 @@ const propertiesReader = require('./helpers/propertyReader');
 const SERVER_URL = 'http://localhost:3000';
 
 let TOKEN = null;
-const showLog = process.argv.slice(3).includes('log');
+const showLog = process.argv.slice(2).includes('log');
 
 function get(path, data, token) {
   return _fetch('GET', path, data, token);
@@ -38,10 +47,12 @@ function _fetch(method, path, data, token) {
     },
   };
   if (data) options.body = JSON.stringify(data);
-  log(method, url);
   return nodeFetch(url, options)
     .then((response) => response.json())
-    .then((json) => json.payload);
+    .then((json) => {
+      log(method, url, 'body:', data, 'response:', json);
+      return json.payload;
+    });
 }
 
 function log(...args) {
@@ -83,6 +94,77 @@ async function createUsers() {
     );
   }
   await Promise.all(promises);
+}
+
+async function createAcademicRecords() {
+  await Promise.all([
+    promiseHelper(async () => {
+      data.arK = await post('academicRecords', {
+        abbreviation: 'K',
+        type: 'Klaursur',
+        rated: true,
+      });
+    }),
+    promiseHelper(async () => {
+      data.arSE = await post('academicRecords', {
+        abbreviation: 'SE',
+        type: 'Seminararbeit',
+        rated: true,
+      });
+    }),
+    promiseHelper(async () => {
+      data.arLNfalse = await post('academicRecords', {
+        abbreviation: 'LN',
+        type: '???',
+        rated: false,
+      });
+    }),
+  ]);
+}
+
+async function createMainFocuses() {
+  await Promise.all([
+    promiseHelper(async () => {
+      data.mfSoftwareEntwicklung = await post('mainFocuses', {
+        name: 'Software-Entwicklung',
+      });
+    }),
+    promiseHelper(async () => {
+      data.mfITSicherheit = await post('mainFocuses', {
+        name: 'IT-Sicherheit',
+      });
+    }),
+    promiseHelper(async () => {
+      data.mfWebentwicklung = await post('mainFocuses', {
+        name: 'Webentwicklung',
+      });
+    }),
+    promiseHelper(async () => {
+      data.mfDatenbank = await post('mainFocuses', {
+        name: 'Datenbank',
+      });
+    }),
+    promiseHelper(async () => {
+      data.mfMLAIDS = await post('mainFocuses', {
+        name: 'Machine Learning / AI / Data Science',
+      });
+    }),
+    promiseHelper(async () => {
+      data.mfProjektmanagement = await post('mainFocuses', {
+        name: 'Peojektmanagement',
+      });
+    }),
+    promiseHelper(async () => {
+      data.mfBWL = await post('mainFocuses', {
+        name: 'BWL',
+      });
+    }),
+    promiseHelper(async () => {
+      data.mfRecht = await post('mainFocuses', {
+        name: 'Recht',
+      });
+    }),
+  ]);
 }
 
 async function createFieldOfStudiesAndMajorSubjects() {
@@ -159,8 +241,8 @@ async function createCourses() {
         {
           name: 'WWI 17 SE B',
           google_calendar_id: '[GOOGLE_KALENDER_ID]',
-          majorSubject_id: data.msWISE11,
-          directorOfStudy_ids: [data.users['ritterbusch'].directorOfStudy_id],
+          majorSubject_id: data.msWISE11.majorSubject_id,
+          directorOfStudy_ids: [data.users['ritterbusch'].directorOfStudies_id],
           semesters: [
             {
               name: 'WS 17/18',
@@ -209,7 +291,7 @@ async function createCourses() {
         {
           name: 'WWI 18 SE B',
           google_calendar_id: '[GOOGLE_KALENDER_ID]',
-          majorSubject_id: data.msWISE18,
+          majorSubject_id: data.msWISE18.majorSubject_id,
           directorOfStudy_ids: [],
           semesters: [
             {
@@ -259,7 +341,12 @@ async function createCourses() {
 const data = {};
 async function main() {
   await login();
-  await Promise.all([createUsers(), createFieldOfStudiesAndMajorSubjects()]);
+  await Promise.all([
+    createUsers(),
+    createAcademicRecords(),
+    createMainFocuses(),
+    createFieldOfStudiesAndMajorSubjects(),
+  ]);
   await createCourses();
 
   console.log(data.users);
