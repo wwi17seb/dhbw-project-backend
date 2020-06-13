@@ -1,5 +1,4 @@
 const db = require('../database/database');
-const lectureService = require('./lectureService');
 
 const whatToInclude = [
   {
@@ -8,38 +7,22 @@ const whatToInclude = [
   },
 ];
 
-/*
- * Receives moduleGroup_id
- *
- * Returns founded moduleGroup
- */
 module.exports.findModuleGroupById = async (moduleGroup_id) => {
   const moduleGroupToFind = await db.ModuleGroup.findOne({ where: { moduleGroup_id }, include: whatToInclude });
   return moduleGroupToFind.dataValues;
 };
 
-/*
- * Receives name of moduleGroup
- *
- * Returns founded moduleGroup
- */
 module.exports.findModuleGroupByName = async (moduleGroupName) => {
   const moduleGroupToFind = await db.ModuleGroup.findOne({ where: { name: moduleGroupName }, include: whatToInclude });
   return moduleGroupToFind.dataValues;
 };
 
-/*
- * Returns all moduleGroups []
- */
 module.exports.getAllModuleGroups = async () => {
   const moduleGroup = await db.ModuleGroup.findAll({ include: whatToInclude });
 
   return moduleGroup;
 };
 
-/*
- * Returns all moduleGroups []
- */
 module.exports.getAllModuleGroupsByMajorSubjectId = async (majorSubject_id) => {
   const moduleGroup = await db.ModuleGroup.findAll({ where: { majorSubject_id }, include: whatToInclude });
 
@@ -47,10 +30,6 @@ module.exports.getAllModuleGroupsByMajorSubjectId = async (majorSubject_id) => {
 };
 
 // POST
-/*
- * Receives moduleGroup: { name, number_of_modules_to_attend, from_semester_number, to_semester_number }
- * creates a new moduleGroup
- */
 module.exports.createModuleGroup = async (
   transaction,
   { majorSubject_id, name, number_of_modules_to_attend, from_semester_number, to_semester_number, Modules }
@@ -63,8 +42,6 @@ module.exports.createModuleGroup = async (
     to_semester_number,
     Modules,
   };
-
-  console.log('moduleGroupToCreate', moduleGroupToCreate);
 
   const moduleGroup = await db.ModuleGroup.create(moduleGroupToCreate, {
     transaction,
@@ -93,9 +70,6 @@ module.exports.createModuleGroup = async (
     });
   });
 
-  // result = createdModules.reduce((map, obj) => ((map[getModuleIdentifier(obj)] = obj.module_id), map), {});
-  // console.log('result', result);
-
   createdModules = await Promise.all(
     createdModules.map(async (Module) => {
       const moduleToCreate = Modules.find((mod) => moduleIds[getModuleIdentifier(mod)] === Module.module_id);
@@ -107,9 +81,9 @@ module.exports.createModuleGroup = async (
           const lectureToCreate = moduleToCreate.Lectures.find(
             (lec) => lectureIds[getLectureIdentifier(Module, lec)] === Lecture.lecture_id
           );
-          return await (
-            await db.Lecture.findOne({ where: { lecture_id: Lecture.lecture_id }, transaction })
-          ).addMainFocuses(lectureToCreate.mainFocus_ids, { transaction });
+          const dbLecture = await db.Lecture.findOne({ where: { lecture_id: Lecture.lecture_id }, transaction });
+          await dbLecture.addMainFocuses(lectureToCreate.mainFocus_ids, { transaction });
+          return dbLecture;
         })
       );
       return Module;
@@ -120,12 +94,6 @@ module.exports.createModuleGroup = async (
 };
 
 // PUT
-/*
- * Receives moduleGroup: { moduleGroup_id, name, number_of_modules_to_attend, from_semester_number, to_semester_number }
- * updates a moduleGroup
- *
- * return boolean of succeeding
- */
 module.exports.updateModuleGroup = async (
   transaction,
   { moduleGroup_id, majorSubject_id, name, number_of_modules_to_attend, from_semester_number, to_semester_number }
@@ -149,7 +117,7 @@ module.exports.updateModuleGroup = async (
   return moduleGroup > 0;
 };
 
-// Delete
+// DELETE
 /*
  * Receives transaction, moduleGroup_id
  * deletes a moduleGroup

@@ -31,7 +31,7 @@ exports.postLecturers = async (req, res, next) => {
     'cv',
     'comment',
     'is_extern',
-    'MainFocuses',
+    'mainFocus_ids',
   ]);
 
   try {
@@ -60,7 +60,7 @@ exports.putLecturers = async (req, res, next) => {
     'cv',
     'comment',
     'is_extern',
-    'MainFocuses',
+    'mainFocus_ids',
   ]);
 
   const transaction = await db.sequelize.transaction();

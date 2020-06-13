@@ -1,7 +1,5 @@
 const responseHelper = require('../helpers/responseHelper');
 const moduleGroupService = require('../services/moduleGroupService');
-const moduleService = require('../services/moduleService');
-const lectureService = require('../services/lectureService');
 const db = require('../database/database');
 
 exports.postModuleGroups = async (req, res, next) => {

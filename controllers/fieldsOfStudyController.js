@@ -3,7 +3,7 @@ const fieldOfStudyService = require('../services/fieldOfStudyService');
 const db = require('../database/database');
 const copyObjectHelper = require('../helpers/propertyCopyHelper');
 
-exports.getFieldsOfStudy = async (req, res) => {
+exports.getFieldsOfStudy = async (req, res, next) => {
   try {
     const withMajorSubjects = req.query.withMajorSubjects;
     const FieldsOfStudy = await fieldOfStudyService.findAll(withMajorSubjects === 'true' ? true : false);

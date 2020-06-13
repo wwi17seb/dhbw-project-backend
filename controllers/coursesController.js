@@ -59,27 +59,27 @@ exports.putCourses = async (req, res, next) => {
   const transaction = await db.sequelize.transaction();
 
   try {
-    if (await checkCourseEditAuthorization(directorOfStudiesId, course_id)) {
-      const courseToUpdate = copyObjectHelper(req.body, [
-        'name',
-        'majorSubject_id',
-        'directorOfStudies_ids',
-        'google_calendar_id',
-      ]);
-
-      courseToUpdate.directorOfStudies_ids = getDirectorsOfStudiesArray(
-        courseToUpdate.directorOfStudies_ids,
-        directorOfStudiesId
-      );
-
-      const updatedCourse = await courseService.updateCourse(transaction, { course_id, ...courseToUpdate });
-
-      transaction.commit();
-
-      return responseHelper(res, 200, 'Successfully updated.', updatedCourse);
-    } else {
-      return responseHelper(res, 400, 'You are not authorized to update this course.');
+    if (!(await checkCourseEditAuthorization(directorOfStudiesId, course_id))) {
+      transaction.rollback();
+      return responseHelper(res, 403, 'You are not authorized to update this course.');
     }
+    const courseToUpdate = copyObjectHelper(req.body, [
+      'name',
+      'majorSubject_id',
+      'directorOfStudies_ids',
+      'google_calendar_id',
+    ]);
+
+    courseToUpdate.directorOfStudies_ids = getDirectorsOfStudiesArray(
+      courseToUpdate.directorOfStudies_ids,
+      directorOfStudiesId
+    );
+
+    const updatedCourse = await courseService.updateCourse(transaction, { course_id, ...courseToUpdate });
+
+    transaction.commit();
+
+    return responseHelper(res, 200, 'Successfully updated.', updatedCourse);
   } catch (error) {
     transaction.rollback();
     return next(error);
@@ -93,15 +93,15 @@ exports.deleteCourses = async (req, res, next) => {
   const transaction = await db.sequelize.transaction();
 
   try {
-    if (await checkCourseEditAuthorization(directorOfStudiesId, courseId)) {
-      const deletedCourse = await courseService.deleteCourse(transaction, courseId);
-
-      transaction.commit();
-
-      return responseHelper(res, 200, 'Successfully deleted.', deletedCourse);
-    } else {
+    if (!(await checkCourseEditAuthorization(directorOfStudiesId, courseId))) {
+      transaction.rollback();
       return responseHelper(res, 400, 'You are not authorized to delete this course.');
     }
+    const deletedCourse = await courseService.deleteCourse(transaction, courseId);
+
+    transaction.commit();
+
+    return responseHelper(res, 200, 'Successfully deleted.', deletedCourse);
   } catch (error) {
     transaction.rollback();
     return next(error);

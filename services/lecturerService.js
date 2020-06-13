@@ -18,7 +18,6 @@ module.exports.findAllLecturer = async () => {
 };
 
 // POST
-// TODO: Add MainFocuses
 module.exports.createLecturer = async (
   transaction,
   {
@@ -34,7 +33,7 @@ module.exports.createLecturer = async (
     cv,
     comment,
     is_extern,
-    MainFocuses,
+    mainFocus_ids,
   },
   directorOfStudies_id
 ) => {
@@ -56,11 +55,12 @@ module.exports.createLecturer = async (
 
   const createdLecturer = await db.Lecturer.create(lecturerToCreate, { transaction });
 
+  await createdLecturer.addMainFocuses(mainFocus_ids, { transaction });
+
   return createdLecturer.dataValues;
 };
 
 // PUT
-// TODO: Add MainFocuses
 module.exports.updateLecturer = async (
   transaction,
   {
@@ -76,7 +76,7 @@ module.exports.updateLecturer = async (
     cv,
     comment,
     is_extern,
-    MainFocuses,
+    mainFocus_ids,
   },
   lecturer_id
 ) => {
@@ -94,9 +94,12 @@ module.exports.updateLecturer = async (
     comment,
     is_extern,
   };
-  const updatedLecturer = await db.Lecturer.update({ ...lecturerToUpdate }, { where: { lecturer_id }, transaction });
+  const lecturer = await db.Lecturer.findOne({ where: { lecturer_id }, transaction });
+  await lecturer.update({ ...lecturerToUpdate }, { transaction });
 
-  return updatedLecturer > 0;
+  await lecturer.setMainFocuses(mainFocus_ids, { transaction });
+
+  return Boolean(lecturer);
 };
 
 // DELETE
