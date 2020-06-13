@@ -407,7 +407,7 @@ Rückgabe:
 
 **Info**: Erzeugt einen neuen Dozenten.
 
-Body der Anfrage: <!-- FIXME: mainFocus_ids should change to MainFocuses -->
+Body der Anfrage:
 
 ```js
 {
@@ -432,7 +432,7 @@ Body der Anfrage: <!-- FIXME: mainFocus_ids should change to MainFocuses -->
 **Info**: Aktualisiert den Dozenten mit der angegebenen `lecturer_id` `{ID}`.
 Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attributen einfach zu ermöglichen.
 
-Body der Anfrage: <!-- FIXME: mainFocus_ids should change to MainFocuses -->
+Body der Anfrage:
 
 ```js
 {
@@ -600,6 +600,7 @@ Body der Anfrage:
 ### GET /presentations?courseId={ID}
 
 **Info**: Gibt alle **konkreten** Vorlesungen (inkl. der noch in Planung befindlichen) für einen bestimmten Kurs zurück.
+Dies funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom angegebenen Kurs ist (er muss die konkreten Vorlesungen nicht zwingend erstellt haben).
 
 Rückgabe:
 
@@ -665,9 +666,16 @@ Rückgabe:
                 "comment": "[KOMMENTAR]", // Bspw. "Sehr engagiert"
                 "is_extern": "[KENNZEICHNER, OB EXTERN]" // 0 = intern, 2 = extern
             },
-            "DirectorOfStudies": {
+            "DirectorOfStudies": { // current (signed in) Director of Studies
+                "directorOfStudies_Id": 0, // Bspw. "1"
+                "username": "[BENUTZERNAME]", // Bspw. "Admin"
+                "isAdmin": TRUE, // Bspw. "TRUE/FALSE"
                 "misc": "[VERSCHIEDENES]" // Bspw. "{ "email-template": "blablabla, was auch immer ihr wollt, könnt ihr hier speichern.", "oder": "auch einfach anders. ihr seid hier frei.", "bitte": "jedoch als text und kein blob." }"
             },
+            "createdBy": {
+                "directorOfStudies_id": 0, // Bspw. "2"
+                "username": "[BENUTZERNAME]", // Bspw. "jreichwald"
+            }
             "AcademicRecord": { // gewähltes Bewertungsverfahren
                 "academicRecord_id": 0, // Bspw. "1"
                 "abbreviation": "[ABKÜRZUNG]", // Bspw. "K, SE"
