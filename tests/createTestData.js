@@ -5,20 +5,29 @@
  * records multiple times). When you already have records in the database that
  * need to be unique, you will probably receive an error.
  *
- * You can start this script with 'node createTestData.js'. If you specify the
- * option 'log', i.e. 'node createTestData.js -- log', you'll additionally see
- * the request details (url + body) and the received response.
- * It's recommended to add 'node createTestData.js' to package.json as npm run
- * command, e.g. 'testdata'. You can then use it as 'npm run testdata' or also
- * as 'npm run testdata -- log'.
+ * You can start this script with 'node tests/createTestData.js'. Some options
+ * are offered to see the result. You can use 'log' or 'l' to write everything
+ * to a log file. You can use 'verbose' or 'v' to print everything to console.
+ * This includes details of the request (http method + url + request body) and
+ * the response you receive from the server.
+ * A command could look like this: 'node tests/createTestData.js v l'. You can
+ * also add 'node tests/createTestData.js' to the scripts part of package.json
+ * so that you can then use it as npm run command, e.g. 'npm run testdata'.
  */
 const nodeFetch = require('node-fetch');
-const propertiesReader = require('./helpers/propertyReader');
+const fs = require('fs');
+const propertiesReader = require('../helpers/propertyReader');
 
 const SERVER_URL = 'http://localhost:3000';
 
 let TOKEN = null;
-const showLog = process.argv.slice(2).includes('log');
+const LOG_DIR = './logs';
+const verbose = process.argv.slice(2).includes('v') || process.argv.slice(2).includes('verbose');
+const saveLog = process.argv.slice(2).includes('l') || process.argv.slice(2).includes('log');
+
+if (saveLog && !fs.existsSync(LOG_DIR)) {
+  fs.mkdirSync(LOG_DIR);
+}
 
 function get(path, data, token) {
   return _fetch('GET', path, data, token);
@@ -56,8 +65,15 @@ function _fetch(method, path, data, token) {
 }
 
 function log(...args) {
-  if (showLog) {
+  if (verbose) {
     console.log(...args);
+  }
+  if (saveLog) {
+    let logContent = '';
+    args.forEach((element) => {
+      logContent += ' ' + JSON.stringify(element);
+    });
+    fs.appendFileSync(`${LOG_DIR}/createTestData.log`, `${`[${new Date().toISOString()}]`}${logContent}` + '\n');
   }
 }
 
@@ -167,7 +183,7 @@ async function createMainFocuses() {
   ]);
 }
 
-async function createFieldOfStudiesAndMajorSubjects() {
+async function createFieldsOfStudyAndMajorSubjects() {
   await Promise.all([
     createFieldOfStudyWirtschaftsinformatik(),
     createFieldOfStudyBWL(),
@@ -176,7 +192,7 @@ async function createFieldOfStudiesAndMajorSubjects() {
 }
 
 async function createFieldOfStudyWirtschaftsinformatik() {
-  data.fosWI = await post('fieldOfStudies', { name: 'Wirtschaftsinformatik' });
+  data.fosWI = await post('fieldsOfStudy', { name: 'Wirtschaftsinformatik' });
   const fieldOfStudy_id = data.fosWI.fieldOfStudy_id;
   await Promise.all([
     promiseHelper(async () => {
@@ -207,7 +223,7 @@ async function createFieldOfStudyWirtschaftsinformatik() {
 }
 
 async function createFieldOfStudyBWL() {
-  data.fosBWL = await post('fieldOfStudies', { name: 'BWL' });
+  data.fosBWL = await post('fieldsOfStudy', { name: 'BWL' });
   const fieldOfStudy_id = data.fosBWL.fieldOfStudy_id;
   await Promise.all([
     promiseHelper(async () => {
@@ -226,7 +242,7 @@ async function createFieldOfStudyBWL() {
 }
 
 async function createFieldOfStudyDigitaleMedien() {
-  data.fosDM = await post('fieldOfStudies', { name: 'Digitale Medien' });
+  data.fosDM = await post('fieldsOfStudy', { name: 'Digitale Medien' });
   data.msDM = await post('majorSubjects', {
     fieldOfStudy_id: data.fosDM.fieldOfStudy_id,
     name: '- ab 2018',
@@ -242,8 +258,8 @@ async function createCourses() {
           name: 'WWI 17 SE B',
           google_calendar_id: '[GOOGLE_KALENDER_ID]',
           majorSubject_id: data.msWISE11.majorSubject_id,
-          directorOfStudy_ids: [data.users['ritterbusch'].directorOfStudies_id],
-          semesters: [
+          directorOfStudies_ids: [data.users['ritterbusch'].directorOfStudies_id],
+          Semesters: [
             {
               name: 'WS 17/18',
               number: 1,
@@ -292,8 +308,8 @@ async function createCourses() {
           name: 'WWI 18 SE B',
           google_calendar_id: '[GOOGLE_KALENDER_ID]',
           majorSubject_id: data.msWISE18.majorSubject_id,
-          directorOfStudy_ids: [],
-          semesters: [
+          directorOfStudies_ids: [],
+          Semesters: [
             {
               name: 'WS 18/19',
               number: 1,
@@ -345,7 +361,7 @@ async function main() {
     createUsers(),
     createAcademicRecords(),
     createMainFocuses(),
-    createFieldOfStudiesAndMajorSubjects(),
+    createFieldsOfStudyAndMajorSubjects(),
   ]);
   await createCourses();
 

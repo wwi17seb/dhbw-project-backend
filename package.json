@@ -2,7 +2,7 @@
   "name": "dhbw-project-backend",
   "version": "0.0.1",
   "private": true,
-  "description": "New Swagger API Project",
+  "description": "",
   "keywords": [],
   "author": "Awesome Developers",
   "license": "ISC",
@@ -27,7 +27,7 @@
   },
   "scripts": {
     "start": "node app.js",
-    "testdata": "node createTestData.js"
+    "testdata": "node tests/createTestData.js"
   },
   "repository": {
     "type": "git",
