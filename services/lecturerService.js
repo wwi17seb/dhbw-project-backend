@@ -4,10 +4,9 @@ const directorOfStudiesService = require('./directorOfStudiesService');
 /*
  * Returns found lecturer
  */
-module.exports.findLecturerById = async (lecturer_id, transaction) => {
+module.exports.findLecturerById = async (lecturer_id) => {
   const lecturer = await db.Lecturer.findOne({
     where: { lecturer_id },
-    transaction,
   });
   return lecturer.dataValues;
 };
@@ -28,7 +27,7 @@ module.exports.findLecturerByName = async ({ lastname, firstname }, withFirstnam
  */
 module.exports.findAllLecturer = async () => {
   const lecturers = await db.Lecturer.findAll({
-    include: [{ model: db.DirectorOfStudies, attributes: ['directorOfStudies_id', 'username', 'is_admin', 'misc'] }],
+    include: [{ model: db.DirectorOfStudies, attributes: ['directorOfStudies_id', 'username', 'is_admin'] }],
   });
 
   return lecturers;

@@ -2,11 +2,12 @@ const lecturerService = require('../services/lecturerService');
 const db = require('../database/database');
 const responseHelper = require('../helpers/responseHelper');
 const copyObjectHelper = require('../helpers/propertyCopyHelper');
-const checkCreatorHelper = require('../helpers/checkCreatorHelper');
+const { checkLecturerEditAuthorization } = require('../helpers/checkAuthorizationHelper');
 
 exports.getLecturers = async (req, res, next) => {
+  // TODO: add filter methods
   try {
-    const curStudiesDirectorId = req.token.userId;
+    const curStudiesDirectorId = req.token.directorOfStudies_id;
     const lecturers = await lecturerService.findAllLecturer(curStudiesDirectorId);
     responseHelper(res, 200, 'Successful', { lecturers });
   } catch (error) {
@@ -32,7 +33,6 @@ exports.postLecturers = async (req, res, next) => {
     'is_extern',
     'MainFocuses',
   ]);
-  givenLecturer.is_extern = givenLecturer.is_extern !== 0;
 
   try {
     const createdLecturer = await lecturerService.createLecturer(transaction, givenLecturer, directorOfStudies_id);
@@ -62,11 +62,10 @@ exports.putLecturers = async (req, res, next) => {
     'is_extern',
     'MainFocuses',
   ]);
-  givenLecturer.is_extern = givenLecturer.is_extern !== 0;
 
   const transaction = await db.sequelize.transaction();
   try {
-    if (await checkCreatorHelper(transaction, lecturerId, directorOfStudies_id)) {
+    if (await checkLecturerEditAuthorization(directorOfStudies_id, lecturerId)) {
       const updatedLecturer = await lecturerService.updateLecturer(
         transaction,
         givenLecturer,
@@ -76,7 +75,7 @@ exports.putLecturers = async (req, res, next) => {
       transaction.commit();
       return responseHelper(res, 200, 'Successfully updated lecturer', updatedLecturer);
     } else {
-      return responseHelper(res, 400, 'You are not the creator of this director of studies');
+      return responseHelper(res, 400, 'You are authorized to update the lecturer.');
     }
   } catch (error) {
     transaction.rollback();
@@ -90,13 +89,13 @@ exports.deleteLecturers = async (req, res, next) => {
 
   const transaction = await db.sequelize.transaction();
   try {
-    if (await checkCreatorHelper(transaction, lecturerId, directorOfStudies_id)) {
+    if (await checkLecturerEditAuthorization(directorOfStudies_id, lecturerId)) {
       const deletedLecturer = await lecturerService.deleteLecturer(transaction, lecturerId);
 
       transaction.commit();
       return responseHelper(res, 200, 'Successfully deleted lecturer', deletedLecturer);
     } else {
-      return responseHelper(res, 400, 'You are not the creator of this director of studies');
+      return responseHelper(res, 400, 'You are authorized to delete the lecturer.');
     }
   } catch (error) {
     transaction.rollback();
