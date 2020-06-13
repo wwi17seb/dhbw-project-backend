@@ -39,12 +39,12 @@ module.exports.createMajorSubject = async (transaction, name, fieldOfStudy_id) =
 // wie post s.o.
 // receives majorSubject: { id, name }
 module.exports.updateMajorSubject = async (transaction, { majorSubject_id, name, fieldOfStudy_id }) => {
-  const majorSubject = await this.findMajorSubjectById(majorSubject_id);
+  const majorSubject = await db.MajorSubject.update(
+    { name, fieldOfStudy_id },
+    { where: { majorSubject_id }, transaction }
+  );
 
-  // FIXME: update is not a function
-  await majorSubject.update({ name, fieldOfStudy_id }, { transaction });
-
-  return majorSubject.dataValues;
+  return majorSubject > 0;
 };
 
 // Delete

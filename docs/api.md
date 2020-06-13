@@ -30,12 +30,12 @@
   - [POST /lecturers](#post-lecturers)
   - [PUT /lecturers?lecturerId={ID}](#put-lecturerslectureridid)
   - [DELETE /lecturers?lecturerId={ID}](#delete-lecturerslectureridid)
-- [/fieldOfStudies](#fieldofstudies)
-  - [GET /fieldOfStudies](#get-fieldofstudies)
-    - [Optionale Parameter /fieldOfStudies](#optionale-parameter-fieldofstudies)
-  - [POST /fieldOfStudies](#post-fieldofstudies)
-  - [PUT /fieldOfStudies?fieldOfStudyId={ID}](#put-fieldofstudiesfieldofstudyidid)
-  - [DELETE /fieldOfStudies?fieldOfStudyId={ID}](#delete-fieldofstudiesfieldofstudyidid)
+- [/fieldsOfStudy](#fieldsofstudy)
+  - [GET /fieldsOfStudy](#get-fieldsofstudy)
+    - [Optionale Parameter /fieldsOfStudy](#optionale-parameter-fieldsofstudy)
+  - [POST /fieldsOfStudy](#post-fieldsofstudy)
+  - [PUT /fieldsOfStudy?fieldOfStudyId={ID}](#put-fieldsofstudyfieldofstudyidid)
+  - [DELETE /fieldsOfStudy?fieldOfStudyId={ID}](#delete-fieldsofstudyfieldofstudyidid)
 - [/majorSubjects](#majorsubjects)
   - [GET /majorSubjects?fieldOfStudyId={ID}](#get-majorsubjectsfieldofstudyidid)
   - [POST /majorSubjects](#post-majorsubjects)
@@ -68,7 +68,7 @@ Dafür muss ein Token (JWT), der beim Login ausgestellt wurde, als URL-Query-Par
 Bsp.:
 
 ```http
-GET /courses?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJ1c2VySWQiOjIsImlhdCI6MTU4OTg3MzY4OCwiZXhwIjoxNTk4NTEzNjg4fQ.KTjlx88ke7SWKhQAARMkoOlDtyjRyO73ksUMcThyOJ8
+GET /courses?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZGlyZWN0b3JPZlN0dWRpZXNfaWQiOjEsImlhdCI6MTU5MjA1NjMzNywiZXhwIjoxNjAwNjk2MzM3fQ.KGl9sxoV-gro8yjUy8lVBQC_6uzUrYfpp-B0aGjf3Bs
 ```
 
 Ein Beispiel für eine Route, bei der kein gültiger Token übergeben werden muss, ist `POST /login`.
@@ -119,7 +119,7 @@ Rückgabe:
 {
     "message": "[DEBUG-INFO/KOMMENTAR]", // Bspw. "Successful", "Failed", ...
     "payload": {
-        "token": "[TOKEN]", // Bspw. "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJ1c2VySWQiOjIsImlhdCI6MTU4OTg3MzY4OCwiZXhwIjoxNTk4NTEzNjg4fQ.KTjlx88ke7SWKhQAARMkoOlDtyjRyO73ksUMcThyOJ8"
+        "token": "[TOKEN]", // Bspw. "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZGlyZWN0b3JPZlN0dWRpZXNfaWQiOjEsImlhdCI6MTU5MjA1NjMzNywiZXhwIjoxNjAwNjk2MzM3fQ.KGl9sxoV-gro8yjUy8lVBQC_6uzUrYfpp-B0aGjf3Bs"
         "directorOfStudies_id": 0, // Bspw. "1"
         "username": "[NUTZERNAME]" // Bspw. "Nutzername"
     }
@@ -145,7 +145,7 @@ Rückgabe:
 {
     "message": "[DEBUG-INFO/KOMMENTAR]", // Bspw. "Successful", "Failed", ...
     "payload": {
-        "token": "[TOKEN]", // Bspw. "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJ1c2VySWQiOjIsImlhdCI6MTU4OTg3MzY4OCwiZXhwIjoxNTk4NTEzNjg4fQ.KTjlx88ke7SWKhQAARMkoOlDtyjRyO73ksUMcThyOJ8"
+        "token": "[TOKEN]", // Bspw. "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZGlyZWN0b3JPZlN0dWRpZXNfaWQiOjEsImlhdCI6MTU5MjA1NjMzNywiZXhwIjoxNjAwNjk2MzM3fQ.KGl9sxoV-gro8yjUy8lVBQC_6uzUrYfpp-B0aGjf3Bs"
         "directorOfStudies_id": 0, // Bspw. "1"
         "username": "[NUTZERNAME]" // Bspw. "Nutzername"
     }
@@ -212,7 +212,7 @@ Body der Anfrage:
     "name": "[KURSNAME]", // Bspw. "WWI 17 SEB"
     "google_calendar_id": "[GOOGLE_KALENDER_ID]",
     "majorSubject_id": 0, // Bspw. "1" - impliziert das field of study.
-    "directorOfStudy_ids": [ 0, 0 ], // Bspw. [1] oder [1, 2] - die eigene Id wird automatisch gesetzt, hier können weitere Verantwortliche hinzugefügt werden
+    "directorOfStudies_ids": [ 0, 0 ], // Bspw. [1] oder [1, 2] - die eigene Id wird automatisch gesetzt, hier können weitere Verantwortliche hinzugefügt werden
     "Semesters": [
         {
             "name": "[SEMESTERNAME]", // Bspw. "WS17/18"
@@ -245,7 +245,7 @@ Body der Anfrage:
     "name": "[KURSNAME]", // Bspw. "WWI 17 SE B"
     "google_calendar_id": "[GOOGLE_KALENDER_ID]",
     "majorSubject_id": 0, // Bspw. "1"
-    "directorOfStudy_ids": [ 0, 0 ] // Bspw. [1] oder [1, 2] - die eigene Id wird automatisch gesetzt, hier können weitere Verantwortlichen hinzugefügt werden
+    "directorOfStudies_ids": [ 0, 0 ] // Bspw. [1] oder [1, 2] - die eigene Id wird automatisch gesetzt, hier können weitere Verantwortlichen hinzugefügt werden
 }
 ```
 
@@ -456,9 +456,9 @@ Body der Anfrage: <!-- FIXME: mainFocus_ids should change to MainFocuses -->
 
 **Info**: Löscht den angegebenen Dozenten mit der `lecturer_id` `{ID}`, sofern der Dozent dem Studiengangsleiter zugeordnet werden kann.
 
-## /fieldOfStudies
+## /fieldsOfStudy
 
-### GET /fieldOfStudies
+### GET /fieldsOfStudy
 
 **Info**: Gibt alle Studiengänge zurück.
 
@@ -468,7 +468,7 @@ Rückgabe:
 {
     "message": "[DEBUG-INFO/KOMMENTAR]", // Bspw. "Successful", "Failed", ...
     "payload": {
-        "FieldOfStudies": [
+        "FieldsOfStudy": [
             {
                 "fieldOfStudy_id": 0, // Bspw. "1"
                 "name": "[NAME]" // Bspw. "Wirtschaftsinformatik"
@@ -478,7 +478,7 @@ Rückgabe:
 }
 ```
 
-#### Optionale Parameter /fieldOfStudies
+#### Optionale Parameter /fieldsOfStudy
 
 - `withMajorSubjects`
   - sofern `true` werden hier die Studienrichtungen mitübergeben.
@@ -489,7 +489,7 @@ Rückgabe:
 {
     "message": "[DEBUG-INFO/KOMMENTAR]", // Bspw. "Successful", "Failed", ...
     "payload": {
-        "FieldOfStudies": [
+        "FieldsOfStudy": [
             {
                 "fieldOfStudy_id": 0, // Bspw. "1"
                 "name": "[NAME]", // Bspw. "Wirtschaftsinformatik"
@@ -506,7 +506,7 @@ Rückgabe:
 }
 ```
 
-### POST /fieldOfStudies
+### POST /fieldsOfStudy
 
 **Info**: Erstellt einen Studiengang.
 
@@ -518,7 +518,7 @@ Body der Anfrage:
 }
 ```
 
-### PUT /fieldOfStudies?fieldOfStudyId={ID}
+### PUT /fieldsOfStudy?fieldOfStudyId={ID}
 
 **Info**: Aktualisiert den Studiengang mit der angegebenen `fieldOfStudy_id` `{ID}`.
 Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attributen einfach zu ermöglichen.
@@ -531,7 +531,7 @@ Body der Anfrage:
 }
 ```
 
-### DELETE /fieldOfStudies?fieldOfStudyId={ID}
+### DELETE /fieldsOfStudy?fieldOfStudyId={ID}
 
 **Info**: Löscht den Studiengang mit der angegebenen `fieldOfStudy_id` `{ID}`.
 
