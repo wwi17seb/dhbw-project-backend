@@ -1,16 +1,10 @@
 const responseHelper = require('../helpers/responseHelper');
+const copyObjectHelper = require('../helpers/propertyCopyHelper');
 const db = require('../database/database');
-const academicRecordService = null; //require('../services/academicRecordService');
-
-// TODO: remove error as soon as they are implemented.
-
-const throwError = () => {
-  throw false;
-};
+const academicRecordService = require('../services/academicRecordsService');
 
 exports.getAcademicRecords = async (req, res, next) => {
   try {
-    throwError(); // TODO: REMOVE!
     const AcademicRecords = await academicRecordService.findAll();
     responseHelper(res, 200, '', { AcademicRecords });
   } catch (error) {
@@ -21,7 +15,6 @@ exports.getAcademicRecords = async (req, res, next) => {
 exports.postAcademicRecords = async (req, res, next) => {
   let transaction = await db.sequelize.transaction();
   try {
-    throwError(); // TODO: REMOVE!
     let academicRecordToCreate = req.body;
     let createdAcademicRecord = await academicRecordService.createAcademicRecord(transaction, academicRecordToCreate);
     transaction.commit();
@@ -36,7 +29,6 @@ exports.putAcademicRecords = async (req, res, next) => {
   const academicRecordId = req.query.academicRecordId;
   let transaction = await db.sequelize.transaction();
   try {
-    throwError(); // TODO: REMOVE!
     let academicRecordToUpdate = copyObjectHelper(req.body, ['abbreviation', 'type', 'rated']);
     let updatedAcademicRecord = await academicRecordService.updateAcademicRecord(transaction, {
       academicRecord_id: academicRecordId,
@@ -56,7 +48,6 @@ exports.deleteAcademicRecords = async (req, res, next) => {
   const academicRecordId = req.query.academicRecordId;
   let transaction = await db.sequelize.transaction();
   try {
-    throwError(); // TODO: REMOVE!
     let deletedAcademicRecord = await academicRecordService.deleteAcademicRecord(transaction, academicRecordId);
     transaction.commit();
     return responseHelper(res, 200, 'Successfully deleted.', deletedAcademicRecord);
