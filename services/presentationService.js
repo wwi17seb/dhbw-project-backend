@@ -1,44 +1,42 @@
 const db = require('../database/database');
-/*
- * Returns founded presentation
- */
-module.exports.findPresentationById = async (presentationId) => {
-  const presentation = await db.Presentation.findOne({ where: { id: presentationId } });
-  return presentation;
-};
 
 // GET
-/*
- * Receives models as boolean which should be returned as well
- *
- * Returns founded presentations
- */
-module.exports.findAll = async (withCourse, withSemesters, withAcademicRecord, withLecture, withLecturer) => {
-  const withInclude = [];
-  if (withCourse) withInclude.push({ model: db.Course });
-  if (withSemesters) withInclude.push({ model: db.Semester });
-  if (withAcademicRecord) withInclude.push({ model: db.AcademicRecord });
-  if (withLecture) withInclude.push({ model: db.Lecture });
-  if (withLecturer) withInclude.push({ model: db.Lecturer });
-  const presentations = await db.Course.findAll({ include: withInclude });
-  return presentations;
+module.exports.findPresentationById = async (presentation_id) => {
+  const presentation = await db.Presentation.findOne({ where: { presentation_id } });
+
+  return presentation ? presentation.dataValues : null;
+};
+
+// - lecture -> mainfocus, module ->( modulegroup, academicrecords)
+// - lecturer -> mainfocus
+
+module.exports.findAll = async (course_id, semester_id) => {
+  const withInclude = [
+    { model: db.Semester },
+    { model: db.AcademicRecord },
+    {
+      model: db.Lecture,
+      include: [
+        { model: db.MainFocus },
+        { model: db.Module, include: [{ model: db.ModuleGroup }, { model: db.AcademicRecord }] },
+      ],
+    },
+    { model: db.Lecturer, include: [{ model: db.MainFocus }] },
+    { model: db.DirectorOfStudies, attributes: ['directorOfStudies_id', 'username'] },
+  ];
+  let where = { course_id };
+  if (semester_id) {
+    where = { ...where, semester_id };
+  }
+  const presentations = await db.Presentation.findAll({ include: withInclude, where });
+  return presentations.map((presentation) => presentation.dataValues);
 };
 
 // POST
-// TODO:
 module.exports.createPresentation = async (
   transaction,
-  { directorOfStudiesId, course_id, semester_id, academicRecord_id, lecture_id, lecturer_id }
+  { directorOfStudies_id, course_id, semester_id, academicRecord_id, lecture_id, lecturer_id, status }
 ) => {
-  const withInclude = [
-    { model: db.DirectorOfStudies },
-    { model: db.Lecturer },
-    { model: db.Course },
-    { model: db.Semester },
-    { model: db.AcademicRecord },
-    { model: db.Lecture },
-  ];
-
   const presentation = await db.Presentation.create(
     {
       course_id,
@@ -46,7 +44,8 @@ module.exports.createPresentation = async (
       academicRecord_id,
       lecture_id,
       lecturer_id,
-      createdBy_id: directorOfStudiesId,
+      status,
+      createdBy_id: directorOfStudies_id,
     },
     { transaction }
   );
@@ -55,30 +54,19 @@ module.exports.createPresentation = async (
 };
 
 // PUT
-// wie post s.o.
-// receives (course) -> id, name, majorSubjectId, DoSID
 module.exports.updatePresentation = async (
   transaction,
-  { presentation_id, name, directorOfStudiesId, courseId, semesterId, academicRecordId, lectureId, lecturerId }
+  { presentation_id, directorOfStudies_id, course_id, semester_id, academicRecord_id, lecture_id, lecturer_id, status }
 ) => {
-  const withInclude = [
-    { model: db.DirectorOfStudies },
-    { model: db.Lecturer },
-    { model: db.Course },
-    { model: db.Semester },
-    { model: db.AcademicRecord },
-    { model: db.Lecture },
-  ];
-
   const updatedRows = await db.Presentation.update(
     {
-      name,
-      createdBy_id: directorOfStudiesId,
-      course_id: courseId,
-      semester_id: semesterId,
-      academicRecord_id: academicRecordId,
-      lecture_id: lectureId,
-      lecturer_id: lecturerId,
+      createdBy_id: directorOfStudies_id,
+      course_id,
+      semester_id,
+      academicRecord_id,
+      lecture_id,
+      lecturer_id,
+      status,
     },
     { where: { presentation_id }, transaction }
   );
@@ -86,12 +74,9 @@ module.exports.updatePresentation = async (
   return updatedRows > 0;
 };
 
-// Delete
-// receives (presentation_id)
-/*
- * Returns boolean
- */
+// DELETE
 module.exports.deletePresentation = async (transaction, presentation_id) => {
   const counter = await db.Presentation.destroy({ where: { presentation_id }, transaction });
+
   return counter > 0;
 };

@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,
-        name: 'directorOfStudies_id',
+        name: 'createdBy_id',
       },
     });
 
