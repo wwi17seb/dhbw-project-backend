@@ -10,11 +10,13 @@ module.exports = (sequelize, DataTypes) => {
       },
       name: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
     },
     {
       modelName: 'FieldOfStudy',
       tableName: 'fieldOfStudy',
+      name: { plural: 'FieldsOfStudy' },
     }
   );
 

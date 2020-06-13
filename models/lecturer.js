@@ -10,11 +10,11 @@ module.exports = (sequelize, DataTypes) => {
       },
       firstname: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       lastname: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       academic_title: {
         type: DataTypes.STRING,
@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       email: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       salutation: {
         type: DataTypes.STRING,
@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       phonenumber: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       experience: {
         type: DataTypes.STRING,
@@ -54,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       is_extern: {
         type: DataTypes.BOOLEAN,
-        allowNull: true,
+        allowNull: false,
       },
     },
     {

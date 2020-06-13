@@ -11,9 +11,11 @@ module.exports = (sequelize, DataTypes) => {
       },
       name: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
       google_calendar_id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
+        allowNull: true,
       },
     },
     {

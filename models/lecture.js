@@ -12,15 +12,19 @@ module.exports = (sequelize, DataTypes) => {
       },
       name: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
       workload_home: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
       workload_dhbw: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
       catalog_id: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
     },
     {

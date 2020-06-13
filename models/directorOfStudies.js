@@ -16,13 +16,16 @@ module.exports = (sequelize, DataTypes) => {
       username: {
         type: DataTypes.STRING,
         unique: true,
+        allowNull: false,
       },
       password: {
         type: DataTypes.STRING(64),
         is: /^[0-9a-f]{64}$/i,
+        allowNull: false,
       },
       is_admin: {
         type: DataTypes.BOOLEAN,
+        allowNull: false,
         defaultValue: false,
       },
       misc: {
@@ -33,6 +36,9 @@ module.exports = (sequelize, DataTypes) => {
     {
       modelName: 'DirectorOfStudies',
       tableName: 'directorOfStudies',
+      name: {
+        plural: 'DirectorsOfStudies',
+      },
     }
   );
 

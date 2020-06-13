@@ -10,12 +10,15 @@ module.exports = (sequelize, DataTypes) => {
       },
       abbreviation: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
       type: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
       rated: {
         type: DataTypes.BOOLEAN,
+        allowNull: false,
       },
     },
     {

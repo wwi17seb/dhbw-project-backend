@@ -10,15 +10,19 @@ module.exports = (sequelize, DataTypes) => {
       },
       name: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
       number_of_modules_to_attend: {
         type: DataTypes.INTEGER,
+        allowNull: false,
       },
       from_semester_number: {
         type: DataTypes.INTEGER,
+        allowNull: false,
       },
       to_semester_number: {
         type: DataTypes.INTEGER,
+        allowNull: false,
       },
     },
     {
