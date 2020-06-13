@@ -28,6 +28,12 @@ module.exports = (sequelize, DataTypes) => {
     {
       modelName: 'Semester',
       tableName: 'semester',
+      indexes: [
+        {
+          unique: true,
+          fields: ['course_id', 'number'],
+        },
+      ],
     }
   );
 
