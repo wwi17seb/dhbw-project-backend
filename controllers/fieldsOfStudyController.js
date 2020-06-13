@@ -3,18 +3,18 @@ const fieldOfStudyService = require('../services/fieldOfStudyService');
 const db = require('../database/database');
 const copyObjectHelper = require('../helpers/propertyCopyHelper');
 
-exports.getFieldOfStudies = async (req, res) => {
+exports.getFieldsOfStudy = async (req, res) => {
   try {
     const withMajorSubjects = req.query.withMajorSubjects;
-    const FieldOfStudies = await fieldOfStudyService.findAll(withMajorSubjects === 'true' ? true : false);
-    return responseHelper(res, 200, 'Successful', { FieldOfStudies });
+    const FieldsOfStudy = await fieldOfStudyService.findAll(withMajorSubjects === 'true' ? true : false);
+    return responseHelper(res, 200, 'Successful', { FieldsOfStudy });
   } catch (error) {
     transaction.rollback();
     return next(error);
   }
 };
 
-exports.postFieldOfStudies = async (req, res, next) => {
+exports.postFieldsOfStudy = async (req, res, next) => {
   let transaction = await db.sequelize.transaction();
   try {
     let fieldOfStudyToCreate = copyObjectHelper(req.body, ['name']);
@@ -27,7 +27,7 @@ exports.postFieldOfStudies = async (req, res, next) => {
   }
 };
 
-exports.putFieldOfStudies = async (req, res, next) => {
+exports.putFieldsOfStudy = async (req, res, next) => {
   const fieldOfStudyId = req.query.fieldOfStudyId;
   let transaction = await db.sequelize.transaction();
   try {
@@ -44,7 +44,7 @@ exports.putFieldOfStudies = async (req, res, next) => {
   }
 };
 
-exports.deleteFieldOfStudies = async (req, res, next) => {
+exports.deleteFieldsOfStudy = async (req, res, next) => {
   const fieldOfStudyId = req.query.fieldOfStudyId;
   let transaction = await db.sequelize.transaction();
   try {

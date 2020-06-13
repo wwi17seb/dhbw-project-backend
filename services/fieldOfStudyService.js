@@ -21,16 +21,16 @@ module.exports.findFieldOfStudyByName = async (fieldOfStudyName) => {
 
 // GET
 /*
- * Returns found FieldOfStudies
+ * Returns found FieldsOfStudy
  */
 module.exports.findAll = async (withMajorSubjects = false) => {
   let options = {};
   if (withMajorSubjects) {
     options.include = db.MajorSubject;
   }
-  const fieldOfStudies = await db.FieldOfStudy.findAll(options);
+  const fieldsOfStudy = await db.FieldOfStudy.findAll(options);
 
-  return fieldOfStudies;
+  return fieldsOfStudy;
 };
 
 // POST
