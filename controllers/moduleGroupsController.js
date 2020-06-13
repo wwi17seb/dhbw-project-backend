@@ -5,11 +5,11 @@ const lectureService = require('../services/lectureService');
 const db = require('../database/database');
 
 exports.postModuleGroups = async (req, res, next) => {
-  let transaction = await db.sequelize.transaction();
+  const transaction = await db.sequelize.transaction();
 
   try {
-    let ModuleGroupToCreate = req.body;
-    let createdModuleGroup = await moduleGroupService.createModuleGroup(transaction, ModuleGroupToCreate);
+    const ModuleGroupToCreate = req.body;
+    const createdModuleGroup = await moduleGroupService.createModuleGroup(transaction, ModuleGroupToCreate);
 
     transaction.commit();
     return responseHelper(res, 201, 'Successfully created', createdModuleGroup);
@@ -39,10 +39,11 @@ exports.putModuleGroups = async (req, res, next) => {
 };
 
 exports.deleteModuleGroups = async (req, res, next) => {
-  let transaction = await db.sequelize.transaction();
+  const transaction = await db.sequelize.transaction();
   const moduleGroupId = req.query.moduleGroupId;
+
   try {
-    let deletedModulecatalog = await moduleGroupService.deleteModuleGroup(transaction, moduleGroupId);
+    const deletedModulecatalog = await moduleGroupService.deleteModuleGroup(transaction, moduleGroupId);
     transaction.commit();
     return responseHelper(res, 200, 'Successfully deleted', deletedModulecatalog);
   } catch (error) {

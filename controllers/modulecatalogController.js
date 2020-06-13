@@ -8,9 +8,9 @@ exports.getModulecatalog = async (req, res) => {
 
   if (majorSubjectId) {
     try {
-      const FieldOfStudies = await moduleGroupService.getAllModuleGroupsByMajorSubjectId(majorSubjectId);
+      const FieldsOfStudy = await moduleGroupService.getAllModuleGroupsByMajorSubjectId(majorSubjectId);
 
-      return responseHelper(res, 200, 'Successful', { FieldOfStudies });
+      return responseHelper(res, 200, 'Successful', { FieldsOfStudy });
     } catch (error) {
       transaction.rollback();
       return next(error);
