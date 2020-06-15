@@ -31,8 +31,10 @@ app.get('/', (req, res) => {
   res.json({ message: 'Server Running', payload: null });
 });
 app.use(require('./routes/routeNotImplementedRoutes'));
+const CONSOLE_LOG_COLOR_FG_RED = '\x1b[31m';
+const CONSOLE_LOG_COLOR_RESET = '\x1b[0m';
 app.use(function (err, req, res, next) {
-  console.error(`[ERROR]: ${err.message}`);
+  console.error(`${CONSOLE_LOG_COLOR_FG_RED}[ERROR]: ${err.message}${CONSOLE_LOG_COLOR_RESET}`);
   console.error(err);
   res.status(500).json({ message: 'Internal Server Error', payload: null });
 });

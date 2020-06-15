@@ -1,5 +1,6 @@
 const db = require('../database/database');
 const moduleService = require('./moduleService');
+const majorSubjectService = require('./majorSubjectService');
 
 const whatToInclude = [
   {
@@ -11,7 +12,7 @@ const whatToInclude = [
 async function findModuleGroupById(moduleGroup_id) {
   const moduleGroupToFind = await db.ModuleGroup.findOne({ where: { moduleGroup_id }, include: whatToInclude });
 
-  return moduleGroupToFind.dataValues;
+  return moduleGroupToFind ? moduleGroupToFind.dataValues : null;
 }
 
 // GET

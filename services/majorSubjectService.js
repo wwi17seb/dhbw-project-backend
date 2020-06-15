@@ -1,6 +1,12 @@
 const db = require('../database/database');
 
 // GET
+module.exports.findMajorSubjectById = async (majorSubject_id) => {
+  const majorSubject = await db.MajorSubject.findOne({ where: { majorSubject_id } });
+
+  return majorSubject ? majorSubject.dataValues : null;
+};
+
 module.exports.findAll = async () => {
   const majorSubjects = await db.MajorSubject.findAll({ plain: true, raw: true, include: [db.FieldOfStudy] });
 

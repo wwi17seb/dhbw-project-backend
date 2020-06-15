@@ -1,21 +1,20 @@
 const responseHelper = require('../helpers/responseHelper');
+const { checkMajorSubjectExistence } = require('../helpers/checkExistenceHelper');
+const errorResponseHelper = require('../helpers/errorResponseHelper');
 const moduleGroupService = require('../services/moduleGroupService');
-const moduleService = require('../services/moduleService');
-const db = require('../database/database');
 
-exports.getModulecatalog = async (req, res) => {
+exports.getModulecatalog = async (req, res, next) => {
   const majorSubjectId = req.query.majorSubjectId;
-
-  if (majorSubjectId) {
-    try {
-      const FieldsOfStudy = await moduleGroupService.getAllModuleGroupsByMajorSubjectId(majorSubjectId);
-
-      return responseHelper(res, 200, 'Successful', { FieldsOfStudy });
-    } catch (error) {
-      transaction.rollback();
-      return next(error);
+  try {
+    if (!majorSubjectId) {
+      throw new Error('No major subject given');
     }
-  } else {
-    return responseHelper(res, 400, 'No Major Subject ID Given');
+
+    await checkMajorSubjectExistence(majorSubjectId);
+    const FieldsOfStudy = await moduleGroupService.getAllModuleGroupsByMajorSubjectId(majorSubjectId);
+
+    return responseHelper(res, 200, 'Successful', { FieldsOfStudy });
+  } catch (error) {
+    return errorResponseHelper(res, next, error);
   }
 };

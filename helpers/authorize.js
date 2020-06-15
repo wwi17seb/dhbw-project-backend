@@ -6,7 +6,7 @@ module.exports = authorize;
 function authorize() {
   return (req, res, next) => {
     const token = authService.verifyToken(req.query.token);
-    if (token) {
+    if (token && token.directorOfStudies_id) {
       req.token = token;
       next();
     } else {

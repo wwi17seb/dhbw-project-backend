@@ -1,4 +1,5 @@
 const responseHelper = require('../helpers/responseHelper');
+const errorResponseHelper = require('../helpers/errorResponseHelper');
 const db = require('../database/database');
 const copyObjectHelper = require('../helpers/propertyCopyHelper');
 const presentationService = require('../services/presentationService');
@@ -14,10 +15,15 @@ exports.getPresentations = async (req, res, next) => {
   const directorOfStudiesId = req.token.directorOfStudies_id;
 
   try {
+    if (!course_id) {
+      throw new Error('No course given');
+    }
+
     if (!(await checkCourseEditAuthorization(directorOfStudiesId, course_id))) {
       transaction.rollback();
       return responseHelper(res, 403, 'You are not authorized to view presentations of this course');
     }
+
     let [Presentations, DoS] = await Promise.all([
       presentationService.findAll(course_id, semester_id),
       directorOfStudiesService.getById(directorOfStudiesId),
@@ -27,15 +33,16 @@ exports.getPresentations = async (req, res, next) => {
       presentation.DirectorOfStudies = DoS;
       return presentation;
     });
+
     return responseHelper(res, 200, 'Successful', { Presentations });
   } catch (error) {
-    return next(error);
+    return errorResponseHelper(res, next, error);
   }
 };
 
 exports.postPresentations = async (req, res, next) => {
-  const transaction = await db.sequelize.transaction();
   const directorOfStudiesId = req.token.directorOfStudies_id;
+  const transaction = await db.sequelize.transaction();
 
   try {
     const presentationToCreate = copyObjectHelper(req.body, [
@@ -46,6 +53,7 @@ exports.postPresentations = async (req, res, next) => {
       'course_id',
       'status',
     ]);
+
     if (!(await checkCourseEditAuthorization(directorOfStudiesId, presentationToCreate.course_id))) {
       transaction.rollback();
       return responseHelper(res, 403, 'You are not authorized to create this presentation');
@@ -55,22 +63,26 @@ exports.postPresentations = async (req, res, next) => {
       ...presentationToCreate,
       directorOfStudies_id: directorOfStudiesId,
     });
-    transaction.commit();
 
+    transaction.commit();
     return responseHelper(res, 201, 'Successfully created', createdPresentation);
   } catch (error) {
     transaction.rollback();
 
-    return next(error);
+    return errorResponseHelper(res, next, error);
   }
 };
 
 exports.putPresentations = async (req, res, next) => {
-  const transaction = await db.sequelize.transaction();
   const presentationId = req.query.presentationId;
   const directorOfStudiesId = req.token.directorOfStudies_id;
+  const transaction = await db.sequelize.transaction();
 
   try {
+    if (!presentationId) {
+      throw new Error('No presentation given');
+    }
+
     const presentationToUpdate = copyObjectHelper(req.body, [
       'lecture_id',
       'lecturer_id',
@@ -93,34 +105,43 @@ exports.putPresentations = async (req, res, next) => {
       ...presentationToUpdate,
       directorOfStudies_id: directorOfStudiesId,
     });
-    transaction.commit();
 
+    if (!updatedPresentation) {
+      throw new Error('No presentation found to update');
+    }
+
+    transaction.commit();
     return responseHelper(res, 200, 'Successfully updated', updatedPresentation);
   } catch (error) {
     transaction.rollback();
-
-    return next(error);
+    return errorResponseHelper(res, next, error);
   }
 };
 
 exports.deletePresentations = async (req, res, next) => {
-  const transaction = await db.sequelize.transaction();
   const presentationId = req.query.presentationId;
   const directorOfStudiesId = req.token.directorOfStudies_id;
+  const transaction = await db.sequelize.transaction();
 
   try {
+    if (!presentationId) {
+      throw new Error('No presentation given');
+    }
+
     if (!(await checkPresentationEditAuthorization(directorOfStudiesId, presentationId))) {
       transaction.rollback();
       return responseHelper(res, 403, 'You are not authorized to delete this presentation');
     }
 
     const deletedPresentation = await presentationService.deletePresentation(transaction, presentationId);
-    transaction.commit();
+    if (!deletedPresentation) {
+      throw new Error('No presentation found to delete');
+    }
 
+    transaction.commit();
     return responseHelper(res, 200, 'Successfully deleted', deletedPresentation);
   } catch (error) {
     transaction.rollback();
-
-    return next(error);
+    return errorResponseHelper(res, next, error);
   }
 };

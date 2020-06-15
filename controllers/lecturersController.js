@@ -1,6 +1,7 @@
+const responseHelper = require('../helpers/responseHelper');
+const errorResponseHelper = require('../helpers/errorResponseHelper');
 const lecturerService = require('../services/lecturerService');
 const db = require('../database/database');
-const responseHelper = require('../helpers/responseHelper');
 const copyObjectHelper = require('../helpers/propertyCopyHelper');
 const { checkLecturerEditAuthorization } = require('../helpers/checkAuthorizationHelper');
 
@@ -9,9 +10,10 @@ exports.getLecturers = async (req, res, next) => {
   try {
     const curStudiesDirectorId = req.token.directorOfStudies_id;
     const lecturers = await lecturerService.findAllLecturer(curStudiesDirectorId);
+
     responseHelper(res, 200, 'Successful', { lecturers });
   } catch (error) {
-    return next(error);
+    return errorResponseHelper(res, next, error);
   }
 };
 
@@ -36,17 +38,19 @@ exports.postLecturers = async (req, res, next) => {
 
   try {
     const createdLecturer = await lecturerService.createLecturer(transaction, givenLecturer, directorOfStudies_id);
+
     transaction.commit();
     responseHelper(res, 201, 'Successfully created lecturer', createdLecturer);
   } catch (error) {
     transaction.rollback();
-    return next(error);
+    return errorResponseHelper(res, next, error);
   }
 };
 
 exports.putLecturers = async (req, res, next) => {
   const directorOfStudies_id = req.token.directorOfStudies_id;
   const lecturerId = req.query.lecturerId;
+  const transaction = await db.sequelize.transaction();
   const givenLecturer = copyObjectHelper(req.body, [
     'firstname',
     'lastname',
@@ -63,8 +67,11 @@ exports.putLecturers = async (req, res, next) => {
     'mainFocus_ids',
   ]);
 
-  const transaction = await db.sequelize.transaction();
   try {
+    if (!lecturerId) {
+      throw new Error('No lecturer given');
+    }
+
     if (await checkLecturerEditAuthorization(directorOfStudies_id, lecturerId)) {
       const updatedLecturer = await lecturerService.updateLecturer(
         transaction,
@@ -72,6 +79,10 @@ exports.putLecturers = async (req, res, next) => {
         lecturerId,
         directorOfStudies_id
       );
+      if (!updatedLecturer) {
+        throw new Error('No Lecturer found to update');
+      }
+
       transaction.commit();
       return responseHelper(res, 200, 'Successfully updated lecturer', updatedLecturer);
     } else {
@@ -79,18 +90,25 @@ exports.putLecturers = async (req, res, next) => {
     }
   } catch (error) {
     transaction.rollback();
-    return next(error);
+    return errorResponseHelper(res, next, error);
   }
 };
 
 exports.deleteLecturers = async (req, res, next) => {
   const directorOfStudies_id = req.token.directorOfStudies_id;
   const lecturerId = req.query.lecturerId;
-
   const transaction = await db.sequelize.transaction();
+
   try {
+    if (!lecturerId) {
+      throw new Error('No lecturer given');
+    }
+
     if (await checkLecturerEditAuthorization(directorOfStudies_id, lecturerId)) {
       const deletedLecturer = await lecturerService.deleteLecturer(transaction, lecturerId);
+      if (!deletedLecturer) {
+        throw new Error('No lecturer found to delete');
+      }
 
       transaction.commit();
       return responseHelper(res, 200, 'Successfully deleted lecturer', deletedLecturer);
@@ -99,6 +117,6 @@ exports.deleteLecturers = async (req, res, next) => {
     }
   } catch (error) {
     transaction.rollback();
-    return next(error);
+    return errorResponseHelper(res, next, error);
   }
 };
