@@ -1,4 +1,5 @@
 const db = require('../database/database');
+const moduleService = require('./moduleService');
 
 const whatToInclude = [
   {
@@ -7,16 +8,13 @@ const whatToInclude = [
   },
 ];
 
-module.exports.findModuleGroupById = async (moduleGroup_id) => {
+async function findModuleGroupById(moduleGroup_id) {
   const moduleGroupToFind = await db.ModuleGroup.findOne({ where: { moduleGroup_id }, include: whatToInclude });
-  return moduleGroupToFind.dataValues;
-};
 
-module.exports.findModuleGroupByName = async (moduleGroupName) => {
-  const moduleGroupToFind = await db.ModuleGroup.findOne({ where: { name: moduleGroupName }, include: whatToInclude });
   return moduleGroupToFind.dataValues;
-};
+}
 
+// GET
 module.exports.getAllModuleGroups = async () => {
   const moduleGroup = await db.ModuleGroup.findAll({ include: whatToInclude });
 
@@ -96,35 +94,55 @@ module.exports.createModuleGroup = async (
 // PUT
 module.exports.updateModuleGroup = async (
   transaction,
-  { moduleGroup_id, majorSubject_id, name, number_of_modules_to_attend, from_semester_number, to_semester_number }
+  {
+    moduleGroup_id,
+    majorSubject_id,
+    name,
+    number_of_modules_to_attend,
+    from_semester_number,
+    to_semester_number,
+    Modules,
+  }
 ) => {
   const moduleGroup = await db.ModuleGroup.update(
     { majorSubject_id, name, number_of_modules_to_attend, from_semester_number, to_semester_number },
     {
       where: { moduleGroup_id },
       transaction,
-      include: [
-        {
-          model: db.ModuleGroup.Module,
-          include: [
-            { model: db.Module.AcademicRecord },
-            { model: db.Module.Lecture, include: [{ model: db.Lecture.MainFocus }] },
-          ],
-        },
-      ],
     }
   );
+  const oldModuleGroup = await findModuleGroupById(moduleGroup_id);
+
+  const modulesToBeIncluded = {};
+  await Promise.all(
+    Modules.map(async (Module) => {
+      const id = Module.module_id;
+      if (id) {
+        modulesToBeIncluded[id] = Module;
+      } else {
+        await moduleService.createModule(transaction, { moduleGroup_id, ...Module });
+      }
+    })
+  );
+
+  await Promise.all(
+    oldModuleGroup.Modules.map(async (oldModule) => {
+      const oldModuleId = oldModule.module_id;
+      if (oldModuleId in modulesToBeIncluded) {
+        const moduleToUpdate = modulesToBeIncluded[oldModuleId];
+        await moduleService.updateModule(transaction, { moduleGroup_id, module_id: oldModuleId, ...moduleToUpdate });
+      } else {
+        await moduleService.deleteModule(transaction, oldModuleId);
+      }
+    })
+  );
+
   return moduleGroup > 0;
 };
 
 // DELETE
-/*
- * Receives transaction, moduleGroup_id
- * deletes a moduleGroup
- *
- * return boolean of succeeding
- */
 module.exports.deleteModuleGroup = async (transaction, moduleGroup_id) => {
   const counter = await db.ModuleGroup.destroy({ where: { moduleGroup_id }, transaction });
+
   return counter > 0;
 };

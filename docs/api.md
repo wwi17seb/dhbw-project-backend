@@ -81,7 +81,7 @@ Allgemeiner Rückgabe-Aufbau:
 
 - Integer werden als `0` gekennzeichnet.
 - Strings werden durch `"[NAME]"` gekennzeichnet und beinhalten einen beschreibenden Namen.
-- Boolean werden als `TRUE` gekennzeichnet.
+- Boolean werden als `true` gekennzeichnet.
 - Arrays können mehrere Objekte beinhalten. Es wird in der Dokumentation jedoch nur ein Objekt eingesetzt.
 <!-- beschreiben mit [], 0 -->
 
@@ -373,7 +373,7 @@ Rückgabe:
                 "research": "[LEHRE]", // Geplant als String
                 "cv": "[VITA]", // Geplant als String
                 "comment": "[KOMMENTAR]", // Bspw. "Sehr engagiert"
-                "is_extern": TRUE // false = intern, true = extern
+                "is_extern": true // false = intern, true = extern
             }
         ]
     }
@@ -423,7 +423,7 @@ Body der Anfrage:
     "research": "[LEHRE]", // Geplant als String
     "cv": "[VITA]", // Geplant als String
     "comment": "[KOMMENTAR]", // Bspw. "Sehr engagiert"
-    "is_extern": TRUE // false = intern, true = extern
+    "is_extern": true // false = intern, true = extern
 }
 ```
 
@@ -448,7 +448,7 @@ Body der Anfrage:
     "research": "[LEHRE]", // Geplant als String
     "cv": "[VITA]", // Geplant als String
     "comment": "[KOMMENTAR]", // Bspw. "Sehr engagiert"
-    "is_extern": TRUE // false = intern, true = extern
+    "is_extern": true // false = intern, true = extern
 }
 ```
 
@@ -633,7 +633,7 @@ Rückgabe:
                             "academicRecord_id": 0, // Bspw. "1"
                             "abbreviation": "[ABKÜRZUNG]", // Bspw. "K, SE"
                             "type": "[TYP]", // Bspw. "Klausur"
-                            "rated": TRUE // Bspw. "TRUE/FALSE
+                            "rated": true // Bspw. "true/false
                         }
                     ],
                     "ModuleGroup": {
@@ -669,7 +669,7 @@ Rückgabe:
             "DirectorOfStudies": { // current (signed in) Director of Studies
                 "directorOfStudies_Id": 0, // Bspw. "1"
                 "username": "[BENUTZERNAME]", // Bspw. "Admin"
-                "isAdmin": TRUE, // Bspw. "TRUE/FALSE"
+                "isAdmin": true, // Bspw. "true/false"
                 "misc": "[VERSCHIEDENES]" // Bspw. "{ "email-template": "blablabla, was auch immer ihr wollt, könnt ihr hier speichern.", "oder": "auch einfach anders. ihr seid hier frei.", "bitte": "jedoch als text und kein blob." }"
             },
             "createdBy": {
@@ -680,7 +680,7 @@ Rückgabe:
                 "academicRecord_id": 0, // Bspw. "1"
                 "abbreviation": "[ABKÜRZUNG]", // Bspw. "K, SE"
                 "type": "[TYP]", // Bspw. "Klausur"
-                "rated": TRUE // Bspw. "TRUE/FALSE
+                "rated": true // Bspw. "true/false
             },
             "Semester": {
                 "semester_id": 0, // Bspw. "1"
@@ -756,7 +756,7 @@ Rückgabe:
                 "academicRecord_id": 0 // Bspw. "1"
                 "abbreviation": "[ABKÜRZUNG]", // Bspw. "K, SE"
                 "type": "[TYP]", // Bspw. "Klausur"
-                "rated": TRUE // Bspw. "TRUE/FALSE"
+                "rated": true // Bspw. "true/false"
             }
         ]
     }
@@ -773,7 +773,7 @@ Body der Anfrage:
 {
     "abbreviation": "[ABKÜRZUNG]", // Bspw. "K, SE"
     "type": "[TYP]", // Bspw. "Klausur"
-    "rated": TRUE // Bspw. "TRUE/FALSE
+    "rated": true // Bspw. "true/false
 }
 ```
 
@@ -788,7 +788,7 @@ Body der Anfrage:
 {
     "abbreviation": "[ABKÜRZUNG]", // Bspw. "K, SE"
     "type": "[TYP]", // Bspw. "Klausur"
-    "rated": TRUE // Bspw. "TRUE/FALSE
+    "rated": true // Bspw. "true/false
 }
 ```
 
@@ -852,7 +852,7 @@ Rückgabe:
                             "academicRecord_id": 0, // Bspw. "1"
                             "abbreviation": "[ABKÜRZUNG]", // Bspw. "K, SE"
                             "type": "[TYP]", // Bspw. "Klausur"
-                            "rated": TRUE // Bspw. "TRUE/FALSE
+                            "rated": true // Bspw. "true/false
                         }
                     ]
                 ]
@@ -892,7 +892,7 @@ Body der Anfrage:
                     "workload_home": "[SELBSTSTUDIUM]", // Bspw. "36 Stunden"
                     "workload_dhbw": "[PRÄSENZZEIT]", // Bspw. "24 Stunden"
                     "catalog_id": "[KATALOG-ID]", // Bspw. "WWISE_301.2"
-                    "mainFocus_ids": [0, 0] // Bspw. [1, 2]
+                    "mainFocus_ids": [ 0, 0 ] // Bspw. [1, 2]
                 }
             ]
         }
@@ -916,7 +916,7 @@ Body der Anfrage:
     "to_semester_number": 0, // Bspw. "2"
     "Modules": [
         {
-            "module_id": 0, // Bspw. "1"
+            "module_id": 0, // Bspw. "1" - OPTIONAL, nur wenn schon existent
             "name": "[NAME]", // Bspw. "Technische Grundlagen mobiler Applikationen"
             "description": "[BESCHREIBUNG]", // Bspw. "Lorem Ipsum..."
             "ects": 0, // Bspw. "6"
@@ -926,12 +926,12 @@ Body der Anfrage:
             "requirements": "[ANFODERUNGEN]", // Bspw. "Keine."
             "Lectures": [
                 {
-                    "lecture_id": 0, // Bspw. "1"
+                    "lecture_id": 0, // Bspw. "1" - OPTIONAL, nur wenn schon vorhanden
                     "name": "[NAME]", // Bspw. "Marketing"
                     "workload_home": "[SELBSTSTUDIUM]", // Bspw. "36 Stunden"
                     "workload_dhbw": "[PRÄSENZZEIT]", // Bspw. "24 Stunden"
                     "catalog_id": "[KATALOG-ID]", // Bspw. "WWISE_301.2"
-                    "mainFocus_ids": [ 0, 0 ] // Bspw. ["1"]
+                    "mainFocus_ids": [ 0, 0 ] // Bspw. "[1]" oder "[1, 2]"
                 }
             ]
         }
