@@ -251,7 +251,7 @@
 								}
 							]
 						},
-						"description": "Create a course and link it with the given director of studies."
+						"description": "Create a new semester entry for given course, if couse is given."
 					},
 					"response": []
 				},
@@ -346,12 +346,12 @@
 								}
 							]
 						},
-						"description": "Gets all lecturers linked to the given director of studies."
+						"description": "Gets all MainFocuses"
 					},
 					"response": []
 				},
 				{
-					"name": "create MainFocuses",
+					"name": "create MainFocus",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -386,12 +386,12 @@
 								}
 							]
 						},
-						"description": "Create a lecturer and link him with the given director of studies."
+						"description": "Create a new MainFocus"
 					},
 					"response": []
 				},
 				{
-					"name": "update MainFocuses",
+					"name": "update MainFocus",
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -423,12 +423,12 @@
 								}
 							]
 						},
-						"description": "Update a given lecturer if he is linked with a given director of studies."
+						"description": "Update a given MainFocus."
 					},
 					"response": []
 				},
 				{
-					"name": "delete Lecturer",
+					"name": "delete MainFocus",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -451,7 +451,7 @@
 								}
 							]
 						},
-						"description": "Deletes a given lecturer if he is linked with a given director of studies."
+						"description": "Deletes a given MainFocus"
 					},
 					"response": []
 				}
@@ -652,12 +652,12 @@
 								}
 							]
 						},
-						"description": "Get all courses connected to the given director of studies."
+						"description": "Get all FieldsOfStudy."
 					},
 					"response": []
 				},
 				{
-					"name": "create FieldsOfStudy",
+					"name": "create FieldOfStudy",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -692,12 +692,12 @@
 								}
 							]
 						},
-						"description": "Create a course and link it with the given director of studies."
+						"description": "Create a new FieldOfStudy."
 					},
 					"response": []
 				},
 				{
-					"name": "update FieldsOfStudy",
+					"name": "update FieldOfStudy",
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -729,12 +729,12 @@
 								}
 							]
 						},
-						"description": "Update a given course if it is linked with a given director of studies."
+						"description": "Update a given Field of Study."
 					},
 					"response": []
 				},
 				{
-					"name": "delete FieldsOfStudy",
+					"name": "delete FieldOfStudy",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -757,7 +757,7 @@
 								}
 							]
 						},
-						"description": "Deletes a given course if it is linked with a given director of studies."
+						"description": "Deletes a given Field of Study."
 					},
 					"response": []
 				}
@@ -792,7 +792,7 @@
 								}
 							]
 						},
-						"description": "Get all courses connected to the given director of studies."
+						"description": "Get all major subjects to the given field of study."
 					},
 					"response": []
 				},
@@ -832,7 +832,7 @@
 								}
 							]
 						},
-						"description": "Create a course and link it with the given director of studies."
+						"description": "Create a major subject and link it with the given field of study."
 					},
 					"response": []
 				},
@@ -869,7 +869,7 @@
 								}
 							]
 						},
-						"description": "Update a given course if it is linked with a given director of studies."
+						"description": "Update a given major subject linked with a given field of study."
 					},
 					"response": []
 				},
@@ -897,7 +897,7 @@
 								}
 							]
 						},
-						"description": "Deletes a given course if it is linked with a given director of studies."
+						"description": "Deletes a given major subject."
 					},
 					"response": []
 				}
@@ -937,7 +937,7 @@
 								}
 							]
 						},
-						"description": "Get all courses connected to the given director of studies."
+						"description": "Get all presentations connected to a given course."
 					},
 					"response": []
 				},
@@ -977,7 +977,7 @@
 								}
 							]
 						},
-						"description": "Create a lecture."
+						"description": "Create a presentation."
 					},
 					"response": []
 				},
@@ -1014,7 +1014,7 @@
 								}
 							]
 						},
-						"description": "Update a given lecture."
+						"description": "Update a given presentation."
 					},
 					"response": []
 				},
@@ -1042,7 +1042,7 @@
 								}
 							]
 						},
-						"description": "Deletes a given lecture."
+						"description": "Deletes a given presentation."
 					},
 					"response": []
 				}
@@ -1078,7 +1078,7 @@
 								}
 							]
 						},
-						"description": "Get all courses connected to the given director of studies."
+						"description": "Get all acedemic records."
 					},
 					"response": []
 				},
@@ -1118,7 +1118,7 @@
 								}
 							]
 						},
-						"description": "Create a course and link it with the given director of studies."
+						"description": "Create an academic record."
 					},
 					"response": []
 				},
@@ -1155,7 +1155,7 @@
 								}
 							]
 						},
-						"description": "Update a given course if it is linked with a given director of studies."
+						"description": "Update a given academic record."
 					},
 					"response": []
 				},
@@ -1183,7 +1183,7 @@
 								}
 							]
 						},
-						"description": "Deletes a given course if it is linked with a given director of studies."
+						"description": "Deletes a given academic record."
 					},
 					"response": []
 				}
@@ -1218,7 +1218,7 @@
 								}
 							]
 						},
-						"description": "Gets all lecturers linked to the given director of studies."
+						"description": "Gets all modulecatalogs connected to a major subject."
 					},
 					"response": []
 				}
@@ -1264,7 +1264,7 @@
 								}
 							]
 						},
-						"description": "Create a lecturer and link him with the given director of studies."
+						"description": "Create a module group and link it with the given major subject."
 					},
 					"response": []
 				},
@@ -1301,7 +1301,7 @@
 								}
 							]
 						},
-						"description": "Update a given lecturer if he is linked with a given director of studies."
+						"description": "Update a given module group."
 					},
 					"response": []
 				},
@@ -1329,7 +1329,7 @@
 								}
 							]
 						},
-						"description": "Deletes a given lecturer if he is linked with a given director of studies."
+						"description": "Deletes a given module group."
 					},
 					"response": []
 				}
