@@ -916,6 +916,7 @@ Body der Anfrage:
     "to_semester_number": 0, // Bspw. "2"
     "Modules": [
         {
+            "module_id": 0, // Bspw. "1"
             "name": "[NAME]", // Bspw. "Technische Grundlagen mobiler Applikationen"
             "description": "[BESCHREIBUNG]", // Bspw. "Lorem Ipsum..."
             "ects": 0, // Bspw. "6"
@@ -925,6 +926,7 @@ Body der Anfrage:
             "requirements": "[ANFODERUNGEN]", // Bspw. "Keine."
             "Lectures": [
                 {
+                    "lecture_id": 0, // Bspw. "1"
                     "name": "[NAME]", // Bspw. "Marketing"
                     "workload_home": "[SELBSTSTUDIUM]", // Bspw. "36 Stunden"
                     "workload_dhbw": "[PRÄSENZZEIT]", // Bspw. "24 Stunden"

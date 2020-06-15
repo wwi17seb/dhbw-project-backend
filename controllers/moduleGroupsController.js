@@ -28,6 +28,14 @@ exports.putModuleGroups = async (req, res, next) => {
       moduleGroup_id,
     });
 
+    // the code above only updates the attriutes of the module group but not the related entities
+    /* 1. compare old list of modules with new (passed) list of modules
+     * 2. module: create when new, delete when not existent anymore or update
+     * 3. lecture: create when new, delete when not existent anymore or update
+     * -> map array with objects to array of ids and check for differences between old and new
+     * (for further dependencies 'set' can be used, e.g. setAcademicRecords)
+     */
+
     transaction.commit();
     return responseHelper(res, 200, 'Successfully updated', updatedModuleGroup);
   } catch (error) {
