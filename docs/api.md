@@ -675,7 +675,7 @@ Rückgabe:
             "createdBy": {
                 "directorOfStudies_id": 0, // Bspw. "2"
                 "username": "[BENUTZERNAME]", // Bspw. "jreichwald"
-            }
+            },
             "AcademicRecord": { // gewähltes Bewertungsverfahren
                 "academicRecord_id": 0, // Bspw. "1"
                 "abbreviation": "[ABKÜRZUNG]", // Bspw. "K, SE"
