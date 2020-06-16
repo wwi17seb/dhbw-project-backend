@@ -12,10 +12,27 @@ addDefaultDos = async () => {
   };
   const directorOfStudiesIsAvaliable = await directorOfStudiesService.getByUsername(directorOfStudiesToCreate.username);
   if (!directorOfStudiesIsAvaliable) {
-    const lecturer = {};
-    await directorOfStudiesService.createDirectorOfStudies(null, directorOfStudiesToCreate, lecturer);
+    await directorOfStudiesService.createDirectorOfStudies(null, directorOfStudiesToCreate);
   }
 };
+
+const exec = require('child_process').exec;
+addTestData = async () => {
+  if (propertiesReader.getProperty('app.forceSync') && propertiesReader.getProperty('app.enableTestData') !== false) {
+    exec('node tests/createTestData.js', (error, stdout, stderr) => {
+      if (error) {
+        console.log('Error when adding test data');
+        console.log(error);
+      } else if (stderr) {
+        console.log('Error when adding test data');
+        console.log(stderr);
+      } else {
+        console.log('Test data has been added.');
+      }
+    });
+  }
+};
+
 // verify that db is connected
 db.sequelize
   .authenticate()
@@ -28,6 +45,7 @@ db.sequelize
       .then(async (result) => {
         await addDefaultDos();
         console.log('Database successfully synced');
+        await addTestData();
       })
       .catch((err) => {
         console.log(err);

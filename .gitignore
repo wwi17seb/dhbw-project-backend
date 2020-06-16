@@ -1,3 +1,5 @@
+logs/
+
 node_modules/
 package-lock.json
 
@@ -22,3 +24,4 @@ env
 *.ext
 docker/.env
 
+yarn.lock

@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       status: {
         type: DataTypes.STRING,
+        allowNull: true,
       },
     },
     {
@@ -20,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Presentation.associate = (models) => {
     // 1:n between presentation and lecture
-    models.Presentation.belongsTo(models.Lecture, {
+    Presentation.Lecture = models.Presentation.belongsTo(models.Lecture, {
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,
@@ -29,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // 1:n between presentation and lecturer
-    models.Presentation.belongsTo(models.Lecturer, {
+    Presentation.Lecturer = models.Presentation.belongsTo(models.Lecturer, {
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: true,
@@ -42,12 +43,12 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,
-        name: 'directorOfStudies_id',
+        name: 'createdBy_id',
       },
     });
 
     // 1:n between presentation and course
-    models.Presentation.belongsTo(models.Course, {
+    Presentation.Course = models.Presentation.belongsTo(models.Course, {
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,
@@ -65,7 +66,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // 1:n between presentation and academic record
-    models.Presentation.belongsTo(models.AcademicRecord, {
+    Presentation.AcademicRecord = models.Presentation.belongsTo(models.AcademicRecord, {
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: true,

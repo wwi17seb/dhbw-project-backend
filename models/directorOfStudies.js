@@ -16,32 +16,36 @@ module.exports = (sequelize, DataTypes) => {
       username: {
         type: DataTypes.STRING,
         unique: true,
+        allowNull: false,
       },
       password: {
         type: DataTypes.STRING(64),
         is: /^[0-9a-f]{64}$/i,
+        allowNull: false,
       },
       is_admin: {
         type: DataTypes.BOOLEAN,
+        allowNull: false,
         defaultValue: false,
       },
       misc: {
         type: DataTypes.TEXT,
         allowNull: true,
       },
-      lecturer_id: {
-        type: DataTypes.INTEGER,
-      },
     },
     {
       modelName: 'DirectorOfStudies',
       tableName: 'directorOfStudies',
+      name: {
+        singular: 'DirectorOfStudies',
+        plural: 'DirectorsOfStudies',
+      },
     }
   );
 
   DirectorOfStudies.associate = (models) => {
     // n:m between DirectorOfStudies to Course
-    models.DirectorOfStudies.belongsToMany(models.Course, {
+    DirectorOfStudies.Course = models.DirectorOfStudies.belongsToMany(models.Course, {
       through: 'directorOfStudies_course',
       onDelete: 'CASCADE',
       foreignKey: {
@@ -51,7 +55,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // 1:n betwenn director of studies and presentation
-    models.DirectorOfStudies.hasMany(models.Presentation, {
+    DirectorOfStudies.Presentation = models.DirectorOfStudies.hasMany(models.Presentation, {
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,
@@ -60,7 +64,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // 1:n between director of studies and lecturer
-    models.DirectorOfStudies.hasMany(models.Lecturer, {
+    DirectorOfStudies.Lecturer = models.DirectorOfStudies.hasMany(models.Lecturer, {
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: true,

@@ -23,14 +23,15 @@ RUN npm install
 # RUN npm ci --only=production
 
 # Bundle app source
-COPY database ./database
 COPY controllers ./controllers
+COPY database ./database
 COPY env ./env
 COPY helpers ./helpers
 COPY models ./models
 COPY routes ./routes
 COPY services ./services
 COPY sql ./sql
+COPY tests ./tests
 COPY app.js ./app.js
 
 EXPOSE 3000

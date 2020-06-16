@@ -19,26 +19,23 @@
   - [POST /semesters](#post-semesters)
   - [PUT /semesters?semesterId={ID}](#put-semesterssemesteridid)
   - [DELETE /semesters?semesterId={ID}](#delete-semesterssemesteridid)
+- [/mainFocuses](#mainfocuses)
+  - [GET /mainFocuses](#get-mainfocuses)
+  - [POST /mainFocuses](#post-mainfocuses)
+  - [PUT /mainFocuses?mainFocusId={ID}](#put-mainfocusesmainfocusidid)
+  - [DELETE /mainFocuses?mainFocusId={ID}](#delete-mainfocusesmainfocusidid)
 - [/lecturers](#lecturers)
   - [GET /lecturers](#get-lecturers)
     - [Optionale Parameter /lecturers](#optionale-parameter-lecturers)
   - [POST /lecturers](#post-lecturers)
   - [PUT /lecturers?lecturerId={ID}](#put-lecturerslectureridid)
   - [DELETE /lecturers?lecturerId={ID}](#delete-lecturerslectureridid)
-- [/moduleGroups](#modulegroups)
-  - [POST /moduleGroups](#post-modulegroups)
-  - [PUT /moduleGroups?moduleGroupId={ID}](#put-modulegroupsmodulegroupidid)
-  - [DELETE /moduleGroups?moduleGroupId={ID}](#delete-modulegroupsmodulegroupidid)
-- [/lectures](#lectures)
-  - [POST /lectures](#post-lectures)
-  - [PUT /lectures?lectureId={ID}](#put-lectureslectureidid)
-  - [DELETE /lectures?lectureId={ID}](#delete-lectureslectureidid)
-- [/fieldOfStudies](#fieldofstudies)
-  - [GET /fieldOfStudies](#get-fieldofstudies)
-    - [Optionale Parameter /fieldOfStudies](#optionale-parameter-fieldofstudies)
-  - [POST /fieldOfStudies](#post-fieldofstudies)
-  - [PUT /fieldOfStudies?fieldOfStudyId={ID}](#put-fieldofstudiesfieldofstudyidid)
-  - [DELETE /fieldOfStudies?fieldOfStudyId={ID}](#delete-fieldofstudiesfieldofstudyidid)
+- [/fieldsOfStudy](#fieldsofstudy)
+  - [GET /fieldsOfStudy](#get-fieldsofstudy)
+    - [Optionale Parameter /fieldsOfStudy](#optionale-parameter-fieldsofstudy)
+  - [POST /fieldsOfStudy](#post-fieldsofstudy)
+  - [PUT /fieldsOfStudy?fieldOfStudyId={ID}](#put-fieldsofstudyfieldofstudyidid)
+  - [DELETE /fieldsOfStudy?fieldOfStudyId={ID}](#delete-fieldsofstudyfieldofstudyidid)
 - [/majorSubjects](#majorsubjects)
   - [GET /majorSubjects?fieldOfStudyId={ID}](#get-majorsubjectsfieldofstudyidid)
   - [POST /majorSubjects](#post-majorsubjects)
@@ -57,37 +54,47 @@
   - [DELETE /academicRecords?academicRecordId={ID}](#delete-academicrecordsacademicrecordidid)
 - [/modulecatalog](#modulecatalog)
   - [GET /modulecatalog?majorSubjectId={ID}](#get-modulecatalogmajorsubjectidid)
+- [/moduleGroups](#modulegroups)
+  - [POST /moduleGroups](#post-modulegroups)
+  - [PUT /moduleGroups?moduleGroupId={ID}](#put-modulegroupsmodulegroupidid)
+  - [DELETE /moduleGroups?moduleGroupId={ID}](#delete-modulegroupsmodulegroupidid)
 
 ## Allgemein
+
 ### Authentifizierung
+
 Bei nahezu allen Routen wird geprüft, ob die entsprechende Aktion autorisiert bzw. der Nutzer authentisiert ist.
 Dafür muss ein Token (JWT), der beim Login ausgestellt wurde, als URL-Query-Parameter angegeben werden.
 Bsp.:
-````http
-GET /courses?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJ1c2VySWQiOjIsImlhdCI6MTU4OTg3MzY4OCwiZXhwIjoxNTk4NTEzNjg4fQ.KTjlx88ke7SWKhQAARMkoOlDtyjRyO73ksUMcThyOJ8
-````
-Ein Beispiel für eine Route, bei der kein gültiger Token übergeben werden muss, ist ``POST /login``.
+
+```http
+GET /courses?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZGlyZWN0b3JPZlN0dWRpZXNfaWQiOjEsImlhdCI6MTU5MjA1NjMzNywiZXhwIjoxNjAwNjk2MzM3fQ.KGl9sxoV-gro8yjUy8lVBQC_6uzUrYfpp-B0aGjf3Bs
+```
+
+Ein Beispiel für eine Route, bei der kein gültiger Token übergeben werden muss, ist `POST /login`.
 
 **ALLE nicht als "optional" gekennzeichneten Parameter müssen übergeben werden.**
 
 ### Rückgabe - Info
+
 Allgemeiner Rückgabe-Aufbau:
 
-- Integer werden als ``0`` gekennzeichnet.
-- Strings werden durch ``"[NAME]"`` gekennzeichnet und beinhalten einen beschreibenden Namen.
-- Boolean werden als ``TRUE`` gekennzeichnet.
+- Integer werden als `0` gekennzeichnet.
+- Strings werden durch `"[NAME]"` gekennzeichnet und beinhalten einen beschreibenden Namen.
+- Boolean werden als `true` gekennzeichnet.
 - Arrays können mehrere Objekte beinhalten. Es wird in der Dokumentation jedoch nur ein Objekt eingesetzt.
 <!-- beschreiben mit [], 0 -->
-````js
+
+```js
 {
     "message": "[DEBUG-INFO/KOMMENTAR]", // Bspw. "Successful", "Failed", ...
     "payload": {
 
     }
 }
-````
+```
 
-Wenn im Folgenden keine Rückgabe gezeigt ist, dann wird lediglich eine ``message`` gesetzt und das ``payload``-Objekt ist leer.
+Wenn im Folgenden keine Rückgabe gezeigt ist, dann wird lediglich eine `message` gesetzt und das `payload`-Objekt ist leer.
 
 ### Sonstiges
 
@@ -98,48 +105,52 @@ Routen, die nicht existieren, werden nicht dargestellt.
 ### POST /signup
 
 Body der Anfrage:
-````js
+
+```js
 {
     "username": "[NAME]", // Bspw. "Nutzername"
     "password": "[PASSWORT]" // Bspw. "MeinSicheresPasswort1337"
 }
-````
+```
 
 Rückgabe:
-````js
+
+```js
 {
     "message": "[DEBUG-INFO/KOMMENTAR]", // Bspw. "Successful", "Failed", ...
     "payload": {
-        "token": "[TOKEN]", // Bspw. "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJ1c2VySWQiOjIsImlhdCI6MTU4OTg3MzY4OCwiZXhwIjoxNTk4NTEzNjg4fQ.KTjlx88ke7SWKhQAARMkoOlDtyjRyO73ksUMcThyOJ8"
-        "userId": 0, // Bspw. "1"
+        "token": "[TOKEN]", // Bspw. "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZGlyZWN0b3JPZlN0dWRpZXNfaWQiOjEsImlhdCI6MTU5MjA1NjMzNywiZXhwIjoxNjAwNjk2MzM3fQ.KGl9sxoV-gro8yjUy8lVBQC_6uzUrYfpp-B0aGjf3Bs"
+        "directorOfStudies_id": 0, // Bspw. "1"
         "username": "[NUTZERNAME]" // Bspw. "Nutzername"
     }
 }
-````
+```
 
 ### POST /login
 
 **Info**: Route zum Anmelden.
 
 Body der Anfrage:
-````js
+
+```js
 {
     "username": "[NAME]", // Bspw. "Nutzername"
     "password": "[PASSWORT]" // Bspw. "MeinSicheresPasswort1337"
 }
-````
+```
 
 Rückgabe:
-````js
+
+```js
 {
     "message": "[DEBUG-INFO/KOMMENTAR]", // Bspw. "Successful", "Failed", ...
     "payload": {
-        "token": "[TOKEN]", // Bspw. "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJ1c2VySWQiOjIsImlhdCI6MTU4OTg3MzY4OCwiZXhwIjoxNTk4NTEzNjg4fQ.KTjlx88ke7SWKhQAARMkoOlDtyjRyO73ksUMcThyOJ8"
-        "userId": 0, // Bspw. "1"
+        "token": "[TOKEN]", // Bspw. "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZGlyZWN0b3JPZlN0dWRpZXNfaWQiOjEsImlhdCI6MTU5MjA1NjMzNywiZXhwIjoxNjAwNjk2MzM3fQ.KGl9sxoV-gro8yjUy8lVBQC_6uzUrYfpp-B0aGjf3Bs"
+        "directorOfStudies_id": 0, // Bspw. "1"
         "username": "[NUTZERNAME]" // Bspw. "Nutzername"
     }
 }
-````
+```
 
 ### POST /logout
 
@@ -153,7 +164,8 @@ Jeder Token ist für eine Dauer von `12h` gültig und muss danach erneuert werde
 **Info**: Gibt alle zum aktuell angemeldeten Studiengangsleiter vorhandenen Kurse zurück.
 
 Rückgabe:
-````js
+
+```js
 {
     "message": "[DEBUG-INFO/KOMMENTAR]", // Bspw. "Successful", "Failed", ...
     "payload": {
@@ -167,7 +179,8 @@ Rückgabe:
                 },
                 "MajorSubject": {
                     "majorSubject_id": 0, // Bspw. "1"
-                    "name": "[STUDIENGANG]", // Bspw. "Software Engineering"
+                    "name": "[NAME]", // Bspw. "Software Engineering"
+                    "catalog_effective_from": "[CATALOG_EFFECTIVE_FROM]", // Bspw. "Gültig ab 2018"
                     "FieldOfStudy": {
                         "fieldOfStudy_id": 0, // Bspw. "1"
                         "name": "[STUDIENRICHTUNG]" // Bspw. "Wirtschaftsinformatik"
@@ -186,20 +199,21 @@ Rückgabe:
         ]
     }
 }
-````
+```
 
 ### POST /courses
 
 **Info**: Erzeugt einen neuen Kurs beim angegebenen Studiengangsleiter.
 
 Body der Anfrage:
-````js
+
+```js
 {
     "name": "[KURSNAME]", // Bspw. "WWI 17 SEB"
     "google_calendar_id": "[GOOGLE_KALENDER_ID]",
     "majorSubject_id": 0, // Bspw. "1" - impliziert das field of study.
-    "directorOfStudy_ids": [ 0, 0 ], // Bspw. [1] oder [1, 2] - die eigene Id wird automatisch gesetzt, hier können weitere Verantwortlichen hinzugefügt werden
-    "semesters": [
+    "directorOfStudies_ids": [ 0, 0 ], // Bspw. [1] oder [1, 2] - die eigene Id wird automatisch gesetzt, hier können weitere Verantwortliche hinzugefügt werden
+    "Semesters": [
         {
             "name": "[SEMESTERNAME]", // Bspw. "WS17/18"
             "number": 0, // Bspw. "1"
@@ -215,28 +229,29 @@ Body der Anfrage:
         // für jedes weitere Semester ein weiteres Objekt.
     ]
 }
-````
+```
 
 ### PUT /courses?courseId={ID}
 
 **Info**: Aktualisiert den angegebenen Kurs.
-``{ID}`` ist dabei die ``course_id``.
+`{ID}` ist dabei die `course_id`.
 Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attributen einfach zu ermöglichen.
-Semester können über die ``semester`` aktualisiert werden.
+Semester können über die `semester` aktualisiert werden.
 
 Body der Anfrage:
-````js
+
+```js
 {
     "name": "[KURSNAME]", // Bspw. "WWI 17 SE B"
     "google_calendar_id": "[GOOGLE_KALENDER_ID]",
     "majorSubject_id": 0, // Bspw. "1"
-    "directorOfStudy_ids": [ 0, 0 ] // Bspw. [1] oder [1, 2] - die eigene Id wird automatisch gesetzt, hier können weitere Verantwortlichen hinzugefügt werden
+    "directorOfStudies_ids": [ 0, 0 ] // Bspw. [1] oder [1, 2] - die eigene Id wird automatisch gesetzt, hier können weitere Verantwortlichen hinzugefügt werden
 }
-````
+```
 
 ### DELETE /courses?courseId={ID}
 
-**Info**: Löscht den angegebenen Kurs mit der ``course_id`` ``{ID}``, sofern man selbst Studiengangsleiter ist.
+**Info**: Löscht den angegebenen Kurs mit der `course_id` `{ID}`, sofern man selbst Studiengangsleiter ist.
 
 ## /semesters
 
@@ -245,7 +260,8 @@ Body der Anfrage:
 **Info**: Erstellt einen neuen Eintrag eines Semesters zum angegebenen Kurs, sofern es in einem eigenen Kurs angelegt wird.
 
 Body der Anfrage:
-````js
+
+```js
 {
     "course_id": 0, // Bspw. "1"
     "name": "[SEMESTERNAME]", // Bspw. "SS18"
@@ -253,15 +269,16 @@ Body der Anfrage:
     "start_date": "[STARTDATUM]", // Bspw. "2018-05-07"
     "end_date": "[ENDDATUM]" // Bspw. "2018-08-03"
 }
-````
+```
 
 ### PUT /semesters?semesterId={ID}
 
-**Info**: Aktualisiert die Einträge eines Semesters mit angegebener ``semester_id`` ``{ID}``, sofern das Semester Teil eines eigenen Kurses ist.
-Alle Attribute müssen erneut übergeben werden, da diese so aktualisiert werden bzw. alle notwendig sind.
+**Info**: Aktualisiert die Einträge eines Semesters mit angegebener `semester_id` `{ID}`, sofern das Semester Teil eines eigenen Kurses ist.
+Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attributen einfach zu ermöglichen.
 
 Body der Anfrage:
-````js
+
+```js
 {
     "course_id": 0, // Bspw. "1"
     "name": "[SEMESTERNAME]", // Bspw. "SS18"
@@ -269,20 +286,70 @@ Body der Anfrage:
     "start_date": "[STARTDATUM]", // Bspw. "2018-05-07"
     "end_date": "[ENDDATUM]" // Bspw. "2018-08-03"
 }
-````
+```
 
 ### DELETE /semesters?semesterId={ID}
 
-**Info**: Löscht das Semester mit der angegebenen ``{ID}``, sofern es zu einem eigenen Kurs gehört.
+**Info**: Löscht das Semester mit der angegebenen `{ID}`, sofern es zu einem eigenen Kurs gehört.
+
+## /mainFocuses
+
+### GET /mainFocuses
+
+Rückgabe:
+
+```js
+{
+    "message": "[DEBUG-INFO/KOMMENTAR]", // Bspw. "Successful", "Failed", ...
+    "payload": {
+        "MainFocuses": [
+            {
+                "mainFocus_id": 0, // Bspw. "1"
+                "name": "[SCHWERPUNKT]", // Bspw. "Programmieren"
+            }
+        ]
+    }
+}
+```
+
+### POST /mainFocuses
+
+**Info**: Erstellt einen neuen Eintrag eines Schwerpunkts.
+
+Body der Anfrage:
+
+```js
+{
+    "name": "[SCHWERPUNKT]", // Bspw. "Programmieren"
+}
+```
+
+### PUT /mainFocuses?mainFocusId={ID}
+
+**Info**: Aktualisiert den Schwerpunkt (mainFocus) mit angegebener `mainFocus_id` `{ID}`.
+Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attributen einfach zu ermöglichen.
+
+Body der Anfrage:
+
+```js
+{
+    "name": "[SCHWERPUNKT]", // Bspw. "Programmieren"
+}
+```
+
+### DELETE /mainFocuses?mainFocusId={ID}
+
+**Info**: Löscht den Schwerpunkt mit der angegebenen `{ID}`.
 
 ## /lecturers
 
 ### GET /lecturers
 
-**Info**: Gibt alle dem Studiengangsleiter zugehörigen Dozenten zurück.
+**Info**: Gibt alle Dozenten zurück.
 
 Rückgabe:
-````js
+
+```js
 {
     "message": "[DEBUG-INFO/KOMMENTAR]", // Bspw. "Successful", "Failed", ...
     "payload": {
@@ -306,30 +373,32 @@ Rückgabe:
                 "research": "[LEHRE]", // Geplant als String
                 "cv": "[VITA]", // Geplant als String
                 "comment": "[KOMMENTAR]", // Bspw. "Sehr engagiert"
-                "is_extern": TRUE // false = intern, true = extern
+                "is_extern": true // false = intern, true = extern
             }
         ]
     }
 }
-````
+```
 
 #### Optionale Parameter /lecturers
 
-- ``experience``
+**Info**: [NICHT VORHANDEN!] Folgende Parameter werden noch implementiert.
+
+- `experience`
   - filtert die Rückgabe.
-  - gibt lediglich Dozenten mit dem angegebenen String im Freitextfeld ``experience`` zurück.
+  - gibt lediglich Dozenten mit dem angegebenen String im Freitextfeld `experience` zurück.
   - kommagetrennt.
-- ``comment``
+- `comment`
   - filtert die Rückgabe.
-  - gibt lediglich Dozenten mit dem angegebenen String im Freitextfeld ``comment`` zurück.
+  - gibt lediglich Dozenten mit dem angegebenen String im Freitextfeld `comment` zurück.
   - kommagetrennt.
-- ``firstname``
+- `firstname`
   - filtert die Rückgabe.
   - gibt lediglich Dozenten mit dem angegebenen String als Vornamen zurück (evtl. auch ähnliche? &rarr; Mueller = Müller etc.).
-- ``lastname``
+- `lastname`
   - filtert die Rückgabe.
   - gibt lediglich Dozenten mit dem angegebenen String als Nachnamen zurück (evtl. auch ähnliche? &rarr; Mueller = Müller etc.).
-- ``extern``
+- `extern`
   - filtert die Rückgabe.
   - gibt ebenfalls externe Dozenten zurück.
   - 0 = nur intern, 1 = intern&extern, 2 = nur extern.
@@ -339,7 +408,8 @@ Rückgabe:
 **Info**: Erzeugt einen neuen Dozenten.
 
 Body der Anfrage:
-````js
+
+```js
 {
     "firstname": "[VORNAME]", // Bspw. "Sebastian"
     "lastname": "[NACHNAME]", // Bspw. "Ritterbusch"
@@ -353,17 +423,18 @@ Body der Anfrage:
     "research": "[LEHRE]", // Geplant als String
     "cv": "[VITA]", // Geplant als String
     "comment": "[KOMMENTAR]", // Bspw. "Sehr engagiert"
-    "is_extern": TRUE // false = intern, true = extern
+    "is_extern": true // false = intern, true = extern
 }
-````
+```
 
 ### PUT /lecturers?lecturerId={ID}
 
-**Info**: Aktualisiert den Dozenten mit der angegebenen ``lecturer_id`` ``{ID}``.
+**Info**: Aktualisiert den Dozenten mit der angegebenen `lecturer_id` `{ID}`.
 Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attributen einfach zu ermöglichen.
 
 Body der Anfrage:
-````js
+
+```js
 {
     "firstname": "[VORNAME]", // Bspw. "Sebastian"
     "lastname": "[NACHNAME]", // Bspw. "Ritterbusch"
@@ -377,126 +448,27 @@ Body der Anfrage:
     "research": "[LEHRE]", // Geplant als String
     "cv": "[VITA]", // Geplant als String
     "comment": "[KOMMENTAR]", // Bspw. "Sehr engagiert"
-    "is_extern": TRUE // false = intern, true = extern
+    "is_extern": true // false = intern, true = extern
 }
-````
+```
 
 ### DELETE /lecturers?lecturerId={ID}
 
-**Info**: Löscht den angegebenen Dozenten mit der ``lecturer_id`` ``{ID}``, sofern der Dozent dem Studiengangsleiter zugeordnet werden kann.
+**Info**: Löscht den angegebenen Dozenten mit der `lecturer_id` `{ID}`, sofern der Dozent dem Studiengangsleiter zugeordnet werden kann.
 
-## /moduleGroups
+## /fieldsOfStudy
 
-**Info**: Nur zum Erstellen, Bearbeiten und Löschen der Modulgruppe.
-
-### POST /moduleGroups
-
-**Info**: Erzeugt eine neue Modulgruppe.
-
-Body der Anfrage:
-````js
-{
-    "majorSubject_id": 0, // Bspw. "1"
-    "name": "[NAME]", // Bspw. "Profil I"
-    "number_of_modules_to_attend": 0, // Bspw. "1"
-    "from_semester_number": 0, // Bspw. "1"
-    "to_semester_number": 0, // Bspw. "2"
-    "modules": [
-        {
-            "name": "[NAME]", // Bspw. "Technische Grundlagen mobiler Applikationen"
-            "description": "[BESCHREIBUNG]", // Bspw. "Lorem Ipsum..."
-            "ects": 0, // Bspw. "6"
-            "catalog_id": "[KATALOG-ID]" // Bspw. "WWISE_1337"
-            "academicRecord_ids": [ 0, 0 ], // Bspw. "[1]" oder "[1, 2]" - mögliche Bewertungsverfahren
-        }
-    ]
-}
-````
-
-### PUT /moduleGroups?moduleGroupId={ID}
-
-**Info**: Aktualisiert die Modulgruppe mit der angegebenen ``moduleGroup_id`` ``{ID}``.
-Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attributen einfach zu ermöglichen.
-
-Body der Anfrage:
-````js
-{
-    "majorSubject_id": 0, // Bspw. "1"
-    "name": "[NAME]", // Bspw. "Profil I"
-    "number_of_modules_to_attend": 0, // Bspw. "1"
-    "from_semester_number": 0, // Bspw. "1"
-    "to_semester_number": 0, // Bspw. "2"
-    "modules": [
-        {
-            "name": "[NAME]", // Bspw. "Technische Grundlagen mobiler Applikationen"
-            "description": "[BESCHREIBUNG]", // Bspw. "Lorem Ipsum..."
-            "ects": 0, // Bspw. "6"
-            "catalog_id": "[KATALOG-ID]" // Bspw. "WWISE_1337"
-            "academicRecord_ids": [ 0, 0 ], // Bspw. "[1]" oder "[1, 2]" - mögliche Bewertungsverfahren
-        }
-    ]
-}
-````
-
-### DELETE /moduleGroups?moduleGroupId={ID}
-
-**Info**: Löscht die Modulgruppe (inklusive der dazugehörigen Module) mit der angegebenen ``moduleGroup_id`` ``{ID}``.
-
-## /lectures
-
-**Info**: Nur zum Erstellen, Bearbeiten und Löschen der **abstrakten** Vorlesung.
-
-### POST /lectures
-
-**Info**: Erzeugt eine neue **abstrakten** Vorlesung.
-
-Body der Anfrage:
-````js
-{
-    "module_id": 0, // Bspw. "1"
-    "name": "[NAME]", // Bspw. "Marketing"
-    "workload_home": "[SELBSTSTUDIUM]", // Bspw. "36 Stunden"
-    "workload_dhbw": "[PRÄSENZZEIT]", // Bspw. "24 Stunden"
-    "requirements": "[ANFODERUNGEN]" // Bspw. "Keine."
-    "catalog_id": "[KATALOG-ID]", // Bspw. "WWISE_301.2"
-    "mainFocus_ids": [ 0, 0 ] // Bspw. ["1"]
-}
-````
-
-### PUT /lectures?lectureId={ID}
-
-**Info**: Aktualisiert die **abstrakte** Vorlesung mit der angegebenen ``lecture_id`` ``{ID}``.
-Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attributen einfach zu ermöglichen.
-
-Body der Anfrage:
-````js
-{
-    "module_id": 0, // Bspw. "1"
-    "name": "[NAME]", // Bspw. "Marketing"
-    "workload_home": "[SELBSTSTUDIUM]", // Bspw. "36 Stunden"
-    "workload_dhbw": "[PRÄSENZZEIT]", // Bspw. "24 Stunden"
-    "requirements": "[ANFODERUNGEN]" // Bspw. "Keine."
-    "catalog_id": "[KATALOG-ID]", // Bspw. "WWISE_301.2"
-    "mainFocus_ids": [ 0, 0 ] // Bspw. ["1"]
-}
-````
-
-### DELETE /lectures?lectureId={ID}
-
-**Info**: Löscht die **abstrakte** Vorlesung mit der angegebenen ``{ID}``.
-
-## /fieldOfStudies
-
-### GET /fieldOfStudies
+### GET /fieldsOfStudy
 
 **Info**: Gibt alle Studiengänge zurück.
 
 Rückgabe:
-````js
+
+```js
 {
     "message": "[DEBUG-INFO/KOMMENTAR]", // Bspw. "Successful", "Failed", ...
     "payload": {
-        "FieldOfStudies": [
+        "FieldsOfStudy": [
             {
                 "fieldOfStudy_id": 0, // Bspw. "1"
                 "name": "[NAME]" // Bspw. "Wirtschaftsinformatik"
@@ -504,69 +476,74 @@ Rückgabe:
         ]
     }
 }
-````
+```
 
-#### Optionale Parameter /fieldOfStudies
+#### Optionale Parameter /fieldsOfStudy
 
-- ``withMajorSubjects``
-  - sofern ``true`` werden hier die Studienrichtungen mitübergeben.
+- `withMajorSubjects`
+  - sofern `true` werden hier die Studienrichtungen mitübergeben.
 
 Rückgabe:
-````js
+
+```js
 {
     "message": "[DEBUG-INFO/KOMMENTAR]", // Bspw. "Successful", "Failed", ...
     "payload": {
-        "FieldOfStudies": [
+        "FieldsOfStudy": [
             {
                 "fieldOfStudy_id": 0, // Bspw. "1"
                 "name": "[NAME]", // Bspw. "Wirtschaftsinformatik"
                 "MajorSubjects": [
                     {
                         "majorSubject_id": 0, // Bspw. "1"
-                        "name": "[NAME]"  // Bspw. "Software Engineering 2018"
+                        "name": "[NAME]", // Bspw. "Software Engineering"
+                        "catalog_effective_from": "[CATALOG_EFFECTIVE_FROM]" // Bspw. "Gültig ab 2018"
                     }
                 ]
             }
         ]
     }
 }
-````
+```
 
-### POST /fieldOfStudies
+### POST /fieldsOfStudy
 
 **Info**: Erstellt einen Studiengang.
 
 Body der Anfrage:
-````js
+
+```js
 {
     "name": "[NAME]" // Bspw. "Wirtschaftsinformatik"
 }
-````
+```
 
-### PUT /fieldOfStudies?fieldOfStudyId={ID}
+### PUT /fieldsOfStudy?fieldOfStudyId={ID}
 
-**Info**: Aktualisiert den Studiengang mit der angegebenen ``fieldOfStudy_id`` ``{ID}``.
+**Info**: Aktualisiert den Studiengang mit der angegebenen `fieldOfStudy_id` `{ID}`.
 Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attributen einfach zu ermöglichen.
 
 Body der Anfrage:
-````js
+
+```js
 {
     "name": "[NAME]" // Bspw. "Wirtschaftsinformatik"
 }
-````
+```
 
-### DELETE /fieldOfStudies?fieldOfStudyId={ID}
+### DELETE /fieldsOfStudy?fieldOfStudyId={ID}
 
-**Info**: Löscht den Studiengang mit der angegebenen ``fieldOfStudy_id`` ``{ID}``.
+**Info**: Löscht den Studiengang mit der angegebenen `fieldOfStudy_id` `{ID}`.
 
 ## /majorSubjects
 
 ### GET /majorSubjects?fieldOfStudyId={ID}
 
-**Info**: Gibt alle Studienrichtungen zum Studiengang mit der angegebenen ``fieldOfStudy_id`` ``{ID}`` zurück. (Muss eine ``{ID}`` beinhalten.)
+**Info**: Gibt alle Studienrichtungen zum Studiengang mit der angegebenen `fieldOfStudy_id` `{ID}` zurück. (Muss eine `{ID}` beinhalten.)
 
 Rückgabe:
-````js
+
+```js
 {
     "message": "[DEBUG-INFO/KOMMENTAR]", // Bspw. "Successful", "Failed", ...
     "payload": {
@@ -577,49 +554,57 @@ Rückgabe:
         "MajorSubjects": [
             {
                 "majorSubject_id": 0, // Bspw. "1"
-                "name": "[NAME]" // Bspw. "Software Engineering ab 2018"
+                "name": "[NAME]", // Bspw. "Software Engineering"
+                "catalog_effective_from": "[CATALOG_EFFECTIVE_FROM]" // Bspw. "Gültig ab 2018"
             }
         ]
     }
 }
-````
+```
 
 ### POST /majorSubjects
 
-**Info**: Erstellt eine Studienrichtung für einen Studiengang mit angegebener ``fieldOfStudy_id``.
+**Info**: Erstellt eine Studienrichtung für einen Studiengang mit angegebener `fieldOfStudy_id`.
 
 Body der Anfrage:
-````js
+
+```js
 {
     "fieldOfStudy_id": 0, // Bspw. "1"
-    "name": "[NAME]" // Bspw. "Software Engineering 2018"
+    "name": "[NAME]", // Bspw. "Software Engineering"
+    "catalog_effective_from": "[CATALOG_EFFECTIVE_FROM]" // Bspw. "Gültig ab 2018"
 }
-````
+```
 
 ### PUT /majorSubjects?majorSubjectId={ID}
 
-**Info**: Aktualisiert die Studienrichtung mit der angegebenen ``majorSubject_id`` ``{ID}``.
+**Info**: Aktualisiert die Studienrichtung mit der angegebenen `majorSubject_id` `{ID}`.
 Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attributen einfach zu ermöglichen.
 
 Body der Anfrage:
-````js
+
+```js
 {
     "fieldOfStudy_id": 0, // Bspw. "1"
-    "name": "[NAME]" // Bspw. "Software Engineering 2011"
+    "name": "[NAME]", // Bspw. "Software Engineering"
+    "catalog_effective_from": "[CATALOG_EFFECTIVE_FROM]" // Bspw. "Gültig ab 2018"
 }
-````
+```
 
 ### DELETE /majorSubjects?majorSubjectId={ID}
 
-**Info**: Löscht die Studienrichtung mit der angegebenen ``majorSubject_id`` ``{ID}``.
+**Info**: Löscht die Studienrichtung mit der angegebenen `majorSubject_id` `{ID}`.
 
 ## /presentations
 
 ### GET /presentations?courseId={ID}
 
 **Info**: Gibt alle **konkreten** Vorlesungen (inkl. der noch in Planung befindlichen) für einen bestimmten Kurs zurück.
+Dies funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom angegebenen Kurs ist (er muss die konkreten Vorlesungen nicht zwingend erstellt haben).
 
-````js
+Rückgabe:
+
+```js
 {
     "Presentations": [
         {
@@ -648,7 +633,7 @@ Body der Anfrage:
                             "academicRecord_id": 0, // Bspw. "1"
                             "abbreviation": "[ABKÜRZUNG]", // Bspw. "K, SE"
                             "type": "[TYP]", // Bspw. "Klausur"
-                            "rated": TRUE //  Bspw. "TRUE/FALSE
+                            "rated": true // Bspw. "true/false
                         }
                     ],
                     "ModuleGroup": {
@@ -681,14 +666,21 @@ Body der Anfrage:
                 "comment": "[KOMMENTAR]", // Bspw. "Sehr engagiert"
                 "is_extern": "[KENNZEICHNER, OB EXTERN]" // 0 = intern, 2 = extern
             },
-            "DirectorOfStudies": {
+            "DirectorOfStudies": { // current (signed in) Director of Studies
+                "directorOfStudies_Id": 0, // Bspw. "1"
+                "username": "[BENUTZERNAME]", // Bspw. "Admin"
+                "isAdmin": true, // Bspw. "true/false"
                 "misc": "[VERSCHIEDENES]" // Bspw. "{ "email-template": "blablabla, was auch immer ihr wollt, könnt ihr hier speichern.", "oder": "auch einfach anders. ihr seid hier frei.", "bitte": "jedoch als text und kein blob." }"
+            },
+            "createdBy": {
+                "directorOfStudies_id": 0, // Bspw. "2"
+                "username": "[BENUTZERNAME]", // Bspw. "jreichwald"
             },
             "AcademicRecord": { // gewähltes Bewertungsverfahren
                 "academicRecord_id": 0, // Bspw. "1"
                 "abbreviation": "[ABKÜRZUNG]", // Bspw. "K, SE"
                 "type": "[TYP]", // Bspw. "Klausur"
-                "rated": TRUE //  Bspw. "TRUE/FALSE
+                "rated": true // Bspw. "true/false
             },
             "Semester": {
                 "semester_id": 0, // Bspw. "1"
@@ -700,11 +692,11 @@ Body der Anfrage:
         }
     ]
 }
-````
+```
 
 #### Optionale Parameter /presentations
 
-- ``semesterId``
+- `semesterId`
   - filtert die Rückgabe.
   - gibt alle Presentations zum angegebenen Kurs&Semester zurück.
 
@@ -713,48 +705,49 @@ Body der Anfrage:
 **Info**: Erzeugt eine neue **konkrete** Vorlesung (bzw. eine Anfrage an einen Dozenten).
 
 Body der Anfrage:
-````js
+
+```js
 {
     "lecture_id": 0, // Bspw. "1"
     "lecturer_id": 0, // Bspw. "1"
     "academicRecord_id": 0, // Bspw. "1"
     "semester_id": 0, // Bspw. "1"
     "course_id": 0, // Bspw. "1"
-    "status": "[STATUS]", // Bspw. "Dozent offen", "Dozent angeschrieben", ...
+    "status": "[STATUS]" // Bspw. "Dozent offen", "Dozent angeschrieben", ...
 }
-````
+```
 
 ### PUT /presentations?presentationId={ID}
 
-**Info**: Aktualisiert die Vorlesung bzw. den Status der Dozentenanfrage mit der angegebenen ``presentation_id`` ``{ID}``.
+**Info**: Aktualisiert die Vorlesung bzw. den Status der Dozentenanfrage mit der angegebenen `presentation_id` `{ID}`.
 Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attributen einfach zu ermöglichen.
 
 Body der Anfrage:
-````js
+
+```js
 {
     "lecture_id": 0, // Bspw. "1"
     "lecturer_id": 0, // Bspw. "1"
     "academicRecord_id": 0, // Bspw. "1"
     "semester_id": 0, // Bspw. "1"
     "course_id": 0, // Bspw. "1"
-    "status": "[STATUS]", // Bspw. "Dozent offen", "Dozent angeschrieben", ...
+    "status": "[STATUS]" // Bspw. "Dozent offen", "Dozent angeschrieben", ...
 }
-````
+```
 
 ### DELETE /presentations?presentationId={ID}
 
-**Info**: Löscht die Vorlesung mit der angegebenen ``presentation_id`` ``{ID}``.
+**Info**: Löscht die Vorlesung mit der angegebenen `presentation_id` `{ID}`.
 
 ## /academicRecords
 
-**Info**: Verwalten von Prüfungsleistungen.
-
 ### GET /academicRecords
 
-**Info**: Erhalte eine Übersicht über mögliche Prüfungsleistungen.
+**Info**: Gibt alle Prüfungsleistungen zurück.
 
 Rückgabe:
-````js
+
+```js
 {
     "message": "[DEBUG-INFO/KOMMENTAR]", // Bspw. "Successful", "Failed", ...
     "payload": {
@@ -763,39 +756,41 @@ Rückgabe:
                 "academicRecord_id": 0 // Bspw. "1"
                 "abbreviation": "[ABKÜRZUNG]", // Bspw. "K, SE"
                 "type": "[TYP]", // Bspw. "Klausur"
-                "rated": TRUE //  Bspw. "TRUE/FALSE"
+                "rated": true // Bspw. "true/false"
             }
         ]
     }
 }
-````
+```
 
 ### POST /academicRecords
 
-Body der Anfrage:
-
 **Info**: Erzeugt eine neue Prüfungsleistung.
 
-````js
+Body der Anfrage:
+
+```js
 {
     "abbreviation": "[ABKÜRZUNG]", // Bspw. "K, SE"
     "type": "[TYP]", // Bspw. "Klausur"
-    "rated": TRUE //  Bspw. "TRUE/FALSE
+    "rated": true // Bspw. "true/false
 }
-````
+```
 
 ### PUT /academicRecords?academicRecordId={ID}
 
-**Info**: Update eine Prüfungsleistung anhand der ID.
+**Info**: Aktualisiert die Prüfungsleistung `academicRecord_id` `{ID}`.
+Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attributen einfach zu ermöglichen.
 
 Body der Anfrage:
-````js
+
+```js
 {
-    "abbreviation": "[ABKÜRZUNG]", // Bspw. "K, SE" 
+    "abbreviation": "[ABKÜRZUNG]", // Bspw. "K, SE"
     "type": "[TYP]", // Bspw. "Klausur"
-    "rated": TRUE //  Bspw. "TRUE/FALSE
+    "rated": true // Bspw. "true/false
 }
-````
+```
 
 ### DELETE /academicRecords?academicRecordId={ID}
 
@@ -809,7 +804,8 @@ Body der Anfrage:
 Dies umfasst also die Modulgruppen, die Module und die (abstrakten) Vorlesungen.
 
 Rückgabe:
-````js
+
+```js
 {
     "message": "[DEBUG-INFO/KOMMENTAR]", // Bspw. "Successful", "Failed", ...
     "payload": {
@@ -819,7 +815,8 @@ Rückgabe:
         },
         "MajorSubject": {
             "majorSubject_id": 0, // Bspw. "1"
-            "name": "[STUDIENRICHTUNG]" // Bspw. "Software Engineering ab 2011"
+            "name": "[NAME]", // Bspw. "Software Engineering"
+            "catalog_effective_from": "[CATALOG_EFFECTIVE_FROM]" // Bspw. "Gültig ab 2018"
         },
         "ModuleGroups": [
             {
@@ -827,26 +824,27 @@ Rückgabe:
                 "name": "[NAME]", // Bspw. "Profil I"
                 "number_of_modules_to_attend": 0, // Bspw. "1"
                 "from_semester_number": 0, // Bspw. "1"
-                "to_semester_number": 0 // Bspw. "2"
+                "to_semester_number": 0, // Bspw. "2"
                 "Modules": [
                     "module_id": 0, // Bspw. "1"
                     "name": "[NAME]", // Bspw. "Technische Grundlagen mobiler Applikationen"
                     "description": "[BESCHREIBUNG]", // Bspw. "Lorem Ipsum..."
                     "ects": 0, // Bspw. "6"
                     "catalog_id": "[KATALOG-ID]", // Bspw. "WWISE_1337"
+                    "number_of_lectures_to_attend": 0, // Bspw. "1"
+                    "requirements": "[ANFODERUNGEN]", // Bspw. "Keine."
                     "Lectures": [
                         {
                             "name": "[NAME]", // Bspw. "Netzwerk- und Betriebssystemstrukturen für mobile Applikationen"
                             "workload_home": "[SELBSTSTUDIUM]", // Bspw. "57 Stunden"
                             "workload_dhbw": "[PRÄSENZZEIT]", // Bspw. "33 Stunden"
-                            "requirements": "[ANFODERUNGEN]" // Bspw. "Keine."
                             "catalog_id": "[KATALOG-ID]", // Bspw. "WWISE_301.2"
-                            "MainFocus": [
+                            "MainFocuses": [
                                 {
                                     "mainFocus_id": 0, // Bspw. "1"
                                     "name": "[THEMENGEBIET]" // Bspw. "Unternehmensführung"
                                 }
-                            ] 
+                            ]
                         }
                     ],
                     "AcademicRecords": [
@@ -854,7 +852,7 @@ Rückgabe:
                             "academicRecord_id": 0, // Bspw. "1"
                             "abbreviation": "[ABKÜRZUNG]", // Bspw. "K, SE"
                             "type": "[TYP]", // Bspw. "Klausur"
-                            "rated": TRUE //  Bspw. "TRUE/FALSE
+                            "rated": true // Bspw. "true/false
                         }
                     ]
                 ]
@@ -862,4 +860,85 @@ Rückgabe:
         ]
     }
 }
-````
+```
+
+## /moduleGroups
+
+### POST /moduleGroups
+
+**Info**: Erzeugt eine neue Modulgruppe (inklusive der dazugehörigen Module sowie abstrakten Vorlesungen).
+
+Body der Anfrage:
+
+```js
+{
+    "majorSubject_id": 0, // Bspw. "1"
+    "name": "[NAME]", // Bspw. "Profil I"
+    "number_of_modules_to_attend": 0, // Bspw. "1"
+    "from_semester_number": 0, // Bspw. "1"
+    "to_semester_number": 0, // Bspw. "2"
+    "Modules": [
+        {
+            "name": "[NAME]", // Bspw. "Technische Grundlagen mobiler Applikationen"
+            "description": "[BESCHREIBUNG]", // Bspw. "Lorem Ipsum..."
+            "ects": 0, // Bspw. "6"
+            "catalog_id": "[KATALOG-ID]", // Bspw. "WWISE_1337"
+            "academicRecord_ids": [ 0, 0 ], // Bspw. "[1]" oder "[1, 2]" - mögliche Bewertungsverfahren
+            "number_of_lectures_to_attend": 0, // Bspw. "1"
+            "requirements": "[ANFODERUNGEN]", // Bspw. "Keine."
+            "Lectures": [
+                {
+                    "name": "[NAME]", // Bspw. "Marketing"
+                    "workload_home": "[SELBSTSTUDIUM]", // Bspw. "36 Stunden"
+                    "workload_dhbw": "[PRÄSENZZEIT]", // Bspw. "24 Stunden"
+                    "catalog_id": "[KATALOG-ID]", // Bspw. "WWISE_301.2"
+                    "mainFocus_ids": [ 0, 0 ] // Bspw. [1, 2]
+                }
+            ]
+        }
+    ]
+}
+```
+
+### PUT /moduleGroups?moduleGroupId={ID}
+
+**Info**: Aktualisiert eine Modulgruppe eines Modulkatalogs mit der `moduleGroup_id` `{ID}`.
+Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attributen einfach zu ermöglichen.
+
+Body der Anfrage:
+
+```js
+{
+    "majorSubject_id": 0, // Bspw. "1"
+    "name": "[NAME]", // Bspw. "Profil I"
+    "number_of_modules_to_attend": 0, // Bspw. "1"
+    "from_semester_number": 0, // Bspw. "1"
+    "to_semester_number": 0, // Bspw. "2"
+    "Modules": [
+        {
+            "module_id": 0, // Bspw. "1" - OPTIONAL, nur wenn schon existent
+            "name": "[NAME]", // Bspw. "Technische Grundlagen mobiler Applikationen"
+            "description": "[BESCHREIBUNG]", // Bspw. "Lorem Ipsum..."
+            "ects": 0, // Bspw. "6"
+            "catalog_id": "[KATALOG-ID]", // Bspw. "WWISE_1337"
+            "academicRecord_ids": [ 0, 0 ], // Bspw. "[1]" oder "[1, 2]" - mögliche Bewertungsverfahren
+            "number_of_lectures_to_attend": 0, // Bspw. "1"
+            "requirements": "[ANFODERUNGEN]", // Bspw. "Keine."
+            "Lectures": [
+                {
+                    "lecture_id": 0, // Bspw. "1" - OPTIONAL, nur wenn schon vorhanden
+                    "name": "[NAME]", // Bspw. "Marketing"
+                    "workload_home": "[SELBSTSTUDIUM]", // Bspw. "36 Stunden"
+                    "workload_dhbw": "[PRÄSENZZEIT]", // Bspw. "24 Stunden"
+                    "catalog_id": "[KATALOG-ID]", // Bspw. "WWISE_301.2"
+                    "mainFocus_ids": [ 0, 0 ] // Bspw. "[1]" oder "[1, 2]"
+                }
+            ]
+        }
+    ]
+}
+```
+
+### DELETE /moduleGroups?moduleGroupId={ID}
+
+**Info**: Löscht die Modulgruppe mit der angegebenen `moduleGroup_id` `{ID}` (inklusive der dazugehörigen Module sowie abstrakten Vorlesungen).

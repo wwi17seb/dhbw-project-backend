@@ -10,12 +10,15 @@ module.exports = (sequelize, DataTypes) => {
       },
       abbreviation: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
       type: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
       rated: {
         type: DataTypes.BOOLEAN,
+        allowNull: false,
       },
     },
     {
@@ -26,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
 
   AcademicRecord.associate = (models) => {
     // n:m between module and academic record
-    models.AcademicRecord.belongsToMany(models.Module, {
+    AcademicRecord.Module = models.AcademicRecord.belongsToMany(models.Module, {
       through: 'module_academicRecord',
       onDelete: 'CASCADE',
       foreignKey: {
@@ -36,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // 1:n between academic record and presentation
-    models.AcademicRecord.hasMany(models.Presentation, {
+    AcademicRecord.Presentation = models.AcademicRecord.hasMany(models.Presentation, {
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,

@@ -1,89 +1,119 @@
 const responseHelper = require('../helpers/responseHelper');
+const errorResponseHelper = require('../helpers/errorResponseHelper');
 const courseService = require('../services/courseService');
 const copyObjectHelper = require('../helpers/propertyCopyHelper');
 const db = require('../database/database');
+const { checkCourseEditAuthorization } = require('../helpers/checkAuthorizationHelper');
 
-// TODO: remove error as soon as they are implemented.
+exports.getCourses = async (req, res, next) => {
+  const directorOfStudiesId = req.token.directorOfStudies_id;
 
-const throwError = () => {
-  throw false;
-};
-
-exports.getCourses = async (req, res) => {
-  const directorOfStudiesId = req.token.userId;
   try {
-    // find all to current dos
-    const courses = await courseService.findAll(true, true, false, directorOfStudiesId);
-    responseHelper(res, 200, { courses });
+    const Courses = await courseService.findAll(true, true, false, directorOfStudiesId);
+
+    responseHelper(res, 200, 'Successful', { Courses });
   } catch (error) {
-    responseHelper(res, 500, 'Internal Server Error.');
+    return errorResponseHelper(res, next, error);
   }
 };
 
-exports.postCourses = async (req, res) => {
-  const directorOfStudiesId = req.token.userId;
+function getDirectorsOfStudiesArray(dosArray, currentDoS) {
+  if (!dosArray) {
+    dosArray = [];
+  }
+  if (!dosArray.includes(currentDoS)) {
+    dosArray.push(currentDoS);
+  }
+  return dosArray;
+}
 
-  let transaction = await db.sequelize.transaction();
+exports.postCourses = async (req, res, next) => {
+  const directorOfStudiesId = req.token.directorOfStudies_id;
+  const transaction = await db.sequelize.transaction();
+
   try {
-    let courseToCreate = copyObjectHelper(req.body, ['name', 'majorSubject_id', 'directorOfStudy_ids', 'semesters']);
-
-    if (!courseToCreate.directorOfStudy_ids) {
-      courseToCreate.directorOfStudy_ids = [];
-    }
-    courseToCreate.directorOfStudy_ids.push(directorOfStudiesId);
-
-    let createdCourse = await courseService.createCourse(transaction, { ...courseToCreate }, true, true);
+    const courseToCreate = copyObjectHelper(req.body, [
+      'name',
+      'majorSubject_id',
+      'google_calendar_id',
+      'directorOfStudies_ids',
+      'Semesters',
+    ]);
+    courseToCreate.directorOfStudies_ids = getDirectorsOfStudiesArray(
+      courseToCreate.directorOfStudies_ids,
+      directorOfStudiesId
+    );
+    const createdCourse = await courseService.createCourse(transaction, { ...courseToCreate });
 
     transaction.commit();
-
     return responseHelper(res, 201, 'Successfully created.', createdCourse);
   } catch (error) {
     transaction.rollback();
-    return responseHelper(res, 500, 'Internal Server Error.');
+    return errorResponseHelper(res, next, error);
   }
 };
 
-exports.putCourses = async (req, res) => {
-  // TODO: security: only if courseId belongs to DoS
-  const courseId = req.query.courseId;
-  const directorOfStudiesId = req.token.userId;
-
-  let transaction = await db.sequelize.transaction();
+exports.putCourses = async (req, res, next) => {
+  const course_id = req.query.courseId;
+  const directorOfStudiesId = req.token.directorOfStudies_id;
+  const transaction = await db.sequelize.transaction();
 
   try {
-    let courseToUpdate = copyObjectHelper(req.body, ['name', 'majorSubject_id', 'directorOfStudy_ids']);
-
-    if (!courseToUpdate.directorOfStudy_ids) {
-      courseToUpdate.directorOfStudy_ids = [];
+    if (!course_id) {
+      throw new Error('No course given');
     }
-    courseToUpdate.directorOfStudy_ids.push(directorOfStudiesId);
+    if (!(await checkCourseEditAuthorization(directorOfStudiesId, course_id))) {
+      transaction.rollback();
+      return responseHelper(res, 403, 'You are not authorized to update this course.');
+    }
 
-    let updatedCourse = await courseService.updateCourse(transaction, { courseId, ...courseToUpdate });
+    const courseToUpdate = copyObjectHelper(req.body, [
+      'name',
+      'majorSubject_id',
+      'directorOfStudies_ids',
+      'google_calendar_id',
+    ]);
+    courseToUpdate.directorOfStudies_ids = getDirectorsOfStudiesArray(
+      courseToUpdate.directorOfStudies_ids,
+      directorOfStudiesId
+    );
+
+    const updatedCourse = await courseService.updateCourse(transaction, { course_id, ...courseToUpdate });
+    if (!updatedCourse) {
+      throw new Error('No course found to update');
+    }
 
     transaction.commit();
-
     return responseHelper(res, 200, 'Successfully updated.', updatedCourse);
   } catch (error) {
     transaction.rollback();
-    return responseHelper(res, 500, 'Internal Server Error.');
+    return errorResponseHelper(res, next, error);
   }
 };
 
-exports.deleteCourses = async (req, res) => {
-  // TODO: security: only if courseId belongs to DoS
+exports.deleteCourses = async (req, res, next) => {
   const courseId = req.query.courseId;
-  const directorOfStudiesId = req.token.userId;
-
-  let transaction = await db.sequelize.transaction();
+  const directorOfStudiesId = req.token.directorOfStudies_id;
+  const transaction = await db.sequelize.transaction();
 
   try {
-    let deletedCourse = await courseService.deleteCourse(transaction, courseId);
+    if (!course_id) {
+      throw new Error('No course given');
+    }
+    if (!(await checkCourseEditAuthorization(directorOfStudiesId, courseId))) {
+      transaction.rollback();
+      return responseHelper(res, 400, 'You are not authorized to delete this course.');
+    }
+
+    const deletedCourse = await courseService.deleteCourse(transaction, courseId);
+    if (!deletedCourse) {
+      throw new Error('No course found to delete');
+    }
 
     transaction.commit();
-
     return responseHelper(res, 200, 'Successfully deleted.', deletedCourse);
   } catch (error) {
     transaction.rollback();
-    return responseHelper(res, 500, 'Internal Server Error.');
+    return errorResponseHelper(res, next, error);
   }
 };

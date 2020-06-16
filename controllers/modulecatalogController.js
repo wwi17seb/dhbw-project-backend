@@ -1,6 +1,20 @@
-const responseHelper = require("../helpers/responseHelper");
+const responseHelper = require('../helpers/responseHelper');
+const { checkMajorSubjectExistence } = require('../helpers/checkExistenceHelper');
+const errorResponseHelper = require('../helpers/errorResponseHelper');
+const moduleGroupService = require('../services/moduleGroupService');
 
-exports.getModulcatalog = async (req, res) => {
-    const majorSubjectId = req.query.majorSubjectId;
-    responseHelper(res, 501, "Not yet implemented.");
+exports.getModulecatalog = async (req, res, next) => {
+  const majorSubjectId = req.query.majorSubjectId;
+  try {
+    if (!majorSubjectId) {
+      throw new Error('No major subject given');
+    }
+
+    await checkMajorSubjectExistence(majorSubjectId);
+    const FieldsOfStudy = await moduleGroupService.getAllModuleGroupsByMajorSubjectId(majorSubjectId);
+
+    return responseHelper(res, 200, 'Successful', { FieldsOfStudy });
+  } catch (error) {
+    return errorResponseHelper(res, next, error);
+  }
 };

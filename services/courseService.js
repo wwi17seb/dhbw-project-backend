@@ -1,62 +1,56 @@
 const db = require('../database/database');
 const majorSubjectService = require('./majorSubjectService');
 
-/*
- * Returns founded course
- */
-module.exports.findCourseById = async (course_id) => {
-  const course = await db.Course.findOne({ where: { course_id } });
-  return course;
-};
-
-/*
- * Returns founded course
- */
-module.exports.findCourseByName = async (courseName) => {
-  const course = await db.Course.findOne({ where: { name: courseName } });
-  return course;
-};
-
 // GET
-// course dann mit withMajorSubject, withSemesters, withFieldOfStudy
-/*
- * Returns founded course
- */
+module.exports.findCourseById = async (course_id) => {
+  const withInclude = [{ model: db.DirectorOfStudies, attributes: ['directorOfStudies_id', 'username', 'is_admin'] }];
+  const course = await db.Course.findOne({ where: { course_id }, include: withInclude });
+
+  return course ? course.dataValues : null;
+};
+
 module.exports.findAll = async (withMajorSubject, withSemesters, withFieldOfStudy) => {
-  const withInclude = [];
+  const withInclude = [{ model: db.DirectorOfStudies, attributes: ['directorOfStudies_id', 'username', 'is_admin'] }];
   if (withMajorSubject) withInclude.push({ model: db.MajorSubject });
   if (withSemesters) withInclude.push({ model: db.Semester });
   if (withFieldOfStudy) withInclude.push({ model: db.FieldOfStudy });
+
   const courses = await db.Course.findAll({ include: withInclude });
+
   return courses;
 };
 
 // POST
-// name of course, majorSubjectId, directorOfStudiesId
-module.exports.createCourse = async (transaction, { name, majorSubject_id, directorOfStudies_id }, withMajorSubject, withDirectorOfStudies) => {
-  const withInclude = [];
-  if (withDirectorOfStudies) withInclude.push({ model: db.DirectorOfStudies });
-  if (withMajorSubject) {
-    const majorSubject = await majorSubjectService.findMajorSubjectById(majorSubject_id);
-    if (!majorSubject) return { error: 'No such major subject found!' };
-  }
-  db.Course.create({ name, majorSubject_id, directorOfStudies_id }, transaction);
+module.exports.createCourse = async (
+  transaction,
+  { name, majorSubject_id, google_calendar_id, directorOfStudies_ids, Semesters }
+) => {
+  const course = await db.Course.create(
+    { name, majorSubject_id, google_calendar_id, Semesters },
+    { transaction, include: [{ association: db.Course.Semester }] }
+  );
+
+  await course.addDirectorsOfStudies(directorOfStudies_ids, { transaction });
 
   return course.dataValues;
 };
 
 // PUT
-// wie post s.o.
-// receives (course) -> id, name, majorSubjectId, DoSID
-module.exports.updateCourse = async (transaction, { course_id, name }) => {
-  const course = await this.findCourseById(course_id);
-  await course.update({ name }, transaction);
-  return course.dataValues;
+module.exports.updateCourse = async (
+  transaction,
+  { course_id, name, majorSubject_id, google_calendar_id, directorOfStudies_ids }
+) => {
+  const course = await db.Course.findOne({ where: { course_id }, transaction });
+
+  await course.update({ name, majorSubject_id, google_calendar_id }, { transaction });
+  await course.setDirectorsOfStudies(directorOfStudies_ids, { transaction });
+
+  return Boolean(course);
 };
 
 // Delete
-// receives (courseId, dosId)
 module.exports.deleteCourse = async (transaction, course_id) => {
-  const counter = await db.Course.destroy({ where: { course_id } }, transaction);
+  const counter = await db.Course.destroy({ where: { course_id }, transaction });
+
   return counter > 0;
 };

@@ -1,97 +1,110 @@
 const db = require('../database/database');
-const directorOfStudiesService = require('./directorOfStudiesService');
 
-/*
- * Returns founded lecturer
- */
+// GET
 module.exports.findLecturerById = async (lecturer_id) => {
-  const lecturer = await db.Lecturer.findOne({ where: { lecturer_id } }, transaction);
-  return lecturer;
+  const lecturer = await db.Lecturer.findOne({
+    where: { lecturer_id },
+  });
+
+  return lecturer ? lecturer.dataValues : null;
 };
 
-/*
- * Returns founded lecturer
- */
-module.exports.findLecturerByName = async ({ lastname, firstname }, withFirstname, withLastname) => {
-  const searchParams = {};
-  if (withFirstname) searchParams.firstname = firstname;
-  if (withLastname) searchParams.lastname = lastname;
-  const lecturer = await db.Lecturer.findOne({ where: searchParams }, transaction);
-  return lecturer;
+module.exports.findAllLecturer = async () => {
+  const lecturers = await db.Lecturer.findAll({
+    include: [{ model: db.DirectorOfStudies, attributes: ['directorOfStudies_id', 'username', 'is_admin'] }],
+  });
+
+  return lecturers;
 };
 
-/*
- * Receives  directorOfStudiesId
- *
- * Returns founded lecturers []
- */
-module.exports.findByDirectorOfStudiesId = async (directorOfStudies_id) => {
-  const lecturers = await db.Lecturer.findAll({ where: { directorOfStudies_id } });
-  return lecturers.dataValues;
-};
-
-/*
- * directorOfStudiesId represents the director of studies adding the new lecturer
- *
- * Returns created lecturer
- */
+// POST
 module.exports.createLecturer = async (
   transaction,
-  { academic_title, firstname, lastname, email, salutation, phonenumber, experience, is_extern, profile, cv, research },
-  directorOfStudies_id
-) => {
-  const lecturerToCreate = {
-    academic_title,
+  {
     firstname,
     lastname,
+    academic_title,
     email,
     salutation,
     phonenumber,
     experience,
-    is_extern,
     profile,
-    cv,
     research,
+    cv,
+    comment,
+    is_extern,
+    mainFocus_ids,
+  },
+  directorOfStudies_id
+) => {
+  const lecturerToCreate = {
+    firstname,
+    lastname,
+    academic_title,
+    email,
+    salutation,
+    phonenumber,
+    experience,
+    profile,
+    research,
+    cv,
+    comment,
+    is_extern,
     createdBy_id: directorOfStudies_id,
   };
 
-  const buildedLecturer = await db.Lecturer.build(lecturerToCreate);
-  await buildedLecturer.save();
-  const createdLecturer = await db.Lecturer.create({ ...lecturerToCreate }, transaction);
+  const createdLecturer = await db.Lecturer.create(lecturerToCreate, { transaction });
 
-  const directorOfStudies = await directorOfStudiesService.findDirectorOfStudiesById(directorOfStudies_id);
-  await directorOfStudies.update({ lecturer_id: createdLecturer.dataValues.lecturer_id });
+  await createdLecturer.addMainFocuses(mainFocus_ids, { transaction });
 
-  return buildedLecturer.dataValues;
+  return createdLecturer.dataValues;
 };
 
 // PUT
 module.exports.updateLecturer = async (
   transaction,
-  { lecturer_id, academic_title, firstname, lastname, email, salutation, phonenumber, experience, rating, is_extern, profile, cv, research }
-) => {
-  const lecturer = await this.findLecturerById(lecturer_id);
-  const lecturerToUpdate = {
-    lecturer_id,
-    academic_title,
+  {
     firstname,
     lastname,
+    academic_title,
     email,
     salutation,
     phonenumber,
     experience,
-    rating,
-    is_extern,
     profile,
-    cv,
     research,
+    cv,
+    comment,
+    is_extern,
+    mainFocus_ids,
+  },
+  lecturer_id
+) => {
+  const lecturerToUpdate = {
+    firstname,
+    lastname,
+    academic_title,
+    email,
+    salutation,
+    phonenumber,
+    experience,
+    profile,
+    research,
+    cv,
+    comment,
+    is_extern,
   };
-  await lecturer.update({ ...lecturerToUpdate }, transaction);
-  return lecturer.dataValues;
+  const lecturer = await db.Lecturer.findOne({ where: { lecturer_id }, transaction });
+  await lecturer.update({ ...lecturerToUpdate }, { transaction });
+
+  await lecturer.setMainFocuses(mainFocus_ids, { transaction });
+
+  return Boolean(lecturer);
 };
 
-// Delete
+// DELETE
 module.exports.deleteLecturer = async (transaction, lecturer_id) => {
-  const counter = await db.Lecturer.destroy({ where: { lecturer_id } }, transaction);
+  const counter = await db.Lecturer.destroy({ where: { lecturer_id }, transaction });
+
   return counter > 0;
 };

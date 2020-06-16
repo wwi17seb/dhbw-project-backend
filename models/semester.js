@@ -10,26 +10,36 @@ module.exports = (sequelize, DataTypes) => {
       },
       name: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
       number: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
+        allowNull: false,
       },
       start_date: {
         type: DataTypes.DATE,
+        allowNull: false,
       },
       end_date: {
         type: DataTypes.DATE,
+        allowNull: false,
       },
     },
     {
       modelName: 'Semester',
       tableName: 'semester',
+      indexes: [
+        {
+          unique: true,
+          fields: ['course_id', 'number'],
+        },
+      ],
     }
   );
 
   Semester.associate = (models) => {
     // 1:n between semester and presentation
-    models.Semester.hasMany(models.Presentation, {
+    Semester.Presentation = models.Semester.hasMany(models.Presentation, {
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,
@@ -38,7 +48,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // n:1 between semester and course
-    models.Semester.belongsTo(models.Course, {
+    Semester.Course = models.Semester.belongsTo(models.Course, {
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,

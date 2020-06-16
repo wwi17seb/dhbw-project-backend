@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       name: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
     },
     {
@@ -20,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
 
   MajorSubject.associate = (models) => {
     // 1:n between majorSubject and course
-    models.MajorSubject.hasMany(models.Course, {
+    MajorSubject.Course = models.MajorSubject.hasMany(models.Course, {
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,
@@ -29,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // 1:n between majorSubject and moduleGroup
-    models.MajorSubject.hasMany(models.ModuleGroup, {
+    MajorSubject.ModuleGroup = models.MajorSubject.hasMany(models.ModuleGroup, {
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,
@@ -38,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // 1:n between majorSubject and fieldOfStudy
-    models.MajorSubject.belongsTo(models.FieldOfStudy, {
+    MajorSubject.FieldOfStudy = models.MajorSubject.belongsTo(models.FieldOfStudy, {
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,

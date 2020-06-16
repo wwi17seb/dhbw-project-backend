@@ -11,9 +11,11 @@ module.exports = (sequelize, DataTypes) => {
       },
       name: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
       google_calendar_id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
+        allowNull: true,
       },
     },
     {
@@ -24,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Course.associate = (models) => {
     //n:m
-    models.Course.belongsToMany(models.DirectorOfStudies, {
+    Course.DirectorOfStudies = models.Course.belongsToMany(models.DirectorOfStudies, {
       onDelete: 'CASCADE',
       through: 'directorOfStudies_course',
       foreignKey: {
@@ -34,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // 1:n between course and semester
-    models.Course.hasMany(models.Semester, {
+    Course.Semester = models.Course.hasMany(models.Semester, {
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,
@@ -43,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // 1:n between course and presentation
-    models.Course.hasMany(models.Presentation, {
+    Course.Presentation = models.Course.hasMany(models.Presentation, {
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,
@@ -52,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // n:1 between course and majorSubject
-    models.Course.belongsTo(models.MajorSubject, {
+    Course.MajorSubject = models.Course.belongsTo(models.MajorSubject, {
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,

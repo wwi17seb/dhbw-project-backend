@@ -10,15 +10,19 @@ module.exports = (sequelize, DataTypes) => {
       },
       name: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
       number_of_modules_to_attend: {
         type: DataTypes.INTEGER,
+        allowNull: false,
       },
       from_semester_number: {
         type: DataTypes.INTEGER,
+        allowNull: false,
       },
       to_semester_number: {
         type: DataTypes.INTEGER,
+        allowNull: false,
       },
     },
     {
@@ -29,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
 
   ModuleGroup.associate = (models) => {
     // 1:n between module and moduleGroup
-    models.ModuleGroup.hasMany(models.Module, {
+    ModuleGroup.Module = models.ModuleGroup.hasMany(models.Module, {
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,
@@ -38,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     // 1:n between module and majorSubject
-    models.ModuleGroup.belongsTo(models.MajorSubject, {
+    ModuleGroup.MajorSubject = models.ModuleGroup.belongsTo(models.MajorSubject, {
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false,

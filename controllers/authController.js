@@ -1,13 +1,15 @@
+const responseHelper = require('../helpers/responseHelper');
+const errorResponseHelper = require('../helpers/errorResponseHelper');
 const authService = require('../services/authService');
 const directorOfStudiesService = require('../services/directorOfStudiesService');
-
-const responseHelper = require('../helpers/responseHelper');
+const db = require('../database/database');
 
 const ERROR_MESSAGE_AUTH_FAILED = 'AUTH FAILED';
 
 exports.postLogin = (req, res, next) => {
   const { username, password } = req.body;
   let loadedUser;
+
   // check if a user exists
   directorOfStudiesService
     .getByUsername(username)
@@ -25,35 +27,56 @@ exports.postLogin = (req, res, next) => {
     .then((doMatch) => {
       if (doMatch) {
         const token = authService.generateToken(loadedUser);
-        responseHelper(res, 200, 'Token generated!', { token, userId: loadedUser.id, username: loadedUser.username });
+
+        return responseHelper(res, 200, 'Token generated!', {
+          token,
+          directorOfStudies_id: loadedUser.directorOfStudies_id,
+          username: loadedUser.username,
+        });
       } else {
-        responseHelper(res, 401, ERROR_MESSAGE_AUTH_FAILED);
+        return responseHelper(res, 401, ERROR_MESSAGE_AUTH_FAILED);
       }
     })
     .catch((err) => {
-      err.statusCode = 500;
-      next(err);
+      return errorResponseHelper(res, next, err);
     });
 };
 
 exports.postSignup = async (req, res, next) => {
   const { username, password } = req.body;
+
   if (!username) {
-    responseHelper(res, 400, 'No username was given!');
+    return responseHelper(res, 400, 'No username was given!');
   }
   if (!password) {
-    responseHelper(res, 400, 'No password was given!');
+    return responseHelper(res, 400, 'No password was given!');
   }
 
-  const userExists = await directorOfStudiesService.getByUsername(username);
-  if (userExists) {
-    responseHelper(res, 400, 'Username already exists');
+  const directorOfStudiesExists = await directorOfStudiesService.getByUsername(username);
+  if (directorOfStudiesExists) {
+    return responseHelper(res, 400, 'Username already exists');
   }
 
-  const userToCreate = { username, password };
-  const user = await directorOfStudiesService.createDirectorOfStudies(null, userToCreate);
-  const token = authService.generateToken(user);
-  responseHelper(res, 201, 'Successful', { token, userId: user.id, username: user.username });
+  const directorOfStudiesToCreate = { username, password };
+  const transaction = await db.sequelize.transaction();
+
+  try {
+    const createdDirectorOfStudies = await directorOfStudiesService.createDirectorOfStudies(
+      transaction,
+      directorOfStudiesToCreate
+    );
+    const token = authService.generateToken(createdDirectorOfStudies);
+
+    transaction.commit();
+    return responseHelper(res, 201, 'Successful', {
+      token,
+      directorOfStudies_id: createdDirectorOfStudies.directorOfStudies_id,
+      username: createdDirectorOfStudies.username,
+    });
+  } catch (error) {
+    transaction.rollback();
+    return errorResponseHelper(res, next, error);
+  }
 };
 
 exports.postLogout = (req, res, next) => {

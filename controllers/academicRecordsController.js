@@ -1,67 +1,78 @@
 const responseHelper = require('../helpers/responseHelper');
+const errorResponseHelper = require('../helpers/errorResponseHelper');
+const copyObjectHelper = require('../helpers/propertyCopyHelper');
 const db = require('../database/database');
-const academicRecordService = null; //require('../services/academicRecordService');
+const academicRecordService = require('../services/academicRecordsService');
 
-// TODO: remove error as soon as they are implemented.
-
-const throwError = () => {
-  throw false;
-};
-
-exports.getAcademicRecords = async (req, res) => {
+exports.getAcademicRecords = async (req, res, next) => {
   try {
-    throwError(); // TODO: REMOVE!
     const AcademicRecords = await academicRecordService.findAll();
     responseHelper(res, 200, '', { AcademicRecords });
   } catch (error) {
-    responseHelper(res, 500, 'Internal Server Error.');
+    return errorResponseHelper(res, next, error);
   }
 };
 
-exports.postAcademicRecords = async (req, res) => {
-  let transaction = await db.sequelize.transaction();
+exports.postAcademicRecords = async (req, res, next) => {
+  const transaction = await db.sequelize.transaction();
+
   try {
-    throwError(); // TODO: REMOVE!
-    let academicRecordToCreate = req.body;
-    let createdAcademicRecord = await academicRecordService.createAcademicRecord(transaction, academicRecordToCreate);
+    const academicRecordToCreate = req.body;
+    const createdAcademicRecord = await academicRecordService.createAcademicRecord(transaction, academicRecordToCreate);
+
     transaction.commit();
     return responseHelper(res, 201, 'Successfully created.', createdAcademicRecord);
   } catch (error) {
     transaction.rollback();
-    return responseHelper(res, 500, 'Internal Server Error.');
+    return errorResponseHelper(res, next, error);
   }
 };
 
-exports.putAcademicRecords = async (req, res) => {
+exports.putAcademicRecords = async (req, res, next) => {
   const academicRecordId = req.query.academicRecordId;
-  let transaction = await db.sequelize.transaction();
+  const transaction = await db.sequelize.transaction();
+
   try {
-    throwError(); // TODO: REMOVE!
-    let academicRecordToUpdate = copyObjectHelper(req.body, ['abbreviation', 'type', 'rated']);
-    let updatedAcademicRecord = await academicRecordService.updateAcademicRecord(transaction, {
+    if (!academicRecordId) {
+      throw new Error('No academic record given');
+    }
+
+    const academicRecordToUpdate = copyObjectHelper(req.body, ['abbreviation', 'type', 'rated']);
+    const updatedAcademicRecord = await academicRecordService.updateAcademicRecord(transaction, {
       academicRecord_id: academicRecordId,
       abbreviation: academicRecordToUpdate.abbreviation,
       type: academicRecordToUpdate.type,
       rated: academicRecordToUpdate.rated,
     });
+    if (!updatedAcademicRecord) {
+      throw new Error('No academic record found to update');
+    }
+
     transaction.commit();
     return responseHelper(res, 200, 'Successfully updated.', updatedAcademicRecord);
   } catch (error) {
     transaction.rollback();
-    return responseHelper(res, 500, 'Internal Server Error.');
+    return errorResponseHelper(res, next, error);
   }
 };
 
-exports.deleteAcademicRecords = async (req, res) => {
+exports.deleteAcademicRecords = async (req, res, next) => {
   const academicRecordId = req.query.academicRecordId;
-  let transaction = await db.sequelize.transaction();
+  const transaction = await db.sequelize.transaction();
+
   try {
-    throwError(); // TODO: REMOVE!
-    let deletedAcademicRecord = await academicRecordService.deleteAcademicRecord(transaction, academicRecordId);
+    if (!academicRecordId) {
+      throw new Error('No academic record given');
+    }
+    const deletedAcademicRecord = await academicRecordService.deleteAcademicRecord(transaction, academicRecordId);
+    if (!deletedAcademicRecord) {
+      throw new Error('No academic record found to delete');
+    }
+
     transaction.commit();
     return responseHelper(res, 200, 'Successfully deleted.', deletedAcademicRecord);
   } catch (error) {
     transaction.rollback();
-    return responseHelper(res, 500, 'Internal Server Error.');
+    return errorResponseHelper(res, next, error);
   }
 };

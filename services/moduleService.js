@@ -1,24 +1,16 @@
 const db = require('../database/database');
+const lectureService = require('./lectureService');
 
-const lecService = require('./lecturerService');
+async function findModuleById(module_id) {
+  const Module = await db.Module.findOne({
+    where: { module_id },
+    include: [{ model: db.Lecture, include: [db.MainFocus] }],
+  });
 
-/**
- * Receives { name, catalog_id, Lecturers }
- *
- * Return a new, persisted module
- */
-module.exports.createModule = async (transaction, { name, catalog_id, Lecturers, ects, requirements }) => {
-  const extractedModule = { name, catalog_id, Lecturers, ects, requirements };
-  const createdModule = await db.Module.create({ ...extractedModule }, transaction);
-  return createdModule.dataValues;
-};
+  return Module ? Module.dataValues : null;
+}
 
-/*
- * Receives object with { withLecture, withAcademicRecord, withModuleGroup }
- *
- * Returns all modules in the database
- * as an array
- */
+// GET
 module.exports.getAllModules = async ({ withLecture, withAcademicRecord, withModuleGroup }) => {
   const whatToInclude = [];
   if (withLecture) whatToInclude.push({ model: db.Lecture, as: 'lectures' });
@@ -26,88 +18,134 @@ module.exports.getAllModules = async ({ withLecture, withAcademicRecord, withMod
   if (withModuleGroup) whatToInclude.push({ model: db.ModuleGroup, as: 'moduleGroup' });
 
   const modules = await db.Module.findAll({ include: whatToInclude });
+
   return modules;
 };
 
-/**
- * Receives the id of module
- *
- * Returns a module
- */
-module.exports.findModuleById = async (module_id) => {
-  const moduleToFind = await db.Module.findOne({
-    where: {  module_id },    include: [{ model: db.Lecture, as: 'lectures' }],  });
-  return moduleToFind;
-};
-
-/**
- * Receives the name of module
- *
- * Returns a module
- */
-module.exports.findModuleByName = async (nameOfModule) => {
-  const moduleToFind = await db.Module.findOne({
-    where: { name: nameOfModule },
-    include: [{ model: db.Lecture, as: 'lectures' }],
-  });
-  return moduleToFind;
-};
-
-/**
- * Receives module: { name, catalog_id } and lecturerId
- *
- * Return a new, persisted module with
- */
-module.exports.createModuleWithLecturers = async ({ name, catalog_id, lecturerIds }) => {
-  let transaction;
-  try {
-    transaction = await db.sequelize.transaction(); // Managed Transaction
-
-    const createdModule = await db.Module.create(
-      {
-        name,
-        catalog_id,
-      },
-      transaction
-    );
-
-    // add lectureres to association 
-    lecturerIds.forEach(lecturer_id => {
-      const lecturer = await lecService.findLecturerById(lecturer_id);
-      await createdModule.addLecturer(lecturer, {
-        through: { model: db.Lecturer_Module },
-      });
-    });
-    
-    await transaction.commit();
-
-    return createdModule.dataValues;
-  } catch (error) {
-    console.log('createModule', error);
-    transaction.rollback();
+// POST
+module.exports.createModule = async (
+  transaction,
+  {
+    moduleGroup_id,
+    name,
+    description,
+    ects,
+    catalog_id,
+    number_of_lectures_to_attend,
+    requirements,
+    academicRecord_ids,
+    Lectures,
   }
+) => {
+  const extractedModule = {
+    moduleGroup_id,
+    name,
+    description,
+    ects,
+    catalog_id,
+    number_of_lectures_to_attend,
+    requirements,
+    academicRecord_ids,
+    Lectures,
+  };
+
+  const createdModule = await db.Module.create(extractedModule, {
+    include: [{ association: db.Module.Lecture }],
+    transaction,
+  });
+  await createdModule.addAcademicRecords(academicRecord_ids, { transaction });
+
+  // addMainFocuses for Lectures
+  const plainModule = createdModule.get({ plain: true });
+  const lectureIds = {};
+
+  function getLectureIdentifier(lect) {
+    return `${lect.name} ${lect.catalog_id}`;
+  }
+  plainModule.Lectures.forEach((createdLecture) => {
+    lectureIds[getLectureIdentifier(createdLecture)] = createdLecture.lecture_id;
+  });
+
+  plainModule.Lectures = await Promise.all(
+    plainModule.Lectures.map(async (Lecture) => {
+      const lectureToCreate = Lectures.find((lec) => lectureIds[getLectureIdentifier(lec)] === Lecture.lecture_id);
+      const dbLecture = await db.Lecture.findOne({ where: { lecture_id: Lecture.lecture_id }, transaction });
+      await dbLecture.addMainFocuses(lectureToCreate.mainFocus_ids, { transaction });
+    })
+  );
+
+  return createdModule.dataValues;
 };
 
 // PUT
-// wie post s.o.
-// receives (Module) -> moduleId, name, requirements, ects
-module.exports.updateModule = async (transaction, { module_id, name, requirements, ects }) => {
-  const module = await this.findMajorSubjectById(module_id);
-  await module.update({ name, requirements, ects }, transaction);
+module.exports.updateModule = async (
+  transaction,
+  {
+    moduleGroup_id,
+    name,
+    description,
+    ects,
+    catalog_id,
+    number_of_lectures_to_attend,
+    requirements,
+    academicRecord_ids,
+    module_id,
+    Lectures,
+  }
+) => {
+  const moduleToUpdate = await db.Module.findOne({ where: { module_id } });
+  await moduleToUpdate.update(
+    {
+      moduleGroup_id,
+      name,
+      description,
+      ects,
+      catalog_id,
+      number_of_lectures_to_attend,
+      requirements,
+    },
+    { transaction }
+  );
+  await moduleToUpdate.setAcademicRecords(academicRecord_ids, { transaction });
 
-  return module.dataValues;
+  // update lectures
+  const oldModule = await findModuleById(module_id);
+
+  const lecturesToBeIncluded = {};
+  await Promise.all(
+    Lectures.map(async (Lecture) => {
+      const id = Lecture.lecture_id;
+      if (id) {
+        lecturesToBeIncluded[id] = Lecture;
+      } else {
+        await lectureService.createLecture(transaction, { module_id, ...Lecture });
+      }
+    })
+  );
+
+  await Promise.all(
+    oldModule.Lectures.map(async (oldLecture) => {
+      const oldLectureId = oldLecture.lecture_id;
+      if (oldLectureId in lecturesToBeIncluded) {
+        // update lecture
+        const lectureToUpdate = lecturesToBeIncluded[oldLectureId];
+        await lectureService.updateLecture(transaction, lectureToUpdate);
+      } else {
+        // delete lecture
+        await lectureService.deleteLecture(transaction, oldLectureId);
+      }
+    })
+  );
+
+  return moduleToUpdate > 0;
 };
 
-/**
- * Receives the id of the module
- *
- * Returns number of deleted entries e.g. 1
- * @type {number}
- */
-module.exports.delete = async (module_id) => {
+// DELETE
+module.exports.deleteModule = async (transaction, module_id) => {
   const counter = await db.Module.destroy({
     where: { module_id },
-    include: [{ model: db.Lecture, as: 'lectures' }],
+    transaction,
   });
+
   return counter > 0;
 };
