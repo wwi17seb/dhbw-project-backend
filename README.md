@@ -180,7 +180,7 @@ For more information on the api please take a look at the [api docs](/docs/api.m
 | Delete a academic record                                                   | `DELETE`    | `/academicRecords` | `token`, `academicRecordId`                                                              | :ballot_box_with_check: |
 | Get everything needed to display a modulecatalog for a given major subject | `GET`       | `/modulecatalog`   | `token`                                                                                  | :ballot_box_with_check: |
 | Create a module group                                                      | `POST`      | `/moduleGroups`    | `token`                                                                                  | :ballot_box_with_check: |
-| Update a module group                                                      | `PUT`       | `/moduleGroups`    | `token`, `moduleGroupId`                                                                 | :soon:                  |
+| Update a module group                                                      | `PUT`       | `/moduleGroups`    | `token`, `moduleGroupId`                                                                 | :ballot_box_with_check: |
 | Delete a module group                                                      | `DELETE`    | `/moduleGroups`    | `token`, `moduleGroupId`                                                                 | :ballot_box_with_check: |
 
 Legend:
