@@ -3,7 +3,7 @@ const CONSOLE_LOG_COLOR_FG_CYAN = '\x1b[36m';
 const CONSOLE_LOG_COLOR_RESET = '\x1b[0m';
 
 module.exports = (res, next, error) => {
-  console.error(`${CONSOLE_LOG_COLOR_FG_CYAN}[Message]: ${error.message}${CONSOLE_LOG_COLOR_RESET}`);
+  console.error(`${CONSOLE_LOG_COLOR_FG_CYAN}[MESSAGE]: ${error.message}${CONSOLE_LOG_COLOR_RESET}`);
 
   if (error.message.startsWith('notNull Violation: ') && error.message.endsWith(' cannot be null')) {
     return responseHelper(res, 400, error.message);
@@ -32,7 +32,7 @@ module.exports = (res, next, error) => {
 
     if (parent.detail) {
       const detail = parent.detail;
-      console.error(`${CONSOLE_LOG_COLOR_FG_CYAN}[Parent]: ${parent}${CONSOLE_LOG_COLOR_RESET}`);
+      console.error(`${CONSOLE_LOG_COLOR_FG_CYAN}[PARENT]: ${parent}${CONSOLE_LOG_COLOR_RESET}`);
 
       if (detail.startsWith('Key ') && detail.includes(' is not present in table ')) {
         return responseHelper(res, 400, detail);

@@ -2,7 +2,6 @@ const responseHelper = require('../helpers/responseHelper');
 const errorResponseHelper = require('../helpers/errorResponseHelper');
 const moduleGroupService = require('../services/moduleGroupService');
 const db = require('../database/database');
-const { updateModule } = require('../services/moduleService');
 
 exports.postModuleGroups = async (req, res, next) => {
   const transaction = await db.sequelize.transaction();

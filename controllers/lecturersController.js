@@ -72,22 +72,22 @@ exports.putLecturers = async (req, res, next) => {
       throw new Error('No lecturer given');
     }
 
-    if (await checkLecturerEditAuthorization(directorOfStudies_id, lecturerId)) {
-      const updatedLecturer = await lecturerService.updateLecturer(
-        transaction,
-        givenLecturer,
-        lecturerId,
-        directorOfStudies_id
-      );
-      if (!updatedLecturer) {
-        throw new Error('No Lecturer found to update');
-      }
-
-      transaction.commit();
-      return responseHelper(res, 200, 'Successfully updated lecturer', updatedLecturer);
-    } else {
-      return responseHelper(res, 400, 'You are authorized to update the lecturer.');
+    if (!(await checkLecturerEditAuthorization(directorOfStudies_id, lecturerId))) {
+      return responseHelper(res, 400, 'You are not authorized to update the lecturer.');
     }
+
+    const updatedLecturer = await lecturerService.updateLecturer(
+      transaction,
+      givenLecturer,
+      lecturerId,
+      directorOfStudies_id
+    );
+    if (!updatedLecturer) {
+      throw new Error('No Lecturer found to update');
+    }
+
+    transaction.commit();
+    return responseHelper(res, 200, 'Successfully updated lecturer', updatedLecturer);
   } catch (error) {
     transaction.rollback();
     return errorResponseHelper(res, next, error);
@@ -104,17 +104,17 @@ exports.deleteLecturers = async (req, res, next) => {
       throw new Error('No lecturer given');
     }
 
-    if (await checkLecturerEditAuthorization(directorOfStudies_id, lecturerId)) {
-      const deletedLecturer = await lecturerService.deleteLecturer(transaction, lecturerId);
-      if (!deletedLecturer) {
-        throw new Error('No lecturer found to delete');
-      }
-
-      transaction.commit();
-      return responseHelper(res, 200, 'Successfully deleted lecturer', deletedLecturer);
-    } else {
-      return responseHelper(res, 400, 'You are authorized to delete the lecturer.');
+    if (!(await checkLecturerEditAuthorization(directorOfStudies_id, lecturerId))) {
+      return responseHelper(res, 400, 'You are not authorized to delete the lecturer.');
     }
+
+    const deletedLecturer = await lecturerService.deleteLecturer(transaction, lecturerId);
+    if (!deletedLecturer) {
+      throw new Error('No lecturer found to delete');
+    }
+
+    transaction.commit();
+    return responseHelper(res, 200, 'Successfully deleted lecturer', deletedLecturer);
   } catch (error) {
     transaction.rollback();
     return errorResponseHelper(res, next, error);

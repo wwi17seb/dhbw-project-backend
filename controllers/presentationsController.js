@@ -20,7 +20,6 @@ exports.getPresentations = async (req, res, next) => {
     }
 
     if (!(await checkCourseEditAuthorization(directorOfStudiesId, course_id))) {
-      transaction.rollback();
       return responseHelper(res, 403, 'You are not authorized to view presentations of this course');
     }
 

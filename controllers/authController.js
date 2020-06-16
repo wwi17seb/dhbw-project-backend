@@ -38,8 +38,7 @@ exports.postLogin = (req, res, next) => {
       }
     })
     .catch((err) => {
-      err.statusCode = 500;
-      return errorResponseHelper(res, next, error);
+      return errorResponseHelper(res, next, err);
     });
 };
 
