@@ -67,13 +67,7 @@ Dies umfasst also die Modulgruppen, die Module und die (abstrakten) Vorlesungen.
                                 "abbreviation": "[ABKÜRZUNG]",
                                 "type": "[ART]",
                                 "createdAt": "[DATUM]",
-                                "updatedAt": "[DATUM]",
-                                "module_academicRecord": {
-                                    "createdAt": "[DATUM]",
-                                    "updatedAt": "[DATUM]",
-                                    "academicRecord_id": 0,
-                                    "module_id": 0
-                                }
+                                "updatedAt": "[DATUM]"
                             }
                         ],
                         "Lectures": [
@@ -91,13 +85,7 @@ Dies umfasst also die Modulgruppen, die Module und die (abstrakten) Vorlesungen.
                                         "mainFocus_id": 0,
                                         "name": "[NAME]",
                                         "createdAt": "[DATUM]",
-                                        "updatedAt": "[DATUM]",
-                                        "lecture_mainFocus": {
-                                            "createdAt": "[DATUM]",
-                                            "updatedAt": "[DATUM]",
-                                            "lecture_id": 0,
-                                            "mainFocus_id": 0
-                                        }
+                                        "updatedAt": "[DATUM]"
                                     }
                                 ]
                             }
@@ -135,9 +123,6 @@ Dies umfasst also die Modulgruppen, die Module und die (abstrakten) Vorlesungen.
 | `_________abbreviation`              | "K"                     | Abkürzung der Prüfungsleistung                                           |
 | `_________type`                      | "Klausur"               | Art der Prüfungsleistung                                                 |
 | `_________rated`                     | true                    | Wird die Prüfungsleistung benotet                                        |
-| `_________module_academicRecord`     | { }                     | Objekt der Zwischentabelle Modul-Prüfungsleistung                        |
-| `____________academicRecord_id`      | 1                       | Eindeutige ID der Prüfungsleistung                                       |
-| `____________module_id`              | 1                       | Eindeutige ID des Moduls                                                 |
 | `______Lectures`                     | [ ]                     | Array von Vorlesungen                                                    |
 | `_________lecture_id`                | 1                       | Eindeutiger Bezeichner einer Vorlesung                                   |
 | `_________name`                      | ""                      | Name der Vorlesung                                                       |
@@ -148,9 +133,6 @@ Dies umfasst also die Modulgruppen, die Module und die (abstrakten) Vorlesungen.
 | `_________MainFocuses`               | [ ]                     | Array von Schwerpunkten der Vorlesung                                    |
 | `____________mainFocus_id`           | 1                       | Eindeutige ID des Schwerpunktes                                          |
 | `____________name`                   | "IT-Security"           | Name des Schwerpunktes                                                   |
-| `____________lecture_mainFocus`      | { }                     | Objekt der Zwischentabelle Schwerpunkt-Vorlesung                         |
-| `_______________lecture_id`          | 1                       | Eindeutige ID der abstrakten Vorlesung                                   |
-| `_______________mainFocus_id`        | 1                       | Eindeutige ID des Schwerpunktes                                          |
 
 ## POST /moduleGroups
 

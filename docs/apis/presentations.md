@@ -70,13 +70,7 @@ Dies funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom ange
                             "mainFocus_id": 0,
                             "name": "[NAME]",
                             "createdAt": "[DATUM]",
-                            "updatedAt": "[DATUM]",
-                            "lecture_mainFocus": {
-                                "createdAt": "[DATUM]",
-                                "updatedAt": "[DATUM]",
-                                "lecture_id": 0,
-                                "mainFocus_id": 0
-                            }
+                            "updatedAt": "[DATUM]"
                         }
                     ],
                     "Module": {
@@ -107,13 +101,7 @@ Dies funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom ange
                                 "type": "[ART]",
                                 "rated": true,
                                 "createdAt": "[DATUM]",
-                                "updatedAt": "[DATUM]",
-                                "module_academicRecord": {
-                                    "createdAt": "[DATUM]",
-                                    "updatedAt": "[DATUM]",
-                                    "academicRe": 0,
-                                    "module_id": 0
-                                }
+                                "updatedAt": "[DATUM]"
                             }
                         ]
                     }
@@ -138,13 +126,7 @@ Dies funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom ange
                             "mainFocus_id": 0,
                             "name": "[NAME]",
                             "createdAt": "[DATUM]",
-                            "updatedAt": "[DATUM]",
-                            "lecturer_mainFocus": {
-                                "createdAt": "[DATUM]",
-                                "updatedAt": "[DATUM]",
-                                "lecturer_id": 0,
-                                "mainFocus_id": 0
-                            }
+                            "updatedAt": "[DATUM]"
                         }
                     ]
                 },

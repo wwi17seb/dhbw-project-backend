@@ -5,7 +5,7 @@ const majorSubjectService = require('./majorSubjectService');
 const whatToInclude = [
   {
     model: db.Module,
-    include: [{ model: db.AcademicRecord }, { model: db.Lecture, include: [{ model: db.MainFocus }] }],
+    include: [{ model: db.AcademicRecord, through: {attributes: []} }, { model: db.Lecture, include: [{ model: db.MainFocus, through: {attributes: []} }] }],
   },
 ];
 
@@ -17,7 +17,6 @@ async function findModuleGroupById(moduleGroup_id) {
 
 // GET
 module.exports.getAllModuleGroups = async () => {
-  // TODO: fieldOfStudy ist falsch
   const moduleGroup = await db.ModuleGroup.findAll({ include: whatToInclude });
 
   return moduleGroup;
