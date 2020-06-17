@@ -20,7 +20,8 @@ const propertiesReader = require('../helpers/propertyReader');
 
 const testdata = require('./testdata');
 
-const SERVER_URL = 'http://localhost:3000';
+let SERVER_URL = `http://localhost:${propertiesReader.getProperty('app.port')}`;
+const SERVER_URL_PRODUCTION = `https://localhost/api`;
 
 let TOKEN = null;
 const LOG_DIR = './logs';
@@ -81,6 +82,16 @@ function promiseHelper(method) {
     await method();
     resolve();
   });
+}
+
+async function setServerURLIfProduction() {
+  try {
+    await _fetch('GET', '/');
+  } catch (error) {
+    // server not working, probably because deployed as frontend; disable tls check because of self-signed certificate
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+    SERVER_URL = SERVER_URL_PRODUCTION;
+  }
 }
 
 async function login() {
@@ -148,6 +159,7 @@ function replacePlaceholders(obj) {
 
 const data = {};
 async function main() {
+  await setServerURLIfProduction();
   await login();
   await Promise.all([
     createTestData('fieldsOfStudy'),
