@@ -9,11 +9,16 @@ module.exports.findCourseById = async (course_id) => {
   return course ? course.dataValues : null;
 };
 
-module.exports.findAll = async (withMajorSubject, withSemesters, withFieldOfStudy) => {
-  const withInclude = [{ model: db.DirectorOfStudies, attributes: ['directorOfStudies_id', 'username', 'is_admin'] }];
-  if (withMajorSubject) withInclude.push({ model: db.MajorSubject });
-  if (withSemesters) withInclude.push({ model: db.Semester });
-  if (withFieldOfStudy) withInclude.push({ model: db.FieldOfStudy });
+module.exports.findAll = async () => {
+  const withInclude = [
+    {
+      model: db.DirectorOfStudies,
+      attributes: ['directorOfStudies_id', 'username', 'is_admin'],
+      through: { attributes: [] },
+    },
+    { model: db.MajorSubject, include: [{ model: db.FieldOfStudy }] },
+    { model: db.Semester },
+  ];
 
   const courses = await db.Course.findAll({ include: withInclude });
 

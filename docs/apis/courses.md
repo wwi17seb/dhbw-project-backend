@@ -22,52 +22,52 @@
 
 ```json
 {
-    "message": "Successful",
-    "payload": {
-        "Courses": [
-            {
-                "course_id": 0,
-                "name": "[NAME]",
-                "google_calendar_id": "[GOOGLE_KALENDER_ID]",
-                "createdAt": "[DATUM]",
-                "updatedAt": "[DATUM]",
-                "majorSubject_id": 0,
-                "DirectorsOfStudies": [
-                    {
-                        "directorOfStudies_id": 0,
-                        "username": "[NAME]",
-                        "is_admin": true,
-                        "directorOfStudies_course": {
-                            "createdAt": "[DATUM]",
-                            "updatedAt": "[DATUM]",
-                            "course_id": 0,
-                            "directorOfStudies_i": 0
-                        }
-                    }
-                ],
-                "MajorSubject": {
-                    "majorSubject_id": 0,
-                    "name": "[NAME]",
-                    "catalog_effective_from": "[GÜLTIGKEIT]",
-                    "createdAt": "[DATUM]",
-                    "updatedAt": "[DATUM]",
-                    "fieldOfStudy_id": 0
-                },
-                "Semesters": [
-                    {
-                        "semester_id": 0,
-                        "name": "[NAME]",
-                        "number": 0,
-                        "start_date": "[STARTDATUM]",
-                        "end_date": "[ENDDATUM]",
-                        "createdAt": "[DATUM]",
-                        "updatedAt": "[DATUM]",
-                        "course_id": 0
-                    }
-                ]
-            }
+  "message": "Successful",
+  "payload": {
+    "Courses": [
+      {
+        "course_id": 0,
+        "name": "[NAME_DES_KURSES]",
+        "google_calendar_id": "[GOOGLE_KALENDER_ID]",
+        "createdAt": "[DATUM]",
+        "updatedAt": "[DATUM]",
+        "majorSubject_id": 0,
+        "DirectorsOfStudies": [
+          {
+            "directorOfStudies_id": 0,
+            "username": "[NAME]",
+            "is_admin": true
+          }
+        ],
+        "MajorSubject": {
+          "majorSubject_id": 0,
+          "name": "[STUDIENGANG]",
+          "catalog_effective_from": "[GÜLTIG_AB]",
+          "createdAt": "[DATUM]",
+          "updatedAt": "[DATUM]",
+          "fieldOfStudy_id": 0,
+          "FieldOfStudy": {
+            "fieldOfStudy_id": 0,
+            "name": "[STUDIENRICHTUNG]",
+            "createdAt": "2020-06-17T19:29:19.048Z",
+            "updatedAt": "2020-06-17T19:29:19.048Z"
+          }
+        },
+        "Semesters": [
+          {
+            "semester_id": 0,
+            "name": "[NAME_DES_SEMESTERS]",
+            "number": 0,
+            "start_date": "[STARTDATUM]",
+            "end_date": "[ENDDATUM]",
+            "createdAt": "[DATUM]",
+            "updatedAt": "[DATUM]",
+            "course_id": 0
+          }
         ]
-    }
+      }
+    ]
+  }
 }
 ```
 
@@ -79,8 +79,11 @@
 | `course_id`                 | 1                                                                                            | Eindeutige ID eines Kurses                                  |
 | `name`                      | "WWI 17 SE B"                                                                                | Name des Kurses                                             |
 | `google_calendar_id`        | "13123AbcGoogle"                                                                             | Kennzeichner des Google-Kalenders                           |
+| `majorSubject_id`           | 1                                                                                            | Eindeutige ID einer Studienrichtung                         |
 | `DirectorOfStudies`         | { }                                                                                          | Objekt eines Studiengangleiters                             |
-| `___misc`                   | "{ \"email-template\": \"blablabla, was auch immer ihr wollt, könnt ihr hier speichern.\"}\" | Freitext, kann als String im JSON-Format gespeichert werden |
+| `___directorOfStudies_id`   | 1                                                                                            | Eindeutige ID des Studiengangleiters                        |
+| `___username`               | "ritterbusch"                                                                                | Name des Studiengangleiters                                 |
+| `___is_admin`               | "{ \"email-template\": \"blablabla, was auch immer ihr wollt, könnt ihr hier speichern.\"}\" | Freitext, kann als String im JSON-Format gespeichert werden |
 | `MajorSubject`              | { }                                                                                          | Objekt einer Studienrichtung                                |
 | `___majorSubject_id`        | 1                                                                                            | Eindeutige ID einer Studienrichtung                         |
 | `___name`                   | "Software Engineering"                                                                       | Name der Studienrichtung                                    |
@@ -94,6 +97,7 @@
 | `______number`              | 1                                                                                            | Nummer des Semesters (erstes Semester, ...)                 |
 | `______start_date`          | "2017-10-23"                                                                                 | Startdatum; Format: ISO 8601                                |
 | `______end_date`            | "2017-10-23"                                                                                 | Enddatum; Format: ISO 8601                                  |
+| `______course_id`           | 1                                                                                            | Eindeutige ID des Kurses, zu welchem das Semester gehört    |
 
 ## POST /courses
 
@@ -103,18 +107,18 @@
 
 ```json
 {
-    "name": "[KURSNAME]",
-    "google_calendar_id": "[GOOGLE_KALENDER_ID]",
-    "majorSubject_id": 0,
-    "directorOfStudies_ids": [ 0, 0 ],
-    "Semesters": [
-        {
-            "name": "[SEMESTERNAME]",
-            "number": 0,
-            "start_date": "[STARTDATUM]",
-            "end_date": "[ENDDATUM]"
-        }
-    ]
+  "name": "[NAME_DES_KURSES]",
+  "google_calendar_id": "[GOOGLE_KALENDER_ID]",
+  "majorSubject_id": 0,
+  "directorOfStudies_ids": [0, 0],
+  "Semesters": [
+    {
+      "name": "[NAME_DES_SEMESTERS]",
+      "number": 0,
+      "start_date": "[STARTDATUM]",
+      "end_date": "[ENDDATUM]"
+    }
+  ]
 }
 ```
 
@@ -127,36 +131,36 @@
 | `majorSubject_id`       | ja       | 1                | Eindeutige ID einer Studienrichtung                                                                     |
 | `directorOfStudies_ids` | nein     | [0, 1]           | Eigene ID wird automatisch gesetzt, hier können optional weitere verantwortliche DoS hinzugefügt werden |
 | `Semesters`             | nein     | [ ]              | Array von Semestern                                                                                     |
-| ___`name`               | ja       | "WS17/18"        | Freitext, Format: Winter/Sommersemester + Jahr(e)                                                       |
-| ___`number`             | ja       | 0                | Nummer des Semesters (erstes Semester, ...)                                                             |
-| ___`start_date`         | ja       | "2018-05-07"     | Startdatum; Format: ISO 8601                                                                            |
-| ___`end_date`           | ja       | "2018-08-03"     | Enddatum; Format: ISO 8601                                                                              |
+| `___name`               | ja       | "WS17/18"        | Freitext, Format: Winter/Sommersemester + Jahr(e)                                                       |
+| `___number`             | ja       | 0                | Nummer des Semesters (erstes Semester, ...)                                                             |
+| `___start_date`         | ja       | "2018-05-07"     | Startdatum; Format: ISO 8601                                                                            |
+| `___end_date`           | ja       | "2018-08-03"     | Enddatum; Format: ISO 8601                                                                              |
 
 ### Rückgabe - POST /courses
 
 ```json
 {
-    "message": "Successfully created.",
-    "payload": {
+  "message": "Successfully created.",
+  "payload": {
+    "course_id": 0,
+    "name": "[NAME_DES_KURSES]",
+    "majorSubject_id": 0,
+    "google_calendar_id": "[GOOGLE_KALENDER_ID]",
+    "Semesters": [
+      {
+        "semester_id": 0,
+        "name": "[NAME_DES_SEMESTERS]",
+        "number": 0,
+        "start_date": "[DATUM]",
+        "end_date": "[DATUM]",
         "course_id": 0,
-        "name": "[NAME]",
-        "majorSubject_id": 0,
-        "google_calendar_id": "[GOOGLE_KALENDER_ID]",
-        "Semesters": [
-            {
-                "semester_id": 0,
-                "name": "[NAME]",
-                "number": 0,
-                "start_date": "[DATUM]",
-                "end_date": "[DATUM]",
-                "course_id": 0,
-                "updatedAt": "[DATUM]",
-                "createdAt": "[DATUM]"
-            }
-        ],
         "updatedAt": "[DATUM]",
         "createdAt": "[DATUM]"
-    }
+      }
+    ],
+    "updatedAt": "[DATUM]",
+    "createdAt": "[DATUM]"
+  }
 }
 ```
 
@@ -171,10 +175,10 @@ Semester können über die Route [PUT /semesters?semesterId={ID}](#put-semesters
 
 ```json
 {
-    "name": "[KURSNAME]",
-    "google_calendar_id": "[GOOGLE_KALENDER_ID]",
-    "majorSubject_id": 0,
-    "directorOfStudies_ids": [ 0, 0 ]
+  "name": "[NAME_DES_KURSES]",
+  "google_calendar_id": "[GOOGLE_KALENDER_ID]",
+  "majorSubject_id": 0,
+  "directorOfStudies_ids": [0, 0]
 }
 ```
 
@@ -191,8 +195,8 @@ Semester können über die Route [PUT /semesters?semesterId={ID}](#put-semesters
 
 ```json
 {
-    "message": "Successfully updated",
-    "payload": true
+  "message": "Successfully updated",
+  "payload": true
 }
 ```
 
@@ -204,7 +208,7 @@ Semester können über die Route [PUT /semesters?semesterId={ID}](#put-semesters
 
 ```json
 {
-    "message": "Successfully deleted",
-    "payload": true
+  "message": "Successfully deleted",
+  "payload": true
 }
 ```
