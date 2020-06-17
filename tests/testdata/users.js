@@ -1,5 +1,6 @@
 module.exports = {
   route: 'signup',
+  alternativeRoute: 'login',
   data: [
     {
       id: 'jreichwald',

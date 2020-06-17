@@ -113,7 +113,19 @@ async function createTestData(filename) {
   await Promise.all(
     testdata[filename].data.map((entry) => {
       return promiseHelper(async () => {
-        data[route][entry.id] = await post(route, replacePlaceholders(entry.data), replacePlaceholders(entry.token));
+        const dataObject = replacePlaceholders(entry.data);
+        const tokenObject = replacePlaceholders(entry.token);
+        try {
+          const response = await post(route, dataObject, tokenObject);
+          if (!response) {
+            throw new Error("No data received");
+          }
+          data[route][entry.id] = response;
+        } catch {
+          if (testdata[filename].alternativeRoute) {
+            data[route][entry.id] = await post(testdata[filename].alternativeRoute, dataObject, tokenObject);
+          }
+        }
       });
     })
   );
