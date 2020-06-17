@@ -11,9 +11,10 @@ exports.getModulecatalog = async (req, res, next) => {
     }
 
     await checkMajorSubjectExistence(majorSubjectId);
-    const FieldsOfStudy = await moduleGroupService.getAllModuleGroupsByMajorSubjectId(majorSubjectId);
+    // TODO: get fieldOfStudy and majorSubject
+    const ModuleGroups = await moduleGroupService.getAllModuleGroupsByMajorSubjectId(majorSubjectId);
 
-    return responseHelper(res, 200, 'Successful', { FieldsOfStudy });
+    return responseHelper(res, 200, 'Successful', { ModuleGroups });
   } catch (error) {
     return errorResponseHelper(res, next, error);
   }
