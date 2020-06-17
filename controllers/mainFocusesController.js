@@ -8,7 +8,7 @@ exports.getMainFocuses = async (req, res, next) => {
   try {
     const MainFocuses = await mainFocusService.findAll();
 
-    responseHelper(res, 200, '', { MainFocuses });
+    responseHelper(res, 200, 'Successful', { MainFocuses });
   } catch (error) {
     return errorResponseHelper(res, next, error);
   }
@@ -22,7 +22,7 @@ exports.postMainFocuses = async (req, res, next) => {
     const createdMainFocus = await mainFocusService.createMainFocus(transaction, mainFocusToCreate);
 
     transaction.commit();
-    return responseHelper(res, 201, 'Successfully created.', createdMainFocus);
+    return responseHelper(res, 201, 'Successfully created', createdMainFocus);
   } catch (error) {
     transaction.rollback();
     return errorResponseHelper(res, next, error);
@@ -48,7 +48,7 @@ exports.putMainFocuses = async (req, res, next) => {
     }
 
     transaction.commit();
-    return responseHelper(res, 200, 'Successfully updated.', updatedMainFocus);
+    return responseHelper(res, 200, 'Successfully updated', updatedMainFocus);
   } catch (error) {
     transaction.rollback();
     return errorResponseHelper(res, next, error);
@@ -70,7 +70,7 @@ exports.deleteMainFocuses = async (req, res, next) => {
     }
 
     transaction.commit();
-    return responseHelper(res, 200, 'Successfully deleted.', deletedMainFocus);
+    return responseHelper(res, 200, 'Successfully deleted', deletedMainFocus);
   } catch (error) {
     transaction.rollback();
     return errorResponseHelper(res, next, error);

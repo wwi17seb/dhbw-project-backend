@@ -36,14 +36,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      profile: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-      research: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
       cv: {
         type: DataTypes.STRING,
         allowNull: true,

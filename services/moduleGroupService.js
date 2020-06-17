@@ -5,7 +5,7 @@ const majorSubjectService = require('./majorSubjectService');
 const whatToInclude = [
   {
     model: db.Module,
-    include: [{ model: db.AcademicRecord }, { model: db.Lecture, include: [{ model: db.MainFocus }] }],
+    include: [{ model: db.AcademicRecord, through: {attributes: []} }, { model: db.Lecture, include: [{ model: db.MainFocus, through: {attributes: []} }] }],
   },
 ];
 

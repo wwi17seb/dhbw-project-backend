@@ -7,7 +7,7 @@ const academicRecordService = require('../services/academicRecordsService');
 exports.getAcademicRecords = async (req, res, next) => {
   try {
     const AcademicRecords = await academicRecordService.findAll();
-    responseHelper(res, 200, '', { AcademicRecords });
+    responseHelper(res, 200, 'Successful', { AcademicRecords });
   } catch (error) {
     return errorResponseHelper(res, next, error);
   }
@@ -21,7 +21,7 @@ exports.postAcademicRecords = async (req, res, next) => {
     const createdAcademicRecord = await academicRecordService.createAcademicRecord(transaction, academicRecordToCreate);
 
     transaction.commit();
-    return responseHelper(res, 201, 'Successfully created.', createdAcademicRecord);
+    return responseHelper(res, 201, 'Successfully created', createdAcademicRecord);
   } catch (error) {
     transaction.rollback();
     return errorResponseHelper(res, next, error);
@@ -49,7 +49,7 @@ exports.putAcademicRecords = async (req, res, next) => {
     }
 
     transaction.commit();
-    return responseHelper(res, 200, 'Successfully updated.', updatedAcademicRecord);
+    return responseHelper(res, 200, 'Successfully updated', updatedAcademicRecord);
   } catch (error) {
     transaction.rollback();
     return errorResponseHelper(res, next, error);
@@ -70,7 +70,7 @@ exports.deleteAcademicRecords = async (req, res, next) => {
     }
 
     transaction.commit();
-    return responseHelper(res, 200, 'Successfully deleted.', deletedAcademicRecord);
+    return responseHelper(res, 200, 'Successfully deleted', deletedAcademicRecord);
   } catch (error) {
     transaction.rollback();
     return errorResponseHelper(res, next, error);

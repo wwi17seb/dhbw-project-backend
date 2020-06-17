@@ -12,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      catalog_effective_from: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      }
     },
     {
       modelName: 'MajorSubject',

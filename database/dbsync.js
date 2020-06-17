@@ -27,7 +27,7 @@ addTestData = async () => {
         console.log('Error when adding test data');
         console.log(stderr);
       } else {
-        console.log('Test data has been added.');
+        console.log('Test data has been added');
       }
     });
   }

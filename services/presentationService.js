@@ -7,9 +7,6 @@ module.exports.findPresentationById = async (presentation_id) => {
   return presentation ? presentation.dataValues : null;
 };
 
-// - lecture -> mainfocus, module ->( modulegroup, academicrecords)
-// - lecturer -> mainfocus
-
 module.exports.findAll = async (course_id, semester_id) => {
   const withInclude = [
     { model: db.Semester },
@@ -17,11 +14,11 @@ module.exports.findAll = async (course_id, semester_id) => {
     {
       model: db.Lecture,
       include: [
-        { model: db.MainFocus },
-        { model: db.Module, include: [{ model: db.ModuleGroup }, { model: db.AcademicRecord }] },
+        { model: db.MainFocus, through: {attributes: []} },
+        { model: db.Module, include: [{ model: db.ModuleGroup }, { model: db.AcademicRecord, through: {attributes: []} }] },
       ],
     },
-    { model: db.Lecturer, include: [{ model: db.MainFocus }] },
+    { model: db.Lecturer, include: [{ model: db.MainFocus, through: {attributes: []} }] },
     { model: db.DirectorOfStudies, attributes: ['directorOfStudies_id', 'username'] },
   ];
   let where = { course_id };
