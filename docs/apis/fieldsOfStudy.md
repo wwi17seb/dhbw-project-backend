@@ -5,6 +5,7 @@
   - [Attribute der Anfrage GET /fieldOfStudy](#attribute-der-anfrage-get-fieldofstudy)
   - [Optionale Parameter /fieldsOfStudy](#optionale-parameter-fieldsofstudy)
     - [Rückgabe - GET /fieldsOfStudy?withMajorSubjects=true](#rückgabe---get-fieldsofstudywithmajorsubjectstrue)
+    - [Zusätzliche Attribute der Anfrage GET /fieldOfStudy?withMajorSubjects=true](#zusätzliche-attribute-der-anfrage-get-fieldofstudywithmajorsubjectstrue)
 - [POST /fieldsOfStudy](#post-fieldsofstudy)
   - [Body der Anfrage - POST /fieldsOfStudy](#body-der-anfrage---post-fieldsofstudy)
   - [Attribute der Anfrage - POST /fieldsOfStudy](#attribute-der-anfrage---post-fieldsofstudy)
@@ -24,17 +25,17 @@
 
 ```json
 {
-  "message": "Successful",
-  "payload": {
-    "FieldsOfStudy": [
-      {
-        "fieldOfStudy_id": 0,
-        "name": "[STUDIENGANG]",
-        "createdAt": "[DATUM]",
-        "updatedAt": "[DATUM]"
-      }
-    ]
-  }
+    "message": "Successful",
+    "payload": {
+        "FieldsOfStudy": [
+            {
+                "fieldOfStudy_id": 0,
+                "name": "[STUDIENGANG]",
+                "createdAt": "[DATUM]",
+                "updatedAt": "[DATUM]"
+            }
+        ]
+    }
 }
 ```
 
@@ -48,34 +49,34 @@
 
 ### Optionale Parameter /fieldsOfStudy
 
-- `withMajorSubjects`
-  - sofern `true` werden hier die Studienrichtungen mitübergeben.
+-   `withMajorSubjects`
+    -   sofern `true` werden hier die Studienrichtungen mitübergeben.
 
 #### Rückgabe - GET /fieldsOfStudy?withMajorSubjects=true
 
 ```json
 {
-  "message": "[DEBUG-INFO/KOMMENTAR]",
-  "payload": {
-    "FieldsOfStudy": [
-      {
-        "fieldOfStudy_id": 0,
-        "name": "[STUDIENGANG]",
-        "createdAt": "[DATUM]",
-        "updatedAt": "[DATUM]",
-        "MajorSubjects": [
-          {
-            "majorSubject_id": 0,
-            "name": "[STUDIENRICHTUNG]",
-            "catalog_effective_from": "[CATALOG_EFFECTIVE_FROM]",
-            "createdAt": "[DATUM]",
-            "updatedAt": "[DATUM]",
-            "fieldOfStudy_id": 0
-          }
+    "message": "[DEBUG-INFO/KOMMENTAR]",
+    "payload": {
+        "FieldsOfStudy": [
+            {
+                "fieldOfStudy_id": 0,
+                "name": "[STUDIENGANG]",
+                "createdAt": "[DATUM]",
+                "updatedAt": "[DATUM]",
+                "MajorSubjects": [
+                    {
+                        "majorSubject_id": 0,
+                        "name": "[STUDIENRICHTUNG]",
+                        "catalog_effective_from": "[CATALOG_EFFECTIVE_FROM]",
+                        "createdAt": "[DATUM]",
+                        "updatedAt": "[DATUM]",
+                        "fieldOfStudy_id": 0
+                    }
+                ]
+            }
         ]
-      }
-    ]
-  }
+    }
 }
 ```
 
@@ -97,7 +98,7 @@
 
 ```json
 {
-  "name": "[STUDIENGANG]"
+    "name": "[STUDIENGANG]"
 }
 ```
 
@@ -111,13 +112,13 @@
 
 ```json
 {
-  "message": "Successfully created",
-  "payload": {
-    "fieldOfStudy_id": 0,
-    "name": "[STUDIENGANG]",
-    "updatedAt": "[DATUM]",
-    "createdAt": "[DATUM]"
-  }
+    "message": "Successfully created",
+    "payload": {
+        "fieldOfStudy_id": 0,
+        "name": "[STUDIENGANG]",
+        "updatedAt": "[DATUM]",
+        "createdAt": "[DATUM]"
+    }
 }
 ```
 
@@ -130,7 +131,7 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
 
 ```json
 {
-  "name": "[STUDIENGANG]"
+    "name": "[STUDIENGANG]"
 }
 ```
 
@@ -144,8 +145,8 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
 
 ```json
 {
-  "message": "Successfully updated",
-  "payload": true
+    "message": "Successfully updated",
+    "payload": true
 }
 ```
 
@@ -157,7 +158,7 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
 
 ```json
 {
-  "message": "Successfully deleted",
-  "payload": true
+    "message": "Successfully deleted",
+    "payload": true
 }
 ```

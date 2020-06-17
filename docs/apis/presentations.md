@@ -40,7 +40,7 @@ Dies funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom ange
                 "semester_id": 0,
                 "Semester": {
                     "semester_id": 0,
-                    "name": "[NAME]",
+                    "name": "[NAME_DES_SEMESTERS]",
                     "number": 0,
                     "start_date": "[STARTDATUM]",
                     "end_date": "[ENDDATUM]",
@@ -52,13 +52,12 @@ Dies funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom ange
                     "academicRecord_id": 0,
                     "abbreviation": "[ABKÜRZUNG]",
                     "type": "[ART]",
-                    "rated": true,
                     "createdAt": "[DATUM]",
                     "updatedAt": "[DATUM]"
                 },
                 "Lecture": {
                     "lecture_id": 0,
-                    "name": "[NAME]",
+                    "name": "[NAME_DER_VORLESUNG]",
                     "workload_home": 0,
                     "workload_dhbw": 0,
                     "catalog_id": "[KATALOG_ID]",
@@ -68,7 +67,7 @@ Dies funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom ange
                     "MainFocuses": [
                         {
                             "mainFocus_id": 0,
-                            "name": "[NAME]",
+                            "name": "[NAME_DES_SCHWERPUNKTS]",
                             "createdAt": "[DATUM]",
                             "updatedAt": "[DATUM]"
                         }
@@ -80,13 +79,14 @@ Dies funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom ange
                         "ects": 0,
                         "catalog_id": "[KATALOG_ID]",
                         "number_of_lectures_to_attend": 0,
+                        "rated": true,
                         "requirements": "[ANFORDERUNGEN]",
                         "createdAt": "[DATUM]",
                         "updatedAt": "[DATUM]",
                         "moduleGroup_id": 0,
                         "ModuleGroup": {
                             "moduleGroup_id": 0,
-                            "name": "[NAME]",
+                            "name": "[NAME_DER_MODULEGRUPPE]",
                             "number_of_modules_to_attend": 0,
                             "from_semester_number": 0,
                             "to_semester_number": 0,
@@ -99,7 +99,6 @@ Dies funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom ange
                                 "academicRecord_id": 0,
                                 "abbreviation": "[ABKÜRZUNG]",
                                 "type": "[ART]",
-                                "rated": true,
                                 "createdAt": "[DATUM]",
                                 "updatedAt": "[DATUM]"
                             }
@@ -110,7 +109,7 @@ Dies funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom ange
                     "lecturer_id": 0,
                     "firstname": "[VORNAME]",
                     "lastname": "[NACHNAME]",
-                    "academic_title": "[AKADEMISCHER TITEL]",
+                    "academic_title": "[AKADEMISCHER_TITEL]",
                     "email": "[E-MAIL]",
                     "salutation": "[ANREDE]",
                     "phonenumber": "[TELEFONNUMMER]",
@@ -152,7 +151,7 @@ Dies funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom ange
 | ----------------------------------------- | --------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | `Presentations`                           | [ ]                                                 | Array von konkreten Vorlesungen                                                                                  |
 | `___presentation_id`                      | 1                                                   | Eindeutige ID der konkreten Vorlesung                                                                            |
-| `___status`                               | "Dozent angeschrieben"                              | Status des Dozierenden                                                                                           |
+| `___status`                               | "Dozent angeschrieben"                              | Freitext zum Status der Absprache mit Dozierenden                                                                |
 | `___academicRecord_id`                    | 1                                                   | Eindeutige ID der Prüfungsleistung                                                                               |
 | `___course_id`                            | 1                                                   | Eindeutige ID des dazugehörigen Kurses                                                                           |
 | `___createdBy_id`                         | 1                                                   | Eindeutige ID des Erstellers                                                                                     |
@@ -164,25 +163,22 @@ Dies funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom ange
 | `______name`                              | WS17/18                                             | Name des Semesters                                                                                               |
 | `______number`                            | 1                                                   | Nummerierung der Semester innerhalb eines Kurses                                                                 |
 | `______start_date`                        | 2017-10-23                                          | Anfang des Semesters; Format: ISO 8601                                                                           |
+| `______end_date`                          | 2018-02-14                                          | Ende des Semesters; Format: ISO 8601                                                                             |
 | `______course_id`                         | 1                                                   | Eindeutige ID des Kurses zum Semester                                                                            |
 | `___AcademicRecord`                       | { }                                                 | gewählte Prüfungsleistung                                                                                        |
 | `______academicRecord_id`                 | 1                                                   | Eindeutige ID der Prüfungsleistung                                                                               |
 | `______abbreviation`                      | K, SE                                               | Abkürzung der Prüfungsleistung                                                                                   |
 | `______type`                              | Klausur                                             | Art der Prüfungsleistung                                                                                         |
-| `______rated`                             | true / false                                        | Benotung                                                                                                         |
 | `___Lecture`                              | { }                                                 | Objekt der abstrakten Vorlesung                                                                                  |
 | `______lecture_id`                        | 1                                                   | Eindeutige ID der abstrakten Vorlesung                                                                           |
 | `______name`                              | "Betriebssystemstrukturen für mobile Applikationen" | Name der abstrakten Vorlesung                                                                                    |
-| `______workload_home`                     | 1                                                   | Präsenzstudium; Einheit: Stunden                                                                                 |
-| `______workload_dhbw`                     | 1                                                   | Selbststudium; Einheit: Stunden                                                                                  |
+| `______workload_home`                     | 1                                                   | Selbststudium; Einheit: Stunden                                                                                  |
+| `______workload_dhbw`                     | 1                                                   | Präsenzstudium; Einheit: Stunden                                                                                 |
 | `______catalog_id`                        | "WWISE_713.1"                                       | Kennzeichnung aus dem Modulkatalog der DHBW                                                                      |
 | `______module_id`                         | 1                                                   | Eindeutige ID des Moduls                                                                                         |
-| `______MainFocus`                         | [ ]                                                 | Array von Schwerpunkten der Vorlesung                                                                            |
+| `______MainFocuses`                       | [ ]                                                 | Array von Schwerpunkten der Vorlesung                                                                            |
 | `_________mainFocus_id`                   | 1                                                   | Eindeutige ID des Schwerpunktes                                                                                  |
 | `_________name`                           | "Mobile Applikationen"                              | Name des Schwerpunktes                                                                                           |
-| `_________lecture_mainFocus`              | { }                                                 | Objekt der Zwischentabelle Schwerpunkt-Vorlesung                                                                 |
-| `____________lecture_id`                  | 1                                                   | Eindeutige ID der abstrakten Vorlesung                                                                           |
-| `____________mainFocus_id`                | 1                                                   | Eindeutige ID des Schwerpunktes                                                                                  |
 | `______Module`                            | { }                                                 | Objekt eines Moduls                                                                                              |
 | `_________module_id`                      | 1                                                   | Eindeutige ID des Moduls                                                                                         |
 | `_________name`                           | Technische Grundlagen mobiler Applikatione          | Name des Moduls                                                                                                  |
@@ -190,6 +186,7 @@ Dies funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom ange
 | `_________ects`                           | 1                                                   | ECTS-Punkte des Moduls                                                                                           |
 | `_________catalog_id`                     | "WWISE_1337"                                        | Kennzeichnung aus dem Modulkatalog der DHBW                                                                      |
 | `_________number_of_lectures_to_attend`   | 1                                                   | Anzahl Vorlesungen, die im Rahmen des Moduls besucht werden müssen                                               |
+| `_________rated`                          | true / false                                        | Benotung                                                                                                         |
 | `_________requirements`                   | "Software Engineering 1"                            | Freitext, Für Teilnahme an Vorlesung benötigte Grundlagen bzw. Vorwissen                                         |
 | `_________moduleGroup_id`                 | 1                                                   | Eindeutige ID der Modulgruppe                                                                                    |
 | `_________ModuleGroup`                    | { }                                                 | Objekt einer Modulgruppe                                                                                         |
@@ -203,10 +200,6 @@ Dies funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom ange
 | `_________academicRecord_id`              | 1                                                   | Eindeutige ID der Prüfungsleistung                                                                               |
 | `_________abbreviation`                   | "K", "SE"                                           | Abkürzung der Prüfungsleistung                                                                                   |
 | `_________type`                           | "Klausur"                                           | Art der Prüfungsleistung                                                                                         |
-| `_________rated`                          | true / false                                        | Benotung                                                                                                         |
-| `_________module_academicRecord`          | { }                                                 | Objekt der Zwischentabelle Modul-Prüfungsleistung                                                                |
-| `____________academicRecord_id`           | 1                                                   | Eindeutige ID der Prüfungsleistung                                                                               |
-| `____________module_id`                   | 1                                                   | Eindeutige ID des Moduls                                                                                         |
 | `___Lecturer`                             | { }                                                 | Objekt eines Dozierenden                                                                                         |
 | `______lecturer_id`                       | 1                                                   | Eindeutige ID des Dozierenden                                                                                    |
 | `______firstname`                         | "Sebastian"                                         | Vorname des Dozierenden                                                                                          |
@@ -220,12 +213,9 @@ Dies funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom ange
 | `______comment`                           | "Sehr engagiert"                                    | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
 | `______is_extern`                         | false                                               | Gibt an, ob ein Dozent extern ist - false = intern, true = extern                                                |
 | `______createdBy_id`                      | 1                                                   | ID des Users, der zuletzt den Dozenten verändert hat                                                             |
-| `______MainFocus`                         | [ ]                                                 | Array von Schwerpunkten des Dozierenden                                                                          |
+| `______MainFocuses`                       | [ ]                                                 | Array von Schwerpunkten des Dozierenden                                                                          |
 | `_________mainFocus_id`                   | 1                                                   | Eindeutige ID des Schwerpunktes                                                                                  |
 | `_________name`                           | Software Engineering                                | Name des Schwerpunktes                                                                                           |
-| `_________lecturer_mainFocus`             | { }                                                 | Objekt der Zwischentabelle Schwerpunkt-Dozierender                                                               |
-| `____________lecturer_id`                 | 1                                                   | Eindeutige ID des Dozenten                                                                                       |
-| `____________mainFocus_id`                | 1                                                   | Eindeutige ID des Schwerpunktes                                                                                  |
 | `___DirectorOfStudies`                    | { }                                                 | aktuell angemeldeter Studiengangsleiter                                                                          |
 | `______directorOfStudies_Id`              | 1                                                   | Eindeutige ID des Studiengangsleiters                                                                            |
 | `______username`                          | Admin                                               | Benutzername des Studiengangleiters                                                                              |
@@ -260,14 +250,14 @@ Dies funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom ange
 
 ### Attribute der Anfrage - POST /presentations
 
-| Attribut            | Erfodert | Beispielwert                                | Erklärung                                                    |
-| ------------------- | -------- | ------------------------------------------- | ------------------------------------------------------------ |
-| `lecture_id`        | ja       | 1                                           | Eindeutige Bezeichnung der dazugehörigen Lecture             |
-| `lecturer_id`       | ja       | "Software Engineering"                      | Eindeutige Bezeichnung des dazugehörigen Dozierenden         |
-| `academicRecord_id` | ja       | 1                                           | Eindeutige Bezeichnung der Prüfungsleistung                  |
-| `semester_id`       | ja       | 1                                           | Eindeutige Bezeichnugn des dazugehörigen Semesters           |
-| `course_id`         | ja       | 1                                           | Eindeutige Bezeichnugn des dazugehörigen Kurses              |
-| `status`            | nein     | "Dozent offen", "Dozent angeschrieben", ... | Freier Kommentar, ob Dozierender bereits angeschrieben wurde |
+| Attribut            | Erfodert | Beispielwert                                  | Erklärung                                         |
+| ------------------- | -------- | --------------------------------------------- | ------------------------------------------------- |
+| `lecture_id`        | ja       | 1                                             | Eindeutige ID der dazugehörigen Lecture           |
+| `lecturer_id`       | ja       | 1                                             | Eindeutige ID des dazugehörigen Dozierenden       |
+| `academicRecord_id` | ja       | 1                                             | Eindeutige ID der Prüfungsleistung                |
+| `semester_id`       | ja       | 1                                             | Eindeutige ID des dazugehörigen Semesters         |
+| `course_id`         | ja       | 1                                             | Eindeutige ID des dazugehörigen Kurses            |
+| `status`            | nein     | "Dozent offen", "Dozentin angeschrieben", ... | Freitext zum Status der Absprache mit Dozierenden |
 
 ### Rückgabe - POST /presentations
 
@@ -309,14 +299,14 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
 
 ### Attribute der Anfrage - PUT /presentations?presentationId={ID}
 
-| Attribut            | Erfodert | Beispielwert                                | Erklärung                               |
-| ------------------- | -------- | ------------------------------------------- | --------------------------------------- |
-| `lecture_id`        | ja       | 0                                           | Eindeutige ID der Vorlesung             |
-| `lecturer_id`       | ja       | "Software Engineering"                      | Eindeutige ID des Dozenten              |
-| `academicRecord_id` | ja       | 1                                           | Eindeutige ID der Prüfungsleistung      |
-| `semester_id`       | ja       | 1                                           | Eindeutige ID des Semesters             |
-| `course_id`         | ja       | 1                                           | Eindeutige IDdes dazugehörigen Kurses   |
-| `status`            | nein     | "Dozent offen", "Dozent angeschrieben", ... | Freitext, aktueller Stand der Vorlesung |
+| Attribut            | Erfodert | Beispielwert                                  | Erklärung                               |
+| ------------------- | -------- | --------------------------------------------- | --------------------------------------- |
+| `lecture_id`        | ja       | 0                                             | Eindeutige ID der Vorlesung             |
+| `lecturer_id`       | ja       | "Software Engineering"                        | Eindeutige ID des Dozenten              |
+| `academicRecord_id` | ja       | 1                                             | Eindeutige ID der Prüfungsleistung      |
+| `semester_id`       | ja       | 1                                             | Eindeutige ID des Semesters             |
+| `course_id`         | ja       | 1                                             | Eindeutige ID des dazugehörigen Kurses  |
+| `status`            | nein     | "Dozent offen", "Dozentin angeschrieben", ... | Freitext, aktueller Stand der Vorlesung |
 
 ### Rückgabe - PUT /presentations?presentationId={ID}
 

@@ -29,7 +29,7 @@
                 "lecturer_id": 0,
                 "firstname": "[VORNAME]",
                 "lastname": "[NACHNAME]",
-                "academic_title": "[AKADEMISCHER TITEL]",
+                "academic_title": "[AKADEMISCHER_TITEL]",
                 "email": "[E-MAIL]",
                 "salutation": "[ANREDE]",
                 "phonenumber": "[TELEFONNUMMER]",
@@ -42,13 +42,13 @@
                 "createdBy_id": 0,
                 "DirectorOfStudies": {
                     "directorOfStudies_id": 0,
-                    "username": "[NAME]",
+                    "username": "[NUTZERNAME]",
                     "is_admin": true
                 },
                 "MainFocuses": [
                     {
                         "mainFocus_id": 0,
-                        "name": "[NAME]"
+                        "name": "[SCHWERPUNKT]"
                     }
                 ]
             }
@@ -75,9 +75,7 @@
 | `___createdBy_id`            | 1                                        | ID des Studiengangsleiters, der diesen Dozenten angelegt hat                                                     |
 | `___DirectorOfStudies`       | { }                                      | Objekt eines Studiengangleiters                                                                                  |
 | `______directorOfStudies_id` | 1                                        | Eindeutiger Bezeichner eines Studiengangleiters                                                                  |
-| `______username`             | "jreichwald"                             | Name des Studiengangleiters                                                                                      |
-| `___MainFocus`               | [ ]                                      | Array von Schwerpunkten                                                                                          |
-| `______mainFocus_id`         | 1                                        | Eindeutige ID eines Schwerpunktes                                                                                |
+| `______username`             | "jreichwald"                             | Nutzername des Studiengangleiters                                                                                |
 | `______name`                 | "Software Engineering"                   | Name des Schwerpunktes                                                                                           |
 
 ## POST /lecturers
@@ -90,12 +88,12 @@
 {
     "firstname": "[VORNAME]",
     "lastname": "[NACHNAME]",
-    "academic_title": "[AKADEMISCHER TITEL]",
+    "academic_title": "[AKADEMISCHER_TITEL]",
     "email": "[E-MAIL]",
     "salutation": "[ANREDE]",
     "phonenumber": "[TELEFONNUMMER]",
     "experience": "[ERFAHRUNG]",
-    "mainFocus_ids": [ 0, 0 ],
+    "mainFocus_ids": [0, 0],
     "cv": "[VITA]",
     "comment": "[KOMMENTAR]",
     "is_extern": true
@@ -127,7 +125,7 @@
         "lecturer_id": 0,
         "firstname": "[VORNAME]",
         "lastname": "[NACHNAME]",
-        "academic_title": "[AKADEMISCHER TITEL]",
+        "academic_title": "[AKADEMISCHER_TITEL]",
         "email": "[E-MAIL]",
         "salutation": "[ANREDE]",
         "phonenumber": "[TELEFONNUMMER]",
@@ -153,12 +151,12 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
 {
     "firstname": "[VORNAME]",
     "lastname": "[NACHNAME]",
-    "academic_title": "[AKADEMISCHER TITEL]",
+    "academic_title": "[AKADEMISCHER_TITEL]",
     "email": "[E-MAIL]",
     "salutation": "[ANREDE]",
     "phonenumber": "[TELEFONNUMMER]",
     "experience": "[ERFAHRUNG]",
-    "mainFocus_ids": [ 0, 0 ],
+    "mainFocus_ids": [0, 0],
     "cv": "[VITA]",
     "comment": "[KOMMENTAR]",
     "is_extern": true
@@ -198,7 +196,6 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
 
 ```json
 {
-    "message": "Successfully deleted",
-    "payload": true
-}
+  "message": "Successfully deleted",
+  "payload": true
 ```

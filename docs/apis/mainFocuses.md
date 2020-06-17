@@ -25,7 +25,7 @@
         "MainFocuses": [
             {
                 "mainFocus_id": 1,
-                "name": "[NAME]",
+                "name": "[SCHWERPUNKT]",
                 "createdAt": "[DATUM]",
                 "updatedAt": "[DATUM]"
             }
@@ -40,7 +40,7 @@
 | ----------------- | --------------- | -------------------------------- |
 | `MainFocuses`     | [ ]             | Array von MainFocuses            |
 | `___mainFocus_id` | 1               | Eindeutige ID eines Schwerpunkts |
-| `___name`         | "Programmieren" | Freitext, Name des Schwerpunktes |
+| `___name`         | "Programmieren" | Name des Schwerpunktes           |
 
 ## POST /mainFocuses
 
@@ -67,7 +67,7 @@
     "message": "Successfully created",
     "payload": {
         "mainFocus_id": 0,
-        "name": "[NAME]",
+        "name": "[SCHWERPUNKT]",
         "updatedAt": "[DATUM]",
         "createdAt": "[DATUM]"
     }
@@ -110,7 +110,7 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
 
 ```json
 {
-    "message": "Successfully updated",
+    "message": "Successfully deleted",
     "payload": true
 }
 ```

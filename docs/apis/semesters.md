@@ -32,8 +32,8 @@
 | Attribut     | Erfodert | Beispielwert | Erklärung                                         |
 | ------------ | -------- | ------------ | ------------------------------------------------- |
 | `course_id`  | ja       | 1            | Eindeutige ID eines Kurses                        |
-| `name`       | ja       | "WS17/18"    | Freitext, Format: Winter/Sommersemester + Jahr(e) |
-| `number`     | ja       | 1            | Nummer des Semesters (erstes Semester, ...)       |
+| `name`       | ja       | "SS18"       | Freitext, Format: Winter/Sommersemester + Jahr(e) |
+| `number`     | ja       | 2            | Nummer des Semesters (erstes Semester, ...)       |
 | `start_date` | ja       | "2018-05-07" | Startdatum; Format: ISO 8601                      |
 | `end_date`   | ja       | "2018-08-03" | Enddatum; Format: ISO 8601                        |
 
@@ -77,8 +77,8 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
 | Attribut     | Erfodert | Beispielwert | Erklärung                                         |
 | ------------ | -------- | ------------ | ------------------------------------------------- |
 | `course_id`  | ja       | 1            | Eindeutige ID eines Kurses                        |
-| `name`       | ja       | "WS17/18"    | Freitext, Format: Winter/Sommersemester + Jahr(e) |
-| `number`     | ja       | 1            | Nummer des Semesters (erstes Semester, ...)       |
+| `name`       | ja       | "SS18"       | Freitext, Format: Winter/Sommersemester + Jahr(e) |
+| `number`     | ja       | 2            | Nummer des Semesters (erstes Semester, ...)       |
 | `start_date` | ja       | "2018-05-07" | Startdatum; Format: ISO 8601                      |
 | `end_date`   | ja       | "2018-08-03" | Enddatum; Format: ISO 8601                        |
 

@@ -21,7 +21,7 @@ Für diese Route ist keine Authentifizierung (d. h. kein Token in der URL) notwe
 
 ```json
 {
-    "username": "[NAME]",
+    "username": "[NUTZERNAME]",
     "password": "[PASSWORT]"
 }
 ```
@@ -63,7 +63,7 @@ Logischerweise muss hier kein Token in der URL übergeben werden.
 
 ```json
 {
-    "username": "[NAME]",
+    "username": "[NUTZERNAME]",
     "password": "[PASSWORT]"
 }
 ```

@@ -22,23 +22,23 @@
 
 ```json
 {
-  "message": "Successful",
-  "payload": {
-    "FieldOfStudy": {
-      "fieldOfStudy_id": 0,
-      "name": "[NAME]"
-    },
-    "MajorSubjects": [
-      {
-        "majorSubject_id": 0,
-        "name": "[NAME]",
-        "catalog_effective_from": "[GÜLTIG_AB]",
-        "createdAt": "[DATUM]",
-        "updatedAt": "[DATUM]",
-        "fieldOfStudy_id": 0
-      }
-    ]
-  }
+    "message": "Successful",
+    "payload": {
+        "FieldOfStudy": {
+            "fieldOfStudy_id": 0,
+            "name": "[STUDIENGANG]"
+        },
+        "MajorSubjects": [
+            {
+                "majorSubject_id": 0,
+                "name": "[STUDIENRICHTUNG]",
+                "catalog_effective_from": "[GÜLTIG_AB]",
+                "createdAt": "[DATUM]",
+                "updatedAt": "[DATUM]",
+                "fieldOfStudy_id": 0
+            }
+        ]
+    }
 }
 ```
 
@@ -62,9 +62,9 @@
 
 ```json
 {
-  "fieldOfStudy_id": 0,
-  "name": "[NAME]",
-  "catalog_effective_from": "[CATALOG_EFFECTIVE_FROM]"
+    "fieldOfStudy_id": 0,
+    "name": "[STUDIENRICHTUNG]",
+    "catalog_effective_from": "[CATALOG_EFFECTIVE_FROM]"
 }
 ```
 
@@ -80,15 +80,15 @@
 
 ```json
 {
-  "message": "Successfully created",
-  "payload": {
-    "majorSubject_id": 0,
-    "name": "[NAME]",
-    "fieldOfStudy_id": 0,
-    "updatedAt": "[DATUM]",
-    "createdAt": "[DATUM]",
-    "catalog_effective_from": "[CATALOG_EFFECTIVE_FROM]"
-  }
+    "message": "Successfully created",
+    "payload": {
+        "majorSubject_id": 0,
+        "name": "[STUDIENRICHTUNG]",
+        "fieldOfStudy_id": 0,
+        "updatedAt": "[DATUM]",
+        "createdAt": "[DATUM]",
+        "catalog_effective_from": "[CATALOG_EFFECTIVE_FROM]"
+    }
 }
 ```
 
@@ -101,9 +101,9 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
 
 ```json
 {
-  "fieldOfStudy_id": 0,
-  "name": "[NAME]",
-  "catalog_effective_from": "[CATALOG_EFFECTIVE_FROM]"
+    "fieldOfStudy_id": 0,
+    "name": "[NAME]",
+    "catalog_effective_from": "[CATALOG_EFFECTIVE_FROM]"
 }
 ```
 
@@ -111,7 +111,7 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
 
 | Attribut                 | Erfodert | Beispielwert           | Erklärung                                                                                         |
 | ------------------------ | -------- | ---------------------- | ------------------------------------------------------------------------------------------------- |
-| `fieldOfStudy_id`        | ja       | 0                      | Eindeutige ID des Studiengangs                                                                    |
+| `fieldOfStudy_id`        | ja       | 1                      | Eindeutige ID des Studiengangs                                                                    |
 | `name`                   | ja       | "Software Engineering" | Name der Studienrichtung                                                                          |
 | `catalog_effective_from` | nein     | "2018"                 | Freitext (kann im Front-End auch als Zahl genutzt werden, wird allerdings als String gespeichert) |
 
@@ -119,8 +119,8 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
 
 ```json
 {
-  "message": "Successfully updated",
-  "payload": true
+    "message": "Successfully updated",
+    "payload": true
 }
 ```
 
@@ -132,7 +132,7 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
 
 ```json
 {
-  "message": "Successfully deleted",
-  "payload": true
+    "message": "Successfully deleted",
+    "payload": true
 }
 ```

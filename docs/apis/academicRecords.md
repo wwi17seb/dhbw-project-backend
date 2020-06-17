@@ -41,7 +41,7 @@
 
 | Attribut               | Beispielwert | Erklärung                            |
 | ---------------------- | ------------ | ------------------------------------ |
-| `AcademicRecords`      |              | Array von AcademicRecords            |
+| `AcademicRecords`      | [ ]          | Array von AcademicRecords            |
 | `___academicRecord_id` | 0            | Eindeutige ID einer Prüfungsleistung |
 | `___abbreviation`      | K, SE        | Abkürzung der Prüfungsleistung       |
 | `___type`              | Klausur      | Art der Prüfungsleistung             |
