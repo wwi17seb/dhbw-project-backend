@@ -40,7 +40,7 @@ exports.postLecturers = async (req, res, next) => {
     const createdLecturer = await lecturerService.createLecturer(transaction, givenLecturer, directorOfStudies_id);
 
     transaction.commit();
-    responseHelper(res, 201, 'Successfully created lecturer', createdLecturer);
+    responseHelper(res, 201, 'Successfully created', createdLecturer);
   } catch (error) {
     transaction.rollback();
     return errorResponseHelper(res, next, error);
@@ -73,7 +73,7 @@ exports.putLecturers = async (req, res, next) => {
     }
 
     if (!(await checkLecturerEditAuthorization(directorOfStudies_id, lecturerId))) {
-      return responseHelper(res, 400, 'You are not authorized to update the lecturer.');
+      return responseHelper(res, 400, 'You are not authorized to update the lecturer');
     }
 
     const updatedLecturer = await lecturerService.updateLecturer(
@@ -87,7 +87,7 @@ exports.putLecturers = async (req, res, next) => {
     }
 
     transaction.commit();
-    return responseHelper(res, 200, 'Successfully updated lecturer', updatedLecturer);
+    return responseHelper(res, 200, 'Successfully updated', updatedLecturer);
   } catch (error) {
     transaction.rollback();
     return errorResponseHelper(res, next, error);
@@ -105,7 +105,7 @@ exports.deleteLecturers = async (req, res, next) => {
     }
 
     if (!(await checkLecturerEditAuthorization(directorOfStudies_id, lecturerId))) {
-      return responseHelper(res, 400, 'You are not authorized to delete the lecturer.');
+      return responseHelper(res, 400, 'You are not authorized to delete the lecturer');
     }
 
     const deletedLecturer = await lecturerService.deleteLecturer(transaction, lecturerId);
@@ -114,7 +114,7 @@ exports.deleteLecturers = async (req, res, next) => {
     }
 
     transaction.commit();
-    return responseHelper(res, 200, 'Successfully deleted lecturer', deletedLecturer);
+    return responseHelper(res, 200, 'Successfully deleted', deletedLecturer);
   } catch (error) {
     transaction.rollback();
     return errorResponseHelper(res, next, error);

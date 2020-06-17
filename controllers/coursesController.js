@@ -46,7 +46,7 @@ exports.postCourses = async (req, res, next) => {
     const createdCourse = await courseService.createCourse(transaction, { ...courseToCreate });
 
     transaction.commit();
-    return responseHelper(res, 201, 'Successfully created.', createdCourse);
+    return responseHelper(res, 201, 'Successfully created', createdCourse);
   } catch (error) {
     transaction.rollback();
     return errorResponseHelper(res, next, error);
@@ -64,7 +64,7 @@ exports.putCourses = async (req, res, next) => {
     }
     if (!(await checkCourseEditAuthorization(directorOfStudiesId, course_id))) {
       transaction.rollback();
-      return responseHelper(res, 403, 'You are not authorized to update this course.');
+      return responseHelper(res, 403, 'You are not authorized to update this course');
     }
 
     const courseToUpdate = copyObjectHelper(req.body, [
@@ -84,7 +84,7 @@ exports.putCourses = async (req, res, next) => {
     }
 
     transaction.commit();
-    return responseHelper(res, 200, 'Successfully updated.', updatedCourse);
+    return responseHelper(res, 200, 'Successfully updated', updatedCourse);
   } catch (error) {
     transaction.rollback();
     return errorResponseHelper(res, next, error);
@@ -102,7 +102,7 @@ exports.deleteCourses = async (req, res, next) => {
     }
     if (!(await checkCourseEditAuthorization(directorOfStudiesId, courseId))) {
       transaction.rollback();
-      return responseHelper(res, 400, 'You are not authorized to delete this course.');
+      return responseHelper(res, 400, 'You are not authorized to delete this course');
     }
 
     const deletedCourse = await courseService.deleteCourse(transaction, courseId);
@@ -111,7 +111,7 @@ exports.deleteCourses = async (req, res, next) => {
     }
 
     transaction.commit();
-    return responseHelper(res, 200, 'Successfully deleted.', deletedCourse);
+    return responseHelper(res, 200, 'Successfully deleted', deletedCourse);
   } catch (error) {
     transaction.rollback();
     return errorResponseHelper(res, next, error);

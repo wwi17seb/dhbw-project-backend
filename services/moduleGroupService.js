@@ -17,6 +17,7 @@ async function findModuleGroupById(moduleGroup_id) {
 
 // GET
 module.exports.getAllModuleGroups = async () => {
+  // TODO: fieldOfStudy ist falsch
   const moduleGroup = await db.ModuleGroup.findAll({ include: whatToInclude });
 
   return moduleGroup;
