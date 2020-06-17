@@ -2,7 +2,7 @@ const db = require('../database/database');
 
 // GET
 module.exports.findMajorSubjectById = async (majorSubject_id) => {
-  const majorSubject = await db.MajorSubject.findOne({ where: { majorSubject_id } });
+  const majorSubject = await db.MajorSubject.findOne({ where: { majorSubject_id }, include: [db.FieldOfStudy] });
 
   return majorSubject ? majorSubject.dataValues : null;
 };
