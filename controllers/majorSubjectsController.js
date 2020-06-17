@@ -35,11 +35,12 @@ exports.postMajorSubjects = async (req, res, next) => {
   const transaction = await db.sequelize.transaction();
 
   try {
-    const majorSubjectToCreate = copyObjectHelper(req.body, ['fieldOfStudy_id', 'name']);
+    const majorSubjectToCreate = copyObjectHelper(req.body, ['fieldOfStudy_id', 'name', 'catalog_effective_from']);
     const createdMajorSubject = await majorSubjectService.createMajorSubject(
       transaction,
       majorSubjectToCreate.name,
-      majorSubjectToCreate.fieldOfStudy_id
+      majorSubjectToCreate.fieldOfStudy_id,
+      majorSubjectToCreate.catalog_effective_from,
     );
 
     transaction.commit();
@@ -59,11 +60,12 @@ exports.putMajorSubjects = async (req, res, next) => {
       throw new Error('No major subject given');
     }
 
-    const majorSubjectToUpdate = copyObjectHelper(req.body, ['fieldOfStudy_id', 'name']);
+    const majorSubjectToUpdate = copyObjectHelper(req.body, ['fieldOfStudy_id', 'name', 'catalog_effective_from']);
     const updatedMajorSubject = await majorSubjectService.updateMajorSubject(transaction, {
       majorSubject_id: majorSubjectId,
       name: majorSubjectToUpdate.name,
       fieldOfStudy_id: majorSubjectToUpdate.fieldOfStudy_id,
+      catalog_effective_from: majorSubjectToUpdate.catalog_effective_from,
     });
 
     if (!updatedMajorSubject) {

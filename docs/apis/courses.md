@@ -73,31 +73,31 @@
 
 ### Attribute der Rückgabe - GET /courses
 
-| Attribut                    | Beispielwert                                                                                 | Erklärung                                                   |
-| --------------------------- | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
-| `Courses`                   | [ ]                                                                                          | Array von Kursen                                            |
-| `course_id`                 | 1                                                                                            | Eindeutige ID eines Kurses                                  |
-| `name`                      | "WWI 17 SE B"                                                                                | Name des Kurses                                             |
-| `google_calendar_id`        | "13123AbcGoogle"                                                                             | Kennzeichner des Google-Kalenders                           |
-| `majorSubject_id`           | 1                                                                                            | Eindeutige ID einer Studienrichtung                         |
-| `DirectorOfStudies`         | { }                                                                                          | Objekt eines Studiengangleiters                             |
-| `___directorOfStudies_id`   | 1                                                                                            | Eindeutige ID des Studiengangleiters                        |
-| `___username`               | "ritterbusch"                                                                                | Name des Studiengangleiters                                 |
-| `___is_admin`               | "{ \"email-template\": \"blablabla, was auch immer ihr wollt, könnt ihr hier speichern.\"}\" | Freitext, kann als String im JSON-Format gespeichert werden |
-| `MajorSubject`              | { }                                                                                          | Objekt einer Studienrichtung                                |
-| `___majorSubject_id`        | 1                                                                                            | Eindeutige ID einer Studienrichtung                         |
-| `___name`                   | "Software Engineering"                                                                       | Name der Studienrichtung                                    |
-| `___catalog_effective_from` | "Gültig ab 2018"                                                                             | Freitext, erklärt ab wann der Modulkatalog gilt             |
-| `___FieldOfStudy`           | { }                                                                                          | Objekt eines Studiengangs                                   |
-| `______fieldOfStudy_id`     | 1                                                                                            | Eindeutige ID eines Studiengangs                            |
-| `______name`                | "Wirtschaftsinformatik"                                                                      | Name des Studiengangs                                       |
-| `___Semesters`              | [ ]                                                                                          | Array von Semestern                                         |
-| `______semester_id`         | 1                                                                                            | Eindeutige ID des Semesters                                 |
-| `______name`                | "WS 17/18"                                                                                   | Freitext, Format: Winter/Sommersemester + Jahr(e)           |
-| `______number`              | 1                                                                                            | Nummer des Semesters (erstes Semester, ...)                 |
-| `______start_date`          | "2017-10-23"                                                                                 | Startdatum; Format: ISO 8601                                |
-| `______end_date`            | "2017-10-23"                                                                                 | Enddatum; Format: ISO 8601                                  |
-| `______course_id`           | 1                                                                                            | Eindeutige ID des Kurses, zu welchem das Semester gehört    |
+| Attribut                    | Beispielwert                                                                                 | Erklärung                                                                                         |
+| --------------------------- | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `Courses`                   | [ ]                                                                                          | Array von Kursen                                                                                  |
+| `course_id`                 | 1                                                                                            | Eindeutige ID eines Kurses                                                                        |
+| `name`                      | "WWI 17 SE B"                                                                                | Name des Kurses                                                                                   |
+| `google_calendar_id`        | "13123AbcGoogle"                                                                             | Kennzeichner des Google-Kalenders                                                                 |
+| `majorSubject_id`           | 1                                                                                            | Eindeutige ID einer Studienrichtung                                                               |
+| `DirectorOfStudies`         | { }                                                                                          | Objekt eines Studiengangleiters                                                                   |
+| `___directorOfStudies_id`   | 1                                                                                            | Eindeutige ID des Studiengangleiters                                                              |
+| `___username`               | "ritterbusch"                                                                                | Name des Studiengangleiters                                                                       |
+| `___is_admin`               | "{ \"email-template\": \"blablabla, was auch immer ihr wollt, könnt ihr hier speichern.\"}\" | Freitext, kann als String im JSON-Format gespeichert werden                                       |
+| `MajorSubject`              | { }                                                                                          | Objekt einer Studienrichtung                                                                      |
+| `___majorSubject_id`        | 1                                                                                            | Eindeutige ID einer Studienrichtung                                                               |
+| `___name`                   | "Software Engineering"                                                                       | Name der Studienrichtung                                                                          |
+| `___catalog_effective_from` | "2018"                                                                                       | Freitext (kann im Front-End auch als Zahl genutzt werden, wird allerdings als String gespeichert) |
+| `___FieldOfStudy`           | { }                                                                                          | Objekt eines Studiengangs                                                                         |
+| `______fieldOfStudy_id`     | 1                                                                                            | Eindeutige ID eines Studiengangs                                                                  |
+| `______name`                | "Wirtschaftsinformatik"                                                                      | Name des Studiengangs                                                                             |
+| `___Semesters`              | [ ]                                                                                          | Array von Semestern                                                                               |
+| `______semester_id`         | 1                                                                                            | Eindeutige ID des Semesters                                                                       |
+| `______name`                | "WS 17/18"                                                                                   | Freitext, Format: Winter/Sommersemester + Jahr(e)                                                 |
+| `______number`              | 1                                                                                            | Nummer des Semesters (erstes Semester, ...)                                                       |
+| `______start_date`          | "2017-10-23"                                                                                 | Startdatum; Format: ISO 8601                                                                      |
+| `______end_date`            | "2017-10-23"                                                                                 | Enddatum; Format: ISO 8601                                                                        |
+| `______course_id`           | 1                                                                                            | Eindeutige ID des Kurses, zu welchem das Semester gehört                                          |
 
 ## POST /courses
 

@@ -24,17 +24,17 @@
 
 ```json
 {
-    "message": "Successful",
-    "payload": {
-        "FieldsOfStudy": [
-            {
-                "fieldOfStudy_id": 0,
-                "name": "[NAME]",
-                "createdAt": "[DATUM]",
-                "updatedAt": "[DATUM]"
-            }
-        ]
-    }
+  "message": "Successful",
+  "payload": {
+    "FieldsOfStudy": [
+      {
+        "fieldOfStudy_id": 0,
+        "name": "[STUDIENGANG]",
+        "createdAt": "[DATUM]",
+        "updatedAt": "[DATUM]"
+      }
+    ]
+  }
 }
 ```
 
@@ -55,24 +55,39 @@
 
 ```json
 {
-    "message": "[DEBUG-INFO/KOMMENTAR]",
-    "payload": {
-        "FieldsOfStudy": [
-            {
-                "fieldOfStudy_id": 0,
-                "name": "[NAME]",
-                "MajorSubjects": [
-                    {
-                        "majorSubject_id": 0,
-                        "name": "[NAME]",
-                        "catalog_effective_from": "[CATALOG_EFFECTIVE_FROM]"
-                    }
-                ]
-            }
+  "message": "[DEBUG-INFO/KOMMENTAR]",
+  "payload": {
+    "FieldsOfStudy": [
+      {
+        "fieldOfStudy_id": 0,
+        "name": "[STUDIENGANG]",
+        "createdAt": "[DATUM]",
+        "updatedAt": "[DATUM]",
+        "MajorSubjects": [
+          {
+            "majorSubject_id": 0,
+            "name": "[STUDIENRICHTUNG]",
+            "catalog_effective_from": "[CATALOG_EFFECTIVE_FROM]",
+            "createdAt": "[DATUM]",
+            "updatedAt": "[DATUM]",
+            "fieldOfStudy_id": 0
+          }
         ]
-    }
+      }
+    ]
+  }
 }
 ```
+
+#### Zusätzliche Attribute der Anfrage GET /fieldOfStudy?withMajorSubjects=true
+
+| Attribut                    | Beispielwert            | Erklärung                                                                                         |
+| --------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------- |
+| `MajorSubjects`             | [ ]                     | Array der Studiengänge                                                                            |
+| `___majorSubject_id`        | 1                       | Eindeutige ID der Studienrichtung                                                                 |
+| `___name`                   | "Wirtschaftsinformatik" | Name des Studiengangs                                                                             |
+| `___catalog_effective_from` | "2018"                  | Freitext (kann im Front-End auch als Zahl genutzt werden, wird allerdings als String gespeichert) |
+| `___fieldOfStudy_id`        | 1                       | Eindeutige ID des Studiengangs                                                                    |
 
 ## POST /fieldsOfStudy
 
@@ -82,7 +97,7 @@
 
 ```json
 {
-    "name": "[NAME]"
+  "name": "[STUDIENGANG]"
 }
 ```
 
@@ -96,13 +111,13 @@
 
 ```json
 {
-    "message": "Successfully created",
-    "payload": {
-        "fieldOfStudy_id": 0,
-        "name": "[NAME]",
-        "updatedAt": "[DATUM]",
-        "createdAt": "[DATUM]"
-    }
+  "message": "Successfully created",
+  "payload": {
+    "fieldOfStudy_id": 0,
+    "name": "[STUDIENGANG]",
+    "updatedAt": "[DATUM]",
+    "createdAt": "[DATUM]"
+  }
 }
 ```
 
@@ -115,7 +130,7 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
 
 ```json
 {
-    "name": "[NAME]"
+  "name": "[STUDIENGANG]"
 }
 ```
 
@@ -129,8 +144,8 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
 
 ```json
 {
-    "message": "Successfully updated",
-    "payload": true
+  "message": "Successfully updated",
+  "payload": true
 }
 ```
 
@@ -142,7 +157,7 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
 
 ```json
 {
-    "message": "Successfully deleted",
-    "payload": true
+  "message": "Successfully deleted",
+  "payload": true
 }
 ```
