@@ -9,9 +9,12 @@ module.exports.findLecturerById = async (lecturer_id) => {
   return lecturer ? lecturer.dataValues : null;
 };
 
-module.exports.findAllLecturer = async () => {
+module.exports.findAllLecturers = async () => {
   const lecturers = await db.Lecturer.findAll({
-    include: [{ model: db.DirectorOfStudies, attributes: ['directorOfStudies_id', 'username', 'is_admin'] }],
+    include: [
+      { model: db.DirectorOfStudies, attributes: ['directorOfStudies_id', 'username', 'is_admin'] },
+      { model: db.MainFocus },
+    ],
   });
 
   return lecturers;

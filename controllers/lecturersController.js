@@ -9,7 +9,7 @@ exports.getLecturers = async (req, res, next) => {
   // TODO: add filter methods
   try {
     const curStudiesDirectorId = req.token.directorOfStudies_id;
-    const lecturers = await lecturerService.findAllLecturer(curStudiesDirectorId);
+    const lecturers = await lecturerService.findAllLecturers(curStudiesDirectorId);
 
     responseHelper(res, 200, 'Successful', { lecturers });
   } catch (error) {
