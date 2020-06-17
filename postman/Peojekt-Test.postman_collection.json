@@ -1,0 +1,1009 @@
+{
+	"info": {
+		"_postman_id": "35e69af6-fd3e-458e-a87f-19b6f6842a5d",
+		"name": "Peojekt-Test",
+		"description": "Test für die Peojekt API, basierend auf der Postman Collection. ",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "signup User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a9e7fb1a-c3ba-4ca1-95ba-22de576b1a0b",
+								"exec": [
+									"pm.test(\"Signup status test\", function() {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"Nutzername\",\n    \"password\": \"MeinSicheresPasswort1337\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/signup",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "430b6624-f359-4567-b3ec-ec02191dd7a6",
+								"exec": [
+									"pm.test(\"Login status test\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"test\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/login",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "FieldOfStudy",
+			"item": [
+				{
+					"name": "get FieldsOfStudy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f35599b2-8cff-4b21-9183-5fc5c7f8e52c",
+								"exec": [
+									"pm.test(\"Signup status test\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/fieldsOfStudy?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"fieldsOfStudy"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "withMajorSubjects",
+									"value": "[REQUIRED]",
+									"description": "Optional parameter for filtering (Boolean)",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Get all FieldsOfStudy."
+					},
+					"response": []
+				},
+				{
+					"name": "create FieldOfStudy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5624a8c7-9a32-45aa-8158-83188805cc8f",
+								"exec": [
+									"pm.test(\"Signup status test\", function() {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Wirtschaftsinformatik\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/fieldsOfStudy?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"fieldsOfStudy"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Create a new FieldOfStudy."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "MajorSubjects",
+			"item": [
+				{
+					"name": "get MajorSubjects",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2dcc1f3d-8090-44b5-852f-87c68dab7ec7",
+								"exec": [
+									"pm.test(\"Signup status test\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/majorSubjects?token={{token}}&fieldOfStudyId=1",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"majorSubjects"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "fieldOfStudyId",
+									"value": "1",
+									"description": "Returns all major subjects for that field of study"
+								}
+							]
+						},
+						"description": "Get all major subjects to the given field of study."
+					},
+					"response": []
+				},
+				{
+					"name": "create MajorSubject",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c623e81c-e6f2-4a2b-b6e0-82e2f21a1467",
+								"exec": [
+									"pm.test(\"Signup status test\", function() {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"fieldOfStudy_id\": 1, \r\n    \"name\": \"Software Engineering\",\r\n    \"catalog_effective_from\": \"Gültig ab 2018\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/majorSubjects?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"majorSubjects"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Create a major subject and link it with the given field of study."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "AcedemicRecords",
+			"item": [
+				{
+					"name": "get AcedemicRecords",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9d5eb143-40d9-4e17-9e00-8cc6f1bb3a8b",
+								"exec": [
+									"pm.test(\"Signup status test\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/academicRecords?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"academicRecords"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "withMajorSubjects",
+									"value": "[REQUIRED]",
+									"description": "Optional parameter for filtering (Boolean)",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Get all acedemic records."
+					},
+					"response": []
+				},
+				{
+					"name": "create AcademicRecord",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "343677e6-57f7-4f13-9464-564d7bb1408c",
+								"exec": [
+									"pm.test(\"Signup status test\", function() {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"abbreviation\": \"K\",\r\n    \"type\": \"Klausur\",\r\n    \"rated\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/academicRecords?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"academicRecords"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Create an academic record."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "MainFocuses",
+			"item": [
+				{
+					"name": "get MainFocuses",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fd5c0ca6-1f47-4c44-bacb-9d2fa977baf2",
+								"exec": [
+									"pm.test(\"Signup status test\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/mainFocuses?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"mainFocuses"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Gets all MainFocuses"
+					},
+					"response": []
+				},
+				{
+					"name": "create MainFocus",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b1bb1579-8b95-417a-abde-f729a3ceab3f",
+								"exec": [
+									"pm.test(\"Signup status test\", function() {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Programmieren\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/mainFocuses?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"mainFocuses"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Create a new MainFocus"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "ModuleGroups",
+			"item": [
+				{
+					"name": "create ModuleGroup",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c3d90f8-533f-4a1a-87c4-61de31aebb5c",
+								"exec": [
+									"pm.test(\"Signup status test\", function() {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"majorSubject_id\": 1,\n    \"name\": \"Profil I\", \n    \"number_of_modules_to_attend\": 1, \n    \"from_semester_number\": 1, \n    \"to_semester_number\": 2,\n    \"Modules\": [\n    \t{\n    \t\t\"name\": \"Technische Grundlagen mobiler Applikationen\",\n    \t\t\"description\": \"Beschreibung hier einfügen...\",\n    \t\t\"ects\": 0, \n    \t\t\"catalog_id\": \"WWISE_1337\",\n    \t\t\"academicRecord_ids\": [1],\n    \t\t\"number_of_lectures_to_attend\": 0, \n    \t\t\"requirements\": \"Keine\",\n    \t\t\"Lectures\":[\n    \t\t\t{\n    \t\t\t\t\"name\": \"Marketing\",\n    \t\t\t\t\"workload_home\": \"36 Stunden\",\n    \t\t\t\t\"workload_dhbw\": \"24 Stunden\",\n    \t\t\t\t\"catalog_id\": \"WWISE_301.2\",\n    \t\t\t\t\"mainFocus_ids\": [1]\n    \t\t\t}\n    \t\t]\n    \t}\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/moduleGroups?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"moduleGroups"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Create a module group and link it with the given major subject."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Courses",
+			"item": [
+				{
+					"name": "get Courses",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dcb02768-b0a2-4c56-bc71-ef46063eb9d4",
+								"exec": [
+									"pm.test(\"Signup status test\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/courses?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"courses"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Get all courses connected to the given director of studies."
+					},
+					"response": []
+				},
+				{
+					"name": "create Course",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1cc4f1fb-f395-4da0-b86b-ca847783ec2e",
+								"exec": [
+									"pm.test(\"Signup status test\", function() {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"WWI 17 SEB\",\r\n    \"google_calendar_id\": \"iq90i34lq6v196rqs4986dp370@group.calendar.google.com\",\r\n    \"majorSubject_id\": 1,\r\n    \"directorOfStudies_ids\": [1],\r\n    \"Semesters\": [\r\n        {\r\n            \"name\": \"WS17/18\",\r\n            \"number\": 1,\r\n            \"start_date\": \"2017-10-23\",\r\n            \"end_date\": \"2018-02-19\"\r\n        },\r\n        {\r\n            \"name\": \"SS18\",\r\n            \"number\": 2,\r\n            \"start_date\": \"2018-05-07\",\r\n            \"end_date\": \"2018-08-03\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/courses?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"courses"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Create a course and link it with the given director of studies."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Semesters",
+			"item": [
+				{
+					"name": "create Semester",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "88df2460-185a-4829-904b-be15b1ac1775",
+								"exec": [
+									"pm.test(\"Signup status test\", function() {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"course_id\": 1,\r\n\t\"name\": \"SS18\", \r\n\t\"number\": 0, \r\n\t\"start_date\": \"2018-05-07\",\r\n\t\"end_date\": \"2018-08-03\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/semesters?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"semesters"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Create a new semester entry for given course, if couse is given."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Lecturers",
+			"item": [
+				{
+					"name": "get Lecturers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2a1f295a-c366-4456-a569-90649d11d47c",
+								"exec": [
+									"pm.test(\"Signup status test\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/lecturers?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"lecturers"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "experience",
+									"value": "[REQUIRED]",
+									"description": "Optional parameter for filtering",
+									"disabled": true
+								},
+								{
+									"key": "comment",
+									"value": "[REQUIRED]",
+									"description": "Optional parameter for filtering",
+									"disabled": true
+								},
+								{
+									"key": "firstname",
+									"value": "[REQUIRED]",
+									"description": "Optional parameter for filtering",
+									"disabled": true
+								},
+								{
+									"key": "lastname",
+									"value": "[REQUIRED]",
+									"description": "Optional parameter for filtering",
+									"disabled": true
+								},
+								{
+									"key": "extern",
+									"value": "[REQUIRED]",
+									"description": "Optional parameter for filtering",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Gets all lecturers linked to the given director of studies."
+					},
+					"response": []
+				},
+				{
+					"name": "create Lecturer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ce58efa6-890c-4b4c-8962-4670ea304a45",
+								"exec": [
+									"pm.test(\"Signup status test\", function() {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstname\": \"Sebastian\",\n    \"lastname\": \"Ritterbusch\",\n    \"academic_title\": \"Prof. Dr.\",\n    \"email\": \"sebastian.ritterbusch@dhbw-mannheim.de\",\n    \"salutation\": \"Herr\",\n    \"phonenumber\": \"+49 621 4105 - 1724\",\n    \"experience\": \"Mathematik, Podcasts\",\n    \"mainFocus_ids\": [1],\n    \"profile\": \"...\",\n    \"research\": \"...\",\n    \"cv\": \"...\",\n    \"comment\": \"sehr engagiert\",\n    \"is_extern\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/lecturers?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"lecturers"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Create a lecturer and link him with the given director of studies."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Presentations",
+			"item": [
+				{
+					"name": "get Presentations",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2908b081-d4df-474e-81ba-9455904a1f10",
+								"exec": [
+									"pm.test(\"Signup status test\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/presentations?token={{token}}&courseId=1",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"presentations"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "courseId",
+									"value": "1"
+								},
+								{
+									"key": "semesterId",
+									"value": "1",
+									"description": "Optional parameter for filtering",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Get all presentations connected to a given course."
+					},
+					"response": []
+				},
+				{
+					"name": "create Presentation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "40d88ce3-745b-44a2-b417-a0e402a65ac7",
+								"exec": [
+									"pm.test(\"Signup status test\", function() {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"lecture_id\": 1, \r\n\t\"lecturer_id\": 1, \r\n\t\"academicRecord_id\": 1, \r\n\t\"semester_id\": 1, \r\n\t\"course_id\": 1, \r\n\t\"status\": \"Dozent offen\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/presentations?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"presentations"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Create a presentation."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Modulecatalog",
+			"item": [
+				{
+					"name": "get Modulecatalogs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/modulecatalog?token={{token}}&majorSubjectId=[REQUIRED]",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"modulecatalog"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "majorSubjectId",
+									"value": "[REQUIRED]",
+									"description": "Returns all modulecatalogs for majorSubjects"
+								}
+							]
+						},
+						"description": "Gets all modulecatalogs connected to a major subject."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
