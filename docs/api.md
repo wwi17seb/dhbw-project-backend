@@ -48,19 +48,19 @@ Sofern ein Attribut drei Unterstriche ("___") oder ein Vielfaches davon hat, ist
 ## Dokumente
 
 - Studiengangsleiter
-  - Registrieren und Anmelden: [auth.md](docs/auth.md)
+  - Registrieren und Anmelden: [auth.md](apis/auth.md)
 - Studienrichtung & Studiengang
-  - Anlegen, Auslesen, Verändern und Löschen: [fieldsOfStudy.md (Studiengang)](docs/fieldsOfStudy.md) & [majorSubjects.md (Studienrichtung)](docs/majorSubjects.md)
+  - Anlegen, Auslesen, Verändern und Löschen: [fieldsOfStudy.md (Studiengang)](apis/fieldsOfStudy.md) & [majorSubjects.md (Studienrichtung)](apis/majorSubjects.md)
 - Schwerpunkte & Bewertungsmethoden
-  - Anlegen, Auslesen, Verändern und Löschen: [mainFocuses.md (Schwerpunkte)](docs/mainFocuses.md) & [academicRecords.md (Bewertungsmethoden)](docs/academicRecords.md)
+  - Anlegen, Auslesen, Verändern und Löschen: [mainFocuses.md (Schwerpunkte)](apis/mainFocuses.md) & [academicRecords.md (Bewertungsmethoden)](apis/academicRecords.md)
 - Kurse und ihre Semester
-  - Anlegen, Auslesen (nur über Kurse), Verändern und Löschen: [courses.md (Kurse)](docs/courses.md) & [semesters.md (Semester)](docs/semesters.md)
+  - Anlegen, Auslesen (nur über Kurse), Verändern und Löschen: [courses.md (Kurse)](apis/courses.md) & [semesters.md (Semester)](apis/semesters.md)
 - Dozierende
-  - Anlegen, Auslesen, Verändern und Löschen: [lecturers.md](docs/lecturers.md)
+  - Anlegen, Auslesen, Verändern und Löschen: [lecturers.md](apis/lecturers.md)
 - Modul-Gruppe -> `GET` ist der Modulkatalog
-  - Anlegen, Auslesen, Verändern und Löschen: [moduleGroups.md](docs/moduleGroups.md)
+  - Anlegen, Auslesen, Verändern und Löschen: [moduleGroups.md](apis/moduleGroups.md)
 - Präsentationen
-  - Anlegen, Auslesen, Verändern und Löschen: [presentations.md](docs/presentations.md)
+  - Anlegen, Auslesen, Verändern und Löschen: [presentations.md](apis/presentations.md)
 
 ## Authentifizierung
 
