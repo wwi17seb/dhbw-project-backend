@@ -57,9 +57,9 @@ Sofern ein Attribut drei Unterstriche ("___") oder ein Vielfaches davon hat, ist
   - Anlegen, Auslesen (nur über Kurse), Verändern und Löschen: [courses.md (Kurse)](apis/courses.md) & [semesters.md (Semester)](apis/semesters.md)
 - Dozierende
   - Anlegen, Auslesen, Verändern und Löschen: [lecturers.md](apis/lecturers.md)
-- Modul-Gruppe -> `GET` ist der Modulkatalog
-  - Anlegen, Auslesen, Verändern und Löschen: [moduleGroups.md](apis/moduleGroups.md)
-- Präsentationen
+- Modul-Gruppe &rarr; `GET` ist der Modulkatalog
+  - Anlegen, Auslesen, Verändern und Löschen: [moduleGroups.md (Modulgruppen, Module, Vorlesungen)](apis/moduleGroups.md)
+- Präsentationen (konkrete Vorlesungen)
   - Anlegen, Auslesen, Verändern und Löschen: [presentations.md](apis/presentations.md)
 
 ## Authentifizierung
