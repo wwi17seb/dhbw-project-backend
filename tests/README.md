@@ -53,7 +53,8 @@ module.exports = {
       id: 'wise11',
       data: {
         fieldOfStudy_id: '{{fieldsOfStudy.wi.fieldOfStudy_id}}',
-        name: 'Software Engineering ab 2011',
+        name: 'Software Engineering',
+        catalog_effective_from: '2011',
       },
     },
   ]
