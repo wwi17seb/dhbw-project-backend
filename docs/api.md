@@ -17,7 +17,7 @@ Folgende Punkte sind zunächst wichtig zu verstehen:
   - mehrere Studiengänge sowie Studienrichtungen sind erlaubt
 - Jeder Kurs besitzt einen Hauptverantwortlichen (Studiengangsleiter), welcher den Kurs betreut
   - Zudem können weitere Verantwortliche (Studiengangsleiter) hinzugefügt werden &rarr; weiteres im Kurs-Dokument
-- Vorlesungen sind zunächst Abstrakt und nur Teil eines Moduls (Modulkatalog)
+- Vorlesungen sind zunächst abstrakt und nur Teil eines Moduls (Modulkatalogs)
 - Kurse besuchen Präsentationen, welche die konkreten Vorlesungen abbilden
 - Präsentationen beinhalten dabei lediglich Referenzen zu Vorlesungen, Kursen sowie Dozierenden
 - Dozierende können allgemein eingesehen werden
@@ -38,7 +38,7 @@ Generelles Vorgehen (unabhängig von anderen Routen):
 1. Anlegen von Kursen - benötigt eine Studienrichtung und einen Studiengangsleiter (wird automatisch gesetzt)
 1. Anlegen von Semestern im Kurs - benötigt einen Studiengangsleiter, dieser ist im _Token_ enthalten.
 1. Anlegen von Dozierenden - benötigt Schwerpunkt(e), um seitens FE gefunden werden
-1. Anlegen von **Modulgruppen, welche Modulen und abstrakten Vorlesungen beinhalten** - benötigen Bewertungsmethoden sowie Schwerpunkten und Studienrichtung
+1. Anlegen von **Modulgruppen, welche Module und abstrakte Vorlesungen beinhalten** - benötigen Bewertungsmethoden sowie Schwerpunkten und Studienrichtung
 1. Anlegen von Präsentationen - benötigen eine Modulgruppe (inkl. Modulen und abstrakten Vorlesungen) sowie einen Kurs (inkl. Semester)
 
 In den jeweiligen Dokumentationen finden sich dazu die Schnittstellen sowie eine Dokumentation der zu verwendenden Attribute.
@@ -72,7 +72,7 @@ Bsp.:
 GET /courses?token=eyJpe0JEKTAiOjAsImFsZyI6IkhTMjU2IiwidHlwIjoiSldUIn0.eyJ1c2VybmFtZSI6ImFkbWluIiwiZGlyZWN0b3JPZlN0dWRpZXNfaWQiOjEsImlhdCI6MTU5MjE3NjQ4MCwiZXhwIjoxNTk4MTM4MDgwfQ.CFzby-2_Q6h-_LsP_dP7IIzyL5ozu_UdV-dzyJdnQAk
 ```
 
-Der hier verwendete Token gilt als "Long-Term-Token", ist somit bis Ende August gültig und kann zum Testen (sofern vorher ein Dozent mit der `ID 1` angelegt wurde) verwendet werden.
+Der hier verwendete Token gilt als "Long-Term-Token", ist somit bis Ende August gültig und kann zum Testen (sofern vorher ein Nutzer/Studiengangsleiter mit der `ID 1` angelegt wurde) verwendet werden.
 Ein Beispiel für eine Route, bei der kein gültiger Token übergeben werden muss, ist `POST /login`.
 
 ## Rückgabe Allgemein
