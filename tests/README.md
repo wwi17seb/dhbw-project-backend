@@ -5,11 +5,17 @@
 The script `createTestData.js` can be used to fill the database with initial test data.
 You can enable it to run automatically at each app start by setting `app.forceSync = true` and `app.enableTestData = true` in `app.properties` (as explained in general README; `app.enableTestData` is true be default, you have to explicitely set it to `false` if you want the database to be cleared but no test data inserted).
 You can also run it manually using `npm run testdata`.
+Make sure you installed all npm packages (`npm install`).
 
 Be aware that running this script can cause problems when the users that will be created by this script already exist.
+You might need to change the password of a user in `testdata/user.js` to match the one saved in your database.
 
 You can use options `v`/`verbose` to print everything to your console and `l`/`log` to log everything to a log file.
 E.g. you can run `npm run testdata v l`.
+
+Feel free to add further test data so that others can take advantage of it as well.
+You can find some details on how to do this below.
+Just open a pull request.
 
 ## add new data in existing entities/files
 
