@@ -17,9 +17,30 @@
 							"script": {
 								"id": "a9e7fb1a-c3ba-4ca1-95ba-22de576b1a0b",
 								"exec": [
-									"pm.test(\"Signup status test\", function() {",
+									"//pm.test(\"Signup status test\", function () {",
+									"//    pm.response.to.have.status(201);",
+									"//});",
+									"",
+									"if(pm.response.json().message && (pm.response.json().message === \"Username already exists\")) {",
+									"    pm.response.to.have.status(400);",
+									"}else{",
 									"    pm.response.to.have.status(201);",
-									"});"
+									"}",
+									"",
+									"if (pm.response.json().payload && pm.response.json().payload.token) {",
+									"    pm.environment.set(\"token\", pm.response.json().payload.token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2a14270f-76f8-41b3-8bd8-ed3a96377095",
+								"exec": [
+									"pm.environment.set(\"user1-name\", \"\\\"Nutzername\\\"\");",
+									"pm.environment.set(\"user1-password\", \"\\\"MeinSicheresPasswort1337\\\"\");"
 								],
 								"type": "text/javascript"
 							}
@@ -37,7 +58,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"Nutzername\",\n    \"password\": \"MeinSicheresPasswort1337\"\n}",
+							"raw": "{\n    \"username\": {{user1-name}},\n    \"password\": {{user1-password}}\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -64,9 +85,13 @@
 							"script": {
 								"id": "430b6624-f359-4567-b3ec-ec02191dd7a6",
 								"exec": [
-									"pm.test(\"Login status test\", function() {",
+									"pm.test(\"Login status test\", function () {",
 									"    pm.response.to.have.status(200);",
-									"});"
+									"});",
+									"",
+									"if (pm.response.json().payload && pm.response.json().payload.token) {",
+									"    pm.environment.set(\"token\", pm.response.json().payload.token);",
+									"}"
 								],
 								"type": "text/javascript"
 							}
@@ -84,7 +109,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"test\"\n}",
+							"raw": "{\n    \"username\": {{user1-name}},\n    \"password\": {{user1-password}}\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -161,9 +186,15 @@
 							"script": {
 								"id": "5624a8c7-9a32-45aa-8158-83188805cc8f",
 								"exec": [
-									"pm.test(\"Signup status test\", function() {",
+									"pm.test(\"Signup status test\", function () {",
 									"    pm.response.to.have.status(201);",
-									"});"
+									"});",
+									"",
+									"if (pm.response.json().payload && pm.response.json().payload.fieldOfStudy_id) {",
+									"    pm.environment.set(\"fieldOfStudy_id\", pm.response.json().payload.fieldOfStudy_id);",
+									"}",
+									"",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -181,7 +212,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Wirtschaftsinformatik\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Witsinformatik\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -204,6 +235,59 @@
 							]
 						},
 						"description": "Create a new FieldOfStudy."
+					},
+					"response": []
+				},
+				{
+					"name": "update FieldOfStudy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "11928d6b-9681-46f1-a6c7-75d9a34b1b24",
+								"exec": [
+									"pm.test(\"Signup status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Wirtschaftsinformatik\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/fieldsOfStudy?token={{token}}&fieldOfStudyId={{fieldOfStudy_id}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"fieldsOfStudy"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "fieldOfStudyId",
+									"value": "{{fieldOfStudy_id}}"
+								}
+							]
+						},
+						"description": "Update a given Field of Study."
 					},
 					"response": []
 				}
@@ -264,9 +348,13 @@
 							"script": {
 								"id": "c623e81c-e6f2-4a2b-b6e0-82e2f21a1467",
 								"exec": [
-									"pm.test(\"Signup status test\", function() {",
+									"pm.test(\"Signup status test\", function () {",
 									"    pm.response.to.have.status(201);",
-									"});"
+									"});",
+									"",
+									"if (pm.response.json().payload && pm.response.json().payload.majorSubject_id) {",
+									"    pm.environment.set(\"majorSubject_id\", pm.response.json().payload.majorSubject_id);",
+									"}"
 								],
 								"type": "text/javascript"
 							}
@@ -307,6 +395,43 @@
 							]
 						},
 						"description": "Create a major subject and link it with the given field of study."
+					},
+					"response": []
+				},
+				{
+					"name": "update MajorSubject",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"fieldOfStudy_id\": 1,\r\n    \"name\": \"Software Engineering\",\r\n    \"catalog_effective_from\": \"Gültig ab 2019\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/majorSubjects?token={{token}}&majorSubjectId={{majorSubject_id}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"majorSubjects"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "majorSubjectId",
+									"value": "{{majorSubject_id}}"
+								}
+							]
+						},
+						"description": "Update a given major subject linked with a given field of study."
 					},
 					"response": []
 				}

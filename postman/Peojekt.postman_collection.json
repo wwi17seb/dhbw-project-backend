@@ -529,7 +529,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstname\": \"Sebastian\",\n    \"lastname\": \"Ritterbusch\",\n    \"academic_title\": \"Prof. Dr.\",\n    \"email\": \"sebastian.ritterbusch@dhbw-mannheim.de\",\n    \"salutation\": \"Herr\",\n    \"phonenumber\": \"+49 621 4105 - 1724\",\n    \"experience\": \"Mathematik, Podcasts\",\n    \"mainFocus_ids\": [1,2],\n    \"profile\": \"...\",\n    \"research\": \"...\",\n    \"cv\": \"...\",\n    \"comment\": \"sehr engagiert\",\n    \"is_extern\": true\n}",
+							"raw": "{\n    \"firstname\": \"Sebastian\",\n    \"lastname\": \"Ritterbusch\",\n    \"academic_title\": \"Prof. Dr.\",\n    \"email\": \"sebastian.ritterbusch@dhbw-mannheim.de\",\n    \"salutation\": \"Herr\",\n    \"phonenumber\": \"+49 621 4105 - 1724\",\n    \"experience\": \"Mathematik, Podcasts\",\n    \"mainFocus_ids\": [1],\n    \"profile\": \"...\",\n    \"research\": \"...\",\n    \"cv\": \"...\",\n    \"comment\": \"sehr engagiert\",\n    \"is_extern\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1050,44 +1050,43 @@
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "AcedemicRecords",
+			"name": "Modulecatalog",
 			"item": [
 				{
-					"name": "Modulecatalog",
-					"item": [
-						{
-							"name": "get Modulecatalogs",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{backend}}/modulecatalog?token={{token}}&majorSubjectId=[REQUIRED]",
-									"host": [
-										"{{backend}}"
-									],
-									"path": [
-										"modulecatalog"
-									],
-									"query": [
-										{
-											"key": "token",
-											"value": "{{token}}"
-										},
-										{
-											"key": "majorSubjectId",
-											"value": "[REQUIRED]",
-											"description": "Returns all modulecatalogs for majorSubjects"
-										}
-									]
+					"name": "get Modulecatalogs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/modulecatalog?token={{token}}&majorSubjectId=[REQUIRED]",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"modulecatalog"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
 								},
-								"description": "Gets all modulecatalogs connected to a major subject."
-							},
-							"response": []
-						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
-				},
+								{
+									"key": "majorSubjectId",
+									"value": "[REQUIRED]",
+									"description": "Returns all modulecatalogs for majorSubjects"
+								}
+							]
+						},
+						"description": "Gets all modulecatalogs connected to a major subject."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "AcedemicRecords",
+			"item": [
 				{
 					"name": "get AcedemicRecords",
 					"request": {
@@ -1243,7 +1242,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"majorSubject_id\": 1,\n    \"name\": \"Profil I\", \n    \"number_of_modules_to_attend\": 1, \n    \"from_semester_number\": 1, \n    \"to_semester_number\": 2,\n    \"Modules\": [\n    \t{\n    \t\t\"name\": \"Technische Grundlagen mobiler Applikationen\",\n    \t\t\"description\": \"Beschreibung hier einfügen...\",\n    \t\t\"ects\": 0, \n    \t\t\"catalog_id\": \"WWISE_1337\",\n    \t\t\"academicRecord_ids\": [1,2],\n    \t\t\"number_of_lectures_to_attend\": 0, \n    \t\t\"requirements\": \"Keine\",\n    \t\t\"Lectures\":[\n    \t\t\t{\n    \t\t\t\t\"name\": \"Marketing\",\n    \t\t\t\t\"workload_home\": \"36 Stunden\",\n    \t\t\t\t\"workload_dhbw\": \"24 Stunden\",\n    \t\t\t\t\"catalog_id\": \"WWISE_301.2\",\n    \t\t\t\t\"mainFocus_ids\": [1,2]\n    \t\t\t}\n    \t\t]\n    \t}\n    ]\n}",
+							"raw": "{\n    \"majorSubject_id\": 1,\n    \"name\": \"Profil I\", \n    \"number_of_modules_to_attend\": 1, \n    \"from_semester_number\": 1, \n    \"to_semester_number\": 2,\n    \"Modules\": [\n    \t{\n    \t\t\"name\": \"Technische Grundlagen mobiler Applikationen\",\n    \t\t\"description\": \"Beschreibung hier einfügen...\",\n    \t\t\"ects\": 0, \n    \t\t\"catalog_id\": \"WWISE_1337\",\n    \t\t\"academicRecord_ids\": [1],\n    \t\t\"number_of_lectures_to_attend\": 0, \n    \t\t\"requirements\": \"Keine\",\n    \t\t\"Lectures\":[\n    \t\t\t{\n    \t\t\t\t\"name\": \"Marketing\",\n    \t\t\t\t\"workload_home\": \"36 Stunden\",\n    \t\t\t\t\"workload_dhbw\": \"24 Stunden\",\n    \t\t\t\t\"catalog_id\": \"WWISE_301.2\",\n    \t\t\t\t\"mainFocus_ids\": [1]\n    \t\t\t}\n    \t\t]\n    \t}\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
