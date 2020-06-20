@@ -24,8 +24,8 @@ module.exports.findPresentationByLecturerId = async (lecturer_id) => {
     { model: db.DirectorOfStudies, attributes: ['directorOfStudies_id', 'username'] },
   ];
 
-  const presentions = await db.Presentation.findAll({ include: withInclude, where });
-  return presentions.map((presentions) => presentions.dataValues)
+  const presentations = await db.Presentation.findAll({ include: withInclude, where });
+  return presentations.map((presentations) => presentations.dataValues)
 }
 
 module.exports.findAll = async (course_id, semester_id) => {
