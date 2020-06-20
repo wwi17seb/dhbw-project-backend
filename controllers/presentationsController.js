@@ -7,33 +7,55 @@ const directorOfStudiesService = require('../services/directorOfStudiesService')
 const {
   checkPresentationEditAuthorization,
   checkCourseEditAuthorization,
+  checkLecturerEditAuthorization,
 } = require('../helpers/checkAuthorizationHelper');
 
 exports.getPresentations = async (req, res, next) => {
   const course_id = req.query.courseId;
   const semester_id = req.query.semesterId;
+  const lecturer_id = req.query.lecturerId;
   const directorOfStudiesId = req.token.directorOfStudies_id;
-
+  
   try {
-    if (!course_id) {
-      throw new Error('No course given');
+    if (!course_id && !lecturer_id) {
+      throw new Error('No required filter given');
     }
-
-    if (!(await checkCourseEditAuthorization(directorOfStudiesId, course_id))) {
-      return responseHelper(res, 403, 'You are not authorized to view presentations of this course');
+    if (lecturer_id && course_id){
+      throw new Error('Cant filter by course and lecturer at the same time')
     }
+    
 
-    let [Presentations, DoS] = await Promise.all([
-      presentationService.findAll(course_id, semester_id),
-      directorOfStudiesService.getById(directorOfStudiesId),
-    ]);
-    Presentations = Presentations.map((presentation) => {
-      presentation.createdBy = presentation.DirectorOfStudies;
-      presentation.DirectorOfStudies = DoS;
-      return presentation;
-    });
-
-    return responseHelper(res, 200, 'Successful', { Presentations });
+    if (course_id){
+      if (!(await checkCourseEditAuthorization(directorOfStudiesId, course_id))) {
+        return responseHelper(res, 403, 'You are not authorized to view presentations of this course');
+      }
+      let [Presentations, DoS] = await Promise.all([
+        presentationService.findAll(course_id, semester_id),
+        directorOfStudiesService.getById(directorOfStudiesId),
+      ]);
+      Presentations = Presentations.map((presentation) => {
+        presentation.createdBy = presentation.DirectorOfStudies;
+        presentation.DirectorOfStudies = DoS;
+        return presentation;
+      });
+      return responseHelper(res, 200, 'Successful', { Presentations });
+    } else{
+      if (!(await checkLecturerEditAuthorization(directorOfStudiesId, lecturer_id))) {
+        return responseHelper(res, 403, 'You are not authorized to view presentations of this lecturer ');
+      }
+     console.log("\n\nFilter by Lecturer\n\n")
+      let [Presentations, DoS] = await Promise.all([
+        presentationService.findPresentationByLecturerId(lecturer_id),
+        directorOfStudiesService.getById(directorOfStudiesId),
+      ]);
+      Presentations = Presentations.map((presentation) => {
+        presentation.createdBy = presentation.DirectorOfStudies;
+        presentation.DirectorOfStudies = DoS;
+        return presentation;
+      });
+  
+      return responseHelper(res, 200, 'Successful', { Presentations });
+    }
   } catch (error) {
     return errorResponseHelper(res, next, error);
   }
