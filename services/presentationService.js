@@ -7,6 +7,27 @@ module.exports.findPresentationById = async (presentation_id) => {
   return presentation ? presentation.dataValues : null;
 };
 
+module.exports.findPresentationByLecturerId = async (lecturer_id) => {
+  let where = { lecturer_id }
+
+  const withInclude = [
+    { model: db.Semester },
+    { model: db.AcademicRecord },
+    {
+      model: db.Lecture,
+      include: [
+        { model: db.MainFocus, through: {attributes: []} },
+        { model: db.Module, include: [{ model: db.ModuleGroup }, { model: db.AcademicRecord, through: {attributes: []} }] },
+      ],
+    },
+    { model: db.Lecturer, include: [{ model: db.MainFocus, through: {attributes: []} }] },
+    { model: db.DirectorOfStudies, attributes: ['directorOfStudies_id', 'username'] },
+  ];
+
+  const presentions = await db.Presentation.findAll({ include: withInclude, where });
+  return presentions.map((presentions) => presentions.dataValues)
+}
+
 module.exports.findAll = async (course_id, semester_id) => {
   const withInclude = [
     { model: db.Semester },
