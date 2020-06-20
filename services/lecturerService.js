@@ -37,6 +37,7 @@ module.exports.createLecturer = async (
     comment,
     is_extern,
     mainFocus_ids,
+    lecture
   },
   directorOfStudies_id
 ) => {
@@ -54,6 +55,7 @@ module.exports.createLecturer = async (
     comment,
     is_extern,
     createdBy_id: directorOfStudies_id,
+    lecture
   };
 
   const createdLecturer = await db.Lecturer.create(lecturerToCreate, { transaction });
@@ -80,6 +82,7 @@ module.exports.updateLecturer = async (
     comment,
     is_extern,
     mainFocus_ids,
+    lecture
   },
   lecturer_id
 ) => {
@@ -96,6 +99,7 @@ module.exports.updateLecturer = async (
     cv,
     comment,
     is_extern,
+    lecture
   };
   const lecturer = await db.Lecturer.findOne({ where: { lecturer_id }, transaction });
   await lecturer.update({ ...lecturerToUpdate }, { transaction });

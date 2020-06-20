@@ -48,6 +48,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BOOLEAN,
         allowNull: false,
       },
+      lecture: {
+        type: DataTypes.STRING,
+        allowNull: true
+      }
     },
     {
       modelName: 'Lecturer',
