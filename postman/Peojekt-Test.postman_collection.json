@@ -400,6 +400,22 @@
 				},
 				{
 					"name": "update MajorSubject",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7df2d107-f401-4d84-b55d-c6b45a5410c3",
+								"exec": [
+									"pm.test(\"Signup status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -493,9 +509,14 @@
 							"script": {
 								"id": "343677e6-57f7-4f13-9464-564d7bb1408c",
 								"exec": [
-									"pm.test(\"Signup status test\", function() {",
+									"pm.test(\"Signup status test\", function () {",
 									"    pm.response.to.have.status(201);",
-									"});"
+									"});",
+									"",
+									"if (pm.response.json().payload && pm.response.json().payload.academicRecord_id) {",
+									"    pm.environment.set(\"academicRecord_id\", pm.response.json().payload.academicRecord_id);",
+									"}",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -513,7 +534,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"abbreviation\": \"K\",\r\n    \"type\": \"Klausur\",\r\n    \"rated\": true\r\n}",
+							"raw": "{\r\n    \"abbreviation\": \"Kl\",\r\n    \"type\": \"Klausur\",\r\n    \"rated\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -536,6 +557,59 @@
 							]
 						},
 						"description": "Create an academic record."
+					},
+					"response": []
+				},
+				{
+					"name": "update AcademicRecord",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "66bf4406-3f1c-40cb-9fb4-06595a91ef81",
+								"exec": [
+									"pm.test(\"Signup status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"abbreviation\": \"K\",\r\n    \"type\": \"Klausur\",\r\n    \"rated\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/academicRecords?token={{token}}&academicRecordId={{academicRecord_id}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"academicRecords"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "academicRecordId",
+									"value": "{{academicRecord_id}}"
+								}
+							]
+						},
+						"description": "Update a given academic record."
 					},
 					"response": []
 				}
@@ -591,9 +665,13 @@
 							"script": {
 								"id": "b1bb1579-8b95-417a-abde-f729a3ceab3f",
 								"exec": [
-									"pm.test(\"Signup status test\", function() {",
+									"pm.test(\"Signup status test\", function () {",
 									"    pm.response.to.have.status(201);",
-									"});"
+									"});",
+									"",
+									"if (pm.response.json().payload && pm.response.json().payload.mainFocus_id) {",
+									"    pm.environment.set(\"mainFocus_id\", pm.response.json().payload.mainFocus_id);",
+									"}"
 								],
 								"type": "text/javascript"
 							}
@@ -636,6 +714,59 @@
 						"description": "Create a new MainFocus"
 					},
 					"response": []
+				},
+				{
+					"name": "update MainFocus",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b0ef1b3d-42f0-4965-8c20-f2659e6712a0",
+								"exec": [
+									"pm.test(\"Signup status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Programmieren\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/mainFocuses?token={{token}}&mainFocusId={{mainFocus_id}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"mainFocuses"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "mainFocusId",
+									"value": "{{mainFocus_id}}"
+								}
+							]
+						},
+						"description": "Update a given MainFocus."
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -651,9 +782,14 @@
 							"script": {
 								"id": "7c3d90f8-533f-4a1a-87c4-61de31aebb5c",
 								"exec": [
-									"pm.test(\"Signup status test\", function() {",
+									"pm.test(\"Signup status test\", function () {",
 									"    pm.response.to.have.status(201);",
-									"});"
+									"});",
+									"",
+									"if (pm.response.json().payload && pm.response.json().payload.moduleGroup_id) {",
+									"    pm.environment.set(\"moduleGroup_id\", pm.response.json().payload.moduleGroup_id);",
+									"}",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -694,6 +830,57 @@
 							]
 						},
 						"description": "Create a module group and link it with the given major subject."
+					},
+					"response": []
+				},
+				{
+					"name": "update ModuleGroup",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "821c19c0-488c-4acf-af4f-87aa8f0ed3be",
+								"exec": [
+									"pm.test(\"Signup status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"majorSubject_id\": 1,\n    \"name\": \"Profil I\", \n    \"number_of_modules_to_attend\": 1, \n    \"from_semester_number\": 1, \n    \"to_semester_number\": 2,\n    \"Modules\": [\n    \t{\n    \t\t\"name\": \"Technische Grundlagen mobiler Applikationen\",\n    \t\t\"description\": \"Beschreibung hier einfügen...\",\n    \t\t\"ects\": 0, \n    \t\t\"catalog_id\": \"WWISE_1337\",\n    \t\t\"academicRecord_ids\": [1],\n    \t\t\"number_of_lectures_to_attend\": 0, \n    \t\t\"requirements\": \"Keine\",\n    \t\t\"Lectures\":[\n    \t\t\t{\n    \t\t\t\t\"name\": \"Marketing\",\n    \t\t\t\t\"workload_home\": \"36 Stunden\",\n    \t\t\t\t\"workload_dhbw\": \"24 Stunden\",\n    \t\t\t\t\"catalog_id\": \"WWISE_301.2\",\n    \t\t\t\t\"mainFocus_ids\": [1]\n    \t\t\t}\n    \t\t]\n    \t}\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/moduleGroups?token={{token}}&moduleGroupId={{moduleGroup_id}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"moduleGroups"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "moduleGroupId",
+									"value": "{{moduleGroup_id}}"
+								}
+							]
+						},
+						"description": "Update a given module group."
 					},
 					"response": []
 				}
@@ -749,9 +936,13 @@
 							"script": {
 								"id": "1cc4f1fb-f395-4da0-b86b-ca847783ec2e",
 								"exec": [
-									"pm.test(\"Signup status test\", function() {",
+									"pm.test(\"Signup status test\", function () {",
 									"    pm.response.to.have.status(201);",
-									"});"
+									"});",
+									"",
+									"if (pm.response.json().payload && pm.response.json().payload.course_id) {",
+									"    pm.environment.set(\"course_id\", pm.response.json().payload.course_id);",
+									"}"
 								],
 								"type": "text/javascript"
 							}
@@ -794,6 +985,57 @@
 						"description": "Create a course and link it with the given director of studies."
 					},
 					"response": []
+				},
+				{
+					"name": "update Course",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "64c52cc3-6472-41d5-a156-3c8bba271256",
+								"exec": [
+									"pm.test(\"Signup status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"WWI 17 SE B\",\r\n    \"google_calendar_id\": \"iq90i34lq6v196rqs4986dp370@group.calendar.google.com\",\r\n    \"majorSubject_id\": 1,\r\n    \"directorOfStudies_ids\": [1,2]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/courses?token={{token}}&courseId={{course_id}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"courses"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "courseId",
+									"value": "{{course_id}}"
+								}
+							]
+						},
+						"description": "Update a given course if it is linked with a given director of studies."
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -809,9 +1051,13 @@
 							"script": {
 								"id": "88df2460-185a-4829-904b-be15b1ac1775",
 								"exec": [
-									"pm.test(\"Signup status test\", function() {",
+									"pm.test(\"Signup status test\", function () {",
 									"    pm.response.to.have.status(201);",
-									"});"
+									"});",
+									"",
+									"if (pm.response.json().payload && pm.response.json().payload.semester_id) {",
+									"    pm.environment.set(\"semester_id\", pm.response.json().payload.semester_id);",
+									"}"
 								],
 								"type": "text/javascript"
 							}
@@ -852,6 +1098,57 @@
 							]
 						},
 						"description": "Create a new semester entry for given course, if couse is given."
+					},
+					"response": []
+				},
+				{
+					"name": "update Semester",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cc8d8f84-998d-4d57-aff8-d47bfd1c9be0",
+								"exec": [
+									"pm.test(\"Signup status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"course_id\": 1,\r\n    \"name\": \"SS18\",\r\n    \"number\": 0,\r\n    \"start_date\": \"2019-05-07\",\r\n    \"end_date\": \"2019-08-03\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/semesters?token={{token}}&semesterId={{semester_id}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"semesters"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "semesterId",
+									"value": "{{semester_id}}"
+								}
+							]
+						},
+						"description": "Update a given semester"
 					},
 					"response": []
 				}
@@ -937,9 +1234,14 @@
 							"script": {
 								"id": "ce58efa6-890c-4b4c-8962-4670ea304a45",
 								"exec": [
-									"pm.test(\"Signup status test\", function() {",
+									"pm.test(\"Signup status test\", function () {",
 									"    pm.response.to.have.status(201);",
-									"});"
+									"});",
+									"",
+									"",
+									"if (pm.response.json().payload && pm.response.json().payload.lecturer_id) {",
+									"    pm.environment.set(\"lecturer_id\", pm.response.json().payload.lecturer_id);",
+									"}"
 								],
 								"type": "text/javascript"
 							}
@@ -980,6 +1282,57 @@
 							]
 						},
 						"description": "Create a lecturer and link him with the given director of studies."
+					},
+					"response": []
+				},
+				{
+					"name": "update Lecturer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "77918a3a-3c47-43a3-82c2-233b69a076e2",
+								"exec": [
+									"pm.test(\"Signup status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstname\": \"Sebastian\",\n    \"lastname\": \"Ritterbusch\",\n    \"academic_title\": \"Prof. Dr.\",\n    \"email\": \"sebastian.ritterbusch@dhbw-mannheim.de\",\n    \"salutation\": \"Herr\",\n    \"phonenumber\": \"+49 621 4105 - 1724\",\n    \"experience\": \"Mathematik, Podcasts\",\n    \"mainFocus_ids\": [1],\n    \"profile\": \"...\",\n    \"research\": \"...\",\n    \"cv\": \"...\",\n    \"comment\": \"sehr engagiert\",\n    \"is_extern\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/lecturers?token={{token}}&lecturerId={{lecturer_id}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"lecturers"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "lecturerId",
+									"value": "{{lecturer_id}}"
+								}
+							]
+						},
+						"description": "Update a given lecturer if he is linked with a given director of studies."
 					},
 					"response": []
 				}
@@ -1045,9 +1398,13 @@
 							"script": {
 								"id": "40d88ce3-745b-44a2-b417-a0e402a65ac7",
 								"exec": [
-									"pm.test(\"Signup status test\", function() {",
+									"pm.test(\"Signup status test\", function () {",
 									"    pm.response.to.have.status(201);",
-									"});"
+									"});",
+									"",
+									"if (pm.response.json().payload && pm.response.json().payload.presentation_id) {",
+									"    pm.environment.set(\"presentation_id\", pm.response.json().payload.presentation_id);",
+									"}"
 								],
 								"type": "text/javascript"
 							}
@@ -1065,7 +1422,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"lecture_id\": 1, \r\n\t\"lecturer_id\": 1, \r\n\t\"academicRecord_id\": 1, \r\n\t\"semester_id\": 1, \r\n\t\"course_id\": 1, \r\n\t\"status\": \"Dozent offen\"\r\n}",
+							"raw": "{\r\n\t\"lecture_id\": 2, \r\n\t\"lecturer_id\": 1, \r\n\t\"academicRecord_id\": 1, \r\n\t\"semester_id\": 1, \r\n\t\"course_id\": 1, \r\n\t\"status\": \"Dozent offen\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1090,6 +1447,57 @@
 						"description": "Create a presentation."
 					},
 					"response": []
+				},
+				{
+					"name": "update Presentation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "aa18f742-ef5b-4410-aea2-acbf5fd16e3f",
+								"exec": [
+									"pm.test(\"Signup status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"lecture_id\": 2,\r\n\t\"lecturer_id\": 1,\r\n\t\"academicRecord_id\": 1,\r\n\t\"semester_id\": 1,\r\n\t\"course_id\": 1,\r\n\t\"status\": \"Dozent offen\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/presentations?token={{token}}&presentationId={{presentation_id}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"presentations"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "presentationId",
+									"value": "{{presentation_id}}"
+								}
+							]
+						},
+						"description": "Update a given presentation."
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -1099,11 +1507,25 @@
 			"item": [
 				{
 					"name": "get Modulecatalogs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f64a8f13-f1ab-4145-9446-09b09d8afd36",
+								"exec": [
+									"pm.test(\"Signup status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{backend}}/modulecatalog?token={{token}}&majorSubjectId=[REQUIRED]",
+							"raw": "{{backend}}/modulecatalog?token={{token}}&majorSubjectId={{majorSubject_id}}",
 							"host": [
 								"{{backend}}"
 							],
@@ -1117,12 +1539,396 @@
 								},
 								{
 									"key": "majorSubjectId",
-									"value": "[REQUIRED]",
+									"value": "{{majorSubject_id}}",
 									"description": "Returns all modulecatalogs for majorSubjects"
 								}
 							]
 						},
 						"description": "Gets all modulecatalogs connected to a major subject."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Delete",
+			"item": [
+				{
+					"name": "delete Presentation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1bd2485b-d0a1-48a9-9d6d-6fec59d78ca0",
+								"exec": [
+									"pm.test(\"Signup status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/presentations?token={{token}}&presentationId={{presentation_id}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"presentations"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "presentationId",
+									"value": "{{presentation_id}}"
+								}
+							]
+						},
+						"description": "Deletes a given presentation."
+					},
+					"response": []
+				},
+				{
+					"name": "delete Lecturer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2f2011b8-2cfa-46ec-88c9-db71833e9002",
+								"exec": [
+									"pm.test(\"Signup status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/lecturers?token={{token}}&lecturerId={{lecturer_id}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"lecturers"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "lecturerId",
+									"value": "{{lecturer_id}}"
+								}
+							]
+						},
+						"description": "Deletes a given lecturer if he is linked with a given director of studies."
+					},
+					"response": []
+				},
+				{
+					"name": "delete Semester",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "16c27401-bf7c-4780-97b6-dab8a71d25bf",
+								"exec": [
+									"pm.test(\"Signup status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/semesters?token={{token}}&semesterId={{semester_id}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"semesters"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "semesterId",
+									"value": "{{semester_id}}"
+								}
+							]
+						},
+						"description": "Deletes a given semester."
+					},
+					"response": []
+				},
+				{
+					"name": "delete Course",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "205f5857-365b-4840-b2d2-00a361c360d2",
+								"exec": [
+									"pm.test(\"Signup status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/courses?token={{token}}&courseId={{course_id}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"courses"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "courseId",
+									"value": "{{course_id}}"
+								}
+							]
+						},
+						"description": "Deletes a given course if it is linked with a given director of studies."
+					},
+					"response": []
+				},
+				{
+					"name": "delete ModuleGroup",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "280f99c9-853f-4c5f-90a1-5b2e0e70826d",
+								"exec": [
+									"pm.test(\"Signup status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/moduleGroups?token={{token}}&moduleGroupId={{moduleGroup_id}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"moduleGroups"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "moduleGroupId",
+									"value": "{{moduleGroup_id}}"
+								}
+							]
+						},
+						"description": "Deletes a given module group."
+					},
+					"response": []
+				},
+				{
+					"name": "delete MainFocus",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "813b9bf1-cb57-4374-9329-ad6da659e725",
+								"exec": [
+									"pm.test(\"Signup status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/mainFocuses?token={{token}}&mainFocusId={{mainFocus_id}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"mainFocuses"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "mainFocusId",
+									"value": "{{mainFocus_id}}"
+								}
+							]
+						},
+						"description": "Deletes a given MainFocus"
+					},
+					"response": []
+				},
+				{
+					"name": "delete AcademicRecord",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5ed88ad2-0bae-47c2-826d-c86a830d29c2",
+								"exec": [
+									"pm.test(\"Signup status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/academicRecords?token={{token}}&academicRecordId={{academicRecord_id}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"academicRecords"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "academicRecordId",
+									"value": "{{academicRecord_id}}"
+								}
+							]
+						},
+						"description": "Deletes a given academic record."
+					},
+					"response": []
+				},
+				{
+					"name": "delete MajorSubject",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3f792bc7-edc4-4f65-bb2d-b5f652fba0a0",
+								"exec": [
+									"pm.test(\"Signup status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/majorSubjects?token={{token}}&majorSubjectId={{majorSubject_id}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"majorSubjects"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "majorSubjectId",
+									"value": "{{majorSubject_id}}"
+								}
+							]
+						},
+						"description": "Deletes a given major subject."
+					},
+					"response": []
+				},
+				{
+					"name": "delete FieldOfStudy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8d6add67-9cac-4148-a6f9-bb8696e66f2f",
+								"exec": [
+									"pm.test(\"Signup status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/fieldsOfStudy?token={{token}}&fieldOfStudyId={{fieldOfStudy_id}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"fieldsOfStudy"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "fieldOfStudyId",
+									"value": "{{fieldOfStudy_id}}"
+								}
+							]
+						},
+						"description": "Deletes a given Field of Study."
 					},
 					"response": []
 				}
