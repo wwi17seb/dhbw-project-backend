@@ -117,6 +117,7 @@ Dies funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom ange
                     "cv": "[VITA]",
                     "comment": "[KOMMENTAR]",
                     "is_extern": true,
+                    "allow_manipulation": true,
                     "createdAt": "[DATUM]",
                     "updatedAt": "[DATUM]",
                     "createdBy_id": 0,
@@ -212,6 +213,7 @@ Dies funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom ange
 | `______cv`                                | ""                                                  | zur Zeit nur als string möglich; wird angepasst und nachgereicht                                                 |
 | `______comment`                           | "Sehr engagiert"                                    | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
 | `______is_extern`                         | false                                               | Gibt an, ob ein Dozent extern ist - false = intern, true = extern                                                |
+| `___allow_manipulation`                   | true                                                | Gibt an, ob ein Dozent von **allen** Studiengangsleitern bearbeitbar ist                                         |
 | `______createdBy_id`                      | 1                                                   | ID des Users, der zuletzt den Dozenten verändert hat                                                             |
 | `______MainFocuses`                       | [ ]                                                 | Array von Schwerpunkten des Dozierenden                                                                          |
 | `_________mainFocus_id`                   | 1                                                   | Eindeutige ID des Schwerpunktes                                                                                  |

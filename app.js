@@ -14,6 +14,8 @@ const dbsync = require('./database/dbsync');
 
 app.use(jsonParser);
 
+app.use(require('./helpers/logRequestHelper'));
+
 // routes
 app.use(require('./routes/authRoutes'));
 app.use(require('./routes/coursesRoutes'));
