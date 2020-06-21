@@ -38,7 +38,7 @@ exports.getPresentations = async (req, res, next) => {
       });
       return responseHelper(res, 200, 'Successful', { Presentations });
     } else {
-      // To-do: filter/authorization concept for lecturers
+      // TODO: filter/authorization concept for lecturers
       let [Presentations, DoS] = await Promise.all([
         presentationService.findPresentationByLecturerId(lecturer_id),
         directorOfStudiesService.getById(directorOfStudiesId),
