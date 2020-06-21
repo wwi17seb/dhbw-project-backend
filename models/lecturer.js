@@ -37,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
       },
       cv: {
-        type: DataTypes.STRING,
+        type: DataTypes.BOOLEAN,
         allowNull: true,
       },
       comment: {

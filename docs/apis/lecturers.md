@@ -24,7 +24,7 @@
 {
     "message": "Successful",
     "payload": {
-        "lecturers": [
+        "Lecturers": [
             {
                 "lecturer_id": 0,
                 "firstname": "[VORNAME]",
@@ -34,7 +34,7 @@
                 "salutation": "[ANREDE]",
                 "phonenumber": "[TELEFONNUMMER]",
                 "experience": "[ERFAHRUNG]",
-                "cv": "[VITA]",
+                "cv": true,
                 "comment": "[KOMMENTAR]",
                 "is_extern": true,
                 "createdAt": "[DATUM]",
@@ -57,7 +57,7 @@
 }
 ```
 
-### Attribute der Anfrage GET /lecturers
+### Attribute der Anfrage - GET /lecturers
 
 | Attribut                     | Beispielwert                             | Erklärung                                                                                                        |
 | ---------------------------- | ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
@@ -69,7 +69,7 @@
 | `___salutation`              | "Herr"                                   | Anrede des Dozierenden                                                                                           |
 | `___phonenumber`             | "+49 621 4105 - 1724"                    | Telefonnummer des Dozierenden                                                                                    |
 | `___experience`              | "Mathematik, Podcasts, ..."              | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
-| `___cv`                      | ""                                       | zur Zeit nur als string möglich; wird angepasst und nachgereicht                                                 |
+| `___cv`                      | true                                     | Gibt an, ob ein Lebenslauf vorliegt                                                                              |
 | `___comment`                 | "Sehr engagiert"                         | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
 | `___is_extern`               | false                                    | Gibt an, ob ein Dozent extern ist - false = intern, true = extern                                                |
 | `___createdBy_id`            | 1                                        | ID des Studiengangsleiters, der diesen Dozenten angelegt hat                                                     |
@@ -77,6 +77,27 @@
 | `______directorOfStudies_id` | 1                                        | Eindeutiger Bezeichner eines Studiengangleiters                                                                  |
 | `______username`             | "jreichwald"                             | Nutzername des Studiengangleiters                                                                                |
 | `______name`                 | "Software Engineering"                   | Name des Schwerpunktes                                                                                           |
+
+## GET /lecturerCV?lecturerId={ID}
+
+**Info**: Gibt alle Dozenten zurück.
+
+### Rückgabe - GET /lecturerCV?lecturerId={ID}
+
+```json
+{
+    "message": "Successful",
+    "payload": {
+        "cv": "[UTF-8_STRING]"
+    }
+}
+```
+
+### Attribute der Anfrage - GET /lecturerCV?lecturerId={ID}
+
+| Attribut                     | Beispielwert                             | Erklärung                                                                                                        |
+| ---------------------------- | ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `cv`                         | null                                     | UTF-8-String der PDF-Datei                                                                                       |
 
 ## POST /lecturers
 
@@ -94,7 +115,7 @@
     "phonenumber": "[TELEFONNUMMER]",
     "experience": "[ERFAHRUNG]",
     "mainFocus_ids": [0, 0],
-    "cv": "[VITA]",
+    "cv": "[UTF-8_STRING]",
     "comment": "[KOMMENTAR]",
     "is_extern": true
 }
@@ -112,7 +133,7 @@
 | `phonenumber`    | ja       | "+49 621 4105 - 1724"                    | Telefonnummer des Dozierenden                                                                                    |
 | `experience`     | nein     | "Mathematik, Podcasts, ..."              | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
 | `mainFocus_ids`  | nein     | [ 1, 2 ]                                 | Eindeutige ID eines Schwerpunktes                                                                                |
-| `cv`             | nein     | ""                                       | zur Zeit nur als string möglich; wird angepasst und nachgereicht                                                 |
+| `___cv`          | nein     | null                                     | Die PDF-Datei sollte über den FileReader aus JavaScript als UTF-8-String übergeben werden                        |
 | `comment`        | nein     | "Sehr engagiert"                         | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
 | `is_extern`      | ja       | true                                     | Gibt an, ob ein Dozent extern ist - false = intern, true = extern                                                |
 
@@ -130,7 +151,7 @@
         "salutation": "[ANREDE]",
         "phonenumber": "[TELEFONNUMMER]",
         "experience": "[ERFAHRUNG]",
-        "cv": "[VITA]",
+        "cv": true,
         "comment": "[KOMMENTAR]",
         "is_extern": true,
         "createdBy_id": 0,
@@ -157,7 +178,7 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
     "phonenumber": "[TELEFONNUMMER]",
     "experience": "[ERFAHRUNG]",
     "mainFocus_ids": [0, 0],
-    "cv": "[VITA]",
+    "cv": "[UTF-8_STRING]",
     "comment": "[KOMMENTAR]",
     "is_extern": true
 }
@@ -175,7 +196,7 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
 | `phonenumber`    | ja       | "+49 621 4105 - 1724"                    | Telefonnummer des Dozierenden                                                                                    |
 | `experience`     | nein     | "Mathematik, Podcasts, ..."              | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
 | `mainFocus_ids`  | nein     | 1                                        | Eindeutige ID eines Schwerpunktes                                                                                |
-| `cv`             | nein     | ""                                       | zur Zeit nur als string möglich; wird angepasst und nachgereicht                                                 |
+| `___cv`          | nein     | null                                     | Die PDF-Datei sollte über den FileReader aus JavaScript als UTF-8-String übergeben werden                        |
 | `comment`        | nein     | "Sehr engagiert"                         | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
 | `is_extern`      | ja       | true                                     | Gibt an, ob ein Dozent extern ist - false = intern, true = extern                                                |
 
