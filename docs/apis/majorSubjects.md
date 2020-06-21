@@ -50,7 +50,7 @@
 | `___fieldOfStudy_id`        | 1                       | Eindeutige ID des Studiengangs                                                                    |
 | `___name`                   | "Wirtschaftsinformatik" | Name des Studiengangs                                                                             |
 | `MajorSubject`              | [ ]                     | Array von MajorSubjects                                                                           |
-| `___majorSubject_id`        | 1                       | Eindeutige ID eine Studienrichtung                                                                |
+| `___majorSubject_id`        | 1                       | Eindeutige ID einer Studienrichtung                                                               |
 | `___name`                   | "Software Engineering"  | Name einer Studienrichtung                                                                        |
 | `___catalog_effective_from` | "2018"                  | Freitext (kann im Front-End auch als Zahl genutzt werden, wird allerdings als String gespeichert) |
 

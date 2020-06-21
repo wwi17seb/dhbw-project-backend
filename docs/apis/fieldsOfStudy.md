@@ -84,7 +84,7 @@
 
 | Attribut                    | Beispielwert            | Erklärung                                                                                         |
 | --------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------- |
-| `MajorSubjects`             | [ ]                     | Array der Studiengänge                                                                            |
+| `MajorSubjects`             | [ ]                     | Array der Studienrichtungen                                                                       |
 | `___majorSubject_id`        | 1                       | Eindeutige ID der Studienrichtung                                                                 |
 | `___name`                   | "Wirtschaftsinformatik" | Name des Studiengangs                                                                             |
 | `___catalog_effective_from` | "2018"                  | Freitext (kann im Front-End auch als Zahl genutzt werden, wird allerdings als String gespeichert) |
