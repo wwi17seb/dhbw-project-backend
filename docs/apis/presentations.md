@@ -1,6 +1,6 @@
 # /presentations <!-- omit in toc -->
 
-- [GET /presentations?courseId={ID}](#get-presentationscourseidid)
+- [GET /presentations?courseId={ID}?lecturerId={ID}](#get-presentationscourseididlectureridid)
   - [Rückgabe - GET /presentations?courseId={ID}](#rückgabe---get-presentationscourseidid)
   - [Attribute der Anfrage - GET /presentations?courseId={ID}](#attribute-der-anfrage---get-presentationscourseidid)
   - [Optionale Parameter /presentations](#optionale-parameter-presentations)
@@ -15,10 +15,12 @@
 - [DELETE /presentations?presentationId={ID}](#delete-presentationspresentationidid)
   - [Rückgabe - DELETE /presentations?presentationId={ID}](#rückgabe---delete-presentationspresentationidid)
 
-## GET /presentations?courseId={ID}
+## GET /presentations?courseId={ID}?lecturerId={ID}
 
-**Info**: Gibt alle **konkreten** Vorlesungen (inkl. der noch in Planung befindlichen) für einen bestimmten Kurs zurück.
-Dies funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom angegebenen Kurs ist (er muss die konkreten Vorlesungen nicht zwingend erstellt haben).
+**Info**: Gibt alle **konkreten** Vorlesungen (inkl. der noch in Planung befindlichen) zurück. Über `courseId` wird dies auf einen Kurs beschränkt und über 
+`lecturerId` können alle **konkreten** Vorlesungen eines Dozenten gefunden werden. 
+Es müssen entweder `courseId` oder `lecturerId` angegeben werden. Es können nicht beide Filter gleichzeitig verwendet werden.
+Das Filtern nach `courseId` funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom angegebenen Kurs ist (er muss die konkreten Vorlesungen nicht zwingend erstellt haben).
 
 ### Rückgabe - GET /presentations?courseId={ID}
 
@@ -230,10 +232,7 @@ Dies funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom ange
 - `semesterId`
   - filtert die Rückgabe.
   - gibt alle Presentations zum angegebenen Kurs&Semester zurück.
-- `lecturerId`
-  - `lecturerId` kann anstelle von `courseId` verwendet werden
-  - `lecturerId`und `courseId` können nicht zusammen verwendet werden
-  - gibt alle Presentations zurück, die von dem lecturer mit der entsprechenden `lecturerId` gehalten wurden
+
 
 ## POST /presentations
 

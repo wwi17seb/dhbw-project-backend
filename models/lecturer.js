@@ -48,7 +48,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BOOLEAN,
         allowNull: false,
       },
-      lecture: {
+      possibleLecture: {
         type: DataTypes.STRING,
         allowNull: true
       }

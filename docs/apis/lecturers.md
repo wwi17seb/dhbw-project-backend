@@ -37,7 +37,7 @@
         "cv": "[VITA]",
         "comment": "[KOMMENTAR]",
         "is_extern": true,
-        "lecture": "[Vorlesungen]",
+        "possibleLecture": "[Vorlesungen]",
         "createdAt": "[DATUM]",
         "updatedAt": "[DATUM]",
         "createdBy_id": 0,
@@ -73,7 +73,7 @@
 | `___cv`                      | ""                                       | zur Zeit nur als string möglich; wird angepasst und nachgereicht                                                 |
 | `___comment`                 | "Sehr engagiert"                         | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
 | `___is_extern`               | false                                    | Gibt an, ob ein Dozent extern ist - false = intern, true = extern                                                |
-| `___lecture`                 | "Datenbanken"                            | Freitext, Gibt an, welche Vorlesungen von dem Dozenten vorwiegend gehalten werden                                |
+| `___possibleLecture`         | "Datenbanken"                            | Freitext der angibt, welche Vorlesungen von dem Dozenten gehalten werden können                                  |
 | `___createdBy_id`            | 1                                        | ID des Studiengangsleiters, der diesen Dozenten angelegt hat                                                     |
 | `___DirectorOfStudies`       | { }                                      | Objekt eines Studiengangleiters                                                                                  |
 | `______directorOfStudies_id` | 1                                        | Eindeutiger Bezeichner eines Studiengangleiters                                                                  |
@@ -99,26 +99,26 @@
   "cv": "[VITA]",
   "comment": "[KOMMENTAR]",
   "is_extern": true,
-  "lecture": "[Vorlesungen]"
+  "possibleLecture": "[Vorlesungen]"
 }
 ```
 
 ### Attribute der Anfrage - POST /lecturers
 
-| Attribut         | Erfodert | Beispielwert                             | Erklärung                                                                                                        |
-| ---------------- | -------- | ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `firstname`      | ja       | "Sebastian"                              | Vorname des Dozierenden                                                                                          |
-| `lastname`       | ja       | "Ritterbusch"                            | Nachname des Dozierenden                                                                                         |
-| `academic_title` | nein     | "Prof. Dr."                              | akademischer Titel des Dozierenden                                                                               |
-| `email`          | nein     | "sebastian.ritterbusch@dhbw-mannheim.de" | Mailadresse des Dozierenden                                                                                      |
-| `salutation`     | ja       | "Herr"                                   | Anrede des Dozierenden                                                                                           |
-| `phonenumber`    | ja       | "+49 621 4105 - 1724"                    | Telefonnummer des Dozierenden                                                                                    |
-| `experience`     | nein     | "Mathematik, Podcasts, ..."              | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
-| `mainFocus_ids`  | nein     | [ 1, 2 ]                                 | Eindeutige ID eines Schwerpunktes                                                                                |
-| `cv`             | nein     | ""                                       | zur Zeit nur als string möglich; wird angepasst und nachgereicht                                                 |
-| `comment`        | nein     | "Sehr engagiert"                         | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
-| `is_extern`      | ja       | true                                     | Gibt an, ob ein Dozent extern ist - false = intern, true = extern                                                |
-| `lecture`        | nein     | "Datenbanken"                            | Freitext, Gibt an, welche Vorlesungen von dem Dozenten vorwiegend gehalten werden                                |
+| Attribut          | Erfodert | Beispielwert                             | Erklärung                                                                                                        |
+| ----------------- | -------- | ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `firstname`       | ja       | "Sebastian"                              | Vorname des Dozierenden                                                                                          |
+| `lastname`        | ja       | "Ritterbusch"                            | Nachname des Dozierenden                                                                                         |
+| `academic_title`  | nein     | "Prof. Dr."                              | akademischer Titel des Dozierenden                                                                               |
+| `email`           | nein     | "sebastian.ritterbusch@dhbw-mannheim.de" | Mailadresse des Dozierenden                                                                                      |
+| `salutation`      | ja       | "Herr"                                   | Anrede des Dozierenden                                                                                           |
+| `phonenumber`     | ja       | "+49 621 4105 - 1724"                    | Telefonnummer des Dozierenden                                                                                    |
+| `experience`      | nein     | "Mathematik, Podcasts, ..."              | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
+| `mainFocus_ids`   | nein     | [ 1, 2 ]                                 | Eindeutige ID eines Schwerpunktes                                                                                |
+| `cv`              | nein     | ""                                       | zur Zeit nur als string möglich; wird angepasst und nachgereicht                                                 |
+| `comment`         | nein     | "Sehr engagiert"                         | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
+| `is_extern`       | ja       | true                                     | Gibt an, ob ein Dozent extern ist - false = intern, true = extern                                                |
+| `possibleLecture` | nein     | "Datenbanken"                            | Freitext der angibt, welche Vorlesungen von dem Dozenten gehalten werden können                                  |
 
 ### Rückgabe - POST /lecturers
 
@@ -137,7 +137,7 @@
     "cv": "[VITA]",
     "comment": "[KOMMENTAR]",
     "is_extern": true,
-    "lecture": "[Vorlesungen]",
+    "possibleLecture": "[Vorlesungen]",
     "createdBy_id": 0,
     "updatedAt": "[DATUM]",
     "createdAt": "[DATUM]"
@@ -165,26 +165,26 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
   "cv": "[VITA]",
   "comment": "[KOMMENTAR]",
   "is_extern": true,
-  "lecture": "[Vorlesungen]",
+  "possibleLecture": "[Vorlesungen]"
 }
 ```
 
 ### Attribute der Anfrage - PUT /lecturers?lecturerId={ID}
 
-| Attribut         | Erfodert | Beispielwert                             | Erklärung                                                                                                        |
-| ---------------- | -------- | ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `firstname`      | ja       | "Sebastian"                              | Vorname des Dozierenden                                                                                          |
-| `lastname`       | ja       | "Ritterbusch"                            | Nachname des Dozierenden                                                                                         |
-| `academic_title` | nein     | "Prof. Dr."                              | akademischer Titel des Dozierenden                                                                               |
-| `email`          | nein     | "sebastian.ritterbusch@dhbw-mannheim.de" | Mailadresse des Dozierenden                                                                                      |
-| `salutation`     | ja       | "Herr"                                   | Anrede des Dozierenden                                                                                           |
-| `phonenumber`    | ja       | "+49 621 4105 - 1724"                    | Telefonnummer des Dozierenden                                                                                    |
-| `experience`     | nein     | "Mathematik, Podcasts, ..."              | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
-| `mainFocus_ids`  | nein     | 1                                        | Eindeutige ID eines Schwerpunktes                                                                                |
-| `cv`             | nein     | ""                                       | zur Zeit nur als string möglich; wird angepasst und nachgereicht                                                 |
-| `comment`        | nein     | "Sehr engagiert"                         | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
-| `is_extern`      | ja       | true                                     | Gibt an, ob ein Dozent extern ist - false = intern, true = extern                                                |
-| `lecture`        | nein     | "Datenbanken"                            | Freitext, Gibt an, welche Vorlesungen von dem Dozenten vorwiegend gehalten werden                                |
+| Attribut          | Erfodert | Beispielwert                             | Erklärung                                                                                                        |
+| ----------------- | -------- | ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `firstname`       | ja       | "Sebastian"                              | Vorname des Dozierenden                                                                                          |
+| `lastname`        | ja       | "Ritterbusch"                            | Nachname des Dozierenden                                                                                         |
+| `academic_title`  | nein     | "Prof. Dr."                              | akademischer Titel des Dozierenden                                                                               |
+| `email`           | nein     | "sebastian.ritterbusch@dhbw-mannheim.de" | Mailadresse des Dozierenden                                                                                      |
+| `salutation`      | ja       | "Herr"                                   | Anrede des Dozierenden                                                                                           |
+| `phonenumber`     | ja       | "+49 621 4105 - 1724"                    | Telefonnummer des Dozierenden                                                                                    |
+| `experience`      | nein     | "Mathematik, Podcasts, ..."              | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
+| `mainFocus_ids`   | nein     | 1                                        | Eindeutige ID eines Schwerpunktes                                                                                |
+| `cv`              | nein     | ""                                       | zur Zeit nur als string möglich; wird angepasst und nachgereicht                                                 |
+| `comment`         | nein     | "Sehr engagiert"                         | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
+| `is_extern`       | ja       | true                                     | Gibt an, ob ein Dozent extern ist - false = intern, true = extern                                                |
+| `possibleLecture` | nein     | "Datenbanken"                            | Freitext der angibt, welche Vorlesungen von dem Dozenten gehalten werden können                                  |
 
 ### Rückgabe - PUT /lecturers?lecturerId={ID}
 
