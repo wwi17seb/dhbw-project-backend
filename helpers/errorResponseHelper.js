@@ -26,6 +26,12 @@ module.exports = (res, next, error) => {
   if (error.message.endsWith(' can not be empty')) {
     return responseHelper(res, 400, error.message);
   }
+  if (error.message.startsWith('No') && error.message.endsWith('required filter given')){
+    return responseHelper(res, 400, error.message)
+  }
+  if (error.message.startsWith('Can not filter by course and lecturer at the same time')){
+    return responseHelper(res, 400, error.message)
+  }
 
   if (error.parent) {
     const parent = error.parent;

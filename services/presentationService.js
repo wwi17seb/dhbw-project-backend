@@ -8,7 +8,7 @@ module.exports.findPresentationById = async (presentation_id) => {
 };
 
 module.exports.findPresentationByLecturerId = async (lecturer_id) => {
-  let where = { lecturer_id }
+  let where = { lecturer_id };
 
   const withInclude = [
     { model: db.Semester },
@@ -16,17 +16,20 @@ module.exports.findPresentationByLecturerId = async (lecturer_id) => {
     {
       model: db.Lecture,
       include: [
-        { model: db.MainFocus, through: {attributes: []} },
-        { model: db.Module, include: [{ model: db.ModuleGroup }, { model: db.AcademicRecord, through: {attributes: []} }] },
+        { model: db.MainFocus, through: { attributes: [] } },
+        {
+          model: db.Module,
+          include: [{ model: db.ModuleGroup }, { model: db.AcademicRecord, through: { attributes: [] } }],
+        },
       ],
     },
-    { model: db.Lecturer, include: [{ model: db.MainFocus, through: {attributes: []} }] },
+    { model: db.Lecturer, include: [{ model: db.MainFocus, through: { attributes: [] } }] },
     { model: db.DirectorOfStudies, attributes: ['directorOfStudies_id', 'username'] },
   ];
 
   const presentations = await db.Presentation.findAll({ include: withInclude, where });
-  return presentations.map((presentations) => presentations.dataValues)
-}
+  return presentations.map((presentations) => presentations.dataValues);
+};
 
 module.exports.findAll = async (course_id, semester_id) => {
   const withInclude = [
@@ -35,11 +38,14 @@ module.exports.findAll = async (course_id, semester_id) => {
     {
       model: db.Lecture,
       include: [
-        { model: db.MainFocus, through: {attributes: []} },
-        { model: db.Module, include: [{ model: db.ModuleGroup }, { model: db.AcademicRecord, through: {attributes: []} }] },
+        { model: db.MainFocus, through: { attributes: [] } },
+        {
+          model: db.Module,
+          include: [{ model: db.ModuleGroup }, { model: db.AcademicRecord, through: { attributes: [] } }],
+        },
       ],
     },
-    { model: db.Lecturer, include: [{ model: db.MainFocus, through: {attributes: []} }] },
+    { model: db.Lecturer, include: [{ model: db.MainFocus, through: { attributes: [] } }] },
     { model: db.DirectorOfStudies, attributes: ['directorOfStudies_id', 'username'] },
   ];
   let where = { course_id };

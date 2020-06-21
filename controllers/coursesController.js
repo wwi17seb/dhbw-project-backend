@@ -10,9 +10,11 @@ exports.getCourses = async (req, res, next) => {
 
   try {
     const Courses = (await courseService.findAll()).filter((course) => {
-      return Boolean(course.DirectorsOfStudies.find((dos) => {
-        return dos.directorOfStudies_id === directorOfStudiesId;
-      }));
+      return Boolean(
+        course.DirectorsOfStudies.find((dos) => {
+          return dos.directorOfStudies_id === directorOfStudiesId;
+        })
+      );
     });
 
     responseHelper(res, 200, 'Successful', { Courses });
