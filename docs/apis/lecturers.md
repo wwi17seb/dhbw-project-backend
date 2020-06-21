@@ -22,38 +22,39 @@
 
 ```json
 {
-    "message": "Successful",
-    "payload": {
-        "lecturers": [
-            {
-                "lecturer_id": 0,
-                "firstname": "[VORNAME]",
-                "lastname": "[NACHNAME]",
-                "academic_title": "[AKADEMISCHER_TITEL]",
-                "email": "[E-MAIL]",
-                "salutation": "[ANREDE]",
-                "phonenumber": "[TELEFONNUMMER]",
-                "experience": "[ERFAHRUNG]",
-                "cv": "[VITA]",
-                "comment": "[KOMMENTAR]",
-                "is_extern": true,
-                "createdAt": "[DATUM]",
-                "updatedAt": "[DATUM]",
-                "createdBy_id": 0,
-                "DirectorOfStudies": {
-                    "directorOfStudies_id": 0,
-                    "username": "[NUTZERNAME]",
-                    "is_admin": true
-                },
-                "MainFocuses": [
-                    {
-                        "mainFocus_id": 0,
-                        "name": "[SCHWERPUNKT]"
-                    }
-                ]
-            }
+  "message": "Successful",
+  "payload": {
+    "lecturers": [
+      {
+        "lecturer_id": 0,
+        "firstname": "[VORNAME]",
+        "lastname": "[NACHNAME]",
+        "academic_title": "[AKADEMISCHER_TITEL]",
+        "email": "[E-MAIL]",
+        "salutation": "[ANREDE]",
+        "phonenumber": "[TELEFONNUMMER]",
+        "experience": "[ERFAHRUNG]",
+        "cv": "[VITA]",
+        "comment": "[KOMMENTAR]",
+        "is_extern": true,
+        "lecture": "[Vorlesungen]",
+        "createdAt": "[DATUM]",
+        "updatedAt": "[DATUM]",
+        "createdBy_id": 0,
+        "DirectorOfStudies": {
+          "directorOfStudies_id": 0,
+          "username": "[NUTZERNAME]",
+          "is_admin": true
+        },
+        "MainFocuses": [
+          {
+            "mainFocus_id": 0,
+            "name": "[SCHWERPUNKT]"
+          }
         ]
-    }
+      }
+    ]
+  }
 }
 ```
 
@@ -72,6 +73,7 @@
 | `___cv`                      | ""                                       | zur Zeit nur als string möglich; wird angepasst und nachgereicht                                                 |
 | `___comment`                 | "Sehr engagiert"                         | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
 | `___is_extern`               | false                                    | Gibt an, ob ein Dozent extern ist - false = intern, true = extern                                                |
+| `___lecture`                 | "Datenbanken"                            | Freitext, Gibt an, welche Vorlesungen von dem Dozenten vorwiegend gehalten werden                                |
 | `___createdBy_id`            | 1                                        | ID des Studiengangsleiters, der diesen Dozenten angelegt hat                                                     |
 | `___DirectorOfStudies`       | { }                                      | Objekt eines Studiengangleiters                                                                                  |
 | `______directorOfStudies_id` | 1                                        | Eindeutiger Bezeichner eines Studiengangleiters                                                                  |
@@ -86,17 +88,18 @@
 
 ```json
 {
-    "firstname": "[VORNAME]",
-    "lastname": "[NACHNAME]",
-    "academic_title": "[AKADEMISCHER_TITEL]",
-    "email": "[E-MAIL]",
-    "salutation": "[ANREDE]",
-    "phonenumber": "[TELEFONNUMMER]",
-    "experience": "[ERFAHRUNG]",
-    "mainFocus_ids": [0, 0],
-    "cv": "[VITA]",
-    "comment": "[KOMMENTAR]",
-    "is_extern": true
+  "firstname": "[VORNAME]",
+  "lastname": "[NACHNAME]",
+  "academic_title": "[AKADEMISCHER_TITEL]",
+  "email": "[E-MAIL]",
+  "salutation": "[ANREDE]",
+  "phonenumber": "[TELEFONNUMMER]",
+  "experience": "[ERFAHRUNG]",
+  "mainFocus_ids": [0, 0],
+  "cv": "[VITA]",
+  "comment": "[KOMMENTAR]",
+  "is_extern": true,
+  "lecture": "[Vorlesungen]"
 }
 ```
 
@@ -115,28 +118,30 @@
 | `cv`             | nein     | ""                                       | zur Zeit nur als string möglich; wird angepasst und nachgereicht                                                 |
 | `comment`        | nein     | "Sehr engagiert"                         | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
 | `is_extern`      | ja       | true                                     | Gibt an, ob ein Dozent extern ist - false = intern, true = extern                                                |
+| `lecture`        | nein     | "Datenbanken"                            | Freitext, Gibt an, welche Vorlesungen von dem Dozenten vorwiegend gehalten werden                                |
 
 ### Rückgabe - POST /lecturers
 
 ```json
 {
-    "message": "Successfully created",
-    "payload": {
-        "lecturer_id": 0,
-        "firstname": "[VORNAME]",
-        "lastname": "[NACHNAME]",
-        "academic_title": "[AKADEMISCHER_TITEL]",
-        "email": "[E-MAIL]",
-        "salutation": "[ANREDE]",
-        "phonenumber": "[TELEFONNUMMER]",
-        "experience": "[ERFAHRUNG]",
-        "cv": "[VITA]",
-        "comment": "[KOMMENTAR]",
-        "is_extern": true,
-        "createdBy_id": 0,
-        "updatedAt": "[DATUM]",
-        "createdAt": "[DATUM]"
-    }
+  "message": "Successfully created",
+  "payload": {
+    "lecturer_id": 0,
+    "firstname": "[VORNAME]",
+    "lastname": "[NACHNAME]",
+    "academic_title": "[AKADEMISCHER_TITEL]",
+    "email": "[E-MAIL]",
+    "salutation": "[ANREDE]",
+    "phonenumber": "[TELEFONNUMMER]",
+    "experience": "[ERFAHRUNG]",
+    "cv": "[VITA]",
+    "comment": "[KOMMENTAR]",
+    "is_extern": true,
+    "lecture": "[Vorlesungen]",
+    "createdBy_id": 0,
+    "updatedAt": "[DATUM]",
+    "createdAt": "[DATUM]"
+  }
 }
 ```
 
@@ -149,17 +154,18 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
 
 ```json
 {
-    "firstname": "[VORNAME]",
-    "lastname": "[NACHNAME]",
-    "academic_title": "[AKADEMISCHER_TITEL]",
-    "email": "[E-MAIL]",
-    "salutation": "[ANREDE]",
-    "phonenumber": "[TELEFONNUMMER]",
-    "experience": "[ERFAHRUNG]",
-    "mainFocus_ids": [0, 0],
-    "cv": "[VITA]",
-    "comment": "[KOMMENTAR]",
-    "is_extern": true
+  "firstname": "[VORNAME]",
+  "lastname": "[NACHNAME]",
+  "academic_title": "[AKADEMISCHER_TITEL]",
+  "email": "[E-MAIL]",
+  "salutation": "[ANREDE]",
+  "phonenumber": "[TELEFONNUMMER]",
+  "experience": "[ERFAHRUNG]",
+  "mainFocus_ids": [0, 0],
+  "cv": "[VITA]",
+  "comment": "[KOMMENTAR]",
+  "is_extern": true,
+  "lecture": "[Vorlesungen]",
 }
 ```
 
@@ -178,13 +184,14 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
 | `cv`             | nein     | ""                                       | zur Zeit nur als string möglich; wird angepasst und nachgereicht                                                 |
 | `comment`        | nein     | "Sehr engagiert"                         | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
 | `is_extern`      | ja       | true                                     | Gibt an, ob ein Dozent extern ist - false = intern, true = extern                                                |
+| `lecture`        | nein     | "Datenbanken"                            | Freitext, Gibt an, welche Vorlesungen von dem Dozenten vorwiegend gehalten werden                                |
 
 ### Rückgabe - PUT /lecturers?lecturerId={ID}
 
 ```json
 {
-    "message": "Successfully updated",
-    "payload": true
+  "message": "Successfully updated",
+  "payload": true
 }
 ```
 

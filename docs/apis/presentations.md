@@ -230,6 +230,10 @@ Dies funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom ange
 - `semesterId`
   - filtert die Rückgabe.
   - gibt alle Presentations zum angegebenen Kurs&Semester zurück.
+- `lecturerId`
+  - `lecturerId` kann anstelle von `courseId` verwendet werden
+  - `lecturerId`und `courseId` können nicht zusammen verwendet werden
+  - gibt alle Presentations zurück, die von dem lecturer mit der entsprechenden `lecturerId` gehalten wurden
 
 ## POST /presentations
 
