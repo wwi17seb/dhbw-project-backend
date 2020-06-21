@@ -1,5 +1,4 @@
 const db = require('../database/database');
-const majorSubjectService = require('./majorSubjectService');
 
 // GET
 module.exports.findCourseById = async (course_id) => {
