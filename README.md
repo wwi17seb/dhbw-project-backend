@@ -128,7 +128,7 @@ These parameters have the value `[REQUIRED]` and need to be updated by you.
 
 # login
 
-You can use `admin` as login name with password `test` or its token `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNTkwNjUzMTgzLCJleHAiOjE1OTkyOTMxODN9.MyEYyZJsyYr7ODop4Knv9RAWWzx7LnL_LlpkviFVqeU` to authenticate yourself.
+You can use `admin` as login name with password `test` or its token `eyJpe0JEKTAiOjAsImFsZyI6IkhTMjU2IiwidHlwIjoiSldUIn0.eyJ1c2VybmFtZSI6ImFkbWluIiwiZGlyZWN0b3JPZlN0dWRpZXNfaWQiOjEsImlhdCI6MTU5MjE3NjQ4MCwiZXhwIjoxNTk4MTM4MDgwfQ.CFzby-2_Q6h-_LsP_dP7IIzyL5ozu_UdV-dzyJdnQAk` to authenticate yourself.
 To see how authentication with the token works take a look at the postman collection.
 (It uses this token as variable `{{token}}`.)
 
