@@ -41,8 +41,7 @@ exports.putSemesters = async (req, res, next) => {
       !(await checkSemesterEditAuthorization(directorOfStudiesId, semesterId)) ||
       !(await checkCourseEditAuthorization(directorOfStudiesId, semesterToUpdate.course_id))
     ) {
-      transaction.rollback();
-      return responseHelper(res, 403, 'You are not authorized to update this semester');
+      throw new Error('You are not authorized to update this semester');
     }
 
     const updatedSemester = await semesterService.updateSemester(transaction, {
@@ -72,8 +71,7 @@ exports.deleteSemesters = async (req, res, next) => {
     }
 
     if (!(await checkSemesterEditAuthorization(directorOfStudiesId, semesterId))) {
-      transaction.rollback();
-      return responseHelper(res, 403, 'You are not authorized to delete this semester');
+      throw new Error('You are not authorized to delete this semester');
     }
 
     const deletedSemester = await semesterService.deleteSemester(transaction, semesterId);

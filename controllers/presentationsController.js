@@ -20,7 +20,7 @@ exports.getPresentations = async (req, res, next) => {
     }
 
     if (!(await checkCourseEditAuthorization(directorOfStudiesId, course_id))) {
-      return responseHelper(res, 403, 'You are not authorized to view presentations of this course');
+      throw new Error('You are not authorized to view presentations of this course');
     }
 
     let [Presentations, DoS] = await Promise.all([
@@ -54,8 +54,7 @@ exports.postPresentations = async (req, res, next) => {
     ]);
 
     if (!(await checkCourseEditAuthorization(directorOfStudiesId, presentationToCreate.course_id))) {
-      transaction.rollback();
-      return responseHelper(res, 403, 'You are not authorized to create this presentation');
+      throw new Error('You are not authorized to create this presentation');
     }
 
     const createdPresentation = await presentationService.createPresentation(transaction, {
@@ -95,8 +94,7 @@ exports.putPresentations = async (req, res, next) => {
       !(await checkPresentationEditAuthorization(directorOfStudiesId, presentationId)) ||
       !(await checkCourseEditAuthorization(directorOfStudiesId, presentationToUpdate.course_id))
     ) {
-      transaction.rollback();
-      return responseHelper(res, 403, 'You are not authorized to update this presentation');
+      throw new Error('You are not authorized to update this presentation');
     }
 
     const updatedPresentation = await presentationService.updatePresentation(transaction, {
@@ -128,8 +126,7 @@ exports.deletePresentations = async (req, res, next) => {
     }
 
     if (!(await checkPresentationEditAuthorization(directorOfStudiesId, presentationId))) {
-      transaction.rollback();
-      return responseHelper(res, 403, 'You are not authorized to delete this presentation');
+      throw new Error('You are not authorized to delete this presentation');
     }
 
     const deletedPresentation = await presentationService.deletePresentation(transaction, presentationId);

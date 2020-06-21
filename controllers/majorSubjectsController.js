@@ -8,26 +8,25 @@ const copyObjectHelper = require('../helpers/propertyCopyHelper');
 exports.getMajorSubjects = async (req, res, next) => {
   const fieldOfStudyId = req.query.fieldOfStudyId;
 
-  if (fieldOfStudyId) {
-    try {
-      const fieldOfStudyWithMajorSubjects = await fieldOfStudyService.findFieldOfStudyById(fieldOfStudyId, true);
-
-      if (fieldOfStudyWithMajorSubjects) {
-        return responseHelper(res, 200, 'Successful', {
-          FieldOfStudy: {
-            fieldOfStudy_id: fieldOfStudyWithMajorSubjects.fieldOfStudy_id,
-            name: fieldOfStudyWithMajorSubjects.name,
-          },
-          MajorSubjects: fieldOfStudyWithMajorSubjects.MajorSubjects,
-        });
-      } else {
-        return responseHelper(res, 404, 'Field of study does not exist');
-      }
-    } catch (error) {
-      return errorResponseHelper(res, next, error);
+  try {
+    if (!fieldOfStudyId) {
+      throw new Error('No field of study given');
     }
-  } else {
-    return responseHelper(res, 400, 'fieldOfStudyId cannot be empty');
+
+    const fieldOfStudyWithMajorSubjects = await fieldOfStudyService.findFieldOfStudyById(fieldOfStudyId, true);
+    if (!fieldOfStudyWithMajorSubjects) {
+      throw new Error('Field of study could not be found');
+    }
+
+    return responseHelper(res, 200, 'Successful', {
+      FieldOfStudy: {
+        fieldOfStudy_id: fieldOfStudyWithMajorSubjects.fieldOfStudy_id,
+        name: fieldOfStudyWithMajorSubjects.name,
+      },
+      MajorSubjects: fieldOfStudyWithMajorSubjects.MajorSubjects,
+    });
+  } catch (error) {
+    return errorResponseHelper(res, next, error);
   }
 };
 
@@ -40,7 +39,7 @@ exports.postMajorSubjects = async (req, res, next) => {
       transaction,
       majorSubjectToCreate.name,
       majorSubjectToCreate.fieldOfStudy_id,
-      majorSubjectToCreate.catalog_effective_from,
+      majorSubjectToCreate.catalog_effective_from
     );
 
     transaction.commit();
