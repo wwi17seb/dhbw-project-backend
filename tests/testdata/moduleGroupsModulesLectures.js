@@ -17,6 +17,7 @@ module.exports = {
             catalog_id: 'WWISE_303',
             academicRecord_ids: ['{{academicRecords.k.academicRecord_id}}'],
             number_of_lectures_to_attend: 2,
+            rated: true,
             requirements: 'Keine',
             Lectures: [
               {

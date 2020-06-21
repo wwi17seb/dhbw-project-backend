@@ -16,10 +16,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      rated: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-      },
     },
     {
       modelName: 'AcademicRecord',
