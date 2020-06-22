@@ -23,6 +23,7 @@ module.exports.getLecturerCV = async (lecturerId) => {
 
 module.exports.updateLecturerCV = async (lecturerId, fileContent) => {
   if (!fileContent) return deleteLecturerCV(lecturerId);
+  if (fileContent === true) return; // as defined in API true leads to no-update
   return new Promise((resolve, reject) => {
     fs.writeFile(getFilepath(lecturerId), fileContent, FILE_ENCODING, (err) => {
       if (err) reject(err);

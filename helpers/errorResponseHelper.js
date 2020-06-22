@@ -32,6 +32,12 @@ module.exports = (res, next, error) => {
   if (error.message.includes(' no such file or directory')) {
     return responseHelper(res, 404, 'File not found');
   }
+  if (error.message.endsWith(' can not be empty')) {
+    return responseHelper(res, 400, error.message);
+  }
+  if (error.message === 'Register key is invalid' || error.message === 'Old password is wrong'){
+    return responseHelper(res, 400, error.message);
+  }
 
   if (error.parent) {
     const parent = error.parent;
