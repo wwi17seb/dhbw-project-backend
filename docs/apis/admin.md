@@ -1,4 +1,4 @@
-# Admin Routen  <!-- omit in toc -->
+# Admin-Routen  <!-- omit in toc -->
 
 - [POST /createUser](#post-createuser)
   - [Body der Anfrage - POST /createUser](#body-der-anfrage---post-createuser)
@@ -9,7 +9,6 @@
   - [Attribute der Anfrage - PUT /resetPassword?directorOfStudiesId={ID}](#attribute-der-anfrage---put-resetpassworddirectorofstudiesidid)
   - [Rückgabe - PUT /resetPassword?directorOfStudiesId={ID}](#rückgabe---put-resetpassworddirectorofstudiesidid)
 - [PUT /upgradeToAdmin?directorOfStudiesId={ID}](#put-upgradetoadmindirectorofstudiesidid)
-  - [Attribute der Anfrage - PUT /upgradeToAdmin?directorOfStudiesId={ID}](#attribute-der-anfrage---put-upgradetoadmindirectorofstudiesidid)
   - [Rückgabe - PUT /upgradeToAdmin?directorOfStudiesId={ID}](#rückgabe---put-upgradetoadmindirectorofstudiesidid)
 - [GET /registerKey](#get-registerkey)
   - [Rückgabe - GET /registerKey](#rückgabe---get-registerkey)
@@ -45,7 +44,6 @@
 {
     "message": "[DEBUG-INFO/KOMMENTAR]",
     "payload": {
-        "token": "[TOKEN]",
         "directorOfStudies_id": 0,
         "username": "[NUTZERNAME]"
     }
@@ -85,22 +83,14 @@
 ## PUT /upgradeToAdmin?directorOfStudiesId={ID}
 
 ```json
-{
-    "registerKey": "[REGISTRIERUNGSSCHLÜSSEL]"
-}
+{}
 ```
-
-### Attribute der Anfrage - PUT /upgradeToAdmin?directorOfStudiesId={ID}
-
-| Attribut      | Beispielwert | Erklärung               |
-| ------------- | ------------ | ----------------------- |
-| `registerKey` | ja           | "SichererSchlüssel1337" | Neuer Registrierungsschlüssel des Systems |
 
 ### Rückgabe - PUT /upgradeToAdmin?directorOfStudiesId={ID}
 
 ```json
 {
-    "message": "Successfully updated",
+    "message": "Successfully upgraded user to admin",
     "payload": true
 }
 ```
@@ -135,15 +125,15 @@ Wird der Registrierungsschlüssel auf einen falsy Wert gesetzt (`undefined`, `nu
 
 ```json
 {
-    "apiKey": "[GOOGLE-CALENDAR-API-KEY]"
+    "registerKey": "[Registrierungsschlüssel]"
 }
 ```
 
 ### Attribute der Anfrage - PUT /registerKey
 
-| Attribut | Erfodert | Beispielwert            | Erklärung                                 |
-| -------- | -------- | ----------------------- | ----------------------------------------- |
-| `apiKey` | ja       | "SichererSchlüssel1337" | Neuer Registrierungsschlüssel des Systems |
+| Attribut      | Erfodert | Beispielwert            | Erklärung                                 |
+| ------------- | -------- | ----------------------- | ----------------------------------------- |
+| `registerKey` | ja       | "SichererSchlüssel1337" | Neuer Registrierungsschlüssel des Systems |
 
 ### Rückgabe - PUT /registerKey
 

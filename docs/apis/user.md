@@ -1,4 +1,4 @@
-# User Routen  <!-- omit in toc -->
+# User-Routen  <!-- omit in toc -->
 
 - [POST /register](#post-register)
   - [Body der Anfrage - POST /register](#body-der-anfrage---post-register)
@@ -85,11 +85,14 @@ Damit der Zugang allerdings auf berechtigte Nutzer beschränkt wird, muss hierzu
 }
 ```
 
+Der bestehende Token ist weiterhin gültig (bis zu seinem Ablauf).
+
 ## PUT /directorOfStudies
 
 ### Body der Anfrage - PUT /directorOfStudies
 
 **Info**: Erlaubt das Ändern von eigenen Daten (aktuell umfasst dies den Nutzernamen und das Feld `misc`).
+Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attributen einfach zu ermöglichen.
 
 ```json
 {
