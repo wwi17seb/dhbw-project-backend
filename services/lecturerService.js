@@ -13,7 +13,7 @@ module.exports.findAllLecturers = async () => {
   const lecturers = await db.Lecturer.findAll({
     include: [
       { model: db.DirectorOfStudies, attributes: ['directorOfStudies_id', 'username', 'is_admin'] },
-      { model: db.MainFocus },
+      { model: db.MainFocus, through: {attributes: []} },
     ],
   });
 
