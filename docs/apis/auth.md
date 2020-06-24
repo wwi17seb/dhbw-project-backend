@@ -1,6 +1,6 @@
 # Authentifizierung <!-- omit in toc -->
 
-- [POST /signup](#post-signup)
+- [[DEPRECATED] POST /signup](#deprecated-post-signup)
   - [Body der Anfrage - POST /signup](#body-der-anfrage---post-signup)
   - [Attribute der Anfrage - POST /signup](#attribute-der-anfrage---post-signup)
   - [Rückgabe - POST /signup](#rückgabe---post-signup)
@@ -10,11 +10,11 @@
   - [Attribute der Anfrage - POST /login](#attribute-der-anfrage---post-login)
     - [Rückgabe - POST /login](#rückgabe---post-login)
   - [Attribute der Rückgabe - POST /login](#attribute-der-rückgabe---post-login)
-  - [POST /logout](#post-logout)
+- [POST /logout](#post-logout)
 
-## POST /signup
+## [DEPRECATED] POST /signup
 
-Diese Route wird bald nicht mehr in dieser Form verfügbar sein, da eine selbstständige Registierung nicht ohne Weiteres möglich sein sollte.
+**Info**: Diese Route wird bald nicht mehr in dieser Form verfügbar sein, da eine selbstständige Registierung nicht ohne Weiteres möglich sein sollte.
 Für diese Route ist keine Authentifizierung (d. h. kein Token in der URL) notwendig.
 
 ### Body der Anfrage - POST /signup
@@ -83,20 +83,23 @@ Logischerweise muss hier kein Token in der URL übergeben werden.
     "payload": {
         "token": "[TOKEN]",
         "directorOfStudies_id": 0,
-        "username": "[NUTZERNAME]"
+        "username": "[NUTZERNAME]",
+        "password_change_required": false
     }
 }
 ```
 
 ### Attribute der Rückgabe - POST /login
 
-| Attribut               | Beispielwert                                                                                                                                                                                                 | Erklärung                                         |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------- |
-| `token`                | "eyJpe0JEKTAiOjAsImFsZyI6IkhTMjU2IiwidHlwIjoiSldUIn0.eyJ1c2VybmFtZSI6ImFkbWluIiwiZGlyZWN0b3JPZlN0dWRpZXNfaWQiOjEsImlhdCI6MTU5MjE3NjQ4MCwiZXhwIjoxNTk4MTM4MDgwfQ.CFzby-2_Q6h-_LsP_dP7IIzyL5ozu_UdV-dzyJdnQAk" | JWT, der zur Authentifizierung dient              |
-| `directorOfStudies_id` | 1                                                                                                                                                                                                            | Eindeutige ID des angemeldeten Studiengangleiters |
-| `username`             | "Nutzername"                                                                                                                                                                                                 | Nutzername des angemeldeten Studiengangleiters    |
+| Attribut                   | Beispielwert                                                                                                                                                                                                 | Erklärung                                                                                               |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------- |
+| `token`                    | "eyJpe0JEKTAiOjAsImFsZyI6IkhTMjU2IiwidHlwIjoiSldUIn0.eyJ1c2VybmFtZSI6ImFkbWluIiwiZGlyZWN0b3JPZlN0dWRpZXNfaWQiOjEsImlhdCI6MTU5MjE3NjQ4MCwiZXhwIjoxNTk4MTM4MDgwfQ.CFzby-2_Q6h-_LsP_dP7IIzyL5ozu_UdV-dzyJdnQAk" | JWT, der zur Authentifizierung dient                                                                    |
+| `directorOfStudies_id`     | 1                                                                                                                                                                                                            | Eindeutige ID des angemeldeten Studiengangleiters                                                       |
+| `username`                 | "Nutzername"                                                                                                                                                                                                 | Nutzername des angemeldeten Studiengangleiters                                                          |
+| `password_change_required` | false                                                                                                                                                                                                        | Gibt an, ob das Passwort zwangsweise gewechselt werden muss. Falls ja, wird kein Token mehr ausgestellt |
 
-### POST /logout
+## POST /logout
 
 **Info**: Route existiert, ändert jedoch nichts im Back-End &rarr; Anforderungen fordern "ein Logout wie bei anderen Diensten", d. h. lediglich im Front-End den Token entfernen.
 Jeder Token ist standardmäßig für eine Dauer von `12h` gültig und muss danach erneuert werden.
+Es ist also auch noch nach einem Passwortwechsel, einem Logout oder einem Zurücksetzen des Passworts (inkl. Zwang zum Passwortwechsel) möglich, mit dem Token auf alle Routen zuzugreifen.

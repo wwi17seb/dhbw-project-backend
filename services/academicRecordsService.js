@@ -8,9 +8,9 @@ module.exports.findAll = async () => {
 };
 
 // POST
-module.exports.createAcademicRecord = async (transaction, { academicRecord_id, abbreviation, type, rated }) => {
+module.exports.createAcademicRecord = async (transaction, { academicRecord_id, abbreviation, type }) => {
   const academicRecord = await db.AcademicRecord.create(
-    { academicRecord_id, abbreviation, type, rated },
+    { academicRecord_id, abbreviation, type },
     { transaction }
   );
 
@@ -18,9 +18,9 @@ module.exports.createAcademicRecord = async (transaction, { academicRecord_id, a
 };
 
 // PUT
-module.exports.updateAcademicRecord = async (transaction, { academicRecord_id, abbreviation, type, rated }) => {
+module.exports.updateAcademicRecord = async (transaction, { academicRecord_id, abbreviation, type }) => {
   const academicRecord = await db.AcademicRecord.update(
-    { abbreviation, type, rated },
+    { abbreviation, type },
     { where: { academicRecord_id }, transaction }
   );
 

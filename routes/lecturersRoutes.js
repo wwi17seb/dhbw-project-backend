@@ -10,4 +10,6 @@ router.post('/lecturers', authorize(), lecturersController.postLecturers);
 router.put('/lecturers', authorize(), lecturersController.putLecturers);
 router.delete('/lecturers', authorize(), lecturersController.deleteLecturers);
 
+router.get('/lecturerCV', authorize(), lecturersController.getLecturerCV);
+
 module.exports = router;

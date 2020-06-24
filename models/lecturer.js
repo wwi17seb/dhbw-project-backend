@@ -37,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
       },
       cv: {
-        type: DataTypes.STRING,
+        type: DataTypes.BOOLEAN,
         allowNull: true,
       },
       comment: {
@@ -45,6 +45,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
       },
       is_extern: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
+      allow_manipulation: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
       },
@@ -70,7 +74,7 @@ module.exports = (sequelize, DataTypes) => {
     Lecturer.Presentation = models.Lecturer.hasMany(models.Presentation, {
       onDelete: 'CASCADE',
       foreignKey: {
-        allowNull: false,
+        allowNull: true,
         name: 'lecturer_id',
       },
     });

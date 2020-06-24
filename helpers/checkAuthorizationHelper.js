@@ -8,7 +8,7 @@ exports.checkLecturerEditAuthorization = async function (directorOfStudies_id, l
   if (!lecturer) {
     throw new Error('Lecturer could not be found');
   }
-  return lecturer.createdBy_id === directorOfStudies_id;
+  return lecturer.allow_manipulation || lecturer.createdBy_id === directorOfStudies_id;
 };
 
 async function checkCourseEditAuthorization(directorOfStudies_id, course_id) {

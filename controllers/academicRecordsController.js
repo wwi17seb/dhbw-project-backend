@@ -37,12 +37,11 @@ exports.putAcademicRecords = async (req, res, next) => {
       throw new Error('No academic record given');
     }
 
-    const academicRecordToUpdate = copyObjectHelper(req.body, ['abbreviation', 'type', 'rated']);
+    const academicRecordToUpdate = copyObjectHelper(req.body, ['abbreviation', 'type']);
     const updatedAcademicRecord = await academicRecordService.updateAcademicRecord(transaction, {
       academicRecord_id: academicRecordId,
       abbreviation: academicRecordToUpdate.abbreviation,
       type: academicRecordToUpdate.type,
-      rated: academicRecordToUpdate.rated,
     });
     if (!updatedAcademicRecord) {
       throw new Error('No academic record found to update');

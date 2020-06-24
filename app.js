@@ -14,6 +14,8 @@ const dbsync = require('./database/dbsync');
 
 app.use(jsonParser);
 
+app.use(require('./helpers/logRequestHelper'));
+
 // routes
 app.use(require('./routes/authRoutes'));
 app.use(require('./routes/coursesRoutes'));
@@ -26,6 +28,7 @@ app.use(require('./routes/presentationsRoutes'));
 app.use(require('./routes/academicRecordsRoutes'));
 app.use(require('./routes/modulecatalogRoutes'));
 app.use(require('./routes/moduleGroupsRoutes'));
+app.use(require('./routes/transferOwnershipRoutes'));
 
 app.get('/', (req, res) => {
   res.json({ message: 'Server Running', payload: null });

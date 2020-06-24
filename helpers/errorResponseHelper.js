@@ -21,10 +21,16 @@ module.exports = (res, next, error) => {
     return responseHelper(res, 400, error.message);
   }
   if (error.message.endsWith(' could not be found')) {
-    return responseHelper(res, 400, error.message);
+    return responseHelper(res, 404, error.message);
   }
   if (error.message.endsWith(' can not be empty')) {
     return responseHelper(res, 400, error.message);
+  }
+  if (error.message.startsWith('You are not authorized to ')) {
+    return responseHelper(res, 403, error.message);
+  }
+  if (error.message.includes(' no such file or directory')) {
+    return responseHelper(res, 404, 'File not found');
   }
 
   if (error.parent) {
