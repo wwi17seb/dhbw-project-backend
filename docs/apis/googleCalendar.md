@@ -30,11 +30,12 @@
 | Attribut         | Beispielwert | Erklärung                         |
 | ---------------- | ------------ | --------------------------------- |
 | `GoogleCalendar` | { }          | Objekt des Google Kalender        |
-| `apiKey`         |              | API-Schlüssel des Google Kalender |
+| `___apiKey`      |              | API-Schlüssel des Google Kalender |
 
 ## PUT /googleCalendar
 
 **Info**: Aktualisiert die Infos zum Google Calendar.
+Diese Route ist nur für Admins zugänglich.
 Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attributen einfach zu ermöglichen.
 
 ### Body der Anfrage - PUT /googleCalendar
