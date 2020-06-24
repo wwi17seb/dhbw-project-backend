@@ -11,20 +11,10 @@ module.exports.findPresentationByLecturerId = async (lecturer_id) => {
   let where = { lecturer_id };
 
   const withInclude = [
-    { model: db.Semester },
-    { model: db.AcademicRecord },
     {
       model: db.Lecture,
-      include: [
-        { model: db.MainFocus, through: { attributes: [] } },
-        {
-          model: db.Module,
-          include: [{ model: db.ModuleGroup }, { model: db.AcademicRecord, through: { attributes: [] } }],
-        },
-      ],
-    },
-    { model: db.Lecturer, include: [{ model: db.MainFocus, through: { attributes: [] } }] },
-    { model: db.DirectorOfStudies, attributes: ['directorOfStudies_id', 'username'] },
+      include: []
+    }
   ];
 
   const presentations = await db.Presentation.findAll({ include: withInclude, where });
