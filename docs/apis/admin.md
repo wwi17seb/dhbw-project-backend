@@ -135,15 +135,15 @@ Wird der Registrierungsschlüssel auf einen falsy Wert gesetzt (`undefined`, `nu
 
 ```json
 {
-    "apiKey": "[GOOGLE-CALENDAR-API-KEY]"
+    "registerKey": "[GOOGLE-CALENDAR-API-KEY]"
 }
 ```
 
 ### Attribute der Anfrage - PUT /registerKey
 
-| Attribut | Erfodert | Beispielwert            | Erklärung                                 |
-| -------- | -------- | ----------------------- | ----------------------------------------- |
-| `apiKey` | ja       | "SichererSchlüssel1337" | Neuer Registrierungsschlüssel des Systems |
+| Attribut      | Erfodert | Beispielwert            | Erklärung                                 |
+| ------------- | -------- | ----------------------- | ----------------------------------------- |
+| `registerKey` | ja       | "SichererSchlüssel1337" | Neuer Registrierungsschlüssel des Systems |
 
 ### Rückgabe - PUT /registerKey
 

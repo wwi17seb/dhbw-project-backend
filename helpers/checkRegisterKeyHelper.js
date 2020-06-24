@@ -1,6 +1,8 @@
+const { getLocalKey, LOCAL_KEYS } = require('./localKeysFileHelper');
+
 module.exports = checkRegisterKey;
 
 function checkRegisterKey(key) {
-  // TODO: check register key to be currenct register key
-  return true;    
+  const registerKey = getLocalKey(LOCAL_KEYS.REGISTER_KEY);
+  return registerKey && registerKey === key;
 }

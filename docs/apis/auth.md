@@ -54,6 +54,51 @@ Für diese Route ist keine Authentifizierung (d. h. kein Token in der URL) notwe
 | `directorOfStudies_id` | 1                                                                                                                                                                                                            | Eindeutige ID des angelegten Studiengangleiters |
 | `username`             | "Nutzername"                                                                                                                                                                                                 | Nutzername des angelegten Studiengangleiters    |
 
+## POST /register
+
+**Info**: Diese Route dient dem selbstständigen Registrieren.
+Ersetzt `POST /signup`.
+Damit der Zugang allerdings auf berechtigte Nutzer beschränkt wird, muss hierzu ein Registrierungsschlüssel angegeben werden.
+
+### Body der Anfrage - POST /register
+
+```json
+{
+    "username": "[NUTZERNAME]",
+    "password": "[PASSWORT]",
+    "registerKey": "[REGISTRIERUNGSSCHLÜSSEL]"
+}
+```
+
+### Attribute der Anfrage - POST /register
+
+| Attribut      | Erfodert | Beispielwert               | Erklärung                                           |
+| ------------- | -------- | -------------------------- | --------------------------------------------------- |
+| `username`    | ja       | "Nutzername"               | Name des Benutzers, kann auch eine Mailadresse sein |
+| `password`    | ja       | "MeinSicheresPasswort1337" | Passwort des Benutzers                              |
+| `registerKey` | ja       | "SichererSchlüssel1337"    | Registrierungsschlüssel des Systems                 |
+
+### Rückgabe - POST /register
+
+```json
+{
+    "message": "[DEBUG-INFO/KOMMENTAR]",
+    "payload": {
+        "token": "[TOKEN]",
+        "directorOfStudies_id": 0,
+        "username": "[NUTZERNAME]"
+    }
+}
+```
+
+### Attribute der Rückgabe - POST /register
+
+| Attribut               | Beispielwert                                                                                                                                                                                                 | Erklärung                                       |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------- |
+| `token`                | "eyJpe0JEKTAiOjAsImFsZyI6IkhTMjU2IiwidHlwIjoiSldUIn0.eyJ1c2VybmFtZSI6ImFkbWluIiwiZGlyZWN0b3JPZlN0dWRpZXNfaWQiOjEsImlhdCI6MTU5MjE3NjQ4MCwiZXhwIjoxNTk4MTM4MDgwfQ.CFzby-2_Q6h-_LsP_dP7IIzyL5ozu_UdV-dzyJdnQAk" | JWT, der zur Authentifizierung dient            |
+| `directorOfStudies_id` | 1                                                                                                                                                                                                            | Eindeutige ID des angelegten Studiengangleiters |
+| `username`             | "Nutzername"                                                                                                                                                                                                 | Nutzername des angelegten Studiengangleiters    |
+
 ## POST /login
 
 **Info**: Route zum Anmelden.
