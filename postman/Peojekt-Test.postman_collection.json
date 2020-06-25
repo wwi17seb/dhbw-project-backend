@@ -147,7 +147,7 @@
 							"script": {
 								"id": "f35599b2-8cff-4b21-9183-5fc5c7f8e52c",
 								"exec": [
-									"pm.test(\"Signup status test\", function() {",
+									"pm.test(\"GET FieldOfStudy status test\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
 								],
@@ -191,7 +191,7 @@
 							"script": {
 								"id": "5624a8c7-9a32-45aa-8158-83188805cc8f",
 								"exec": [
-									"pm.test(\"Signup status test\", function () {",
+									"pm.test(\"CREATE FieldOfStudy status test\", function () {",
 									"    pm.response.to.have.status(201);",
 									"});",
 									"",
@@ -251,7 +251,7 @@
 							"script": {
 								"id": "11928d6b-9681-46f1-a6c7-75d9a34b1b24",
 								"exec": [
-									"pm.test(\"Signup status test\", function () {",
+									"pm.test(\"UPDATE FieldOfStudy status test\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
@@ -310,7 +310,7 @@
 							"script": {
 								"id": "2dcc1f3d-8090-44b5-852f-87c68dab7ec7",
 								"exec": [
-									"pm.test(\"Signup status test\", function() {",
+									"pm.test(\"GET MajorSubject status test\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
 								],
@@ -353,7 +353,7 @@
 							"script": {
 								"id": "c623e81c-e6f2-4a2b-b6e0-82e2f21a1467",
 								"exec": [
-									"pm.test(\"Signup status test\", function () {",
+									"pm.test(\"CREATE MajorSubject status test\", function () {",
 									"    pm.response.to.have.status(201);",
 									"});",
 									"",
@@ -411,7 +411,7 @@
 							"script": {
 								"id": "7df2d107-f401-4d84-b55d-c6b45a5410c3",
 								"exec": [
-									"pm.test(\"Signup status test\", function () {",
+									"pm.test(\"UPDATE MajorSubject status test\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
@@ -470,7 +470,7 @@
 							"script": {
 								"id": "9d5eb143-40d9-4e17-9e00-8cc6f1bb3a8b",
 								"exec": [
-									"pm.test(\"Signup status test\", function() {",
+									"pm.test(\"GET AcedemicRecord status test\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
 								],
@@ -514,7 +514,7 @@
 							"script": {
 								"id": "343677e6-57f7-4f13-9464-564d7bb1408c",
 								"exec": [
-									"pm.test(\"Signup status test\", function () {",
+									"pm.test(\"CREATE AcademicRecord status test\", function () {",
 									"    pm.response.to.have.status(201);",
 									"});",
 									"",
@@ -573,7 +573,7 @@
 							"script": {
 								"id": "66bf4406-3f1c-40cb-9fb4-06595a91ef81",
 								"exec": [
-									"pm.test(\"Signup status test\", function () {",
+									"pm.test(\"UPDATE AcedemicRecord status test\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
@@ -632,7 +632,7 @@
 							"script": {
 								"id": "fd5c0ca6-1f47-4c44-bacb-9d2fa977baf2",
 								"exec": [
-									"pm.test(\"Signup status test\", function() {",
+									"pm.test(\"GET MainFocus status test\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
 								],
@@ -670,7 +670,7 @@
 							"script": {
 								"id": "b1bb1579-8b95-417a-abde-f729a3ceab3f",
 								"exec": [
-									"pm.test(\"Signup status test\", function () {",
+									"pm.test(\"CREATE MainFocus status test\", function () {",
 									"    pm.response.to.have.status(201);",
 									"});",
 									"",
@@ -728,7 +728,7 @@
 							"script": {
 								"id": "b0ef1b3d-42f0-4965-8c20-f2659e6712a0",
 								"exec": [
-									"pm.test(\"Signup status test\", function () {",
+									"pm.test(\"UPDATE MainFocus status test\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
@@ -787,7 +787,7 @@
 							"script": {
 								"id": "7c3d90f8-533f-4a1a-87c4-61de31aebb5c",
 								"exec": [
-									"pm.test(\"Signup status test\", function () {",
+									"pm.test(\"CREATE ModuleGroup status test\", function () {",
 									"    pm.response.to.have.status(201);",
 									"});",
 									"",
@@ -854,7 +854,7 @@
 							"script": {
 								"id": "821c19c0-488c-4acf-af4f-87aa8f0ed3be",
 								"exec": [
-									"pm.test(\"Signup status test\", function () {",
+									"pm.test(\"UPDATE ModuleGroup status test\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
 								],
@@ -911,7 +911,7 @@
 							"script": {
 								"id": "dcb02768-b0a2-4c56-bc71-ef46063eb9d4",
 								"exec": [
-									"pm.test(\"Signup status test\", function() {",
+									"pm.test(\"GET Course status test\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
 								],
@@ -949,7 +949,7 @@
 							"script": {
 								"id": "1cc4f1fb-f395-4da0-b86b-ca847783ec2e",
 								"exec": [
-									"pm.test(\"Signup status test\", function () {",
+									"pm.test(\"CREATE Course status test\", function () {",
 									"    pm.response.to.have.status(201);",
 									"});",
 									"",
@@ -1007,7 +1007,7 @@
 							"script": {
 								"id": "64c52cc3-6472-41d5-a156-3c8bba271256",
 								"exec": [
-									"pm.test(\"Signup status test\", function () {",
+									"pm.test(\"UPDATE Course status test\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
 								],
@@ -1064,7 +1064,7 @@
 							"script": {
 								"id": "88df2460-185a-4829-904b-be15b1ac1775",
 								"exec": [
-									"pm.test(\"Signup status test\", function () {",
+									"pm.test(\"CREATE Semester status test\", function () {",
 									"    pm.response.to.have.status(201);",
 									"});",
 									"",
@@ -1087,8 +1087,8 @@
 							}
 						],
 						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"course_id\": {{course_id}},\r\n\t\"name\": \"SS18\", \r\n\t\"number\": 0, \r\n\t\"start_date\": \"2018-05-07\",\r\n\t\"end_date\": \"2018-08-03\"\r\n}",
+							"mode": "urlencoded",
+							"urlencoded": [],
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1122,7 +1122,7 @@
 							"script": {
 								"id": "cc8d8f84-998d-4d57-aff8-d47bfd1c9be0",
 								"exec": [
-									"pm.test(\"Signup status test\", function () {",
+									"pm.test(\"UPDATE Semester status test\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
 								],
@@ -1179,7 +1179,7 @@
 							"script": {
 								"id": "2a1f295a-c366-4456-a569-90649d11d47c",
 								"exec": [
-									"pm.test(\"Signup status test\", function() {",
+									"pm.test(\"GET Lecturers status test\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
 								],
@@ -1247,7 +1247,7 @@
 							"script": {
 								"id": "ce58efa6-890c-4b4c-8962-4670ea304a45",
 								"exec": [
-									"pm.test(\"Signup status test\", function () {",
+									"pm.test(\"CREATE Lecturer status test\", function () {",
 									"    pm.response.to.have.status(201);",
 									"});",
 									"",
@@ -1306,7 +1306,7 @@
 							"script": {
 								"id": "77918a3a-3c47-43a3-82c2-233b69a076e2",
 								"exec": [
-									"pm.test(\"Signup status test\", function () {",
+									"pm.test(\"UPDATE Lecturer status test\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
 								],
@@ -1363,7 +1363,7 @@
 							"script": {
 								"id": "2908b081-d4df-474e-81ba-9455904a1f10",
 								"exec": [
-									"pm.test(\"Signup status test\", function() {",
+									"pm.test(\"GET Presentation status test\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
 								],
@@ -1411,7 +1411,7 @@
 							"script": {
 								"id": "40d88ce3-745b-44a2-b417-a0e402a65ac7",
 								"exec": [
-									"pm.test(\"Signup status test\", function () {",
+									"pm.test(\"CREATE Presentation status test\", function () {",
 									"    pm.response.to.have.status(201);",
 									"});",
 									"",
@@ -1469,7 +1469,7 @@
 							"script": {
 								"id": "aa18f742-ef5b-4410-aea2-acbf5fd16e3f",
 								"exec": [
-									"pm.test(\"Signup status test\", function () {",
+									"pm.test(\"UPDATE Presentation status test\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
 								],
@@ -1526,7 +1526,7 @@
 							"script": {
 								"id": "f64a8f13-f1ab-4145-9446-09b09d8afd36",
 								"exec": [
-									"pm.test(\"Signup status test\", function () {",
+									"pm.test(\"GET Modulecatalogs status test\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
 								],
@@ -1575,7 +1575,7 @@
 							"script": {
 								"id": "1bd2485b-d0a1-48a9-9d6d-6fec59d78ca0",
 								"exec": [
-									"pm.test(\"Signup status test\", function () {",
+									"pm.test(\"DELETE Presentation status test\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
 								],
@@ -1617,7 +1617,7 @@
 							"script": {
 								"id": "2f2011b8-2cfa-46ec-88c9-db71833e9002",
 								"exec": [
-									"pm.test(\"Signup status test\", function () {",
+									"pm.test(\"DELETE Lecturer status test\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
 								],
@@ -1659,7 +1659,7 @@
 							"script": {
 								"id": "16c27401-bf7c-4780-97b6-dab8a71d25bf",
 								"exec": [
-									"pm.test(\"Signup status test\", function () {",
+									"pm.test(\"DELETE Semester status test\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
 								],
@@ -1701,7 +1701,7 @@
 							"script": {
 								"id": "205f5857-365b-4840-b2d2-00a361c360d2",
 								"exec": [
-									"pm.test(\"Signup status test\", function () {",
+									"pm.test(\"DELETE Course status test\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
 								],
@@ -1743,7 +1743,7 @@
 							"script": {
 								"id": "280f99c9-853f-4c5f-90a1-5b2e0e70826d",
 								"exec": [
-									"pm.test(\"Signup status test\", function () {",
+									"pm.test(\"DELETE ModuleGroup status test\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
 								],
@@ -1785,7 +1785,7 @@
 							"script": {
 								"id": "813b9bf1-cb57-4374-9329-ad6da659e725",
 								"exec": [
-									"pm.test(\"Signup status test\", function () {",
+									"pm.test(\"DELETE MainFocus status test\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
 								],
@@ -1827,7 +1827,7 @@
 							"script": {
 								"id": "5ed88ad2-0bae-47c2-826d-c86a830d29c2",
 								"exec": [
-									"pm.test(\"Signup status test\", function () {",
+									"pm.test(\"DELETE AcademicRecord status test\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
 								],
@@ -1869,7 +1869,7 @@
 							"script": {
 								"id": "3f792bc7-edc4-4f65-bb2d-b5f652fba0a0",
 								"exec": [
-									"pm.test(\"Signup status test\", function () {",
+									"pm.test(\"DELETE MajorSubject status test\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
 								],
@@ -1911,7 +1911,7 @@
 							"script": {
 								"id": "8d6add67-9cac-4148-a6f9-bb8696e66f2f",
 								"exec": [
-									"pm.test(\"Signup status test\", function () {",
+									"pm.test(\"DELETE FieldOfStudy status test\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
 								],
