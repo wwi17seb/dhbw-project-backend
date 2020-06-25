@@ -8,7 +8,7 @@ module.exports.PDF_SUBFOLDER_PATHS = {
   PATH_CVS,
 };
 
-function getFilepath(lecturerId) {
+function getFilePath(lecturerId) {
   return `${PATH_CVS}${lecturerId}.pdf`;
 }
 

@@ -9,6 +9,7 @@ const app = express();
 const serverPort = propertiesReader.getProperty('app.port');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json({limit: '50mb'});
+const errorResponseHelper = require('./helpers/errorResponseHelper');
 
 const dbsync = require('./database/dbsync');
 
@@ -30,6 +31,8 @@ app.use(require('./routes/academicRecordsRoutes'));
 app.use(require('./routes/modulecatalogRoutes'));
 app.use(require('./routes/moduleGroupsRoutes'));
 app.use(require('./routes/transferOwnershipRoutes'));
+app.use(require('./routes/directorOfStudiesRoutes'));
+app.use(require('./routes/adminRoutes'));
 
 app.use(require('./tests/testRoutes'));
 
@@ -37,12 +40,8 @@ app.get('/', (req, res) => {
   res.json({ message: 'Server Running', payload: null });
 });
 app.use(require('./routes/routeNotImplementedRoutes'));
-const CONSOLE_LOG_COLOR_FG_RED = '\x1b[31m';
-const CONSOLE_LOG_COLOR_RESET = '\x1b[0m';
 app.use(function (err, req, res, next) {
-  console.error(`${CONSOLE_LOG_COLOR_FG_RED}[ERROR]: ${err.message}${CONSOLE_LOG_COLOR_RESET}`);
-  console.error(err);
-  res.status(500).json({ message: 'Internal Server Error', payload: null });
+  errorResponseHelper(res, next, err);
 });
 
 dbsync;

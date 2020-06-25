@@ -1,36 +1,34 @@
 const responseHelper = require('./responseHelper');
+const CONSOLE_LOG_COLOR_FG_RED = '\x1b[31m';
 const CONSOLE_LOG_COLOR_FG_CYAN = '\x1b[36m';
 const CONSOLE_LOG_COLOR_RESET = '\x1b[0m';
 
-module.exports = (res, next, error) => {
-  console.error(`${CONSOLE_LOG_COLOR_FG_CYAN}[MESSAGE]: ${error.message}${CONSOLE_LOG_COLOR_RESET}`);
+const MODE = 'dev';
 
-  if (error.message.startsWith('notNull Violation: ') && error.message.endsWith(' cannot be null')) {
-    return responseHelper(res, 400, error.message);
-  }
-  if (error.message.startsWith('invalid input syntax for type')) {
-    return responseHelper(res, 400, error.message);
-  }
-  if (error.message.startsWith('No ') && error.message.endsWith(' found to update')) {
-    return responseHelper(res, 400, error.message);
-  }
-  if (error.message.startsWith('No ') && error.message.endsWith(' found to delete')) {
-    return responseHelper(res, 400, error.message);
-  }
-  if (error.message.startsWith('No ') && error.message.endsWith(' given')) {
-    return responseHelper(res, 400, error.message);
-  }
-  if (error.message.endsWith(' could not be found')) {
-    return responseHelper(res, 404, error.message);
-  }
-  if (error.message.endsWith(' can not be empty')) {
-    return responseHelper(res, 400, error.message);
-  }
-  if (error.message.startsWith('You are not authorized to ')) {
-    return responseHelper(res, 403, error.message);
-  }
-  if (error.message.includes(' no such file or directory')) {
-    return responseHelper(res, 404, 'File not found');
+module.exports = (res, next, error) => {
+  const returnErrorMessageConditions = [
+    { startsWith: 'notNull Violation: ', endsWith: ' cannot be null' },
+    { startsWith: 'invalid input syntax for type' },
+    { startsWith: 'No ', endsWith: ' found to update' },
+    { startsWith: 'No ', endsWith: ' found to delete' },
+    { startsWith: 'No ', endsWith: ' given' },
+    { endsWith: ' could not be found', code: 404 },
+    { endsWith: ' can not be empty' },
+    { startsWith: 'You are not authorized to ', code: 403 },
+    { includes: ' no such file or directory', code: 404, message: 'File not found' },
+    { endsWith: ' can not be empty' },
+    { matches: ['Register key is invalid', 'Old password is wrong', 'The username is already taken'] },
+    { startsWith: 'Unexpected token ', includes: ' in JSON at position ' },
+  ];
+  for (const condition of returnErrorMessageConditions) {
+    if (
+      (condition.startsWith === undefined || error.message.startsWith(condition.startsWith)) &&
+      (condition.endsWith === undefined || error.message.endsWith(condition.endsWith)) &&
+      (condition.includes === undefined || error.message.includes(condition.includes)) &&
+      (condition.matches === undefined || condition.matches.includes(error.message))
+    ) {
+      return responseHelper(res, condition.code || 400, condition.message || error.message);
+    }
   }
 
   if (error.parent) {
@@ -38,7 +36,9 @@ module.exports = (res, next, error) => {
 
     if (parent.detail) {
       const detail = parent.detail;
-      console.error(`${CONSOLE_LOG_COLOR_FG_CYAN}[PARENT]: ${parent}${CONSOLE_LOG_COLOR_RESET}`);
+      if (MODE === 'dev') {
+        console.error(`${CONSOLE_LOG_COLOR_FG_CYAN}[PARENT]: ${parent}${CONSOLE_LOG_COLOR_RESET}`);
+      }
 
       if (detail.startsWith('Key ') && detail.includes(' is not present in table ')) {
         return responseHelper(res, 400, detail);
@@ -48,5 +48,10 @@ module.exports = (res, next, error) => {
       }
     }
   }
-  return next(error);
+
+  console.error(`${CONSOLE_LOG_COLOR_FG_RED}[ERROR]: ${error.message}${CONSOLE_LOG_COLOR_RESET}`);
+  if (MODE === 'dev') {
+    console.error(error);
+  }
+  return responseHelper(res, 500, 'Internal Server Error');
 };

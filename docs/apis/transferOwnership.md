@@ -1,4 +1,9 @@
-# /transferOwnership
+# /transferOwnership <!-- omit in toc -->
+
+- [POST /transferOwnership](#post-transferownership)
+  - [Body der Anfrage - POST /transferOwnership](#body-der-anfrage---post-transferownership)
+  - [Attribute der Anfrage - POST /academicRecords](#attribute-der-anfrage---post-academicrecords)
+  - [Rückgabe - POST /academicRecords](#rückgabe---post-academicrecords)
 
 ## POST /transferOwnership
 
