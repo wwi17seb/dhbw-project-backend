@@ -1,1193 +1,1341 @@
 {
-  "info": {
-    "_postman_id": "6596acd7-c2c6-4586-bcc4-1be63a8da47b",
-    "name": "Peojekt",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-  },
-  "item": [
-    {
-      "name": "Authentication",
-      "item": [
-        {
-          "name": "signup User",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "name": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"username\": \"Nutzername\",\n    \"password\": \"MeinSicheresPasswort1337\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{backend}}/signup",
-              "host": ["{{backend}}"],
-              "path": ["signup"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "login User",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "name": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"username\": \"admin\",\n    \"password\": \"test\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{backend}}/login",
-              "host": ["{{backend}}"],
-              "path": ["login"]
-            }
-          },
-          "response": []
-        }
-      ],
-      "protocolProfileBehavior": {}
-    },
-    {
-      "name": "Courses",
-      "item": [
-        {
-          "name": "get Courses",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{backend}}/courses?token={{token}}",
-              "host": ["{{backend}}"],
-              "path": ["courses"],
-              "query": [
-                {
-                  "key": "token",
-                  "value": "{{token}}"
-                }
-              ]
-            },
-            "description": "Get all courses connected to the given director of studies."
-          },
-          "response": []
-        },
-        {
-          "name": "create Course",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "name": "Content-Type",
-                "type": "text",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"name\": \"WWI 17 SEB\",\r\n    \"google_calendar_id\": \"iq90i34lq6v196rqs4986dp370@group.calendar.google.com\",\r\n    \"majorSubject_id\": 1,\r\n    \"directorOfStudies_ids\": [1,2],\r\n    \"Semesters\": [\r\n        {\r\n            \"name\": \"WS17/18\",\r\n            \"number\": 1,\r\n            \"start_date\": \"2017-10-23\",\r\n            \"end_date\": \"2018-02-19\"\r\n        },\r\n        {\r\n            \"name\": \"SS18\",\r\n            \"number\": 2,\r\n            \"start_date\": \"2018-05-07\",\r\n            \"end_date\": \"2018-08-03\"\r\n        }\r\n    ]\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{backend}}/courses?token={{token}}",
-              "host": ["{{backend}}"],
-              "path": ["courses"],
-              "query": [
-                {
-                  "key": "token",
-                  "value": "{{token}}"
-                }
-              ]
-            },
-            "description": "Create a course and link it with the given director of studies."
-          },
-          "response": []
-        },
-        {
-          "name": "update Course",
-          "request": {
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"name\": \"WWI 17 SE B\",\r\n    \"google_calendar_id\": \"iq90i34lq6v196rqs4986dp370@group.calendar.google.com\",\r\n    \"majorSubject_id\": 1,\r\n    \"directorOfStudies_ids\": [1,2]\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{backend}}/courses?token={{token}}&courseId=[REQUIRED]",
-              "host": ["{{backend}}"],
-              "path": ["courses"],
-              "query": [
-                {
-                  "key": "token",
-                  "value": "{{token}}"
-                },
-                {
-                  "key": "courseId",
-                  "value": "[REQUIRED]"
-                }
-              ]
-            },
-            "description": "Update a given course if it is linked with a given director of studies."
-          },
-          "response": []
-        },
-        {
-          "name": "delete Course",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{backend}}/courses?token={{token}}&courseId=[REQUIRED]",
-              "host": ["{{backend}}"],
-              "path": ["courses"],
-              "query": [
-                {
-                  "key": "token",
-                  "value": "{{token}}"
-                },
-                {
-                  "key": "courseId",
-                  "value": "[REQUIRED]"
-                }
-              ]
-            },
-            "description": "Deletes a given course if it is linked with a given director of studies."
-          },
-          "response": []
-        }
-      ],
-      "protocolProfileBehavior": {}
-    },
-    {
-      "name": "Semesters",
-      "item": [
-        {
-          "name": "create Semester",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "name": "Content-Type",
-                "type": "text",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"course_id\": 1,\r\n\t\"name\": \"SS18\",\r\n\t\"number\": 0,\r\n\t\"start_date\": \"2018-05-07\",\r\n\t\"end_date\": \"2018-08-03\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{backend}}/semesters?token={{token}}",
-              "host": ["{{backend}}"],
-              "path": ["semesters"],
-              "query": [
-                {
-                  "key": "token",
-                  "value": "{{token}}"
-                }
-              ]
-            },
-            "description": "Create a new semester entry for given course, if couse is given."
-          },
-          "response": []
-        },
-        {
-          "name": "update Semester",
-          "request": {
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n\t\"course_id\": 1,\r\n    \"name\": \"SS18\",\r\n    \"number\": 2,\r\n    \"start_date\": \"2018-05-07\",\r\n    \"end_date\": \"2018-08-03\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{backend}}/semesters?token={{token}}&semesterId=[REQUIRED]",
-              "host": ["{{backend}}"],
-              "path": ["semesters"],
-              "query": [
-                {
-                  "key": "token",
-                  "value": "{{token}}"
-                },
-                {
-                  "key": "semesterId",
-                  "value": "[REQUIRED]"
-                }
-              ]
-            },
-            "description": "Update a given semester"
-          },
-          "response": []
-        },
-        {
-          "name": "delete Semester",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{backend}}/semesters?token={{token}}&semesterId=[REQUIRED]",
-              "host": ["{{backend}}"],
-              "path": ["semesters"],
-              "query": [
-                {
-                  "key": "token",
-                  "value": "{{token}}"
-                },
-                {
-                  "key": "semesterId",
-                  "value": "[REQUIRED]"
-                }
-              ]
-            },
-            "description": "Deletes a given semester."
-          },
-          "response": []
-        }
-      ],
-      "protocolProfileBehavior": {}
-    },
-    {
-      "name": "MainFocuses",
-      "item": [
-        {
-          "name": "get MainFocuses",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{backend}}/mainFocuses?token={{token}}",
-              "host": ["{{backend}}"],
-              "path": ["mainFocuses"],
-              "query": [
-                {
-                  "key": "token",
-                  "value": "{{token}}"
-                }
-              ]
-            },
-            "description": "Gets all MainFocuses"
-          },
-          "response": []
-        },
-        {
-          "name": "create MainFocus",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "name": "Content-Type",
-                "type": "text",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"name\": \"Programmieren\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{backend}}/mainFocuses?token={{token}}",
-              "host": ["{{backend}}"],
-              "path": ["mainFocuses"],
-              "query": [
-                {
-                  "key": "token",
-                  "value": "{{token}}"
-                }
-              ]
-            },
-            "description": "Create a new MainFocus"
-          },
-          "response": []
-        },
-        {
-          "name": "update MainFocus",
-          "request": {
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"name\": \"Programmieren\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{backend}}/mainFocuses?token={{token}}&mainFocusId=[REQUIRED]",
-              "host": ["{{backend}}"],
-              "path": ["mainFocuses"],
-              "query": [
-                {
-                  "key": "token",
-                  "value": "{{token}}"
-                },
-                {
-                  "key": "mainFocusId",
-                  "value": "[REQUIRED]"
-                }
-              ]
-            },
-            "description": "Update a given MainFocus."
-          },
-          "response": []
-        },
-        {
-          "name": "delete MainFocus",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{backend}}/mainFocuses?token={{token}}&mainFocusId=[REQUIRED]",
-              "host": ["{{backend}}"],
-              "path": ["mainFocuses"],
-              "query": [
-                {
-                  "key": "token",
-                  "value": "{{token}}"
-                },
-                {
-                  "key": "mainFocusId",
-                  "value": "[REQUIRED]"
-                }
-              ]
-            },
-            "description": "Deletes a given MainFocus"
-          },
-          "response": []
-        }
-      ],
-      "protocolProfileBehavior": {}
-    },
-    {
-      "name": "Lecturers",
-      "item": [
-        {
-          "name": "get Lecturers",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{backend}}/lecturers?token={{token}}",
-              "host": ["{{backend}}"],
-              "path": ["lecturers"],
-              "query": [
-                {
-                  "key": "token",
-                  "value": "{{token}}"
-                },
-                {
-                  "key": "experience",
-                  "value": "[REQUIRED]",
-                  "description": "Optional parameter for filtering",
-                  "disabled": true
-                },
-                {
-                  "key": "comment",
-                  "value": "[REQUIRED]",
-                  "description": "Optional parameter for filtering",
-                  "disabled": true
-                },
-                {
-                  "key": "firstname",
-                  "value": "[REQUIRED]",
-                  "description": "Optional parameter for filtering",
-                  "disabled": true
-                },
-                {
-                  "key": "lastname",
-                  "value": "[REQUIRED]",
-                  "description": "Optional parameter for filtering",
-                  "disabled": true
-                },
-                {
-                  "key": "extern",
-                  "value": "[REQUIRED]",
-                  "description": "Optional parameter for filtering",
-                  "disabled": true
-                }
-              ]
-            },
-            "description": "Gets all lecturers linked to the given director of studies."
-          },
-          "response": []
-        },
-        {
-          "name": "create Lecturer",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "name": "Content-Type",
-                "type": "text",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"firstname\": \"Sebastian\",\n    \"lastname\": \"Ritterbusch\",\n    \"academic_title\": \"Prof. Dr.\",\n    \"email\": \"sebastian.ritterbusch@dhbw-mannheim.de\",\n    \"salutation\": \"Herr\",\n    \"phonenumber\": \"+49 621 4105 - 1724\",\n    \"experience\": \"Mathematik, Podcasts\",\n    \"mainFocus_ids\": [1,2],\n    \"profile\": \"...\",\n    \"research\": \"...\",\n    \"cv\": \"...\",\n    \"comment\": \"sehr engagiert\",\n    \"is_extern\": true\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{backend}}/lecturers?token={{token}}",
-              "host": ["{{backend}}"],
-              "path": ["lecturers"],
-              "query": [
-                {
-                  "key": "token",
-                  "value": "{{token}}"
-                }
-              ]
-            },
-            "description": "Create a lecturer and link him with the given director of studies."
-          },
-          "response": []
-        },
-        {
-          "name": "update Lecturer",
-          "request": {
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"firstname\": \"Sebastian\",\n    \"lastname\": \"Ritterbusch\",\n    \"academic_title\": \"Prof. Dr.\",\n    \"email\": \"sebastian.ritterbusch@dhbw-mannheim.de\",\n    \"salutation\": \"Herr\",\n    \"phonenumber\": \"+49 621 4105 - 1724\",\n    \"experience\": \"Mathematik, Podcasts\",\n    \"mainFocus_ids\": [1,2],\n    \"profile\": \"...\",\n    \"research\": \"...\",\n    \"cv\": \"...\",\n    \"comment\": \"sehr engagiert\",\n    \"is_extern\": true\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{backend}}/lecturers?token={{token}}&lecturerId=[REQUIRED]",
-              "host": ["{{backend}}"],
-              "path": ["lecturers"],
-              "query": [
-                {
-                  "key": "token",
-                  "value": "{{token}}"
-                },
-                {
-                  "key": "lecturerId",
-                  "value": "[REQUIRED]"
-                }
-              ]
-            },
-            "description": "Update a given lecturer if he is linked with a given director of studies."
-          },
-          "response": []
-        },
-        {
-          "name": "delete Lecturer",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{backend}}/lecturers?token={{token}}&lecturerId=[REQUIRED]",
-              "host": ["{{backend}}"],
-              "path": ["lecturers"],
-              "query": [
-                {
-                  "key": "token",
-                  "value": "{{token}}"
-                },
-                {
-                  "key": "lecturerId",
-                  "value": "[REQUIRED]"
-                }
-              ]
-            },
-            "description": "Deletes a given lecturer if he is linked with a given director of studies."
-          },
-          "response": []
-        }
-      ],
-      "protocolProfileBehavior": {}
-    },
-    {
-      "name": "FieldsOfStudy",
-      "item": [
-        {
-          "name": "get FieldsOfStudy",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{backend}}/fieldsOfStudy?token={{token}}",
-              "host": ["{{backend}}"],
-              "path": ["fieldsOfStudy"],
-              "query": [
-                {
-                  "key": "token",
-                  "value": "{{token}}"
-                },
-                {
-                  "key": "withMajorSubjects",
-                  "value": "[REQUIRED]",
-                  "description": "Optional parameter for filtering (Boolean)",
-                  "disabled": true
-                }
-              ]
-            },
-            "description": "Get all FieldsOfStudy."
-          },
-          "response": []
-        },
-        {
-          "name": "create FieldOfStudy",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "name": "Content-Type",
-                "type": "text",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"name\": \"Wirtschaftsinformatik\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{backend}}/fieldsOfStudy?token={{token}}",
-              "host": ["{{backend}}"],
-              "path": ["fieldsOfStudy"],
-              "query": [
-                {
-                  "key": "token",
-                  "value": "{{token}}"
-                }
-              ]
-            },
-            "description": "Create a new FieldOfStudy."
-          },
-          "response": []
-        },
-        {
-          "name": "update FieldOfStudy",
-          "request": {
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"name\": \"Wirtschaftsinformatik\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{backend}}/fieldsOfStudy?token={{token}}&fieldOfStudyId=[REQUIRED]",
-              "host": ["{{backend}}"],
-              "path": ["fieldsOfStudy"],
-              "query": [
-                {
-                  "key": "token",
-                  "value": "{{token}}"
-                },
-                {
-                  "key": "fieldOfStudyId",
-                  "value": "[REQUIRED]"
-                }
-              ]
-            },
-            "description": "Update a given Field of Study."
-          },
-          "response": []
-        },
-        {
-          "name": "delete FieldOfStudy",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{backend}}/fieldsOfStudy?token={{token}}&fieldOfStudyId=[REQUIRED]",
-              "host": ["{{backend}}"],
-              "path": ["fieldsOfStudy"],
-              "query": [
-                {
-                  "key": "token",
-                  "value": "{{token}}"
-                },
-                {
-                  "key": "fieldOfStudyId",
-                  "value": "[REQUIRED]"
-                }
-              ]
-            },
-            "description": "Deletes a given Field of Study."
-          },
-          "response": []
-        }
-      ],
-      "protocolProfileBehavior": {}
-    },
-    {
-      "name": "MajorSubjects",
-      "item": [
-        {
-          "name": "get MajorSubjects",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{backend}}/majorSubjects?token={{token}}&fieldOfStudyId=1",
-              "host": ["{{backend}}"],
-              "path": ["majorSubjects"],
-              "query": [
-                {
-                  "key": "token",
-                  "value": "{{token}}"
-                },
-                {
-                  "key": "fieldOfStudyId",
-                  "value": "1",
-                  "description": "Returns all major subjects for that field of study"
-                }
-              ]
-            },
-            "description": "Get all major subjects to the given field of study."
-          },
-          "response": []
-        },
-        {
-          "name": "create MajorSubject",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "name": "Content-Type",
-                "type": "text",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n\t\"fieldOfStudy_id\": 1,\r\n    \"name\": \"Software Engineering\",\r\n    \"catalog_effective_from\": \"Gültig ab 2018\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{backend}}/majorSubjects?token={{token}}",
-              "host": ["{{backend}}"],
-              "path": ["majorSubjects"],
-              "query": [
-                {
-                  "key": "token",
-                  "value": "{{token}}"
-                }
-              ]
-            },
-            "description": "Create a major subject and link it with the given field of study."
-          },
-          "response": []
-        },
-        {
-          "name": "update MajorSubject",
-          "request": {
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n\t\"fieldOfStudy_id\": 1,\r\n    \"name\": \"Software Engineering\",\r\n    \"catalog_effective_from\": \"Gültig ab 2018\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{backend}}/majorSubjects?token={{token}}&majorSubjectId=[REQUIRED]",
-              "host": ["{{backend}}"],
-              "path": ["majorSubjects"],
-              "query": [
-                {
-                  "key": "token",
-                  "value": "{{token}}"
-                },
-                {
-                  "key": "majorSubjectId",
-                  "value": "[REQUIRED]"
-                }
-              ]
-            },
-            "description": "Update a given major subject linked with a given field of study."
-          },
-          "response": []
-        },
-        {
-          "name": "delete MajorSubject",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{backend}}/majorSubjects?token={{token}}&majorSubjectId=[REQUIRED]",
-              "host": ["{{backend}}"],
-              "path": ["majorSubjects"],
-              "query": [
-                {
-                  "key": "token",
-                  "value": "{{token}}"
-                },
-                {
-                  "key": "majorSubjectId",
-                  "value": "[REQUIRED]"
-                }
-              ]
-            },
-            "description": "Deletes a given major subject."
-          },
-          "response": []
-        }
-      ],
-      "protocolProfileBehavior": {}
-    },
-    {
-      "name": "Presentations",
-      "item": [
-        {
-          "name": "get Presentations",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{backend}}/presentations?token={{token}}&courseId=1",
-              "host": ["{{backend}}"],
-              "path": ["presentations"],
-              "query": [
-                {
-                  "key": "token",
-                  "value": "{{token}}"
-                },
-                {
-                  "key": "courseId",
-                  "value": "1"
-                },
-                {
-                  "key": "semesterId",
-                  "value": "1",
-                  "description": "Optional parameter for filtering",
-                  "disabled": true
-                }
-              ]
-            },
-            "description": "Get all presentations connected to a given course."
-          },
-          "response": []
-        },
-        {
-          "name": "create Presentation",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "name": "Content-Type",
-                "type": "text",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n\t\"lecture_id\": 1,\r\n\t\"lecturer_id\": 1,\r\n\t\"acedemicRecord_id\": 1,\r\n\t\"semester_id\": 1,\r\n\t\"course_id\": 1,\r\n\t\"status\": \"Dozent offen\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{backend}}/presentations?token={{token}}",
-              "host": ["{{backend}}"],
-              "path": ["presentations"],
-              "query": [
-                {
-                  "key": "token",
-                  "value": "{{token}}"
-                }
-              ]
-            },
-            "description": "Create a presentation."
-          },
-          "response": []
-        },
-        {
-          "name": "update Presentation",
-          "request": {
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n\t\"lecture_id\": 1,\r\n\t\"lecturer_id\": 1,\r\n\t\"acedemicRecord_id\": 1,\r\n\t\"semester_id\": 1,\r\n\t\"course_id\": 1,\r\n\t\"status\": \"Dozent offen\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{backend}}/presentations?token={{token}}&presentationId=[REQUIRED]",
-              "host": ["{{backend}}"],
-              "path": ["presentations"],
-              "query": [
-                {
-                  "key": "token",
-                  "value": "{{token}}"
-                },
-                {
-                  "key": "presentationId",
-                  "value": "[REQUIRED]"
-                }
-              ]
-            },
-            "description": "Update a given presentation."
-          },
-          "response": []
-        },
-        {
-          "name": "delete Presentation",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{backend}}/presentations?token={{token}}&presentationId=[REQUIRED]",
-              "host": ["{{backend}}"],
-              "path": ["presentations"],
-              "query": [
-                {
-                  "key": "token",
-                  "value": "{{token}}"
-                },
-                {
-                  "key": "presentationId",
-                  "value": "[REQUIRED]"
-                }
-              ]
-            },
-            "description": "Deletes a given presentation."
-          },
-          "response": []
-        }
-      ],
-      "protocolProfileBehavior": {}
-    },
-    {
-      "name": "AcedemicRecords",
-      "item": [
-        {
-          "name": "get AcedemicRecords",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{backend}}/academicRecords?token={{token}}",
-              "host": ["{{backend}}"],
-              "path": ["academicRecords"],
-              "query": [
-                {
-                  "key": "token",
-                  "value": "{{token}}"
-                },
-                {
-                  "key": "withMajorSubjects",
-                  "value": "[REQUIRED]",
-                  "description": "Optional parameter for filtering (Boolean)",
-                  "disabled": true
-                }
-              ]
-            },
-            "description": "Get all acedemic records."
-          },
-          "response": []
-        },
-        {
-          "name": "create AcademicRecord",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "name": "Content-Type",
-                "type": "text",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"abbreviation\": \"K\",\r\n    \"type\": \"Klausur\",\r\n    \"rated\": true\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{backend}}/academicRecords?token={{token}}",
-              "host": ["{{backend}}"],
-              "path": ["academicRecords"],
-              "query": [
-                {
-                  "key": "token",
-                  "value": "{{token}}"
-                }
-              ]
-            },
-            "description": "Create an academic record."
-          },
-          "response": []
-        },
-        {
-          "name": "update AcademicRecord",
-          "request": {
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"abbreviation\": \"K\",\r\n    \"type\": \"Klausur\",\r\n    \"rated\": true\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{backend}}/academicRecords?token={{token}}&academicRecordId=[REQUIRED]",
-              "host": ["{{backend}}"],
-              "path": ["academicRecords"],
-              "query": [
-                {
-                  "key": "token",
-                  "value": "{{token}}"
-                },
-                {
-                  "key": "academicRecordId",
-                  "value": "[REQUIRED]"
-                }
-              ]
-            },
-            "description": "Update a given academic record."
-          },
-          "response": []
-        },
-        {
-          "name": "delete AcademicRecord",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{backend}}/academicRecords?token={{token}}&academicRecordId=[REQUIRED]",
-              "host": ["{{backend}}"],
-              "path": ["academicRecords"],
-              "query": [
-                {
-                  "key": "token",
-                  "value": "{{token}}"
-                },
-                {
-                  "key": "academicRecordId",
-                  "value": "[REQUIRED]"
-                }
-              ]
-            },
-            "description": "Deletes a given academic record."
-          },
-          "response": []
-        }
-      ],
-      "protocolProfileBehavior": {}
-    },
-    {
-      "name": "Modulecatalog",
-      "item": [
-        {
-          "name": "get Modulecatalogs",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{backend}}/modulecatalog?token={{token}}&majorSubjectId=[REQUIRED]",
-              "host": ["{{backend}}"],
-              "path": ["modulecatalog"],
-              "query": [
-                {
-                  "key": "token",
-                  "value": "{{token}}"
-                },
-                {
-                  "key": "majorSubjectId",
-                  "value": "[REQUIRED]",
-                  "description": "Returns all modulecatalogs for majorSubjects"
-                }
-              ]
-            },
-            "description": "Gets all modulecatalogs connected to a major subject."
-          },
-          "response": []
-        }
-      ],
-      "protocolProfileBehavior": {}
-    },
-    {
-      "name": "ModuleGroups",
-      "item": [
-        {
-          "name": "create ModuleGroup",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "name": "Content-Type",
-                "type": "text",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"majorSubject_id\": 1,\n    \"name\": \"Profil I\", \n    \"number_of_modules_to_attend\": 1, \n    \"from_semester_number\": 1, \n    \"to_semester_number\": 2,\n    \"Modules\": [\n    \t{\n    \t\t\"name\": \"Technische Grundlagen mobiler Applikationen\",\n    \t\t\"description\": \"Beschreibung hier einfügen...\",\n    \t\t\"ects\": 0, \n    \t\t\"catalog_id\": \"WWISE_1337\",\n    \t\t\"academicRecord_ids\": [1,2],\n    \t\t\"number_of_lectures_to_attend\": 0, \n    \t\t\"requirements\": \"Keine\",\n    \t\t\"Lectures\":[\n    \t\t\t{\n    \t\t\t\t\"name\": \"Marketing\",\n    \t\t\t\t\"workload_home\": \"36 Stunden\",\n    \t\t\t\t\"workload_dhbw\": \"24 Stunden\",\n    \t\t\t\t\"catalog_id\": \"WWISE_301.2\",\n    \t\t\t\t\"mainFocus_ids\": [1,2]\n    \t\t\t}\n    \t\t]\n    \t}\n    ]\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{backend}}/moduleGroups?token={{token}}",
-              "host": ["{{backend}}"],
-              "path": ["moduleGroups"],
-              "query": [
-                {
-                  "key": "token",
-                  "value": "{{token}}"
-                }
-              ]
-            },
-            "description": "Create a module group and link it with the given major subject."
-          },
-          "response": []
-        },
-        {
-          "name": "update ModuleGroup",
-          "request": {
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"majorSubject_id\": 1,\n    \"name\": \"Profil I\", \n    \"number_of_modules_to_attend\": 1, \n    \"from_semester_number\": 1, \n    \"to_semester_number\": 2,\n    \"Modules\": [\n    \t{\n    \t\t\"name\": \"Technische Grundlagen mobiler Applikationen\",\n    \t\t\"description\": \"Beschreibung hier einfügen...\",\n    \t\t\"ects\": 0, \n    \t\t\"catalog_id\": \"WWISE_1337\",\n    \t\t\"academicRecord_ids\": [1,2],\n    \t\t\"number_of_lectures_to_attend\": 0, \n    \t\t\"requirements\": \"Keine\",\n    \t\t\"Lectures\":[\n    \t\t\t{\n    \t\t\t\t\"name\": \"Marketing\",\n    \t\t\t\t\"workload_home\": \"36 Stunden\",\n    \t\t\t\t\"workload_dhbw\": \"24 Stunden\",\n    \t\t\t\t\"catalog_id\": \"WWISE_301.2\",\n    \t\t\t\t\"mainFocus_ids\": [1,2]\n    \t\t\t}\n    \t\t]\n    \t}\n    ]\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{backend}}/moduleGroups?token={{token}}&moduleGroupId=[REQUIRED]",
-              "host": ["{{backend}}"],
-              "path": ["moduleGroups"],
-              "query": [
-                {
-                  "key": "token",
-                  "value": "{{token}}"
-                },
-                {
-                  "key": "moduleGroupId",
-                  "value": "[REQUIRED]"
-                }
-              ]
-            },
-            "description": "Update a given module group."
-          },
-          "response": []
-        },
-        {
-          "name": "delete ModuleGroup",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{backend}}/moduleGroups?token={{token}}&moduleGroupId=[REQUIRED]",
-              "host": ["{{backend}}"],
-              "path": ["moduleGroups"],
-              "query": [
-                {
-                  "key": "token",
-                  "value": "{{token}}"
-                },
-                {
-                  "key": "moduleGroupId",
-                  "value": "[REQUIRED]"
-                }
-              ]
-            },
-            "description": "Deletes a given module group."
-          },
-          "response": []
-        }
-      ],
-      "protocolProfileBehavior": {}
-    }
-  ],
-  "protocolProfileBehavior": {}
+	"info": {
+		"_postman_id": "384eca92-4a8c-43e6-ac71-0cb42b5d860a",
+		"name": "Peojekt",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "signup User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"Nutzername\",\n    \"password\": \"MeinSicheresPasswort1337\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/signup",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"test\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/login",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Courses",
+			"item": [
+				{
+					"name": "get Courses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/courses?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"courses"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Get all courses connected to the given director of studies."
+					},
+					"response": []
+				},
+				{
+					"name": "create Course",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"WWI 17 SEB\",\r\n    \"google_calendar_id\": \"iq90i34lq6v196rqs4986dp370@group.calendar.google.com\",\r\n    \"majorSubject_id\": 1,\r\n    \"directorOfStudies_ids\": [1,2],\r\n    \"Semesters\": [\r\n        {\r\n            \"name\": \"WS17/18\",\r\n            \"number\": 1,\r\n            \"start_date\": \"2017-10-23\",\r\n            \"end_date\": \"2018-02-19\"\r\n        },\r\n        {\r\n            \"name\": \"SS18\",\r\n            \"number\": 2,\r\n            \"start_date\": \"2018-05-07\",\r\n            \"end_date\": \"2018-08-03\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/courses?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"courses"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Create a course and link it with the given director of studies."
+					},
+					"response": []
+				},
+				{
+					"name": "update Course",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"WWI 17 SE B\",\r\n    \"google_calendar_id\": \"iq90i34lq6v196rqs4986dp370@group.calendar.google.com\",\r\n    \"majorSubject_id\": 1,\r\n    \"directorOfStudies_ids\": [1,2]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/courses?token={{token}}&courseId=[REQUIRED]",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"courses"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "courseId",
+									"value": "[REQUIRED]"
+								}
+							]
+						},
+						"description": "Update a given course if it is linked with a given director of studies."
+					},
+					"response": []
+				},
+				{
+					"name": "delete Course",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/courses?token={{token}}&courseId=[REQUIRED]",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"courses"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "courseId",
+									"value": "[REQUIRED]"
+								}
+							]
+						},
+						"description": "Deletes a given course if it is linked with a given director of studies."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Semesters",
+			"item": [
+				{
+					"name": "create Semester",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"course_id\": 1,\r\n\t\"name\": \"SS18\",\r\n\t\"number\": 0,\r\n\t\"start_date\": \"2018-05-07\",\r\n\t\"end_date\": \"2018-08-03\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/semesters?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"semesters"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Create a new semester entry for given course, if couse is given."
+					},
+					"response": []
+				},
+				{
+					"name": "update Semester",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"course_id\": 1,\r\n    \"name\": \"SS18\",\r\n    \"number\": 2,\r\n    \"start_date\": \"2018-05-07\",\r\n    \"end_date\": \"2018-08-03\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/semesters?token={{token}}&semesterId=[REQUIRED]",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"semesters"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "semesterId",
+									"value": "[REQUIRED]"
+								}
+							]
+						},
+						"description": "Update a given semester"
+					},
+					"response": []
+				},
+				{
+					"name": "delete Semester",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/semesters?token={{token}}&semesterId=[REQUIRED]",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"semesters"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "semesterId",
+									"value": "[REQUIRED]"
+								}
+							]
+						},
+						"description": "Deletes a given semester."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "MainFocuses",
+			"item": [
+				{
+					"name": "get MainFocuses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/mainFocuses?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"mainFocuses"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Gets all MainFocuses"
+					},
+					"response": []
+				},
+				{
+					"name": "create MainFocus",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Programmieren\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/mainFocuses?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"mainFocuses"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Create a new MainFocus"
+					},
+					"response": []
+				},
+				{
+					"name": "update MainFocus",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Programmieren\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/mainFocuses?token={{token}}&mainFocusId=[REQUIRED]",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"mainFocuses"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "mainFocusId",
+									"value": "[REQUIRED]"
+								}
+							]
+						},
+						"description": "Update a given MainFocus."
+					},
+					"response": []
+				},
+				{
+					"name": "delete MainFocus",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/mainFocuses?token={{token}}&mainFocusId=[REQUIRED]",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"mainFocuses"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "mainFocusId",
+									"value": "[REQUIRED]"
+								}
+							]
+						},
+						"description": "Deletes a given MainFocus"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Lecturers",
+			"item": [
+				{
+					"name": "get Lecturers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/lecturers?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"lecturers"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "experience",
+									"value": "[REQUIRED]",
+									"description": "Optional parameter for filtering",
+									"disabled": true
+								},
+								{
+									"key": "comment",
+									"value": "[REQUIRED]",
+									"description": "Optional parameter for filtering",
+									"disabled": true
+								},
+								{
+									"key": "firstname",
+									"value": "[REQUIRED]",
+									"description": "Optional parameter for filtering",
+									"disabled": true
+								},
+								{
+									"key": "lastname",
+									"value": "[REQUIRED]",
+									"description": "Optional parameter for filtering",
+									"disabled": true
+								},
+								{
+									"key": "extern",
+									"value": "[REQUIRED]",
+									"description": "Optional parameter for filtering",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Gets all lecturers linked to the given director of studies."
+					},
+					"response": []
+				},
+				{
+					"name": "create Lecturer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstname\": \"Sebastian\",\n    \"lastname\": \"Ritterbusch\",\n    \"academic_title\": \"Prof. Dr.\",\n    \"email\": \"sebastian.ritterbusch@dhbw-mannheim.de\",\n    \"salutation\": \"Herr\",\n    \"phonenumber\": \"+49 621 4105 - 1724\",\n    \"experience\": \"Mathematik, Podcasts\",\n    \"mainFocus_ids\": [1],\n    \"profile\": \"...\",\n    \"research\": \"...\",\n    \"cv\": \"...\",\n    \"comment\": \"sehr engagiert\",\n    \"is_extern\": true,\n    \"allow_manipulation\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/lecturers?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"lecturers"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Create a lecturer and link him with the given director of studies."
+					},
+					"response": []
+				},
+				{
+					"name": "update Lecturer",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstname\": \"Sebastian\",\n    \"lastname\": \"Ritterbusch\",\n    \"academic_title\": \"Prof. Dr.\",\n    \"email\": \"sebastian.ritterbusch@dhbw-mannheim.de\",\n    \"salutation\": \"Herr\",\n    \"phonenumber\": \"+49 621 4105 - 1724\",\n    \"experience\": \"Mathematik, Podcasts\",\n    \"mainFocus_ids\": [1,2],\n    \"profile\": \"...\",\n    \"research\": \"...\",\n    \"cv\": \"...\",\n    \"comment\": \"sehr engagiert\",\n    \"is_extern\": true,\n    \"allow_manipulation\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/lecturers?token={{token}}&lecturerId=[REQUIRED]",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"lecturers"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "lecturerId",
+									"value": "[REQUIRED]"
+								}
+							]
+						},
+						"description": "Update a given lecturer if he is linked with a given director of studies."
+					},
+					"response": []
+				},
+				{
+					"name": "delete Lecturer",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/lecturers?token={{token}}&lecturerId=[REQUIRED]",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"lecturers"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "lecturerId",
+									"value": "[REQUIRED]"
+								}
+							]
+						},
+						"description": "Deletes a given lecturer if he is linked with a given director of studies."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "FieldsOfStudy",
+			"item": [
+				{
+					"name": "get FieldsOfStudy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/fieldsOfStudy?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"fieldsOfStudy"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "withMajorSubjects",
+									"value": "[REQUIRED]",
+									"description": "Optional parameter for filtering (Boolean)",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Get all FieldsOfStudy."
+					},
+					"response": []
+				},
+				{
+					"name": "create FieldOfStudy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Wirtschaftsinformatik\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/fieldsOfStudy?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"fieldsOfStudy"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Create a new FieldOfStudy."
+					},
+					"response": []
+				},
+				{
+					"name": "update FieldOfStudy",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Wirtschaftsinformatik\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/fieldsOfStudy?token={{token}}&fieldOfStudyId=[REQUIRED]",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"fieldsOfStudy"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "fieldOfStudyId",
+									"value": "[REQUIRED]"
+								}
+							]
+						},
+						"description": "Update a given Field of Study."
+					},
+					"response": []
+				},
+				{
+					"name": "delete FieldOfStudy",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/fieldsOfStudy?token={{token}}&fieldOfStudyId=[REQUIRED]",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"fieldsOfStudy"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "fieldOfStudyId",
+									"value": "[REQUIRED]"
+								}
+							]
+						},
+						"description": "Deletes a given Field of Study."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "MajorSubjects",
+			"item": [
+				{
+					"name": "get MajorSubjects",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/majorSubjects?token={{token}}&fieldOfStudyId=1",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"majorSubjects"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "fieldOfStudyId",
+									"value": "1",
+									"description": "Returns all major subjects for that field of study"
+								}
+							]
+						},
+						"description": "Get all major subjects to the given field of study."
+					},
+					"response": []
+				},
+				{
+					"name": "create MajorSubject",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"fieldOfStudy_id\": 1,\r\n    \"name\": \"Software Engineering\",\r\n    \"catalog_effective_from\": \"Gültig ab 2018\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/majorSubjects?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"majorSubjects"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Create a major subject and link it with the given field of study."
+					},
+					"response": []
+				},
+				{
+					"name": "update MajorSubject",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"fieldOfStudy_id\": 1,\r\n    \"name\": \"Software Engineering\",\r\n    \"catalog_effective_from\": \"Gültig ab 2018\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/majorSubjects?token={{token}}&majorSubjectId=[REQUIRED]",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"majorSubjects"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "majorSubjectId",
+									"value": "[REQUIRED]"
+								}
+							]
+						},
+						"description": "Update a given major subject linked with a given field of study."
+					},
+					"response": []
+				},
+				{
+					"name": "delete MajorSubject",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/majorSubjects?token={{token}}&majorSubjectId=[REQUIRED]",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"majorSubjects"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "majorSubjectId",
+									"value": "[REQUIRED]"
+								}
+							]
+						},
+						"description": "Deletes a given major subject."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Presentations",
+			"item": [
+				{
+					"name": "get Presentations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/presentations?token={{token}}&courseId=1",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"presentations"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "courseId",
+									"value": "1"
+								},
+								{
+									"key": "semesterId",
+									"value": "1",
+									"description": "Optional parameter for filtering",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Get all presentations connected to a given course."
+					},
+					"response": []
+				},
+				{
+					"name": "create Presentation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"lecture_id\": 1,\r\n\t\"lecturer_id\": 1,\r\n\t\"academicRecord_id\": 1,\r\n\t\"semester_id\": 1,\r\n\t\"course_id\": 1,\r\n\t\"status\": \"Dozent offen\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/presentations?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"presentations"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Create a presentation."
+					},
+					"response": []
+				},
+				{
+					"name": "update Presentation",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"lecture_id\": 1,\r\n\t\"lecturer_id\": 1,\r\n\t\"academicRecord_id\": 1,\r\n\t\"semester_id\": 1,\r\n\t\"course_id\": 1,\r\n\t\"status\": \"Dozent offen\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/presentations?token={{token}}&presentationId=[REQUIRED]",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"presentations"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "presentationId",
+									"value": "[REQUIRED]"
+								}
+							]
+						},
+						"description": "Update a given presentation."
+					},
+					"response": []
+				},
+				{
+					"name": "delete Presentation",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/presentations?token={{token}}&presentationId=[REQUIRED]",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"presentations"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "presentationId",
+									"value": "[REQUIRED]"
+								}
+							]
+						},
+						"description": "Deletes a given presentation."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Modulecatalog",
+			"item": [
+				{
+					"name": "get Modulecatalogs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/modulecatalog?token={{token}}&majorSubjectId=[REQUIRED]",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"modulecatalog"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "majorSubjectId",
+									"value": "[REQUIRED]",
+									"description": "Returns all modulecatalogs for majorSubjects"
+								}
+							]
+						},
+						"description": "Gets all modulecatalogs connected to a major subject."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "AcedemicRecords",
+			"item": [
+				{
+					"name": "get AcedemicRecords",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/academicRecords?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"academicRecords"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "withMajorSubjects",
+									"value": "[REQUIRED]",
+									"description": "Optional parameter for filtering (Boolean)",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Get all acedemic records."
+					},
+					"response": []
+				},
+				{
+					"name": "create AcademicRecord",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"abbreviation\": \"K\",\r\n    \"type\": \"Klausur\",\r\n    \"rated\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/academicRecords?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"academicRecords"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Create an academic record."
+					},
+					"response": []
+				},
+				{
+					"name": "update AcademicRecord",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"abbreviation\": \"K\",\r\n    \"type\": \"Klausur\",\r\n    \"rated\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/academicRecords?token={{token}}&academicRecordId=[REQUIRED]",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"academicRecords"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "academicRecordId",
+									"value": "[REQUIRED]"
+								}
+							]
+						},
+						"description": "Update a given academic record."
+					},
+					"response": []
+				},
+				{
+					"name": "delete AcademicRecord",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/academicRecords?token={{token}}&academicRecordId=[REQUIRED]",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"academicRecords"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "academicRecordId",
+									"value": "[REQUIRED]"
+								}
+							]
+						},
+						"description": "Deletes a given academic record."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "ModuleGroups",
+			"item": [
+				{
+					"name": "create ModuleGroup",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"majorSubject_id\": 1,\n    \"name\": \"Profil I\", \n    \"number_of_modules_to_attend\": 1, \n    \"from_semester_number\": 1, \n    \"to_semester_number\": 2,\n    \"Modules\": [\n    \t{\n    \t\t\"name\": \"Technische Grundlagen mobiler Applikationen\",\n    \t\t\"description\": \"Beschreibung hier einfügen...\",\n    \t\t\"ects\": 0, \n    \t\t\"catalog_id\": \"WWISE_1337\",\n    \t\t\"academicRecord_ids\": [1],\n    \t\t\"rated\": true, \n    \t\t\"number_of_lectures_to_attend\": 0, \n    \t\t\"requirements\": \"Keine\",\n    \t\t\"Lectures\":[\n    \t\t\t{\n    \t\t\t\t\"name\": \"Marketing\",\n    \t\t\t\t\"workload_home\": \"36 Stunden\",\n    \t\t\t\t\"workload_dhbw\": \"24 Stunden\",\n    \t\t\t\t\"catalog_id\": \"WWISE_301.2\",\n    \t\t\t\t\"mainFocus_ids\": [1]\n    \t\t\t}\n    \t\t]\n    \t}\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/moduleGroups?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"moduleGroups"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Create a module group and link it with the given major subject."
+					},
+					"response": []
+				},
+				{
+					"name": "update ModuleGroup",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"majorSubject_id\": 1,\n    \"name\": \"Profil I\", \n    \"number_of_modules_to_attend\": 1, \n    \"from_semester_number\": 1, \n    \"to_semester_number\": 2,\n    \"Modules\": [\n    \t{\n    \t\t\"name\": \"Technische Grundlagen mobiler Applikationen\",\n    \t\t\"description\": \"Beschreibung hier einfügen...\",\n    \t\t\"ects\": 0, \n    \t\t\"catalog_id\": \"WWISE_1337\",\n    \t\t\"academicRecord_ids\": [1,2],\n    \t\t\"rated\": true, \n    \t\t\"number_of_lectures_to_attend\": 0, \n    \t\t\"requirements\": \"Keine\",\n    \t\t\"Lectures\":[\n    \t\t\t{\n    \t\t\t\t\"name\": \"Marketing\",\n    \t\t\t\t\"workload_home\": \"36 Stunden\",\n    \t\t\t\t\"workload_dhbw\": \"24 Stunden\",\n    \t\t\t\t\"catalog_id\": \"WWISE_301.2\",\n    \t\t\t\t\"mainFocus_ids\": [1,2]\n    \t\t\t}\n    \t\t]\n    \t}\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/moduleGroups?token={{token}}&moduleGroupId=[REQUIRED]",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"moduleGroups"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "moduleGroupId",
+									"value": "[REQUIRED]"
+								}
+							]
+						},
+						"description": "Update a given module group."
+					},
+					"response": []
+				},
+				{
+					"name": "delete ModuleGroup",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/moduleGroups?token={{token}}&moduleGroupId=[REQUIRED]",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"moduleGroups"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "moduleGroupId",
+									"value": "[REQUIRED]"
+								}
+							]
+						},
+						"description": "Deletes a given module group."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
 }
