@@ -6,17 +6,21 @@ const { checkLecturerEditAuthorization } = require('../helpers/checkAuthorizatio
 const pdfService = require('../services/pdfService');
 const formidable = require('formidable');
 const fs = require('fs');
+const path = require('path');
 
 const PDF_CV_REL_PATH = pdfService.PDF_SUBFOLDER_PATHS.PATH_CVS;
 
 exports.getLecturerCV = async (req, res, next) => {
   const { lecturerId } = req.query;
   try {
-    const {cvv} = await lecturerService.getById(lecturerId);
-
-    res.setHeader('Content-disposition', 'inline; filename="' + cv + '.pdf"');
+    const lecturer = await lecturerService.findLecturerById(lecturerId);
+    if (!lecturer || !lecturer.cv) {
+      return responseHelper(res, 404, 'No Lecturer no Curriculum Vitae found for given id');
+    }
+    const cv = lecturer.cv;
+    res.setHeader('Content-disposition', 'inline; filename="' + cv + '"');
     res.setHeader('Content-type', 'application/pdf');
-    res.sendFile(__dirname + `/.${PDF_CV_REL_PATH}${lecturerId}.pdf`);
+    res.sendFile(path.join(__dirname, `/.${PDF_CV_REL_PATH}${lecturerId}.pdf`));
   } catch (error) {
     return errorResponseHelper(res, next, error);
   }
@@ -31,7 +35,7 @@ exports.putLecturerCV = async (req, res, next) => {
       throw new Error('You are not authorized to update this lecturer');
     }
 
-    var form = new formidable.IncomingForm({ uploadDir: `${PDF_CV_REL_PATH}` });
+    const form = formidable({ uploadDir: './pdfs/cv' });
     form.parse(req, function (err, fields, files) {
       if (err) throw err;
 

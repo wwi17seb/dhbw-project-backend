@@ -4,6 +4,9 @@ window.onload = function () {
   document.getElementById('submit').addEventListener('click', function () {
     submitForm();
   });
+
+  document.getElementById('token2').addEventListener('input', updateFormAction);
+  document.getElementById('lecturerId2').addEventListener('input', updateFormAction);
 };
 
 async function submitForm() {
@@ -42,4 +45,22 @@ async function _submit(data) {
   );
   const json = await response.json();
   console.log(json);
+  try {
+    const lecturerId = json.payload.lecturer_id;
+    document.getElementById("created-message").textContent = `created lecturer with id ${lecturerId}, see console for whole object`;
+    updateLecturerIdInputFields(lecturerId);
+  } catch (error) {}
+}
+
+function updateLecturerIdInputFields (lecturerId) {
+  document.getElementById("lecturerId2").value = lecturerId;
+  document.getElementById("lecturerId3").value = lecturerId;
+  updateFormAction();
+}
+
+function updateFormAction () {
+  const token = document.getElementById("token2").value;
+  const lecturerId = document.getElementById("lecturerId2").value;
+
+  document.getElementById("uploadForm").setAttribute("action", `/lecturerCV?lecturerId=${lecturerId}&token=${token}`)
 }

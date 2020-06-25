@@ -5,10 +5,6 @@ const db = require('../database/database');
 const copyObjectHelper = require('../helpers/propertyCopyHelper');
 const { checkLecturerEditAuthorization } = require('../helpers/checkAuthorizationHelper');
 const pdfService = require('../services/pdfService');
-const formidable = require('formidable');
-const fs = require('fs');
-
-const PDF_CV_REL_PATH = pdfService.PDF_SUBFOLDER_PATHS.PATH_CVS;
 
 exports.getLecturers = async (req, res, next) => {
   // TODO: add filter methods

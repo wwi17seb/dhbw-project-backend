@@ -3,9 +3,6 @@
 - [GET /lecturers](#get-lecturers)
   - [Rückgabe - GET /lecturers](#rückgabe---get-lecturers)
   - [Attribute der Anfrage - GET /lecturers](#attribute-der-anfrage---get-lecturers)
-- [GET /lecturerCV?lecturerId={ID}](#get-lecturercvlectureridid)
-  - [Rückgabe - GET /lecturerCV?lecturerId={ID}](#rückgabe---get-lecturercvlectureridid)
-  - [Attribute der Anfrage - GET /lecturerCV?lecturerId={ID}](#attribute-der-anfrage---get-lecturercvlectureridid)
 - [POST /lecturers](#post-lecturers)
   - [Body der Anfrage - POST /lecturers](#body-der-anfrage---post-lecturers)
   - [Attribute der Anfrage - POST /lecturers](#attribute-der-anfrage---post-lecturers)
@@ -16,6 +13,11 @@
   - [Rückgabe - PUT /lecturers?lecturerId={ID}](#rückgabe---put-lecturerslectureridid)
 - [DELETE /lecturers?lecturerId={ID}](#delete-lecturerslectureridid)
   - [Rückgabe - DELETE /lecturers?lecturerId={ID}](#rückgabe---delete-lecturerslectureridid)
+- [/lecturerCV](#lecturercv)
+  - [GET /lecturerCV?lecturerId={ID}](#get-lecturercvlectureridid)
+  - [DEPRECATED - POST /lecturerCV?lecturerId={ID}](#deprecated---post-lecturercvlectureridid)
+  - [PUT /lecturerCV?lecturerId={ID}](#put-lecturercvlectureridid)
+  - [DELETE /lecturerCV?lecturerId={ID}](#delete-lecturercvlectureridid)
 
 ## GET /lecturers
 
@@ -37,7 +39,7 @@
                 "salutation": "[ANREDE]",
                 "phonenumber": "[TELEFONNUMMER]",
                 "experience": "[ERFAHRUNG]",
-                "cv": true,
+                "cv": "[DATEINAME]",
                 "comment": "[KOMMENTAR]",
                 "is_extern": true,
                 "allow_manipulation": true,
@@ -73,7 +75,7 @@
 | `___salutation`              | "Herr"                                   | Anrede des Dozierenden                                                                                           |
 | `___phonenumber`             | "+49 621 4105 - 1724"                    | Telefonnummer des Dozierenden                                                                                    |
 | `___experience`              | "Mathematik, Podcasts, ..."              | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
-| `___cv`                      | true                                     | Gibt an, ob ein Lebenslauf vorliegt                                                                              |
+| `___cv`                      | "dutzint.pdf"                            | Gibt den Namen der PDF-Datei an                                                                                  |
 | `___comment`                 | "Sehr engagiert"                         | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
 | `___is_extern`               | false                                    | Gibt an, ob ein Dozent extern ist - false = intern, true = extern                                                |
 | `___allow_manipulation`      | true                                     | Gibt an, ob ein Dozent von **allen** Studiengangsleitern bearbeitbar ist                                         |
@@ -82,30 +84,6 @@
 | `______directorOfStudies_id` | 1                                        | Eindeutiger Bezeichner eines Studiengangleiters                                                                  |
 | `______username`             | "jreichwald"                             | Nutzername des Studiengangleiters                                                                                |
 | `______name`                 | "Software Engineering"                   | Name des Schwerpunktes                                                                                           |
-
-## GET /lecturerCV?lecturerId={ID}
-
-**Info**: Gibt alle Dozenten zurück.
-
-### Rückgabe - GET /lecturerCV?lecturerId={ID}
-
-TODO: wird gerade geändert
-
-
-```json
-{
-    "message": "Successful",
-    "payload": {
-        "cv": "[UTF-8_STRING]"
-    }
-}
-```
-
-### Attribute der Anfrage - GET /lecturerCV?lecturerId={ID}
-
-| Attribut | Beispielwert | Erklärung                  |
-| -------- | ------------ | -------------------------- |
-| `cv`     | null         | UTF-8-String der PDF-Datei |
 
 ## POST /lecturers
 
@@ -228,3 +206,33 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
   "message": "Successfully deleted",
   "payload": true
 ```
+
+## /lecturerCV
+
+### GET /lecturerCV?lecturerId={ID}
+
+**Info**: Gibt den Lebenslauf als PDF zu dem angegebenen Dozent zurück.
+
+### DEPRECATED - POST /lecturerCV?lecturerId={ID}
+
+**Info**: Diese Route steht nur zur Verfügung, da es beim Testen schwierig sein kann, ein HTML-Form über PUT abzuschicken.
+Bevorzugt sollte jedoch die folgende [`PUT`-Route](#put-lecturercvlectureridid) genutzt werden (Implementierung ist dieselbe).
+
+### PUT /lecturerCV?lecturerId={ID}
+
+**Info**: Lädt den Lebenslauf zum angegebenen Dozent hoch.
+Die Anfrage muss die Form-Data beinhalten.
+Für weitere Details gibt es Dokus/Tutorials/Beispiele:
+
+- [React File Upload](https://programmingwithmosh.com/javascript/react-file-upload-proper-server-side-nodejs-easy/)
+- [MDN - File Upload through JavaScript](https://developer.mozilla.org/en-US/docs/Learn/Forms/Sending_forms_through_JavaScript#Dealing_with_binary_data)
+- eigenes Beispiel - Server muss gestartet sein:
+  - für Back-End: [http://localhost:3000/testpdfupload.html](http://localhost:3000/testpdfupload.html)
+  - für Front-End: [https://localhost/api/testpdfupload.html](https://localhost/api/testpdfupload.html)
+  - [Quellcode](../../tests/testPdfUpload.html)
+
+Ansonten einfach fragen.
+
+### DELETE /lecturerCV?lecturerId={ID}
+
+**Info**: Löscht den Lebenslauf zum angegebenen Dozenten.

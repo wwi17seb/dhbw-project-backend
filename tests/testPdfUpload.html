@@ -45,12 +45,39 @@
 
     <br><br><button type="button" id="submit">Create Lecturer</button>
 
-    <h1>Plain HTML Form with File Upload</h1>
-    <form action="/lecturerCV?lecturerId=1&token=eyJpe0JEKTAiOjAsImFsZyI6IkhTMjU2IiwidHlwIjoiSldUIn0.eyJ1c2VybmFtZSI6ImFkbWluIiwiZGlyZWN0b3JPZlN0dWRpZXNfaWQiOjEsImlhdCI6MTU5MjE3NjQ4MCwiZXhwIjoxNTk4MTM4MDgwfQ.CFzby-2_Q6h-_LsP_dP7IIzyL5ozu_UdV-dzyJdnQAk" enctype="multipart/form-data" method="post">
+    <p id="created-message"></p>
+
+    <h1>Upload CV for Lecturer</h1>
+    <small>Plain HTML Form with File Upload</small><br><br>
+    <label for="token2">token</label>
+    <input type="text" name="token" id="token2"
+        value="eyJpe0JEKTAiOjAsImFsZyI6IkhTMjU2IiwidHlwIjoiSldUIn0.eyJ1c2VybmFtZSI6ImFkbWluIiwiZGlyZWN0b3JPZlN0dWRpZXNfaWQiOjEsImlhdCI6MTU5MjE3NjQ4MCwiZXhwIjoxNTk4MTM4MDgwfQ.CFzby-2_Q6h-_LsP_dP7IIzyL5ozu_UdV-dzyJdnQAk" />
+
+    <label for="lecturerId2">lecturerId</label>
+    <input type="text" name="lecturerId" id="lecturerId2" value="1" />
+    <br><br>
+    <form id="uploadForm"
+        action="/lecturerCV?lecturerId=1&token=eyJpe0JEKTAiOjAsImFsZyI6IkhTMjU2IiwidHlwIjoiSldUIn0.eyJ1c2VybmFtZSI6ImFkbWluIiwiZGlyZWN0b3JPZlN0dWRpZXNfaWQiOjEsImlhdCI6MTU5MjE3NjQ4MCwiZXhwIjoxNTk4MTM4MDgwfQ.CFzby-2_Q6h-_LsP_dP7IIzyL5ozu_UdV-dzyJdnQAk"
+        method="post"
+        enctype="multipart/form-data">
+        <input type="hidden" name="_method" value="put" />
+
         <label for="form-cv">File Upload</label>
         <input type="file" id="form-cv" name="cv">
 
         <input type="submit" value="Upload">
+    </form>
+
+    <h1>View CV of Lecturer</h1>
+    <form action="/lecturerCV" method="get" target="_blank">
+        <label for="token3">token</label>
+        <input type="text" name="token" id="token3"
+            value="eyJpe0JEKTAiOjAsImFsZyI6IkhTMjU2IiwidHlwIjoiSldUIn0.eyJ1c2VybmFtZSI6ImFkbWluIiwiZGlyZWN0b3JPZlN0dWRpZXNfaWQiOjEsImlhdCI6MTU5MjE3NjQ4MCwiZXhwIjoxNTk4MTM4MDgwfQ.CFzby-2_Q6h-_LsP_dP7IIzyL5ozu_UdV-dzyJdnQAk" />
+
+        <label for="lecturerId3">lecturerId</label>
+        <input type="text" name="lecturerId" id="lecturerId3" value="1" />
+
+        <br><br><input type="submit" value="Download/View PDF">
     </form>
 </body>
 
