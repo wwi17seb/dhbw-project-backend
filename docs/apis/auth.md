@@ -1,10 +1,15 @@
 # Authentifizierung <!-- omit in toc -->
 
-- [[DEPRECATED] POST /signup](#deprecated-post-signup)
+- [DEPRECATED - POST /signup](#deprecated---post-signup)
   - [Body der Anfrage - POST /signup](#body-der-anfrage---post-signup)
   - [Attribute der Anfrage - POST /signup](#attribute-der-anfrage---post-signup)
   - [Rückgabe - POST /signup](#rückgabe---post-signup)
   - [Attribute der Rückgabe - POST /signup](#attribute-der-rückgabe---post-signup)
+- [POST /register](#post-register)
+  - [Body der Anfrage - POST /register](#body-der-anfrage---post-register)
+  - [Attribute der Anfrage - POST /register](#attribute-der-anfrage---post-register)
+  - [Rückgabe - POST /register](#rückgabe---post-register)
+  - [Attribute der Rückgabe - POST /register](#attribute-der-rückgabe---post-register)
 - [POST /login](#post-login)
   - [Body der Anfrage - POST /login](#body-der-anfrage---post-login)
   - [Attribute der Anfrage - POST /login](#attribute-der-anfrage---post-login)
@@ -12,10 +17,11 @@
   - [Attribute der Rückgabe - POST /login](#attribute-der-rückgabe---post-login)
 - [POST /logout](#post-logout)
 
-## [DEPRECATED] POST /signup
+## DEPRECATED - POST /signup
 
 **Info**: Diese Route wird bald nicht mehr in dieser Form verfügbar sein, da eine selbstständige Registierung nicht ohne Weiteres möglich sein sollte.
 Für diese Route ist keine Authentifizierung (d. h. kein Token in der URL) notwendig.
+Bitte stattdessen die Route [`/register`](#post-register) nutzen.
 
 ### Body der Anfrage - POST /signup
 

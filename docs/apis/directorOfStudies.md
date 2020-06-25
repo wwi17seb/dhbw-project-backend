@@ -1,11 +1,11 @@
-# User Routen  <!-- omit in toc -->
+# Studiengangsleiter-Routen  <!-- omit in toc -->
 
 - [PUT /changePassword?directorOfStudiesId={ID}](#put-changepassworddirectorofstudiesidid)
   - [Body der Anfrage - PUT /changePassword?directorOfStudiesId={ID}](#body-der-anfrage---put-changepassworddirectorofstudiesidid)
   - [Attribute der Anfrage - PUT /changePassword?directorOfStudiesId={ID}](#attribute-der-anfrage---put-changepassworddirectorofstudiesidid)
   - [Rückgabe - PUT /changePassword?directorOfStudiesId={ID}](#rückgabe---put-changepassworddirectorofstudiesidid)
-- [GET /directorOfStudies?directorOfStudiesId={ID}](#get-directorofstudiesdirectorofstudiesidid)
-  - [Rückgabe - GET /directorOfStudies?directorOfStudiesId={ID}](#rückgabe---get-directorofstudiesdirectorofstudiesidid)
+- [GET /directorOfStudies](#get-directorofstudies)
+  - [Rückgabe - GET /directorOfStudies](#rückgabe---get-directorofstudies)
   - [Attribute der Rückgabe - GET /directorOfStudies](#attribute-der-rückgabe---get-directorofstudies)
 - [PUT /directorOfStudies](#put-directorofstudies)
   - [Body der Anfrage - PUT /directorOfStudies](#body-der-anfrage---put-directorofstudies)
