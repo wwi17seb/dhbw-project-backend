@@ -91,6 +91,10 @@
 									"",
 									"if (pm.response.json().payload && pm.response.json().payload.token) {",
 									"    pm.environment.set(\"token\", pm.response.json().payload.token);",
+									"}",
+									"",
+									"if (pm.response.json().payload && pm.response.json().payload.directorOfStudies_id) {",
+									"    pm.environment.set(\"directorOfStudies_id\", pm.response.json().payload.directorOfStudies_id);",
 									"}"
 								],
 								"type": "text/javascript"
@@ -261,7 +265,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Wirtschaftsinformatik\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Wirtschaftsinformatik\"\r\n}\r\n\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -317,7 +321,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{backend}}/majorSubjects?token={{token}}&fieldOfStudyId=1",
+							"raw": "{{backend}}/majorSubjects?token={{token}}&fieldOfStudyId={{fieldOfStudy_id}}",
 							"host": [
 								"{{backend}}"
 							],
@@ -331,7 +335,7 @@
 								},
 								{
 									"key": "fieldOfStudyId",
-									"value": "1",
+									"value": "{{fieldOfStudy_id}}",
 									"description": "Returns all major subjects for that field of study"
 								}
 							]
@@ -372,7 +376,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"fieldOfStudy_id\": 1, \r\n    \"name\": \"Software Engineering\",\r\n    \"catalog_effective_from\": \"Gültig ab 2018\"\r\n}",
+							"raw": "{\r\n\t\"fieldOfStudy_id\": {{fieldOfStudy_id}}, \r\n    \"name\": \"Software Engineering\",\r\n    \"catalog_effective_from\": \"Gültig ab 2018\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -421,7 +425,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"fieldOfStudy_id\": 1,\r\n    \"name\": \"Software Engineering\",\r\n    \"catalog_effective_from\": \"Gültig ab 2019\"\r\n}",
+							"raw": "{\r\n\t\"fieldOfStudy_id\": {{fieldOfStudy_id}},\r\n    \"name\": \"Software Engineering\",\r\n    \"catalog_effective_from\": \"Gültig ab 2019\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -789,6 +793,14 @@
 									"if (pm.response.json().payload && pm.response.json().payload.moduleGroup_id) {",
 									"    pm.environment.set(\"moduleGroup_id\", pm.response.json().payload.moduleGroup_id);",
 									"}",
+									"",
+									"if (pm.response.json().payload && pm.response.json().payload.Modules[0].Lectures[0].lecture_id) {",
+									"    pm.environment.set(\"lecture_id\", pm.response.json().payload.Modules[0].Lectures[0].lecture_id);",
+									"}",
+									"",
+									"if (pm.response.json().payload && pm.response.json().payload.Modules[0].module_id) {",
+									"    pm.environment.set(\"module_id\", pm.response.json().payload.Modules[0].Lectures[0].module_id);",
+									"}",
 									""
 								],
 								"type": "text/javascript"
@@ -807,7 +819,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"majorSubject_id\": 1,\n    \"name\": \"Profil I\", \n    \"number_of_modules_to_attend\": 1, \n    \"from_semester_number\": 1, \n    \"to_semester_number\": 2,\n    \"Modules\": [\n    \t{\n    \t\t\"name\": \"Technische Grundlagen mobiler Applikationen\",\n    \t\t\"description\": \"Beschreibung hier einfügen...\",\n    \t\t\"ects\": 0, \n    \t\t\"catalog_id\": \"WWISE_1337\",\n    \t\t\"academicRecord_ids\": [1],\n    \t\t\"number_of_lectures_to_attend\": 0, \n    \t\t\"requirements\": \"Keine\",\n    \t\t\"Lectures\":[\n    \t\t\t{\n    \t\t\t\t\"name\": \"Marketing\",\n    \t\t\t\t\"workload_home\": \"36 Stunden\",\n    \t\t\t\t\"workload_dhbw\": \"24 Stunden\",\n    \t\t\t\t\"catalog_id\": \"WWISE_301.2\",\n    \t\t\t\t\"mainFocus_ids\": [1]\n    \t\t\t}\n    \t\t]\n    \t}\n    ]\n}",
+							"raw": "{\n    \"majorSubject_id\": {{majorSubject_id}},\n    \"name\": \"Profil I\", \n    \"number_of_modules_to_attend\": 1, \n    \"from_semester_number\": 1, \n    \"to_semester_number\": 2,\n    \"Modules\": [\n    \t{\n    \t\t\"name\": \"Technische Grundlagen mobiler Applikationen\",\n    \t\t\"description\": \"Beschreibung hier einfügen...\",\n    \t\t\"ects\": 0, \n    \t\t\"catalog_id\": \"WWISE_1337\",\n    \t\t\"academicRecord_ids\": [{{academicRecord_id}}],\n    \t\t\"number_of_lectures_to_attend\": 0, \n    \t\t\"requirements\": \"Keine\",\n    \t\t\"Lectures\":[\n    \t\t\t{\n    \t\t\t\t\"name\": \"Marketing\",\n    \t\t\t\t\"workload_home\": \"36 Stunden\",\n    \t\t\t\t\"workload_dhbw\": \"24 Stunden\",\n    \t\t\t\t\"catalog_id\": \"WWISE_301.2\",\n    \t\t\t\t\"mainFocus_ids\": [{{mainFocus_id}}]\n    \t\t\t}\n    \t\t]\n    \t}\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -854,7 +866,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"majorSubject_id\": 1,\n    \"name\": \"Profil I\", \n    \"number_of_modules_to_attend\": 1, \n    \"from_semester_number\": 1, \n    \"to_semester_number\": 2,\n    \"Modules\": [\n    \t{\n    \t\t\"name\": \"Technische Grundlagen mobiler Applikationen\",\n    \t\t\"description\": \"Beschreibung hier einfügen...\",\n    \t\t\"ects\": 0, \n    \t\t\"catalog_id\": \"WWISE_1337\",\n    \t\t\"academicRecord_ids\": [1],\n    \t\t\"number_of_lectures_to_attend\": 0, \n    \t\t\"requirements\": \"Keine\",\n    \t\t\"Lectures\":[\n    \t\t\t{\n    \t\t\t\t\"name\": \"Marketing\",\n    \t\t\t\t\"workload_home\": \"36 Stunden\",\n    \t\t\t\t\"workload_dhbw\": \"24 Stunden\",\n    \t\t\t\t\"catalog_id\": \"WWISE_301.2\",\n    \t\t\t\t\"mainFocus_ids\": [1]\n    \t\t\t}\n    \t\t]\n    \t}\n    ]\n}",
+							"raw": "{\n    \"majorSubject_id\": {{majorSubject_id}},\n    \"name\": \"Profil I\", \n    \"number_of_modules_to_attend\": 1, \n    \"from_semester_number\": 1, \n    \"to_semester_number\": 2,\n    \"Modules\": [\n    \t{\n    \t\t\"module_id\": {{module_id}},\n    \t\t\"name\": \"Technische Grundlagen mobiler Applikationen\",\n    \t\t\"description\": \"Ein tolles Fach im Coputerraum!\",\n    \t\t\"ects\": 0, \n    \t\t\"catalog_id\": \"WWISE_1337\",\n    \t\t\"academicRecord_ids\": [{{academicRecord_id}}],\n    \t\t\"number_of_lectures_to_attend\": 0, \n    \t\t\"requirements\": \"Keine\",\n    \t\t\"Lectures\":[\n    \t\t\t{\n    \t\t\t\t\"lecture_id\": {{lecture_id}}, \n    \t\t\t\t\"name\": \"Marketing\",\n    \t\t\t\t\"workload_home\": \"36 Stunden\",\n    \t\t\t\t\"workload_dhbw\": \"24 Stunden\",\n    \t\t\t\t\"catalog_id\": \"WWISE_301.2\",\n    \t\t\t\t\"mainFocus_ids\": [{{mainFocus_id}}]\n    \t\t\t}\n    \t\t]\n    \t}\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -960,7 +972,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"WWI 17 SEB\",\r\n    \"google_calendar_id\": \"iq90i34lq6v196rqs4986dp370@group.calendar.google.com\",\r\n    \"majorSubject_id\": 1,\r\n    \"directorOfStudies_ids\": [1],\r\n    \"Semesters\": [\r\n        {\r\n            \"name\": \"WS17/18\",\r\n            \"number\": 1,\r\n            \"start_date\": \"2017-10-23\",\r\n            \"end_date\": \"2018-02-19\"\r\n        },\r\n        {\r\n            \"name\": \"SS18\",\r\n            \"number\": 2,\r\n            \"start_date\": \"2018-05-07\",\r\n            \"end_date\": \"2018-08-03\"\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"name\": \"WWI 17 SEB\",\r\n    \"google_calendar_id\": \"iq90i34lq6v196rqs4986dp370@group.calendar.google.com\",\r\n    \"majorSubject_id\": {{majorSubject_id}},\r\n    \"directorOfStudies_ids\": [{{directorOfStudies_id}}],\r\n    \"Semesters\": [\r\n        {\r\n            \"name\": \"WS17/18\",\r\n            \"number\": 1,\r\n            \"start_date\": \"2017-10-23\",\r\n            \"end_date\": \"2018-02-19\"\r\n        },\r\n        {\r\n            \"name\": \"SS18\",\r\n            \"number\": 2,\r\n            \"start_date\": \"2018-05-07\",\r\n            \"end_date\": \"2018-08-03\"\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1007,7 +1019,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"WWI 17 SE B\",\r\n    \"google_calendar_id\": \"iq90i34lq6v196rqs4986dp370@group.calendar.google.com\",\r\n    \"majorSubject_id\": 1,\r\n    \"directorOfStudies_ids\": [1,2]\r\n}",
+							"raw": "{\r\n    \"name\": \"WWI 17 SE B\",\r\n    \"google_calendar_id\": \"iq90i34lq6v196rqs4986dp370@group.calendar.google.com\",\r\n    \"majorSubject_id\": {{majorSubject_id}},\r\n    \"directorOfStudies_ids\": [{{directorOfStudies_id}}]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1075,7 +1087,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"course_id\": 1,\r\n\t\"name\": \"SS18\", \r\n\t\"number\": 0, \r\n\t\"start_date\": \"2018-05-07\",\r\n\t\"end_date\": \"2018-08-03\"\r\n}",
+							"raw": "{\r\n    \"course_id\": {{course_id}},\r\n\t\"name\": \"SS18\", \r\n\t\"number\": 0, \r\n\t\"start_date\": \"2018-05-07\",\r\n\t\"end_date\": \"2018-08-03\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1122,7 +1134,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"course_id\": 1,\r\n    \"name\": \"SS18\",\r\n    \"number\": 0,\r\n    \"start_date\": \"2019-05-07\",\r\n    \"end_date\": \"2019-08-03\"\r\n}",
+							"raw": "{\r\n\t\"course_id\": {{course_id}},\r\n    \"name\": \"SS18\",\r\n    \"number\": 0,\r\n    \"start_date\": \"2019-05-07\",\r\n    \"end_date\": \"2019-08-03\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1259,7 +1271,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstname\": \"Sebastian\",\n    \"lastname\": \"Ritterbusch\",\n    \"academic_title\": \"Prof. Dr.\",\n    \"email\": \"sebastian.ritterbusch@dhbw-mannheim.de\",\n    \"salutation\": \"Herr\",\n    \"phonenumber\": \"+49 621 4105 - 1724\",\n    \"experience\": \"Mathematik, Podcasts\",\n    \"mainFocus_ids\": [1],\n    \"profile\": \"...\",\n    \"research\": \"...\",\n    \"cv\": \"...\",\n    \"comment\": \"sehr engagiert\",\n    \"is_extern\": true\n}",
+							"raw": "{\n    \"firstname\": \"Sebastian\",\n    \"lastname\": \"Ritterbusch\",\n    \"academic_title\": \"Prof. Dr.\",\n    \"email\": \"sebastian.ritterbusch@dhbw-mannheim.de\",\n    \"salutation\": \"Herr\",\n    \"phonenumber\": \"+49 621 4105 - 1724\",\n    \"experience\": \"Mathematik, Podcasts\",\n    \"mainFocus_ids\": [{{mainFocus_id}}],\n    \"profile\": \"...\",\n    \"research\": \"...\",\n    \"cv\": \"...\",\n    \"comment\": \"sehr engagiert\",\n    \"is_extern\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1306,7 +1318,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstname\": \"Sebastian\",\n    \"lastname\": \"Ritterbusch\",\n    \"academic_title\": \"Prof. Dr.\",\n    \"email\": \"sebastian.ritterbusch@dhbw-mannheim.de\",\n    \"salutation\": \"Herr\",\n    \"phonenumber\": \"+49 621 4105 - 1724\",\n    \"experience\": \"Mathematik, Podcasts\",\n    \"mainFocus_ids\": [1],\n    \"profile\": \"...\",\n    \"research\": \"...\",\n    \"cv\": \"...\",\n    \"comment\": \"sehr engagiert\",\n    \"is_extern\": true\n}",
+							"raw": "{\n    \"firstname\": \"Sebastian\",\n    \"lastname\": \"Ritterbusch\",\n    \"academic_title\": \"Prof. Dr.\",\n    \"email\": \"sebastian.ritterbusch@dhbw-mannheim.de\",\n    \"salutation\": \"Herr\",\n    \"phonenumber\": \"+49 621 4105 - 1724\",\n    \"experience\": \"Mathematik, Podcasts\",\n    \"mainFocus_ids\": [{{mainFocus_id}}],\n    \"profile\": \"...\",\n    \"research\": \"...\",\n    \"cv\": \"...\",\n    \"comment\": \"sehr engagiert\",\n    \"is_extern\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1362,7 +1374,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{backend}}/presentations?token={{token}}&courseId=1",
+							"raw": "{{backend}}/presentations?token={{token}}&courseId={{course_id}}",
 							"host": [
 								"{{backend}}"
 							],
@@ -1375,14 +1387,14 @@
 									"value": "{{token}}"
 								},
 								{
-									"key": "courseId",
-									"value": "1"
-								},
-								{
 									"key": "semesterId",
 									"value": "1",
 									"description": "Optional parameter for filtering",
 									"disabled": true
+								},
+								{
+									"key": "courseId",
+									"value": "{{course_id}}"
 								}
 							]
 						},
@@ -1422,7 +1434,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"lecture_id\": 2, \r\n\t\"lecturer_id\": 1, \r\n\t\"academicRecord_id\": 1, \r\n\t\"semester_id\": 1, \r\n\t\"course_id\": 1, \r\n\t\"status\": \"Dozent offen\"\r\n}",
+							"raw": "{\r\n\t\"lecture_id\": {{lecture_id}}, \r\n\t\"lecturer_id\": {{lecturer_id}}, \r\n\t\"academicRecord_id\": {{academicRecord_id}}, \r\n\t\"semester_id\": {{semester_id}}, \r\n\t\"course_id\": {{course_id}}, \r\n\t\"status\": \"Dozent offen\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1469,7 +1481,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"lecture_id\": 2,\r\n\t\"lecturer_id\": 1,\r\n\t\"academicRecord_id\": 1,\r\n\t\"semester_id\": 1,\r\n\t\"course_id\": 1,\r\n\t\"status\": \"Dozent offen\"\r\n}",
+							"raw": "{\r\n\t\"lecture_id\": {{lecture_id}}, \r\n\t\"lecturer_id\": {{lecturer_id}}, \r\n\t\"academicRecord_id\": {{academicRecord_id}}, \r\n\t\"semester_id\": {{semester_id}}, \r\n\t\"course_id\": {{course_id}}, \r\n\t\"status\": \"Dozent gefunden\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
