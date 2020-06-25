@@ -15,11 +15,11 @@
 - [DELETE /presentations?presentationId={ID}](#delete-presentationspresentationidid)
   - [Rückgabe - DELETE /presentations?presentationId={ID}](#rückgabe---delete-presentationspresentationidid)
 
-## GET /presentations?courseId={ID}?lecturerId={ID}
+## GET /presentations
 
-**Info**: Gibt alle **konkreten** Vorlesungen (inkl. der noch in Planung befindlichen) zurück. Über `courseId` wird dies auf einen Kurs beschränkt und über 
-`lecturerId` können alle **konkreten** Vorlesungen eines Dozenten gefunden werden. 
-Es müssen entweder `courseId` oder `lecturerId` angegeben werden. Es können nicht beide Filter gleichzeitig verwendet werden.
+**Info**: Gibt alle **konkreten** Vorlesungen (inkl. der noch in Planung befindlichen) zurück. Über `courseId` wird dies auf einen Kurs beschränkt und über `lecturerId` können alle **konkreten** Vorlesungen eines Dozenten gefunden werden. 
+Es müssen entweder `courseId` oder `lecturerId` angegeben werden. Es können nicht beide Filter gleichzeitig verwendet werden. 
+Über die `courseId` werden nur Vorlesungen eines bestimmten Kurses zurückgegeben und über`lecturerId`werden Vorlesungen anhand des Dozenten gefiltert.
 Das Filtern nach `courseId` funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom angegebenen Kurs ist (er muss die konkreten Vorlesungen nicht zwingend erstellt haben).
 
 ### Rückgabe - GET /presentations?courseId={ID}
@@ -232,7 +232,6 @@ Das Filtern nach `courseId` funktioniert nur, wenn der angemeldete DoS auch Stud
 - `semesterId`
   - filtert die Rückgabe.
   - gibt alle Presentations zum angegebenen Kurs&Semester zurück.
-
 
 ## POST /presentations
 

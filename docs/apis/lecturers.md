@@ -37,7 +37,7 @@
         "cv": "[VITA]",
         "comment": "[KOMMENTAR]",
         "is_extern": true,
-        "possibleLecture": "[Vorlesungen]",
+        "possibleLectures": "[Vorlesungen]",
         "createdAt": "[DATUM]",
         "updatedAt": "[DATUM]",
         "createdBy_id": 0,
@@ -73,7 +73,7 @@
 | `___cv`                      | ""                                       | zur Zeit nur als string möglich; wird angepasst und nachgereicht                                                 |
 | `___comment`                 | "Sehr engagiert"                         | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
 | `___is_extern`               | false                                    | Gibt an, ob ein Dozent extern ist - false = intern, true = extern                                                |
-| `___possibleLecture`         | "Datenbanken"                            | Freitext der angibt, welche Vorlesungen von dem Dozenten gehalten werden können                                  |
+| `___possibleLectures`         | "Datenbanken, Methoden der WI"                            | Freitext, speichert potentielle Vorlesungen als String                                  |
 | `___createdBy_id`            | 1                                        | ID des Studiengangsleiters, der diesen Dozenten angelegt hat                                                     |
 | `___DirectorOfStudies`       | { }                                      | Objekt eines Studiengangleiters                                                                                  |
 | `______directorOfStudies_id` | 1                                        | Eindeutiger Bezeichner eines Studiengangleiters                                                                  |
@@ -99,7 +99,7 @@
   "cv": "[VITA]",
   "comment": "[KOMMENTAR]",
   "is_extern": true,
-  "possibleLecture": "[Vorlesungen]"
+  "possibleLectures": "[Vorlesungen]"
 }
 ```
 
@@ -118,7 +118,7 @@
 | `cv`              | nein     | ""                                       | zur Zeit nur als string möglich; wird angepasst und nachgereicht                                                 |
 | `comment`         | nein     | "Sehr engagiert"                         | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
 | `is_extern`       | ja       | true                                     | Gibt an, ob ein Dozent extern ist - false = intern, true = extern                                                |
-| `possibleLecture` | nein     | "Datenbanken"                            | Freitext der angibt, welche Vorlesungen von dem Dozenten gehalten werden können                                  |
+| `possibleLectures` | nein     | "Datenbanken, Methoden der WI"                            | Freitext, speichert potentielle Vorlesungen als String                                  |
 
 ### Rückgabe - POST /lecturers
 
@@ -137,7 +137,7 @@
     "cv": "[VITA]",
     "comment": "[KOMMENTAR]",
     "is_extern": true,
-    "possibleLecture": "[Vorlesungen]",
+    "possibleLectures": "[Vorlesungen]",
     "createdBy_id": 0,
     "updatedAt": "[DATUM]",
     "createdAt": "[DATUM]"
@@ -165,7 +165,7 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
   "cv": "[VITA]",
   "comment": "[KOMMENTAR]",
   "is_extern": true,
-  "possibleLecture": "[Vorlesungen]"
+  "possibleLectures": "[Vorlesungen]"
 }
 ```
 
@@ -184,7 +184,7 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
 | `cv`              | nein     | ""                                       | zur Zeit nur als string möglich; wird angepasst und nachgereicht                                                 |
 | `comment`         | nein     | "Sehr engagiert"                         | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
 | `is_extern`       | ja       | true                                     | Gibt an, ob ein Dozent extern ist - false = intern, true = extern                                                |
-| `possibleLecture` | nein     | "Datenbanken"                            | Freitext der angibt, welche Vorlesungen von dem Dozenten gehalten werden können                                  |
+| `possibleLectures` | nein     | "Datenbanken, Methoden der WI"                            | Freitext, speichert potentielle Vorlesungen als String                                    |
 
 ### Rückgabe - PUT /lecturers?lecturerId={ID}
 

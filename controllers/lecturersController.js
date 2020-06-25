@@ -34,7 +34,7 @@ exports.postLecturers = async (req, res, next) => {
     'comment',
     'is_extern',
     'mainFocus_ids',
-    'possibleLecture',
+    'possibleLectures',
   ]);
 
   try {
@@ -66,7 +66,7 @@ exports.putLecturers = async (req, res, next) => {
     'comment',
     'is_extern',
     'mainFocus_ids',
-    'possibleLecture',
+    'possibleLectures',
   ]);
 
   try {
