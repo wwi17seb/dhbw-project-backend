@@ -819,7 +819,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"majorSubject_id\": {{majorSubject_id}},\n    \"name\": \"Profil I\", \n    \"number_of_modules_to_attend\": 1, \n    \"from_semester_number\": 1, \n    \"to_semester_number\": 2,\n    \"Modules\": [\n    \t{\n    \t\t\"name\": \"Technische Grundlagen mobiler Applikationen\",\n    \t\t\"description\": \"Beschreibung hier einfügen...\",\n    \t\t\"ects\": 0, \n    \t\t\"catalog_id\": \"WWISE_1337\",\n    \t\t\"academicRecord_ids\": [{{academicRecord_id}}],\n    \t\t\"number_of_lectures_to_attend\": 0, \n    \t\t\"requirements\": \"Keine\",\n    \t\t\"Lectures\":[\n    \t\t\t{\n    \t\t\t\t\"name\": \"Marketing\",\n    \t\t\t\t\"workload_home\": \"36 Stunden\",\n    \t\t\t\t\"workload_dhbw\": \"24 Stunden\",\n    \t\t\t\t\"catalog_id\": \"WWISE_301.2\",\n    \t\t\t\t\"mainFocus_ids\": [{{mainFocus_id}}]\n    \t\t\t}\n    \t\t]\n    \t}\n    ]\n}",
+							"raw": "{\n    \"majorSubject_id\": {{majorSubject_id}},\n    \"name\": \"Profil I\", \n    \"number_of_modules_to_attend\": 1, \n    \"from_semester_number\": 1, \n    \"to_semester_number\": 2,\n    \"Modules\": [\n    \t{\n    \t\t\"name\": \"Technische Grundlagen mobiler Applikationen\",\n    \t\t\"description\": \"Beschreibung hier einfügen...\",\n    \t\t\"ects\": 0, \n    \t\t\"catalog_id\": \"WWISE_1337\",\n    \t\t\"academicRecord_ids\": [{{academicRecord_id}}],\n    \t\t\"number_of_lectures_to_attend\": 0, \n    \t\t\"rated\": true, \n    \t\t\"requirements\": \"Keine\",\n    \t\t\"Lectures\":[\n    \t\t\t{\n    \t\t\t\t\"name\": \"Marketing\",\n    \t\t\t\t\"workload_home\": \"36 Stunden\",\n    \t\t\t\t\"workload_dhbw\": \"24 Stunden\",\n    \t\t\t\t\"catalog_id\": \"WWISE_301.2\",\n    \t\t\t\t\"mainFocus_ids\": [{{mainFocus_id}}]\n    \t\t\t}\n    \t\t]\n    \t}\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -866,7 +866,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"majorSubject_id\": {{majorSubject_id}},\n    \"name\": \"Profil I\", \n    \"number_of_modules_to_attend\": 1, \n    \"from_semester_number\": 1, \n    \"to_semester_number\": 2,\n    \"Modules\": [\n    \t{\n    \t\t\"module_id\": {{module_id}},\n    \t\t\"name\": \"Technische Grundlagen mobiler Applikationen\",\n    \t\t\"description\": \"Ein tolles Fach im Coputerraum!\",\n    \t\t\"ects\": 0, \n    \t\t\"catalog_id\": \"WWISE_1337\",\n    \t\t\"academicRecord_ids\": [{{academicRecord_id}}],\n    \t\t\"number_of_lectures_to_attend\": 0, \n    \t\t\"requirements\": \"Keine\",\n    \t\t\"Lectures\":[\n    \t\t\t{\n    \t\t\t\t\"lecture_id\": {{lecture_id}}, \n    \t\t\t\t\"name\": \"Marketing\",\n    \t\t\t\t\"workload_home\": \"36 Stunden\",\n    \t\t\t\t\"workload_dhbw\": \"24 Stunden\",\n    \t\t\t\t\"catalog_id\": \"WWISE_301.2\",\n    \t\t\t\t\"mainFocus_ids\": [{{mainFocus_id}}]\n    \t\t\t}\n    \t\t]\n    \t}\n    ]\n}",
+							"raw": "{\n    \"majorSubject_id\": {{majorSubject_id}},\n    \"name\": \"Profil I\", \n    \"number_of_modules_to_attend\": 1, \n    \"from_semester_number\": 1, \n    \"to_semester_number\": 2,\n    \"Modules\": [\n    \t{\n    \t\t\"module_id\": {{module_id}},\n    \t\t\"name\": \"Technische Grundlagen mobiler Applikationen\",\n    \t\t\"description\": \"Ein tolles Fach im Coputerraum!\",\n    \t\t\"ects\": 0, \n    \t\t\"catalog_id\": \"WWISE_1337\",\n    \t\t\"academicRecord_ids\": [{{academicRecord_id}}],\n    \t\t\"number_of_lectures_to_attend\": 0, \n    \t\t\"rated\": true,\n    \t\t\"requirements\": \"Keine\",\n    \t\t\"Lectures\":[\n    \t\t\t{\n    \t\t\t\t\"lecture_id\": {{lecture_id}}, \n    \t\t\t\t\"name\": \"Marketing\",\n    \t\t\t\t\"workload_home\": \"36 Stunden\",\n    \t\t\t\t\"workload_dhbw\": \"24 Stunden\",\n    \t\t\t\t\"catalog_id\": \"WWISE_301.2\",\n    \t\t\t\t\"mainFocus_ids\": [{{mainFocus_id}}]\n    \t\t\t}\n    \t\t]\n    \t}\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1271,7 +1271,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstname\": \"Sebastian\",\n    \"lastname\": \"Ritterbusch\",\n    \"academic_title\": \"Prof. Dr.\",\n    \"email\": \"sebastian.ritterbusch@dhbw-mannheim.de\",\n    \"salutation\": \"Herr\",\n    \"phonenumber\": \"+49 621 4105 - 1724\",\n    \"experience\": \"Mathematik, Podcasts\",\n    \"mainFocus_ids\": [{{mainFocus_id}}],\n    \"profile\": \"...\",\n    \"research\": \"...\",\n    \"cv\": \"...\",\n    \"comment\": \"sehr engagiert\",\n    \"is_extern\": true\n}",
+							"raw": "{\n    \"firstname\": \"Sebastian\",\n    \"lastname\": \"Ritterbusch\",\n    \"academic_title\": \"Prof. Dr.\",\n    \"email\": \"sebastian.ritterbusch@dhbw-mannheim.de\",\n    \"salutation\": \"Herr\",\n    \"phonenumber\": \"+49 621 4105 - 1724\",\n    \"experience\": \"Mathematik, Podcasts\",\n    \"mainFocus_ids\": [{{mainFocus_id}}],\n    \"profile\": \"...\",\n    \"research\": \"...\",\n    \"cv\": \"...\",\n    \"comment\": \"sehr engagiert\",\n    \"is_extern\": true,\n    \"allow_manipulation\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1318,7 +1318,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstname\": \"Sebastian\",\n    \"lastname\": \"Ritterbusch\",\n    \"academic_title\": \"Prof. Dr.\",\n    \"email\": \"sebastian.ritterbusch@dhbw-mannheim.de\",\n    \"salutation\": \"Herr\",\n    \"phonenumber\": \"+49 621 4105 - 1724\",\n    \"experience\": \"Mathematik, Podcasts\",\n    \"mainFocus_ids\": [{{mainFocus_id}}],\n    \"profile\": \"...\",\n    \"research\": \"...\",\n    \"cv\": \"...\",\n    \"comment\": \"sehr engagiert\",\n    \"is_extern\": true\n}",
+							"raw": "{\n    \"firstname\": \"Sebastian\",\n    \"lastname\": \"Ritterbusch\",\n    \"academic_title\": \"Prof. Dr.\",\n    \"email\": \"sebastian.ritterbusch@dhbw-mannheim.de\",\n    \"salutation\": \"Herr\",\n    \"phonenumber\": \"+49 621 4105 - 1724\",\n    \"experience\": \"Mathematik, Podcasts\",\n    \"mainFocus_ids\": [{{mainFocus_id}}],\n    \"profile\": \"...\",\n    \"research\": \"...\",\n    \"cv\": \"...\",\n    \"comment\": \"sehr engagiert\",\n    \"is_extern\": true,\n    \"allow_manipulation\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
