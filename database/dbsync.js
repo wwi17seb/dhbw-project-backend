@@ -3,6 +3,7 @@ const db = require('../database/database');
 const directorOfStudiesService = require('../services/directorOfStudiesService');
 const propertiesReader = require('../helpers/propertyReader');
 const { PDF_ROOT_PATH, PDF_SUBFOLDER_PATHS } = require('../services/pdfService');
+const { initLocalKeysFile } = require('../helpers/localKeysFileHelper');
 
 addDefaultDos = async () => {
   const directorOfStudiesToCreate = {
@@ -34,6 +35,7 @@ addTestData = async () => {
 };
 
 const initPdfFolder = async () => {
+  if (!propertiesReader.getProperty('app.forceSync')) return;
   return new Promise((resolve) => {
     async function createSubfolders () {
       await Promise.all(PDF_SUBFOLDER_PATHS.map(subfolder => {
@@ -63,8 +65,11 @@ db.sequelize
         force: propertiesReader.getProperty('app.forceSync'),
       })
       .then(async (result) => {
-        await initPdfFolder();
-        await addDefaultDos();
+        await Promise.all([
+          initPdfFolder(),
+          initLocalKeysFile(propertiesReader.getProperty('app.forceSync')),
+          addDefaultDos(),
+        ]);
         console.log('Database successfully synced');
         await addTestData();
       })

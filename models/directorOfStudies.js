@@ -32,6 +32,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
         allowNull: true,
       },
+      password_change_required: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
     },
     {
       modelName: 'DirectorOfStudies',
@@ -73,11 +78,22 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
 
+  const hashPw = async (password) => {
+    return await authService.hashPassword(password);
+  };
+
   // Before Create
-  DirectorOfStudies.beforeCreate((DirectorOfStudies) => {
-    return authService.hashPassword(DirectorOfStudies.password).then((hashedPw) => {
-      DirectorOfStudies.password = hashedPw;
-    });
+  DirectorOfStudies.beforeCreate(async (DirectorOfStudies) => {
+    DirectorOfStudies.password = await hashPw(DirectorOfStudies.password);
+
+    return DirectorOfStudies;
+  });
+
+  // Before Update
+  DirectorOfStudies.beforeBulkUpdate(async (DirectorOfStudies) => {
+    if (DirectorOfStudies.attributes.password) {
+      DirectorOfStudies.attributes.password = await hashPw(DirectorOfStudies.attributes.password);
+    }
   });
 
   return DirectorOfStudies;
