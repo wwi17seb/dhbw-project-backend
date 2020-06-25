@@ -36,9 +36,9 @@ addTestData = async () => {
 const initPdfFolder = async () => {
   return new Promise((resolve) => {
     async function createSubfolders () {
-      await Promise.all(PDF_SUBFOLDER_PATHS.map(subfolder => {
+      await Promise.all(Object.keys(PDF_SUBFOLDER_PATHS).map(subfolderKey => {
         return new Promise((resolve2, reject2) => {
-          fs.mkdir(subfolder, { recursive: true }, (err) => {
+          fs.mkdir(PDF_SUBFOLDER_PATHS[subfolderKey], { recursive: true }, (err) => {
             if (err) reject2(err);
             resolve2(true);
           })

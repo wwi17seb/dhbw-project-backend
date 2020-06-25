@@ -89,6 +89,9 @@
 
 ### Rückgabe - GET /lecturerCV?lecturerId={ID}
 
+TODO: wird gerade geändert
+
+
 ```json
 {
     "message": "Successful",
@@ -120,7 +123,6 @@
     "phonenumber": "[TELEFONNUMMER]",
     "experience": "[ERFAHRUNG]",
     "mainFocus_ids": [0, 0],
-    "cv": "[UTF-8_STRING]",
     "comment": "[KOMMENTAR]",
     "is_extern": true,
     "allow_manipulation": true
@@ -139,7 +141,6 @@
 | `phonenumber`        | ja       | "+49 621 4105 - 1724"                    | Telefonnummer des Dozierenden                                                                                    |
 | `experience`         | nein     | "Mathematik, Podcasts, ..."              | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
 | `mainFocus_ids`      | nein     | [ 1, 2 ]                                 | Eindeutige ID eines Schwerpunktes                                                                                |
-| `___cv`              | nein     | null                                     | Die PDF-Datei sollte über den FileReader aus JavaScript als UTF-8-String übergeben werden                        |
 | `comment`            | nein     | "Sehr engagiert"                         | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
 | `is_extern`          | ja       | true                                     | Gibt an, ob ein Dozent extern ist - false = intern, true = extern                                                |
 | `allow_manipulation` | ja       | true                                     | Gibt an, ob ein Dozent von **allen** Studiengangsleitern bearbeitbar ist                                         |
@@ -158,7 +159,6 @@
         "salutation": "[ANREDE]",
         "phonenumber": "[TELEFONNUMMER]",
         "experience": "[ERFAHRUNG]",
-        "cv": true,
         "comment": "[KOMMENTAR]",
         "is_extern": true,
         "allow_manipulation": true,
@@ -186,7 +186,6 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
     "phonenumber": "[TELEFONNUMMER]",
     "experience": "[ERFAHRUNG]",
     "mainFocus_ids": [0, 0],
-    "cv": "[UTF-8_STRING]",
     "comment": "[KOMMENTAR]",
     "is_extern": true,
     "allow_manipulation": true
@@ -205,7 +204,6 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
 | `phonenumber`           | ja       | "+49 621 4105 - 1724"                    | Telefonnummer des Dozierenden                                                                                    |
 | `experience`            | nein     | "Mathematik, Podcasts, ..."              | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
 | `mainFocus_ids`         | nein     | 1                                        | Eindeutige ID eines Schwerpunktes                                                                                |
-| `___cv`                 | nein     | true                                     | Die PDF-Datei sollte über den FileReader aus JavaScript als UTF-8-String übergeben werden, **WICHTIG**: Wenn der Wert auf `true` gesetzt ist, findet keine Änderung statt. Bei einem falsy Wert (`null`, `false`, `undefined`, `""`) wird das Dokument gelöscht und bei einem gewöhnlichen String wird das PDF geupdated |
 | `comment`               | nein     | "Sehr engagiert"                         | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
 | `is_extern`             | ja       | true                                     | Gibt an, ob ein Dozent extern ist - false = intern, true = extern                                                |
 | `___allow_manipulation` | ja       | true                                     | Gibt an, ob ein Dozent von **allen** Studiengangsleitern bearbeitbar ist                                         |

@@ -43,15 +43,12 @@
     <input type="checkbox" id="allow_manipulation" checked>
     <label for="allow_manipulation">allow_manipulation</label>
 
-    <label for="cv">cv</label>
-    <input type="file" id="cv" name="cv">
-
-    <br><br><button type="button" id="submit">Submit</button>
+    <br><br><button type="button" id="submit">Create Lecturer</button>
 
     <h1>Plain HTML Form with File Upload</h1>
-    <form action="/upload" enctype="multipart/form-data" method="post">
+    <form action="/lecturerCV?lecturerId=1&token=eyJpe0JEKTAiOjAsImFsZyI6IkhTMjU2IiwidHlwIjoiSldUIn0.eyJ1c2VybmFtZSI6ImFkbWluIiwiZGlyZWN0b3JPZlN0dWRpZXNfaWQiOjEsImlhdCI6MTU5MjE3NjQ4MCwiZXhwIjoxNTk4MTM4MDgwfQ.CFzby-2_Q6h-_LsP_dP7IIzyL5ozu_UdV-dzyJdnQAk" enctype="multipart/form-data" method="post">
         <label for="form-cv">File Upload</label>
-        <input type="file" id="form-cv" name="form-cv">
+        <input type="file" id="form-cv" name="cv">
 
         <input type="submit" value="Upload">
     </form>

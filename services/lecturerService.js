@@ -109,6 +109,13 @@ module.exports.updateLecturer = async (
   return Boolean(lecturer);
 };
 
+module.exports.updateLecturerCV = async (transaction, newCVName, lecturer_id) => {
+  const lecturer = await db.Lecturer.findOne({ where: { lecturer_id }, transaction });
+  await lecturer.update({cv: newCVName}, {transaction});
+
+  return Boolean(lecturer);
+};
+
 // DELETE
 module.exports.deleteLecturer = async (transaction, lecturer_id) => {
   const counter = await db.Lecturer.destroy({ where: { lecturer_id }, transaction });

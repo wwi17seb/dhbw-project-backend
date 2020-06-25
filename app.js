@@ -13,6 +13,7 @@ const jsonParser = bodyParser.json({limit: '50mb'});
 const dbsync = require('./database/dbsync');
 
 app.use(jsonParser);
+app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 
 app.use(require('./helpers/logRequestHelper'));
 

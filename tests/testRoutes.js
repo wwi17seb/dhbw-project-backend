@@ -10,7 +10,7 @@ router.post('/test2', (req, res) => {
 });
 
 router.post('/upload', (req, res) => {
-  const form = formidable({ uploadDir: './pdfs/vita' });
+  const form = formidable({ uploadDir: './pdfs/cv' });
 
   form.parse(req, (err, fields, files) => {
     if (err) {

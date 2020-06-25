@@ -5,6 +5,10 @@ const db = require('../database/database');
 const copyObjectHelper = require('../helpers/propertyCopyHelper');
 const { checkLecturerEditAuthorization } = require('../helpers/checkAuthorizationHelper');
 const pdfService = require('../services/pdfService');
+const formidable = require('formidable');
+const fs = require('fs');
+
+const PDF_CV_REL_PATH = pdfService.PDF_SUBFOLDER_PATHS.PATH_CVS;
 
 exports.getLecturers = async (req, res, next) => {
   // TODO: add filter methods
@@ -12,17 +16,6 @@ exports.getLecturers = async (req, res, next) => {
     const Lecturers = await lecturerService.findAllLecturers();
 
     responseHelper(res, 200, 'Successful', { Lecturers });
-  } catch (error) {
-    return errorResponseHelper(res, next, error);
-  }
-};
-
-exports.getLecturerCV = async (req, res, next) => {
-  const { lecturerId } = req.query;
-  try {
-    const pdf = await pdfService.getLecturerCV(lecturerId);
-
-    responseHelper(res, 200, 'Successful', pdf);
   } catch (error) {
     return errorResponseHelper(res, next, error);
   }
@@ -41,7 +34,6 @@ exports.postLecturers = async (req, res, next) => {
     'experience',
     'profile',
     'research',
-    'cv',
     'comment',
     'is_extern',
     'mainFocus_ids',
@@ -49,15 +41,7 @@ exports.postLecturers = async (req, res, next) => {
   ]);
 
   try {
-    let cvFileContent = null;
-    if (givenLecturer.cv) {
-      cvFileContent = givenLecturer.cv;
-      givenLecturer.cv = true;
-    } else {
-      givenLecturer.cv = false;
-    }
     const createdLecturer = await lecturerService.createLecturer(transaction, givenLecturer, directorOfStudies_id);
-    await pdfService.updateLecturerCV(createdLecturer.lecturer_id, cvFileContent);
 
     transaction.commit();
     responseHelper(res, 201, 'Successfully created', createdLecturer);
@@ -68,8 +52,8 @@ exports.postLecturers = async (req, res, next) => {
 };
 
 exports.putLecturers = async (req, res, next) => {
-  const directorOfStudies_id = req.token.directorOfStudies_id;
   const lecturerId = req.query.lecturerId;
+  const { directorOfStudies_id } = req.token;
   const transaction = await db.sequelize.transaction();
   const givenLecturer = copyObjectHelper(req.body, [
     'firstname',
@@ -81,7 +65,6 @@ exports.putLecturers = async (req, res, next) => {
     'experience',
     'profile',
     'research',
-    'cv',
     'comment',
     'is_extern',
     'mainFocus_ids',
@@ -97,18 +80,12 @@ exports.putLecturers = async (req, res, next) => {
       throw new Error('You are not authorized to update this lecturer');
     }
 
-    let cvFileContent = null;
-    if (givenLecturer.cv) {
-      cvFileContent = givenLecturer.cv;
-      givenLecturer.cv = true;
-    } else {
-      givenLecturer.cv = false;
-    }
-
-    const [updatedLecturer] = await Promise.all([
-      lecturerService.updateLecturer(transaction, givenLecturer, lecturerId, directorOfStudies_id),
-      pdfService.updateLecturerCV(lecturerId, cvFileContent),
-    ]);
+    const updatedLecturer = await lecturerService.updateLecturer(
+      transaction,
+      givenLecturer,
+      lecturerId,
+      directorOfStudies_id
+    );
     if (!updatedLecturer) {
       throw new Error('No Lecturer found to update');
     }
@@ -122,8 +99,8 @@ exports.putLecturers = async (req, res, next) => {
 };
 
 exports.deleteLecturers = async (req, res, next) => {
-  const directorOfStudies_id = req.token.directorOfStudies_id;
   const lecturerId = req.query.lecturerId;
+  const { directorOfStudies_id } = req.token;
   const transaction = await db.sequelize.transaction();
 
   try {
