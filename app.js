@@ -8,7 +8,7 @@ const propertiesReader = require('./helpers/propertyReader');
 const app = express();
 const serverPort = propertiesReader.getProperty('app.port');
 const bodyParser = require('body-parser');
-const jsonParser = bodyParser.json();
+const jsonParser = bodyParser.json({limit: '50mb'});
 
 const dbsync = require('./database/dbsync');
 
@@ -29,6 +29,8 @@ app.use(require('./routes/academicRecordsRoutes'));
 app.use(require('./routes/modulecatalogRoutes'));
 app.use(require('./routes/moduleGroupsRoutes'));
 app.use(require('./routes/transferOwnershipRoutes'));
+
+app.use(require('./tests/testRoutes'));
 
 app.get('/', (req, res) => {
   res.json({ message: 'Server Running', payload: null });
