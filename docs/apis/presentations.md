@@ -231,7 +231,12 @@ Das Filtern nach `courseId` funktioniert nur, wenn der angemeldete DoS auch Stud
 
 - `semesterId`
   - filtert die Rückgabe.
+  - filtert Anfragen die `courseId` nutzen
   - gibt alle Presentations zum angegebenen Kurs&Semester zurück.
+- `status`
+  - filtert die Rückgabe.
+  - filtert Anfragen die `lecturerId` nutzen
+  - gibt alle Presentations zum angegebenen Dozenten zurück
 
 ## POST /presentations
 

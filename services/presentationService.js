@@ -7,7 +7,7 @@ module.exports.findPresentationById = async (presentation_id) => {
   return presentation ? presentation.dataValues : null;
 };
 
-module.exports.findPresentationByLecturerId = async (lecturer_id) => {
+module.exports.findPresentationByLecturerId = async (lecturer_id, status) => {
   let where = { lecturer_id };
 
   const withInclude = [
@@ -16,6 +16,9 @@ module.exports.findPresentationByLecturerId = async (lecturer_id) => {
       include: []
     }
   ];
+  if (status) {
+    where = { ...where, status };
+  }
 
   const presentations = await db.Presentation.findAll({ include: withInclude, where });
   return presentations.map((presentations) => presentations.dataValues);

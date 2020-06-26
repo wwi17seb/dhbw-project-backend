@@ -14,6 +14,7 @@ exports.getPresentations = async (req, res, next) => {
   const course_id = req.query.courseId;
   const semester_id = req.query.semesterId;
   const lecturer_id = req.query.lecturerId;
+  const status = req.query.status;
   const directorOfStudiesId = req.token.directorOfStudies_id;
 
   try {
@@ -40,7 +41,7 @@ exports.getPresentations = async (req, res, next) => {
     } else {
       // TODO: filter/authorization concept for lecturers
       let [Presentations, DoS] = await Promise.all([
-        presentationService.findPresentationByLecturerId(lecturer_id),
+        presentationService.findPresentationByLecturerId(lecturer_id, status),
         directorOfStudiesService.getById(directorOfStudiesId),
       ]);
       Presentations = Presentations.map((presentation) => {
