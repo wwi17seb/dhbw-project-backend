@@ -14,7 +14,7 @@ function getFilePath(lecturerId) {
 
 module.exports.deleteLecturerCV = async function (lecturerId) {
   return new Promise((resolve, reject) => {
-    fs.unlink(getFilepath(lecturerId), (err) => {
+    fs.unlink(getFilePath(lecturerId), (err) => {
       if (err) resolve(false);
       resolve(true);
     });
