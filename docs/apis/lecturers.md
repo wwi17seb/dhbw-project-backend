@@ -220,8 +220,8 @@ Bevorzugt sollte jedoch die folgende [`PUT`-Route](#put-lecturercvlectureridid) 
 
 ### PUT /lecturerCV?lecturerId={ID}
 
-**Info**: Lädt den Lebenslauf zum angegebenen Dozent hoch.
-Die Anfrage muss die Form-Data beinhalten.
+**Info**: Lädt den Lebenslauf zum angegebenen Dozenten hoch.
+Die Anfrage muss die Form-Data beinhalten, dabei muss der `name` auf `cv` gesetzt sein (z. B. `<input type="file" name="cv">`).
 Für weitere Details gibt es Dokus/Tutorials/Beispiele:
 
 - [React File Upload](https://programmingwithmosh.com/javascript/react-file-upload-proper-server-side-nodejs-easy/)
