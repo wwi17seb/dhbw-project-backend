@@ -12,10 +12,13 @@ const PDF_CV_REL_PATH = pdfService.PDF_SUBFOLDER_PATHS.PATH_CVS;
 
 exports.getLecturerCV = async (req, res, next) => {
   const { lecturerId } = req.query;
+  if (isNaN(Number(lecturerId))) {
+    return responseHelper(res, 403, 'lecturerId must be integer!');
+  }
   try {
     const lecturer = await lecturerService.findLecturerById(lecturerId);
     if (!lecturer || !lecturer.cv) {
-      return responseHelper(res, 404, 'No Lecturer no Curriculum Vitae found for given id');
+      return responseHelper(res, 404, 'No Lecturer or no Curriculum Vitae found for given id');
     }
     const cv = lecturer.cv;
     res.setHeader('Content-disposition', 'inline; filename="' + cv + '"');

@@ -9,6 +9,7 @@ module.exports = (res, next, error) => {
   const returnErrorMessageConditions = [
     { startsWith: 'notNull Violation: ', endsWith: ' cannot be null' },
     { startsWith: 'invalid input syntax for type' },
+    { startsWith: 'invalid input syntax for integer: '},
     { startsWith: 'No ', endsWith: ' found to update' },
     { startsWith: 'No ', endsWith: ' found to delete' },
     { startsWith: 'No ', endsWith: ' given' },
