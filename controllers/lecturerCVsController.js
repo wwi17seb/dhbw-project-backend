@@ -32,7 +32,14 @@ exports.getLecturerCV = async (req, res, next) => {
 exports.putLecturerCV = async (req, res, next) => {
   const { lecturerId } = req.query;
   const { directorOfStudies_id } = req.token;
+  if (!lecturerId) {
+    return responseHelper(res, 400, 'You need to specify a lecturerId');
+  }
   const transaction = await db.sequelize.transaction();
+  function onError(error) {
+    transaction.rollback();
+    return errorResponseHelper(res, next, error);
+  }
   try {
     if (!(await checkLecturerEditAuthorization(directorOfStudies_id, lecturerId))) {
       throw new Error('You are not authorized to update this lecturer');
@@ -40,20 +47,33 @@ exports.putLecturerCV = async (req, res, next) => {
 
     const form = formidable({ uploadDir: './pdfs/cv' });
     form.parse(req, function (err, fields, files) {
-      if (err) throw err;
-
-      var oldpath = files.cv.path;
-      var newpath = PDF_CV_REL_PATH + lecturerId + '.pdf';
-      fs.rename(oldpath, newpath, async function (err) {
+      try {
         if (err) throw err;
-        await lecturerService.updateLecturerCV(transaction, files.cv.name, lecturerId);
-        transaction.commit();
-        responseHelper(res, 200, 'Successfully added new Curriculum Vitae', { lecturerId, cv: files.cv.name });
-      });
+        if (!files.cv) {
+          return responseHelper(res, 400, 'Name for the file upload / form data needs to be \'cv\'');
+        }
+
+        var oldpath = files.cv.path;
+        var newpath = PDF_CV_REL_PATH + lecturerId + '.pdf';
+        fs.rename(oldpath, newpath, async function (err) {
+          try {
+            if (err) throw err;
+            await lecturerService.updateLecturerCV(transaction, files.cv.name, lecturerId);
+            transaction.commit();
+            responseHelper(res, 200, 'Successfully added new Curriculum Vitae', {
+              lecturer_id: lecturerId,
+              cv: files.cv.name,
+            });
+          } catch (error) {
+            onError(error);
+          }
+        });
+      } catch (error) {
+        onError(error);
+      }
     });
   } catch (error) {
-    transaction.rollback();
-    return errorResponseHelper(res, next, error);
+    onError(error);
   }
 };
 
