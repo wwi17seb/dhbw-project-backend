@@ -15,6 +15,7 @@ exports.getPresentations = async (req, res, next) => {
   const semester_id = req.query.semesterId;
   const lecturer_id = req.query.lecturerId;
   const status = req.query.status;
+  const get_co_lecturer = req.query.getcolecturer;
   const directorOfStudiesId = req.token.directorOfStudies_id;
 
   try {
@@ -39,7 +40,19 @@ exports.getPresentations = async (req, res, next) => {
       });
       return responseHelper(res, 200, 'Successful', { Presentations });
     } else {
-      // TODO: filter/authorization concept for lecturers
+      if (get_co_lecturer) {
+        let [Presentations, DoS] = await Promise.all([
+          presentationService.findPresentationByLecturerIdWithCoLecturer(lecturer_id),
+          directorOfStudiesService.getById(directorOfStudiesId),
+        ]);
+        Presentations = Presentations.map((presentation) => {
+          presentation.createdBy = presentation.DirectorOfStudies;
+          presentation.DirectorOfStudies = DoS;
+          return presentation;
+        });
+
+        return responseHelper(res, 200, 'Successful', { Presentations });
+      }
       let [Presentations, DoS] = await Promise.all([
         presentationService.findPresentationByLecturerId(lecturer_id, status),
         directorOfStudiesService.getById(directorOfStudiesId),
