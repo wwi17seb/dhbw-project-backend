@@ -157,7 +157,7 @@ The file `keys.json` has the following format:
 
 ## general information
 
-If you want to know how to use the routes you can simply look at the postman collection or the [api docs](/docs/api.md).
+If you want to know how to use the routes you can simply look at the postman collection or the [api docs](/docs/README.md).
 
 ## current status
 
