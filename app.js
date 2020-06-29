@@ -33,6 +33,7 @@ app.use(require('./routes/moduleGroupsRoutes'));
 app.use(require('./routes/transferOwnershipRoutes'));
 app.use(require('./routes/directorOfStudiesRoutes'));
 app.use(require('./routes/adminRoutes'));
+app.use(require('./routes/googleCalendarRoutes'));
 
 app.use(require('./tests/testRoutes'));
 
