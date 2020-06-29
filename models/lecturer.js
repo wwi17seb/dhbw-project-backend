@@ -32,10 +32,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      experience: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
       cv: {
         type: DataTypes.STRING,
         allowNull: true,
@@ -52,10 +48,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BOOLEAN,
         allowNull: false,
       },
-      possibleLectures: {
+      possible_lectures: {
         type: DataTypes.STRING,
-        allowNull: true
-      }
+        allowNull: true,
+      },
     },
     {
       modelName: 'Lecturer',
