@@ -55,6 +55,7 @@ Sofern ein Attribut drei Unterstriche ("___") oder ein Vielfaches davon hat, ist
   - Anlegen, Auslesen, Verändern und Löschen: [mainFocuses.md (Schwerpunkte)](apis/mainFocuses.md) & [academicRecords.md (Bewertungsmethoden)](apis/academicRecords.md)
 - Kurse und ihre Semester
   - Anlegen, Auslesen (nur über Kurse), Verändern und Löschen: [courses.md (Kurse)](apis/courses.md) & [semesters.md (Semester)](apis/semesters.md)
+  - GoogleCalendar Informationen: [googleCalendar.md](apis/googleCalendar.md)
 - Dozierende
   - Anlegen, Auslesen, Verändern und Löschen: [lecturers.md](apis/lecturers.md)
 - Modul-Gruppe &rarr; `GET` ist der Modulkatalog

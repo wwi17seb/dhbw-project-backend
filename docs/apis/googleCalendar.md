@@ -19,7 +19,7 @@
     "message": "Successful",
     "payload": {
         "GoogleCalendar": {
-            "apiKey": "[API-KEY]"
+            "[KEY]": "[VALUE]"
         }
     }
 }
@@ -27,10 +27,11 @@
 
 ### Attribute der Anfrage GET /googleCalendar
 
-| Attribut         | Beispielwert | Erklärung                         |
-| ---------------- | ------------ | --------------------------------- |
-| `GoogleCalendar` | { }          | Objekt des Google Kalender        |
-| `___apiKey`      |              | API-Schlüssel des Google Kalender |
+| Attribut         | Beispielwert | Erklärung                                                                                                                                          |
+| ---------------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `GoogleCalendar` | { }          | Objekt des Google Kalender                                                                                                                         |
+| `___[KEY]`       | "..."        | Key-Value Paare, welche u.a. für den API-Key verwendet werden können. Dazu muss der Key festgelegt werden, bevor ein Wert hinzugefügt werden kann. |
+
 
 ## PUT /googleCalendar
 
@@ -42,15 +43,15 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
 
 ```json
 {
-    "apiKey": "[API-KEY]"
+    "[KEY]": "[VALUE]"
 }
 ```
 
 ### Attribute der Anfrage - PUT /googleCalendar
 
-| Attribut | Erfodert | Beispielwert | Erklärung                         |
-| -------- | -------- | ------------ | --------------------------------- |
-| `apiKey` | ja       |              | API-Schlüssel des Google Kalender |
+| Attribut | Erfodert | Beispielwert | Erklärung                                                                                                                                          |
+| -------- | -------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `[KEY]`  | ja       | "..."        | Key-Value Paare, welche u.a. für den API-Key verwendet werden können. Dazu muss der Key festgelegt werden, bevor ein Wert hinzugefügt werden kann. |
 
 ### Rückgabe - PUT /googleCalendar
 
