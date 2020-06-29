@@ -5,11 +5,11 @@ const CONSOLE_LOG_COLOR_RESET = '\x1b[0m';
 
 const MODE = 'dev';
 
-module.exports = (res, next, error) => {
+module.exports = (res, error) => {
   const returnErrorMessageConditions = [
     { startsWith: 'notNull Violation: ', endsWith: ' cannot be null' },
     { startsWith: 'invalid input syntax for type' },
-    { startsWith: 'invalid input syntax for integer: '},
+    { startsWith: 'invalid input syntax for integer: ' },
     { startsWith: 'No ', endsWith: ' found to update' },
     { startsWith: 'No ', endsWith: ' found to delete' },
     { startsWith: 'No ', endsWith: ' given' },

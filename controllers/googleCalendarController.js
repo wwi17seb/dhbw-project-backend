@@ -3,12 +3,12 @@ const errorResponseHelper = require('../helpers/errorResponseHelper');
 const checkPrivilegesHelper = require('../helpers/checkPrivilegesHelper');
 const { getLocalKey, setLocalKey, LOCAL_KEYS } = require('../helpers/localKeysFileHelper');
 
-exports.getGoogleCalendarStuff = async (req, res, next) => {
+exports.getGoogleCalendarStuff = async (req, res) => {
   const GoogleCalendar = await getLocalKey(LOCAL_KEYS.GOOGLE_CALENDAR);
   return responseHelper(res, 200, 'Successful', { GoogleCalendar });
 };
 
-exports.putGoogleCalendarStuff = async (req, res, next) => {
+exports.putGoogleCalendarStuff = async (req, res) => {
   const directorOfStudiesToCheck_id = req.token.directorOfStudies_id;
   const GoogleCalendar = req.body;
 
@@ -20,6 +20,6 @@ exports.putGoogleCalendarStuff = async (req, res, next) => {
     setLocalKey(LOCAL_KEYS.GOOGLE_CALENDAR, GoogleCalendar);
     return responseHelper(res, 200, 'Successfully updated', true);
   } catch (error) {
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };

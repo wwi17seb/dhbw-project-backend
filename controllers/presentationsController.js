@@ -9,7 +9,7 @@ const {
   checkCourseEditAuthorization,
 } = require('../helpers/checkAuthorizationHelper');
 
-exports.getPresentations = async (req, res, next) => {
+exports.getPresentations = async (req, res) => {
   const course_id = req.query.courseId;
   const semester_id = req.query.semesterId;
   const directorOfStudiesId = req.token.directorOfStudies_id;
@@ -35,11 +35,11 @@ exports.getPresentations = async (req, res, next) => {
 
     return responseHelper(res, 200, 'Successful', { Presentations });
   } catch (error) {
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };
 
-exports.postPresentations = async (req, res, next) => {
+exports.postPresentations = async (req, res) => {
   const directorOfStudiesId = req.token.directorOfStudies_id;
   const transaction = await db.sequelize.transaction();
 
@@ -67,11 +67,11 @@ exports.postPresentations = async (req, res, next) => {
   } catch (error) {
     transaction.rollback();
 
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };
 
-exports.putPresentations = async (req, res, next) => {
+exports.putPresentations = async (req, res) => {
   const presentationId = req.query.presentationId;
   const directorOfStudiesId = req.token.directorOfStudies_id;
   const transaction = await db.sequelize.transaction();
@@ -111,11 +111,11 @@ exports.putPresentations = async (req, res, next) => {
     return responseHelper(res, 200, 'Successfully updated', updatedPresentation);
   } catch (error) {
     transaction.rollback();
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };
 
-exports.deletePresentations = async (req, res, next) => {
+exports.deletePresentations = async (req, res) => {
   const presentationId = req.query.presentationId;
   const directorOfStudiesId = req.token.directorOfStudies_id;
   const transaction = await db.sequelize.transaction();
@@ -138,6 +138,6 @@ exports.deletePresentations = async (req, res, next) => {
     return responseHelper(res, 200, 'Successfully deleted', deletedPresentation);
   } catch (error) {
     transaction.rollback();
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };

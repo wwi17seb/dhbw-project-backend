@@ -5,7 +5,7 @@ const copyObjectHelper = require('../helpers/propertyCopyHelper');
 const db = require('../database/database');
 const { checkCourseEditAuthorization } = require('../helpers/checkAuthorizationHelper');
 
-exports.getCourses = async (req, res, next) => {
+exports.getCourses = async (req, res) => {
   const directorOfStudiesId = req.token.directorOfStudies_id;
 
   try {
@@ -19,7 +19,7 @@ exports.getCourses = async (req, res, next) => {
 
     responseHelper(res, 200, 'Successful', { Courses });
   } catch (error) {
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };
 
@@ -33,7 +33,7 @@ function getDirectorsOfStudiesArray(dosArray, currentDoS) {
   return dosArray;
 }
 
-exports.postCourses = async (req, res, next) => {
+exports.postCourses = async (req, res) => {
   const directorOfStudiesId = req.token.directorOfStudies_id;
   const transaction = await db.sequelize.transaction();
 
@@ -55,11 +55,11 @@ exports.postCourses = async (req, res, next) => {
     return responseHelper(res, 201, 'Successfully created', createdCourse);
   } catch (error) {
     transaction.rollback();
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };
 
-exports.putCourses = async (req, res, next) => {
+exports.putCourses = async (req, res) => {
   const course_id = req.query.courseId;
   const directorOfStudiesId = req.token.directorOfStudies_id;
   const transaction = await db.sequelize.transaction();
@@ -92,11 +92,11 @@ exports.putCourses = async (req, res, next) => {
     return responseHelper(res, 200, 'Successfully updated', updatedCourse);
   } catch (error) {
     transaction.rollback();
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };
 
-exports.deleteCourses = async (req, res, next) => {
+exports.deleteCourses = async (req, res) => {
   const courseId = req.query.courseId;
   const directorOfStudiesId = req.token.directorOfStudies_id;
   const transaction = await db.sequelize.transaction();
@@ -118,6 +118,6 @@ exports.deleteCourses = async (req, res, next) => {
     return responseHelper(res, 200, 'Successfully deleted', deletedCourse);
   } catch (error) {
     transaction.rollback();
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };

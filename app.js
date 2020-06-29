@@ -8,7 +8,7 @@ const propertiesReader = require('./helpers/propertyReader');
 const app = express();
 const serverPort = propertiesReader.getProperty('app.port');
 const bodyParser = require('body-parser');
-const jsonParser = bodyParser.json({limit: '50mb'});
+const jsonParser = bodyParser.json({ limit: '50mb' });
 const errorResponseHelper = require('./helpers/errorResponseHelper');
 
 const dbsync = require('./database/dbsync');
@@ -42,7 +42,7 @@ app.get('/', (req, res) => {
 });
 app.use(require('./routes/routeNotImplementedRoutes'));
 app.use(function (err, req, res, next) {
-  errorResponseHelper(res, next, err);
+  errorResponseHelper(res, err);
 });
 
 dbsync;

@@ -5,7 +5,7 @@ const { getLocalKey, setLocalKey, LOCAL_KEYS } = require('../helpers/localKeysFi
 const directorOfStudiesService = require('../services/directorOfStudiesService');
 const db = require('../database/database');
 
-exports.postCreateUser = async (req, res, next) => {
+exports.postCreateUser = async (req, res) => {
   const directorOfStudiesToCheck_id = req.token.directorOfStudies_id;
   const { username, password } = req.body;
 
@@ -40,11 +40,11 @@ exports.postCreateUser = async (req, res, next) => {
     });
   } catch (error) {
     transaction.rollback();
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };
 
-exports.putResetPassword = async (req, res, next) => {
+exports.putResetPassword = async (req, res) => {
   const directorOfStudiesToCheck_id = req.token.directorOfStudies_id;
   const { newPassword } = req.body;
   const directorOfStudiesToChange_id = req.query.directorOfStudiesId;
@@ -70,11 +70,11 @@ exports.putResetPassword = async (req, res, next) => {
     return responseHelper(res, 200, 'Successfully updated', updatedPasswordOfDirectorOfStudies);
   } catch (error) {
     transaction.rollback();
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };
 
-exports.putUpgradeToAdmin = async (req, res, next) => {
+exports.putUpgradeToAdmin = async (req, res) => {
   const directorOfStudiesToCheck_id = req.token.directorOfStudies_id;
   const directorOfStudiesToUpgrade_id = req.query.directorOfStudiesId;
   const transaction = await db.sequelize.transaction();
@@ -95,11 +95,11 @@ exports.putUpgradeToAdmin = async (req, res, next) => {
     return responseHelper(res, 200, 'Successfully updated', upgradedDirectorOfStudies);
   } catch (error) {
     transaction.rollback();
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };
 
-exports.getRegisterKey = async (req, res, next) => {
+exports.getRegisterKey = async (req, res) => {
   const directorOfStudiesToCheck_id = req.token.directorOfStudies_id;
 
   if (!(await checkPrivilegesHelper(directorOfStudiesToCheck_id))) {
@@ -110,7 +110,7 @@ exports.getRegisterKey = async (req, res, next) => {
   return responseHelper(res, 200, 'Successful', { registerKey });
 };
 
-exports.putRegisterKey = async (req, res, next) => {
+exports.putRegisterKey = async (req, res) => {
   const directorOfStudiesToCheck_id = req.token.directorOfStudies_id;
   const { registerKey } = req.body;
 
@@ -125,6 +125,6 @@ exports.putRegisterKey = async (req, res, next) => {
     setLocalKey(LOCAL_KEYS.REGISTER_KEY, registerKey);
     return responseHelper(res, 200, 'Successfully updated', true);
   } catch (error) {
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };

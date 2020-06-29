@@ -9,13 +9,13 @@ const checkRegisterKeyHelper = require('../helpers/checkRegisterKeyHelper');
 
 const ERROR_MESSAGE_AUTH_FAILED = 'AUTH FAILED';
 
-exports.postLogin = async (req, res, next) => {
+exports.postLogin = async (req, res) => {
   const { username, password } = req.body;
 
   try {
     var passwordCheck = await checkPasswordHelper(username, password);
   } catch (error) {
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
   if (passwordCheck) {
     const propertiesToReturn = copyObjectHelper(passwordCheck.directorOfStudies, [
@@ -36,7 +36,7 @@ exports.postLogin = async (req, res, next) => {
   }
 };
 
-exports.postSignup = async (req, res, next) => {
+exports.postSignup = async (req, res) => {
   const { username, password } = req.body;
 
   if (!username) {
@@ -69,11 +69,11 @@ exports.postSignup = async (req, res, next) => {
     });
   } catch (error) {
     transaction.rollback();
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };
 
-exports.register = async (req, res, next) => {
+exports.register = async (req, res) => {
   const { username, password, registerKey } = req.body;
 
   if (!registerKey) {
@@ -114,10 +114,10 @@ exports.register = async (req, res, next) => {
     });
   } catch (error) {
     transaction.rollback();
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };
 
-exports.postLogout = (req, res, next) => {
+exports.postLogout = (req, res) => {
   responseHelper(res, 200, 'Not yet implemented!');
 };
