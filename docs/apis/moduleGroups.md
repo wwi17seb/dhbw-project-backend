@@ -146,6 +146,7 @@ Dies umfasst also die Modulgruppen, die Module und die (abstrakten) Vorlesungen.
 ## POST /moduleGroups
 
 **Info**: Erzeugt eine neue Modulgruppe (inklusive der dazugehörigen Module sowie abstrakten Vorlesungen).
+Der Grund warum dies nur gemeinsam erstellt und bearbeitet werden kann, liegt darin, dass sich Attribute wie `number_of_modules_to_attend` und `number_of_lectures_to_attend` auf die jeweils darunter liegende Entität beziehen und beim separaten Erstellen/Bearbeiten leichter inkonsistente Zustände entstehen könnten.
 
 ### Body der Anfrage - POST /moduleGroups
 

@@ -64,6 +64,7 @@ Sofern ein Attribut drei Unterstriche ("___") oder ein Vielfaches davon hat, ist
   - Anlegen, Auslesen, Verändern und Löschen: [presentations.md](apis/presentations.md)
 - Übertragen von Dozierenden/Kursen/Vorlesungen
   - [transferOwnership.md](apis/transferOwnership.md)
+- [Erklärung zur Datenbank](database/README.md)
 
 ## Authentifizierung
 
