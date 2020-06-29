@@ -2,8 +2,8 @@
 
 - [POST /transferOwnership](#post-transferownership)
   - [Body der Anfrage - POST /transferOwnership](#body-der-anfrage---post-transferownership)
-  - [Attribute der Anfrage - POST /academicRecords](#attribute-der-anfrage---post-academicrecords)
-  - [Rückgabe - POST /academicRecords](#rückgabe---post-academicrecords)
+  - [Attribute der Anfrage - POST /transferOwnership](#attribute-der-anfrage---post-transferownership)
+  - [Rückgabe - POST /transferOwnership](#rückgabe---post-transferownership)
 
 ## POST /transferOwnership
 
@@ -17,13 +17,13 @@
 }
 ```
 
-### Attribute der Anfrage - POST /academicRecords
+### Attribute der Anfrage - POST /transferOwnership
 
 | Attribut     | Erfodert | Beispielwert | Erklärung                       |
 | ------------ | -------- | ------------ | ------------------------------- |
 | `newOwnerId` | ja       | 1            | ID des neuen Studiengangleiters |
 
-### Rückgabe - POST /academicRecords
+### Rückgabe - POST /transferOwnership
 
 ```json
 {

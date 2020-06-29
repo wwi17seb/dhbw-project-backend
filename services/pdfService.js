@@ -1,44 +1,22 @@
 const fs = require('fs');
 
 const PATH_PDFS = './pdfs/';
-const PATH_CVS = PATH_PDFS + 'vita/';
-
-const FILE_ENCODING = 'utf8';
+const PATH_CVS = PATH_PDFS + 'cv/';
 
 module.exports.PDF_ROOT_PATH = PATH_PDFS;
-module.exports.PDF_SUBFOLDER_PATHS = [PATH_CVS];
+module.exports.PDF_SUBFOLDER_PATHS = {
+  PATH_CVS,
+};
 
 function getFilePath(lecturerId) {
   return `${PATH_CVS}${lecturerId}.pdf`;
 }
 
-module.exports.getLecturerCV = async (lecturerId) => {
+module.exports.deleteLecturerCV = async function (lecturerId) {
   return new Promise((resolve, reject) => {
-    fs.readFile(getFilePath(lecturerId), FILE_ENCODING, (err, data) => {
-      if (err) reject(err);
-      resolve(data);
-    });
-  });
-};
-
-module.exports.updateLecturerCV = async (lecturerId, fileContent) => {
-  if (!fileContent) return deleteLecturerCV(lecturerId);
-  if (fileContent === true) return; // as defined in API true leads to no-update
-  return new Promise((resolve, reject) => {
-    fs.writeFile(getFilePath(lecturerId), fileContent, FILE_ENCODING, (err) => {
-      if (err) reject(err);
+    fs.unlink(getFilePath(lecturerId), (err) => {
+      if (err) resolve(false);
       resolve(true);
     });
   });
 };
-
-const deleteLecturerCV = async (lecturerId) => {
-  return new Promise((resolve, reject) => {
-    fs.unlink(getFilePath(lecturerId), (err, data) => {
-      if (err) reject(err);
-      resolve(data);
-    });
-  });
-};
-
-module.exports.deleteLecturerCV = deleteLecturerCV;

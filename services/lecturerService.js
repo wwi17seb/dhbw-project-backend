@@ -33,7 +33,6 @@ module.exports.createLecturer = async (
     experience,
     profile,
     research,
-    cv,
     comment,
     is_extern,
     allow_manipulation,
@@ -51,7 +50,6 @@ module.exports.createLecturer = async (
     experience,
     profile,
     research,
-    cv,
     comment,
     is_extern,
     allow_manipulation,
@@ -78,7 +76,6 @@ module.exports.updateLecturer = async (
     experience,
     profile,
     research,
-    cv,
     comment,
     is_extern,
     allow_manipulation,
@@ -96,7 +93,6 @@ module.exports.updateLecturer = async (
     experience,
     profile,
     research,
-    cv,
     comment,
     is_extern,
     allow_manipulation,
@@ -105,6 +101,13 @@ module.exports.updateLecturer = async (
   await lecturer.update({ ...lecturerToUpdate }, { transaction });
 
   await lecturer.setMainFocuses(mainFocus_ids, { transaction });
+
+  return Boolean(lecturer);
+};
+
+module.exports.updateLecturerCV = async (transaction, newCVName, lecturer_id) => {
+  const lecturer = await db.Lecturer.findOne({ where: { lecturer_id }, transaction });
+  await lecturer.update({cv: newCVName}, {transaction});
 
   return Boolean(lecturer);
 };
