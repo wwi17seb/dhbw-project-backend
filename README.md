@@ -11,6 +11,7 @@ Read more on https://guides.github.com/introduction/flow/.
   - [for frontend developers](#for-frontend-developers)
   - [for demo usage (exoplan project)](#for-demo-usage-exoplan-project)
   - [shutdown or rebuilding the whole docker network](#shutdown-or-rebuilding-the-whole-docker-network)
+- [prettier setup](#prettier-setup)
 - [postman setup](#postman-setup)
 - [login](#login)
 - [local files](#local-files)
@@ -113,6 +114,17 @@ OR
 ...\dhbw-project-backend\docker> docker-compose -f docker-compose-frontend.yaml down
 
 ```
+
+# prettier setup
+
+[Prettier](https://prettier.io/) is a useful tool to format the code in a standard way.
+
+Install `Prettier - Code formatter` from Esben Petersen as vs-code-extension.
+
+There's a [.prettierrc.json](.prettierrc.json) in the root directory of this repository, which defines how the code should be formatted.
+
+You can use prettier by right clicking in the editor inside a code file.
+`Format Document With`: and choose `Prettier - Code formatter` or `Alt + Shift + F` (Windows) / `Command + Shift + F` (Mac).
 
 # postman setup
 
