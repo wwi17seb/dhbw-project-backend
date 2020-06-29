@@ -15,7 +15,7 @@ exports.getPresentations = async (req, res, next) => {
   const semester_id = req.query.semesterId;
   const lecturer_id = req.query.lecturerId;
   const status = req.query.status;
-  const get_co_lecturer = req.query.getcolecturer;
+  const get_co_lecturer = req.query.getColecturer;
   const directorOfStudiesId = req.token.directorOfStudies_id;
 
   try {
@@ -30,7 +30,7 @@ exports.getPresentations = async (req, res, next) => {
         return responseHelper(res, 403, 'You are not authorized to view presentations of this course');
       }
       let [Presentations, DoS] = await Promise.all([
-        presentationService.findAll(course_id, semester_id),
+        presentationService.findAll(course_id, semester_id, status),
         directorOfStudiesService.getById(directorOfStudiesId),
       ]);
       Presentations = Presentations.map((presentation) => {
@@ -41,6 +41,7 @@ exports.getPresentations = async (req, res, next) => {
       return responseHelper(res, 200, 'Successful', { Presentations });
     } else {
       if (get_co_lecturer) {
+        // TODO: further validation of get_co_lecturer, at this point sending any value will be accepted
         let [Presentations, DoS] = await Promise.all([
           presentationService.findPresentationByLecturerIdWithCoLecturer(lecturer_id),
           directorOfStudiesService.getById(directorOfStudiesId),
