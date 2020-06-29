@@ -69,8 +69,7 @@ exports.putCourses = async (req, res, next) => {
       throw new Error('No course given');
     }
     if (!(await checkCourseEditAuthorization(directorOfStudiesId, course_id))) {
-      transaction.rollback();
-      return responseHelper(res, 403, 'You are not authorized to update this course');
+      throw new Error('You are not authorized to update this course');
     }
 
     const courseToUpdate = copyObjectHelper(req.body, [
@@ -103,12 +102,11 @@ exports.deleteCourses = async (req, res, next) => {
   const transaction = await db.sequelize.transaction();
 
   try {
-    if (!course_id) {
+    if (!courseId) {
       throw new Error('No course given');
     }
     if (!(await checkCourseEditAuthorization(directorOfStudiesId, courseId))) {
-      transaction.rollback();
-      return responseHelper(res, 400, 'You are not authorized to delete this course');
+      throw new Error('You are not authorized to delete this course');
     }
 
     const deletedCourse = await courseService.deleteCourse(transaction, courseId);

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="testPdfUpload.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+    <label for="token">token</label>
+    <input type="text" id="token"
+        value="eyJpe0JEKTAiOjAsImFsZyI6IkhTMjU2IiwidHlwIjoiSldUIn0.eyJ1c2VybmFtZSI6ImFkbWluIiwiZGlyZWN0b3JPZlN0dWRpZXNfaWQiOjEsImlhdCI6MTU5MjE3NjQ4MCwiZXhwIjoxNTk4MTM4MDgwfQ.CFzby-2_Q6h-_LsP_dP7IIzyL5ozu_UdV-dzyJdnQAk" />
+
+    <label for="firstname">firstname</label>
+    <input type="text" id="firstname" value="Dennis" />
+
+    <label for="lastname">lastname</label>
+    <input type="text" id="lastname" value="Dutzint" />
+
+    <label for="academic_title">academic_title</label>
+    <input type="text" id="academic_title" value="Dr." />
+
+    <label for="email">email</label>
+    <input type="text" id="email" value="dennis.dutzint@dhbw.de" />
+
+    <label for="salutation">salutation</label>
+    <input type="text" id="salutation" value="Herr" />
+
+    <label for="phonenumber">phonenumber</label>
+    <input type="text" id="phonenumber" value="+49 1234 5678" />
+
+    <label for="experience">experience</label>
+    <input type="text" id="experience" value="keine" />
+
+    <label for="comment">comment</label>
+    <input type="text" id="comment" value="Kommentar" />
+
+    <input type="checkbox" id="is_extern" checked>
+    <label for="is_extern">is_extern</label>
+
+    <input type="checkbox" id="allow_manipulation" checked>
+    <label for="allow_manipulation">allow_manipulation</label>
+
+    <br><br><button type="button" id="submit">Create Lecturer</button>
+
+    <p id="created-message"></p>
+
+    <h1>Upload CV for Lecturer</h1>
+    <small>Plain HTML Form with File Upload</small><br><br>
+    <label for="token2">token</label>
+    <input type="text" name="token" id="token2"
+        value="eyJpe0JEKTAiOjAsImFsZyI6IkhTMjU2IiwidHlwIjoiSldUIn0.eyJ1c2VybmFtZSI6ImFkbWluIiwiZGlyZWN0b3JPZlN0dWRpZXNfaWQiOjEsImlhdCI6MTU5MjE3NjQ4MCwiZXhwIjoxNTk4MTM4MDgwfQ.CFzby-2_Q6h-_LsP_dP7IIzyL5ozu_UdV-dzyJdnQAk" />
+
+    <label for="lecturerId2">lecturerId</label>
+    <input type="text" name="lecturerId" id="lecturerId2" value="1" />
+    <br><br>
+    <form id="uploadForm"
+        action="/lecturerCV?lecturerId=1&token=eyJpe0JEKTAiOjAsImFsZyI6IkhTMjU2IiwidHlwIjoiSldUIn0.eyJ1c2VybmFtZSI6ImFkbWluIiwiZGlyZWN0b3JPZlN0dWRpZXNfaWQiOjEsImlhdCI6MTU5MjE3NjQ4MCwiZXhwIjoxNTk4MTM4MDgwfQ.CFzby-2_Q6h-_LsP_dP7IIzyL5ozu_UdV-dzyJdnQAk"
+        method="post"
+        enctype="multipart/form-data">
+        <input type="hidden" name="_method" value="put" />
+
+        <label for="form-cv">File Upload</label>
+        <input type="file" id="form-cv" name="cv">
+
+        <input type="submit" value="Upload">
+    </form>
+
+    <h1>View CV of Lecturer</h1>
+    <form action="/lecturerCV" method="get" target="_blank">
+        <label for="token3">token</label>
+        <input type="text" name="token" id="token3"
+            value="eyJpe0JEKTAiOjAsImFsZyI6IkhTMjU2IiwidHlwIjoiSldUIn0.eyJ1c2VybmFtZSI6ImFkbWluIiwiZGlyZWN0b3JPZlN0dWRpZXNfaWQiOjEsImlhdCI6MTU5MjE3NjQ4MCwiZXhwIjoxNTk4MTM4MDgwfQ.CFzby-2_Q6h-_LsP_dP7IIzyL5ozu_UdV-dzyJdnQAk" />
+
+        <label for="lecturerId3">lecturerId</label>
+        <input type="text" name="lecturerId" id="lecturerId3" value="1" />
+
+        <br><br><input type="submit" value="Download/View PDF">
+    </form>
+</body>
+
+</html>

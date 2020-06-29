@@ -6,7 +6,6 @@ module.exports = {
       data: {
         abbreviation: 'K',
         type: 'Klausur',
-        rated: true,
       },
     },
     {
@@ -14,7 +13,6 @@ module.exports = {
       data: {
         abbreviation: 'SE',
         type: 'Seminararbeit',
-        rated: true,
       },
     },
     {
@@ -22,7 +20,6 @@ module.exports = {
       data: {
         abbreviation: 'LN',
         type: '???',
-        rated: false,
       },
     },
   ],

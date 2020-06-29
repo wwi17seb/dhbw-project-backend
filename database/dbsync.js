@@ -1,8 +1,9 @@
-// const sequelize = require("./database");
-
+const fs = require("fs");
 const db = require('../database/database');
 const directorOfStudiesService = require('../services/directorOfStudiesService');
 const propertiesReader = require('../helpers/propertyReader');
+const { PDF_ROOT_PATH, PDF_SUBFOLDER_PATHS } = require('../services/pdfService');
+const { initLocalKeysFile } = require('../helpers/localKeysFileHelper');
 
 addDefaultDos = async () => {
   const directorOfStudiesToCreate = {
@@ -33,6 +34,27 @@ addTestData = async () => {
   }
 };
 
+const initPdfFolder = async () => {
+  if (!propertiesReader.getProperty('app.forceSync')) return;
+  return new Promise((resolve) => {
+    async function createSubfolders () {
+      await Promise.all(Object.keys(PDF_SUBFOLDER_PATHS).map(subfolderKey => {
+        return new Promise((resolve2, reject2) => {
+          fs.mkdir(PDF_SUBFOLDER_PATHS[subfolderKey], { recursive: true }, (err) => {
+            if (err) reject2(err);
+            resolve2(true);
+          })
+        });
+      }));
+    }
+    fs.rmdir(PDF_ROOT_PATH, { recursive: true }, async (err) => {
+      if (err) console.log(err);
+      await createSubfolders();
+      resolve(true);
+    });
+  });
+}
+
 // verify that db is connected
 db.sequelize
   .authenticate()
@@ -43,7 +65,11 @@ db.sequelize
         force: propertiesReader.getProperty('app.forceSync'),
       })
       .then(async (result) => {
-        await addDefaultDos();
+        await Promise.all([
+          initPdfFolder(),
+          initLocalKeysFile(propertiesReader.getProperty('app.forceSync')),
+          addDefaultDos(),
+        ]);
         console.log('Database successfully synced');
         await addTestData();
       })

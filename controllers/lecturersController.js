@@ -4,14 +4,14 @@ const lecturerService = require('../services/lecturerService');
 const db = require('../database/database');
 const copyObjectHelper = require('../helpers/propertyCopyHelper');
 const { checkLecturerEditAuthorization } = require('../helpers/checkAuthorizationHelper');
+const pdfService = require('../services/pdfService');
 
 exports.getLecturers = async (req, res, next) => {
   // TODO: add filter methods
   try {
-    const curStudiesDirectorId = req.token.directorOfStudies_id;
-    const lecturers = await lecturerService.findAllLecturers(curStudiesDirectorId);
+    const Lecturers = await lecturerService.findAllLecturers();
 
-    responseHelper(res, 200, 'Successful', { lecturers });
+    responseHelper(res, 200, 'Successful', { Lecturers });
   } catch (error) {
     return errorResponseHelper(res, next, error);
   }
@@ -30,10 +30,10 @@ exports.postLecturers = async (req, res, next) => {
     'experience',
     'profile',
     'research',
-    'cv',
     'comment',
     'is_extern',
     'mainFocus_ids',
+    'allow_manipulation',
     'possibleLectures',
   ]);
 
@@ -49,8 +49,8 @@ exports.postLecturers = async (req, res, next) => {
 };
 
 exports.putLecturers = async (req, res, next) => {
-  const directorOfStudies_id = req.token.directorOfStudies_id;
   const lecturerId = req.query.lecturerId;
+  const { directorOfStudies_id } = req.token;
   const transaction = await db.sequelize.transaction();
   const givenLecturer = copyObjectHelper(req.body, [
     'firstname',
@@ -62,11 +62,11 @@ exports.putLecturers = async (req, res, next) => {
     'experience',
     'profile',
     'research',
-    'cv',
     'comment',
     'is_extern',
     'mainFocus_ids',
     'possibleLectures',
+    'allow_manipulation',
   ]);
 
   try {
@@ -75,7 +75,7 @@ exports.putLecturers = async (req, res, next) => {
     }
 
     if (!(await checkLecturerEditAuthorization(directorOfStudies_id, lecturerId))) {
-      return responseHelper(res, 400, 'You are not authorized to update the lecturer');
+      throw new Error('You are not authorized to update this lecturer');
     }
 
     const updatedLecturer = await lecturerService.updateLecturer(
@@ -97,8 +97,8 @@ exports.putLecturers = async (req, res, next) => {
 };
 
 exports.deleteLecturers = async (req, res, next) => {
-  const directorOfStudies_id = req.token.directorOfStudies_id;
   const lecturerId = req.query.lecturerId;
+  const { directorOfStudies_id } = req.token;
   const transaction = await db.sequelize.transaction();
 
   try {
@@ -107,10 +107,13 @@ exports.deleteLecturers = async (req, res, next) => {
     }
 
     if (!(await checkLecturerEditAuthorization(directorOfStudies_id, lecturerId))) {
-      return responseHelper(res, 400, 'You are not authorized to delete the lecturer');
+      throw new Error('You are not authorized to delete this lecturer');
     }
 
-    const deletedLecturer = await lecturerService.deleteLecturer(transaction, lecturerId);
+    const [deletedLecturer] = await Promise.all([
+      lecturerService.deleteLecturer(transaction, lecturerId),
+      pdfService.deleteLecturerCV(lecturerId),
+    ]);
     if (!deletedLecturer) {
       throw new Error('No lecturer found to delete');
     }

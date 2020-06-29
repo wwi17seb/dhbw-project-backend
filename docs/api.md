@@ -61,6 +61,8 @@ Sofern ein Attribut drei Unterstriche ("___") oder ein Vielfaches davon hat, ist
   - Anlegen, Auslesen, Verändern und Löschen: [moduleGroups.md (Modulgruppen, Module, Vorlesungen)](apis/moduleGroups.md)
 - Präsentationen (konkrete Vorlesungen)
   - Anlegen, Auslesen, Verändern und Löschen: [presentations.md](apis/presentations.md)
+- Übertragen von Dozierenden/Kursen/Vorlesungen
+  - [transferOwnership.md](apis/transferOwnership.md)
 
 ## Authentifizierung
 
