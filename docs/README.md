@@ -47,6 +47,7 @@ Sofern ein Attribut drei Unterstriche ("___") oder ein Vielfaches davon hat, ist
 
 ## Dokumente
 
+- [Administratorrouten](apis/admin.md)
 - Studiengangsleiter
   - Registrieren und Anmelden: [auth.md](apis/auth.md)
 - Studienrichtung & Studiengang

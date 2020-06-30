@@ -5,6 +5,21 @@ const { getLocalKey, setLocalKey, LOCAL_KEYS } = require('../helpers/localKeysFi
 const directorOfStudiesService = require('../services/directorOfStudiesService');
 const db = require('../database/database');
 
+exports.getAllUsers = async (req, res, next) => {
+  const directorOfStudiesToCheck_id = req.token.directorOfStudies_id;
+
+  if (!(await checkPrivilegesHelper(directorOfStudiesToCheck_id))) {
+    return responseHelper(res, 403, 'You do not have the privileges to perform this task!');
+  }
+
+  try {
+    const Users = await directorOfStudiesService.getAllUsers();
+    responseHelper(res, 200, 'Successful', { Users });
+  } catch (error) {
+    return errorResponseHelper(res, next, error);
+  }
+};
+
 exports.postCreateUser = async (req, res) => {
   const directorOfStudiesToCheck_id = req.token.directorOfStudies_id;
   const { username, password } = req.body;
