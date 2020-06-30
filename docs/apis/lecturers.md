@@ -42,6 +42,7 @@
                 "cv": "[DATEINAME]",
                 "comment": "[KOMMENTAR]",
                 "is_extern": true,
+                "possible_lectures": "[Vorlesungen]",
                 "allow_manipulation": true,
                 "createdAt": "[DATUM]",
                 "updatedAt": "[DATUM]",
@@ -79,9 +80,9 @@
 | `___experience`              | "Mathematik, Podcasts, ..."              | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
 | `___cv`                      | "dutzint.pdf"                            | Gibt den Namen der PDF-Datei an                                                                                  |
 | `___comment`                 | "Sehr engagiert"                         | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
+| `___possible_lectures`       | "Datenbanken, Methoden der WI"           | Freitext, speichert potentielle Vorlesungen als String                                                           |
 | `___is_extern`               | false                                    | Gibt an, ob ein Dozent extern ist - false = intern, true = extern                                                |
 | `___allow_manipulation`      | true                                     | Gibt an, ob ein Dozent von **allen** Studiengangsleitern bearbeitbar ist                                         |
-| `___possibleLectures`         | "Datenbanken, Methoden der WI"                            | Freitext, speichert potentielle Vorlesungen als String                                  |
 | `___createdBy_id`            | 1                                        | ID des Studiengangsleiters, der diesen Dozenten angelegt hat                                                     |
 | `___DirectorOfStudies`       | { }                                      | Objekt eines Studiengangleiters                                                                                  |
 | `______directorOfStudies_id` | 1                                        | Eindeutiger Bezeichner eines Studiengangleiters                                                                  |
@@ -96,18 +97,18 @@
 
 ```json
 {
-    "firstname": "[VORNAME]",
-    "lastname": "[NACHNAME]",
-    "academic_title": "[AKADEMISCHER_TITEL]",
-    "email": "[E-MAIL]",
-    "salutation": "[ANREDE]",
-    "phonenumber": "[TELEFONNUMMER]",
-    "experience": "[ERFAHRUNG]",
-    "mainFocus_ids": [0, 0],
-    "comment": "[KOMMENTAR]",
-    "is_extern": true,
-    "allow_manipulation": true
-  "possibleLectures": "[Vorlesungen]"
+  "firstname": "[VORNAME]",
+  "lastname": "[NACHNAME]",
+  "academic_title": "[AKADEMISCHER_TITEL]",
+  "email": "[E-MAIL]",
+  "salutation": "[ANREDE]",
+  "phonenumber": "[TELEFONNUMMER]",
+  "experience": "[ERFAHRUNG]",
+  "mainFocus_ids": [0, 0],
+  "comment": "[KOMMENTAR]",
+  "is_extern": true,
+  "allow_manipulation": true,
+  "possible_lectures": "[Vorlesungen]"
 }
 ```
 
@@ -126,30 +127,30 @@
 | `comment`            | nein     | "Sehr engagiert"                         | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
 | `is_extern`          | ja       | true                                     | Gibt an, ob ein Dozent extern ist - false = intern, true = extern                                                |
 | `allow_manipulation` | ja       | true                                     | Gibt an, ob ein Dozent von **allen** Studiengangsleitern bearbeitbar ist                                         |
-| `possibleLectures` | nein     | "Datenbanken, Methoden der WI"                            | Freitext, speichert potentielle Vorlesungen als String                                  |
+| `possible_lectures`  | nein     | "Datenbanken, Methoden der WI"           | Freitext, speichert potentielle Vorlesungen als String                                                           |
 
 ### Rückgabe - POST /lecturers
 
 ```json
 {
-    "message": "Successfully created",
-    "payload": {
-        "lecturer_id": 0,
-        "firstname": "[VORNAME]",
-        "lastname": "[NACHNAME]",
-        "academic_title": "[AKADEMISCHER_TITEL]",
-        "email": "[E-MAIL]",
-        "salutation": "[ANREDE]",
-        "phonenumber": "[TELEFONNUMMER]",
-        "experience": "[ERFAHRUNG]",
-        "comment": "[KOMMENTAR]",
-        "is_extern": true,
-        "allow_manipulation": true,
-        "createdBy_id": 0,
-        "updatedAt": "[DATUM]",
-        "createdAt": "[DATUM]"
-    }
-    "possibleLectures": "[Vorlesungen]",
+  "message": "Successfully created",
+  "payload": {
+    "lecturer_id": 0,
+    "firstname": "[VORNAME]",
+    "lastname": "[NACHNAME]",
+    "academic_title": "[AKADEMISCHER_TITEL]",
+    "email": "[E-MAIL]",
+    "salutation": "[ANREDE]",
+    "phonenumber": "[TELEFONNUMMER]",
+    "experience": "[ERFAHRUNG]",
+    "comment": "[KOMMENTAR]",
+    "is_extern": true,
+    "possible_lectures": "[Vorlesungen]",
+    "allow_manipulation": true,
+    "createdBy_id": 0,
+    "updatedAt": "[DATUM]",
+    "createdAt": "[DATUM]"
+  }
 }
 ```
 
@@ -162,18 +163,18 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
 
 ```json
 {
-    "firstname": "[VORNAME]",
-    "lastname": "[NACHNAME]",
-    "academic_title": "[AKADEMISCHER_TITEL]",
-    "email": "[E-MAIL]",
-    "salutation": "[ANREDE]",
-    "phonenumber": "[TELEFONNUMMER]",
-    "experience": "[ERFAHRUNG]",
-    "mainFocus_ids": [0, 0],
-    "comment": "[KOMMENTAR]",
-    "is_extern": true,
-    "allow_manipulation": true
-  "possibleLectures": "[Vorlesungen]"
+  "firstname": "[VORNAME]",
+  "lastname": "[NACHNAME]",
+  "academic_title": "[AKADEMISCHER_TITEL]",
+  "email": "[E-MAIL]",
+  "salutation": "[ANREDE]",
+  "phonenumber": "[TELEFONNUMMER]",
+  "experience": "[ERFAHRUNG]",
+  "mainFocus_ids": [0, 0],
+  "comment": "[KOMMENTAR]",
+  "is_extern": true,
+  "possible_lectures": "[Vorlesungen]",
+  "allow_manipulation": true
 }
 ```
 
@@ -192,7 +193,7 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
 | `comment`            | nein     | "Sehr engagiert"                         | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
 | `is_extern`          | ja       | true                                     | Gibt an, ob ein Dozent extern ist - false = intern, true = extern                                                |
 | `allow_manipulation` | ja       | true                                     | Gibt an, ob ein Dozent von **allen** Studiengangsleitern bearbeitbar ist                                         |
-| `possibleLectures` | nein     | "Datenbanken, Methoden der WI"                            | Freitext, speichert potentielle Vorlesungen als String                                    |
+| `possible_lectures`  | nein     | "Datenbanken, Methoden der WI"           | Freitext, speichert potentielle Vorlesungen als String                                                           |
 
 ### Rückgabe - PUT /lecturers?lecturerId={ID}
 
