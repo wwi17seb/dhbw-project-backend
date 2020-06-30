@@ -4,7 +4,7 @@ const db = require('../database/database');
 const semesterService = require('../services/semesterService');
 const { checkSemesterEditAuthorization, checkCourseEditAuthorization } = require('../helpers/checkAuthorizationHelper');
 
-exports.postSemesters = async (req, res, next) => {
+exports.postSemesters = async (req, res) => {
   const directorOfStudiesId = req.token.directorOfStudies_id;
   const transaction = await db.sequelize.transaction();
 
@@ -21,11 +21,11 @@ exports.postSemesters = async (req, res, next) => {
     return responseHelper(res, 201, 'Successfully created', createdSemester);
   } catch (error) {
     transaction.rollback();
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };
 
-exports.putSemesters = async (req, res, next) => {
+exports.putSemesters = async (req, res) => {
   const semesterId = req.query.semesterId;
   const directorOfStudiesId = req.token.directorOfStudies_id;
   const transaction = await db.sequelize.transaction();
@@ -56,11 +56,11 @@ exports.putSemesters = async (req, res, next) => {
     return responseHelper(res, 200, 'Successfully updated', updatedSemester);
   } catch (error) {
     transaction.rollback();
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };
 
-exports.deleteSemesters = async (req, res, next) => {
+exports.deleteSemesters = async (req, res) => {
   const semesterId = req.query.semesterId;
   const directorOfStudiesId = req.token.directorOfStudies_id;
   const transaction = await db.sequelize.transaction();
@@ -83,6 +83,6 @@ exports.deleteSemesters = async (req, res, next) => {
     return responseHelper(res, 200, 'Successfully deleted', deletedSemester);
   } catch (error) {
     transaction.rollback();
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };

@@ -5,6 +5,7 @@ const adminController = require('../controllers/adminController');
 
 const router = express.Router();
 
+router.get('/users', authorize(), adminController.getAllUsers);
 router.post('/createUser', authorize(), adminController.postCreateUser);
 router.put('/resetPassword', authorize(), adminController.putResetPassword);
 router.put('/upgradeToAdmin', authorize(), adminController.putUpgradeToAdmin);

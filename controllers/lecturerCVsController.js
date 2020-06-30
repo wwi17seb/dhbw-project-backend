@@ -10,7 +10,7 @@ const path = require('path');
 
 const PDF_CV_REL_PATH = pdfService.PDF_SUBFOLDER_PATHS.PATH_CVS;
 
-exports.getLecturerCV = async (req, res, next) => {
+exports.getLecturerCV = async (req, res) => {
   const { lecturerId } = req.query;
   if (isNaN(Number(lecturerId))) {
     return responseHelper(res, 403, 'lecturerId must be integer!');
@@ -25,11 +25,11 @@ exports.getLecturerCV = async (req, res, next) => {
     res.setHeader('Content-type', 'application/pdf');
     res.sendFile(path.join(__dirname, `/.${PDF_CV_REL_PATH}${lecturerId}.pdf`));
   } catch (error) {
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };
 
-exports.putLecturerCV = async (req, res, next) => {
+exports.putLecturerCV = async (req, res) => {
   const { lecturerId } = req.query;
   const { directorOfStudies_id } = req.token;
   if (!lecturerId) {
@@ -38,7 +38,7 @@ exports.putLecturerCV = async (req, res, next) => {
   const transaction = await db.sequelize.transaction();
   function onError(error) {
     transaction.rollback();
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
   try {
     if (!(await checkLecturerEditAuthorization(directorOfStudies_id, lecturerId))) {
@@ -77,7 +77,7 @@ exports.putLecturerCV = async (req, res, next) => {
   }
 };
 
-exports.deleteLecturerCV = async (req, res, next) => {
+exports.deleteLecturerCV = async (req, res) => {
   const { lecturerId } = req.query;
   const { directorOfStudies_id } = req.token;
   const transaction = await db.sequelize.transaction();
@@ -92,6 +92,6 @@ exports.deleteLecturerCV = async (req, res, next) => {
     responseHelper(res, 200, 'Successfully deleted Curriculum Vitae', true);
   } catch (error) {
     transaction.rollback();
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };

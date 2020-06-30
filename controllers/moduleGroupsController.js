@@ -3,7 +3,7 @@ const errorResponseHelper = require('../helpers/errorResponseHelper');
 const moduleGroupService = require('../services/moduleGroupService');
 const db = require('../database/database');
 
-exports.postModuleGroups = async (req, res, next) => {
+exports.postModuleGroups = async (req, res) => {
   const transaction = await db.sequelize.transaction();
 
   try {
@@ -14,11 +14,11 @@ exports.postModuleGroups = async (req, res, next) => {
     return responseHelper(res, 201, 'Successfully created', createdModuleGroup);
   } catch (error) {
     transaction.rollback();
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };
 
-exports.putModuleGroups = async (req, res, next) => {
+exports.putModuleGroups = async (req, res) => {
   const moduleGroup_id = req.query.moduleGroupId;
   const transaction = await db.sequelize.transaction();
 
@@ -40,11 +40,11 @@ exports.putModuleGroups = async (req, res, next) => {
     return responseHelper(res, 200, 'Successfully updated', updatedModuleGroup);
   } catch (error) {
     transaction.rollback();
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };
 
-exports.deleteModuleGroups = async (req, res, next) => {
+exports.deleteModuleGroups = async (req, res) => {
   const moduleGroupId = req.query.moduleGroupId;
   const transaction = await db.sequelize.transaction();
 
@@ -62,6 +62,6 @@ exports.deleteModuleGroups = async (req, res, next) => {
     return responseHelper(res, 200, 'Successfully deleted', deletedModulecatalog);
   } catch (error) {
     transaction.rollback();
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };

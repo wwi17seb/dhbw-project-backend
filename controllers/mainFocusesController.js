@@ -4,17 +4,17 @@ const copyObjectHelper = require('../helpers/propertyCopyHelper');
 const db = require('../database/database');
 const mainFocusService = require('../services/mainFocusService');
 
-exports.getMainFocuses = async (req, res, next) => {
+exports.getMainFocuses = async (req, res) => {
   try {
     const MainFocuses = await mainFocusService.findAll();
 
     responseHelper(res, 200, 'Successful', { MainFocuses });
   } catch (error) {
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };
 
-exports.postMainFocuses = async (req, res, next) => {
+exports.postMainFocuses = async (req, res) => {
   const transaction = await db.sequelize.transaction();
 
   try {
@@ -25,11 +25,11 @@ exports.postMainFocuses = async (req, res, next) => {
     return responseHelper(res, 201, 'Successfully created', createdMainFocus);
   } catch (error) {
     transaction.rollback();
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };
 
-exports.putMainFocuses = async (req, res, next) => {
+exports.putMainFocuses = async (req, res) => {
   const mainFocusId = req.query.mainFocusId;
   const transaction = await db.sequelize.transaction();
 
@@ -51,11 +51,11 @@ exports.putMainFocuses = async (req, res, next) => {
     return responseHelper(res, 200, 'Successfully updated', updatedMainFocus);
   } catch (error) {
     transaction.rollback();
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };
 
-exports.deleteMainFocuses = async (req, res, next) => {
+exports.deleteMainFocuses = async (req, res) => {
   const mainFocusId = req.query.mainFocusId;
   const transaction = await db.sequelize.transaction();
 
@@ -73,6 +73,6 @@ exports.deleteMainFocuses = async (req, res, next) => {
     return responseHelper(res, 200, 'Successfully deleted', deletedMainFocus);
   } catch (error) {
     transaction.rollback();
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };

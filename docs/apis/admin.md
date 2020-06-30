@@ -1,5 +1,8 @@
 # Admin-Routen  <!-- omit in toc -->
 
+- [GET /users](#get-users)
+  - [Body der Rückgabe - GET /users](#body-der-rückgabe---get-users)
+  - [Attribute der Rückgabe - GET /users](#attribute-der-rückgabe---get-users)
 - [POST /createUser](#post-createuser)
   - [Body der Anfrage - POST /createUser](#body-der-anfrage---post-createuser)
   - [Attribute der Anfrage - POST /createUser](#attribute-der-anfrage---post-createuser)
@@ -17,6 +20,38 @@
   - [Body der Anfrage - PUT /registerKey](#body-der-anfrage---put-registerkey)
   - [Attribute der Anfrage - PUT /registerKey](#attribute-der-anfrage---put-registerkey)
   - [Rückgabe - PUT /registerKey](#rückgabe---put-registerkey)
+
+## GET /users
+
+**Info**: Gibt alle im System registrierten Nutzer (Studiengangsleiter) zurück.
+
+### Body der Rückgabe - GET /users
+
+```json
+{
+    "message": "Successful",
+    "payload": {
+        "Users": [
+            {
+                "directorOfStudies_id": 0,
+                "username": "[NUTZERNAME]",
+                "is_admin": true,
+                "password_change_required": true
+            }
+        ]
+    }
+}
+```
+
+### Attribute der Rückgabe - GET /users
+
+| Attribut                      | Beispielwert | Erklärung                                                  |
+| ----------------------------- | ------------ | ---------------------------------------------------------- |
+| `Users`                       | [ ]          | Array der Benutzer                                         |
+| `___directorOfStudies_id`     | 1            | Eindeutige ID des jeweiligen Studiengangleiters            |
+| `___username`                 | "Nutzername" | Nutzername des jeweiligen Studiengangleiters               |
+| `___is_admin`                 | true / false | Boolean ob Nutzer Studiengangleiters ein administrator ist |
+| `___password_change_required` | false        | Gibt an, ob ein Passwortwechsel erforderlich ist           |
 
 ## POST /createUser
 

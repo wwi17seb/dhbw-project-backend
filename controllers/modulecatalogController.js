@@ -3,7 +3,7 @@ const errorResponseHelper = require('../helpers/errorResponseHelper');
 const moduleGroupService = require('../services/moduleGroupService');
 const majorSubjectService = require('../services/majorSubjectService');
 
-exports.getModulecatalog = async (req, res, next) => {
+exports.getModulecatalog = async (req, res) => {
   const majorSubjectId = req.query.majorSubjectId;
   try {
     if (!majorSubjectId) {
@@ -17,6 +17,6 @@ exports.getModulecatalog = async (req, res, next) => {
 
     return responseHelper(res, 200, 'Successful', { MajorSubject, ModuleGroups });
   } catch (error) {
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };

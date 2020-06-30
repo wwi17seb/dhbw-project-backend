@@ -47,6 +47,7 @@ Sofern ein Attribut drei Unterstriche ("___") oder ein Vielfaches davon hat, ist
 
 ## Dokumente
 
+- [Administratorrouten](apis/admin.md)
 - Studiengangsleiter
   - Registrieren und Anmelden: [auth.md](apis/auth.md)
 - Studienrichtung & Studiengang
@@ -55,6 +56,7 @@ Sofern ein Attribut drei Unterstriche ("___") oder ein Vielfaches davon hat, ist
   - Anlegen, Auslesen, Verändern und Löschen: [mainFocuses.md (Schwerpunkte)](apis/mainFocuses.md) & [academicRecords.md (Bewertungsmethoden)](apis/academicRecords.md)
 - Kurse und ihre Semester
   - Anlegen, Auslesen (nur über Kurse), Verändern und Löschen: [courses.md (Kurse)](apis/courses.md) & [semesters.md (Semester)](apis/semesters.md)
+  - GoogleCalendar Informationen: [googleCalendar.md](apis/googleCalendar.md)
 - Dozierende
   - Anlegen, Auslesen, Verändern und Löschen: [lecturers.md](apis/lecturers.md)
 - Modul-Gruppe &rarr; `GET` ist der Modulkatalog
@@ -63,6 +65,7 @@ Sofern ein Attribut drei Unterstriche ("___") oder ein Vielfaches davon hat, ist
   - Anlegen, Auslesen, Verändern und Löschen: [presentations.md](apis/presentations.md)
 - Übertragen von Dozierenden/Kursen/Vorlesungen
   - [transferOwnership.md](apis/transferOwnership.md)
+- [Erklärung zur Datenbank](database/README.md)
 
 ## Authentifizierung
 

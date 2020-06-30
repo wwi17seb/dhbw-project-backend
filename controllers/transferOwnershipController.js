@@ -57,7 +57,7 @@ async function updateCourse(transaction, oldDirectorOfStudiesId, newDirectorOfSt
   );
 }
 
-exports.transferOwnership = async (req, res, next) => {
+exports.transferOwnership = async (req, res) => {
   const oldDirectorOfStudiesId = req.token.directorOfStudies_id;
   const newDirectorOfStudiesId = req.body.newOwnerId;
   const transaction = await db.sequelize.transaction();
@@ -76,6 +76,6 @@ exports.transferOwnership = async (req, res, next) => {
     return responseHelper(res, 200, 'Successfully transferred', true);
   } catch (error) {
     transaction.rollback();
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };

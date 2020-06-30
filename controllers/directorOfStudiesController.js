@@ -6,7 +6,7 @@ const directorOfStudiesService = require('../services/directorOfStudiesService')
 const authService = require('../services/authService');
 const db = require('../database/database');
 
-exports.putChangePassword = async (req, res, next) => {
+exports.putChangePassword = async (req, res) => {
   const { directorOfStudiesId } = req.query;
   const { oldPassword, newPassword } = req.body;
   const transaction = await db.sequelize.transaction();
@@ -34,22 +34,22 @@ exports.putChangePassword = async (req, res, next) => {
     return responseHelper(res, 200, 'Successfully updated', { token: passwordCheck.token });
   } catch (error) {
     transaction.rollback();
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };
 
-exports.getDirectorOfStudies = async (req, res, next) => {
+exports.getDirectorOfStudies = async (req, res) => {
   const directorOfStudies_id = req.token.directorOfStudies_id;
 
   try {
     const DirectorOfStudies = await directorOfStudiesService.getById(directorOfStudies_id);
     return responseHelper(res, 200, 'Successful', { DirectorOfStudies });
   } catch (error) {
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };
 
-exports.putDirectorOfStudies = async (req, res, next) => {
+exports.putDirectorOfStudies = async (req, res) => {
   const directorOfStudies_id = req.token.directorOfStudies_id;
   const transaction = await db.sequelize.transaction();
 
@@ -77,6 +77,6 @@ exports.putDirectorOfStudies = async (req, res, next) => {
     return responseHelper(res, 200, 'Successfully updated', { token });
   } catch (error) {
     transaction.rollback();
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };

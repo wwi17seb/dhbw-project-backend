@@ -5,7 +5,7 @@ const fieldOfStudyService = require('../services/fieldOfStudyService');
 const db = require('../database/database');
 const copyObjectHelper = require('../helpers/propertyCopyHelper');
 
-exports.getMajorSubjects = async (req, res, next) => {
+exports.getMajorSubjects = async (req, res) => {
   const fieldOfStudyId = req.query.fieldOfStudyId;
 
   try {
@@ -26,11 +26,11 @@ exports.getMajorSubjects = async (req, res, next) => {
       MajorSubjects: fieldOfStudyWithMajorSubjects.MajorSubjects,
     });
   } catch (error) {
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };
 
-exports.postMajorSubjects = async (req, res, next) => {
+exports.postMajorSubjects = async (req, res) => {
   const transaction = await db.sequelize.transaction();
 
   try {
@@ -46,11 +46,11 @@ exports.postMajorSubjects = async (req, res, next) => {
     return responseHelper(res, 201, 'Successfully created', createdMajorSubject);
   } catch (error) {
     transaction.rollback();
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };
 
-exports.putMajorSubjects = async (req, res, next) => {
+exports.putMajorSubjects = async (req, res) => {
   const majorSubjectId = req.query.majorSubjectId;
   const transaction = await db.sequelize.transaction();
 
@@ -75,11 +75,11 @@ exports.putMajorSubjects = async (req, res, next) => {
     return responseHelper(res, 200, 'Successfully updated', updatedMajorSubject);
   } catch (error) {
     transaction.rollback();
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };
 
-exports.deleteMajorSubjects = async (req, res, next) => {
+exports.deleteMajorSubjects = async (req, res) => {
   const majorSubjectId = req.query.majorSubjectId;
   const transaction = await db.sequelize.transaction();
 
@@ -97,6 +97,6 @@ exports.deleteMajorSubjects = async (req, res, next) => {
     return responseHelper(res, 200, 'Successfully deleted', deletedMajorSubject);
   } catch (error) {
     transaction.rollback();
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };

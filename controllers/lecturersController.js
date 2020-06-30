@@ -6,18 +6,18 @@ const copyObjectHelper = require('../helpers/propertyCopyHelper');
 const { checkLecturerEditAuthorization } = require('../helpers/checkAuthorizationHelper');
 const pdfService = require('../services/pdfService');
 
-exports.getLecturers = async (req, res, next) => {
+exports.getLecturers = async (req, res) => {
   // TODO: add filter methods
   try {
     const Lecturers = await lecturerService.findAllLecturers();
 
     responseHelper(res, 200, 'Successful', { Lecturers });
   } catch (error) {
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };
 
-exports.postLecturers = async (req, res, next) => {
+exports.postLecturers = async (req, res) => {
   const transaction = await db.sequelize.transaction();
   const directorOfStudies_id = req.token.directorOfStudies_id;
   const givenLecturer = copyObjectHelper(req.body, [
@@ -43,11 +43,11 @@ exports.postLecturers = async (req, res, next) => {
     responseHelper(res, 201, 'Successfully created', createdLecturer);
   } catch (error) {
     transaction.rollback();
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };
 
-exports.putLecturers = async (req, res, next) => {
+exports.putLecturers = async (req, res) => {
   const lecturerId = req.query.lecturerId;
   const { directorOfStudies_id } = req.token;
   const transaction = await db.sequelize.transaction();
@@ -90,11 +90,11 @@ exports.putLecturers = async (req, res, next) => {
     return responseHelper(res, 200, 'Successfully updated', updatedLecturer);
   } catch (error) {
     transaction.rollback();
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };
 
-exports.deleteLecturers = async (req, res, next) => {
+exports.deleteLecturers = async (req, res) => {
   const lecturerId = req.query.lecturerId;
   const { directorOfStudies_id } = req.token;
   const transaction = await db.sequelize.transaction();
@@ -120,6 +120,6 @@ exports.deleteLecturers = async (req, res, next) => {
     return responseHelper(res, 200, 'Successfully deleted', deletedLecturer);
   } catch (error) {
     transaction.rollback();
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };

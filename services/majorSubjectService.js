@@ -14,8 +14,8 @@ module.exports.findAll = async () => {
 };
 
 // POST
-module.exports.createMajorSubject = async (transaction, name, fieldOfStudy_id) => {
-  const majorSubject = await db.MajorSubject.create({ name, fieldOfStudy_id }, { transaction });
+module.exports.createMajorSubject = async (transaction, name, fieldOfStudy_id, catalog_effective_from) => {
+  const majorSubject = await db.MajorSubject.create({ name, fieldOfStudy_id, catalog_effective_from }, { transaction });
 
   return majorSubject.dataValues;
 };

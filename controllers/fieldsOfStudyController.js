@@ -4,18 +4,18 @@ const fieldOfStudyService = require('../services/fieldOfStudyService');
 const db = require('../database/database');
 const copyObjectHelper = require('../helpers/propertyCopyHelper');
 
-exports.getFieldsOfStudy = async (req, res, next) => {
+exports.getFieldsOfStudy = async (req, res) => {
   try {
     const withMajorSubjects = req.query.withMajorSubjects;
     const FieldsOfStudy = await fieldOfStudyService.findAll(withMajorSubjects === 'true' ? true : false);
 
     return responseHelper(res, 200, 'Successful', { FieldsOfStudy });
   } catch (error) {
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };
 
-exports.postFieldsOfStudy = async (req, res, next) => {
+exports.postFieldsOfStudy = async (req, res) => {
   const transaction = await db.sequelize.transaction();
 
   try {
@@ -26,11 +26,11 @@ exports.postFieldsOfStudy = async (req, res, next) => {
     return responseHelper(res, 201, 'Successfully created', createdFieldOfStudy);
   } catch (error) {
     transaction.rollback();
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };
 
-exports.putFieldsOfStudy = async (req, res, next) => {
+exports.putFieldsOfStudy = async (req, res) => {
   const fieldOfStudyId = req.query.fieldOfStudyId;
   const transaction = await db.sequelize.transaction();
 
@@ -53,11 +53,11 @@ exports.putFieldsOfStudy = async (req, res, next) => {
     return responseHelper(res, 200, 'Successfully updated', updatedFieldOfStudy);
   } catch (error) {
     transaction.rollback();
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };
 
-exports.deleteFieldsOfStudy = async (req, res, next) => {
+exports.deleteFieldsOfStudy = async (req, res) => {
   const fieldOfStudyId = req.query.fieldOfStudyId;
   const transaction = await db.sequelize.transaction();
 
@@ -75,6 +75,6 @@ exports.deleteFieldsOfStudy = async (req, res, next) => {
     return responseHelper(res, 200, 'Successfully deleted', deletedFieldOfStudy);
   } catch (error) {
     transaction.rollback();
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };

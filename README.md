@@ -169,7 +169,8 @@ The file `keys.json` has the following format:
 
 ## general information
 
-If you want to know how to use the routes you can simply look at the postman collection or the [api docs](/docs/api.md).
+If you want to know how to use the routes and speak german, take a look at the postman collection or the [api docs](docs/README.md).
+If you want to know more about our database design and speak german, take a look at our [database documentation](docs/database/README.md)
 
 ## current status
 
@@ -181,13 +182,14 @@ If you want to know how to use the routes you can simply look at the postman col
 | Change own password                                                        | `PUT`       | `/changePassword`    | `directorOfStudiesId`                                                                    | :white_check_mark: | [directorOfStudies.md](/docs/apis/directorOfStudies.md) |
 | Get all attributes to the current director of studies                      | `GET`       | `/directorOfStudies` | `token`                                                                                  | :white_check_mark: | [directorOfStudies.md](/docs/apis/directorOfStudies.md) |
 | Update the current director of studies                                     | `PUT`       | `/directorOfStudies` | `token`                                                                                  | :white_check_mark: | [directorOfStudies.md](/docs/apis/directorOfStudies.md) |
+| [Admin routes] Get all users                                               | `GET`       | `/users`             | `token`                                                                                  | :white_check_mark: | [admin.md](/docs/apis/admin.md)                         |
 | [Admin routes] Create new director of studies                              | `POST`      | `/createUser`        | `token`                                                                                  | :white_check_mark: | [admin.md](/docs/apis/admin.md)                         |
 | [Admin routes] Reset password of director of studies                       | `PUT`       | `/resetPassword`     | `token`, `directorOfStudiesId`                                                           | :white_check_mark: | [admin.md](/docs/apis/admin.md)                         |
 | [Admin routes] Give director of studies admin privileges                   | `PUT`       | `/upgradeToAdmin`    | `token`, `directorOfStudiesId`                                                           | :white_check_mark: | [admin.md](/docs/apis/admin.md)                         |
 | [Admin routes] Get register key                                            | `GET`       | `/registerKey`       | `token`                                                                                  | :white_check_mark: | [admin.md](/docs/apis/admin.md)                         |
 | [Admin routes] Update register key                                         | `PUT`       | `/registerKey`       | `token`                                                                                  | :white_check_mark: | [admin.md](/docs/apis/admin.md)                         |
-| Get google calender api key                                                | `GET`       | `/googleCalendarAPI` | `token`                                                                                  | :parking:          | [googleCalendar.md](/docs/apis/googleCalendar.md)       |
-| [Admin routes] Update google calender api key                              | `PUT`       | `/googleCalendarAPI` | `token`                                                                                  | :parking:          | [googleCalendar.md](/docs/apis/googleCalendar.md)       |
+| Get google calender api key                                                | `GET`       | `/googleCalendarAPI` | `token`                                                                                  | :white_check_mark: | [googleCalendar.md](/docs/apis/googleCalendar.md)       |
+| [Admin routes] Update google calender api key                              | `PUT`       | `/googleCalendarAPI` | `token`                                                                                  | :white_check_mark: | [googleCalendar.md](/docs/apis/googleCalendar.md)       |
 | Get all courses                                                            | `GET`       | `/courses`           | `token`                                                                                  | :white_check_mark: | [courses.md](/docs/apis/courses.md)                     |
 | Create a course                                                            | `POST`      | `/courses`           | `token`                                                                                  | :white_check_mark: | [courses.md](/docs/apis/courses.md)                     |
 | Update a course                                                            | `PUT`       | `/courses`           | `token`, `courseId`                                                                      | :white_check_mark: | [courses.md](/docs/apis/courses.md)                     |

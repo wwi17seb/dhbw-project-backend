@@ -1,0 +1,45 @@
+# Erklärung der einzelnen Entitäten im ER-Modell
+
+- Studiengangsleiter - `directorOfStudies`
+  - stellt den Nutzer des Systems dar
+  - beinhaltet die Möglichkeit, Mail-Templates etc. zu speichern (`misc`)
+  - ist nicht automatisch als Dozierender verfügbar und muss separat angelegt und gepflegt werden
+  - kann zusätlich Administrator sein, was zu folgendem berechtigt:
+    - neue Nutzer (Studiengangsleiter) anlegen
+    - Passwörter zurücksetzen
+    - Registrierungsschlüssel zur selbstständigen Registrierung bearbeiten bzw. (de)aktivieren
+- Studiengang und Studienrichtung - `fieldOfStudy` und `majorSubject`
+  - sind zur Deklaration und Unterscheidung vorhanden
+  - `majorSubject` entspricht gewissermaßen dem Modulkatalog und beinhaltet daher auch das Jahr, ab dem der Modulkatalog gültig ist
+- Modulgruppe, Modul und Vorlesung - `moduleGroup`, `module` und `lecture`
+  - zur Ermöglichung von Wahlmodulen werden Module in Modulgruppen zusammengefasst
+    - im _Normalfall_ beinhaltet eine Modulegruppe genau ein Modul
+    - im Fall eines Wahlmoduls beinhaltet die Modulgruppe die verschiedenen wählbaren Module
+  - Module entsprechen den Modulen aus dem Modulkatalog der DHBW
+  - Vorlesungen sind abstrakte Lehr-/Lerneinheiten, wie sie auch im Modulkatalog gepflegt werden
+    - beinhalten dabei nur allgemeine Beschreibungen
+    - sind somit für alle Kurse einer Studienrichtung gleich
+- Prüfungsleistungen und Schwerpunkte - `academicRecord` und `mainFocus`
+  - Prüfungsleistungen werden durch ihre Bezeichnung (z. B. _Klausur_) und ihre Abkürzung (z. B. _K_) identifiziert
+  - Schwerpunkte dienen der Verknüpfung von Vorlesungen und Dozierenden
+    - da jede Vorlesung genau einem Modulkatalog zugeordnet ist, gibt es thematisch ähnliche Vorlesungen mehrfach (z. B. _Mathematik_)
+    - um zu Vorlesungen passende Dozierenden vorschlagen zu können, gibt es daher thematische Schwerpunkte, die ähnlich wie Tags zu diesen beiden Entitäten hinzugefügt werden können
+- Dozierende - `lecturer`
+  - Dozierende werden durch zahlreiche Attribute beschrieben
+  - sie werden gemeinsam in einem zentralen Dozentenpool verwaltet
+    - allerdings ist allen Dozierenden genau ein Studiengangsleiter als Ersteller zugeordnet
+    - die Bearbeitbarkeit durch andere kann eingeschränkt werden
+    - der Lebenslauf wird als PDF-Datei gesondert gespeichert
+- Kurse und Semester - `course` und `semester`
+  - jeder Kurs studiert in genau einer Studienrichtung (es gibt hier genau einen gültigen Modulkatalog)
+  - Kurse beinhalten neben einem Namen zusätzlich eine Referenz zu dem dafür angelegten Google Calendar
+  - Semester sind kursspezifisch und somit für jeden Kurs einzigartig
+    - beschreiben den zeitlichen Rahmen des Studiums
+  - ein Kurs wird üblicherweise durch einen Studiengangsleiter verwaltet, es können aber auch weitere hinzugefügt werden
+- Präsentationen - `presentations`
+  - stellen eine Planungseinheit für tatsächlich zu haltende Veranstaltung dar
+    - können somit für Veranstaltungen mehrfach erzeugt werden, sodass eine breite Planung ermöglicht werden kann
+    - beinhalten einen Status (z. B. _angeschrieben_, _abgesagt_, ...), welcher vom Kursbevollmächtigten geführt wird
+    - wenn mehrere Dozenten gemeinsam eine Vorlesung halten, können einfach zwei Präsentationen angelegt werden
+  - referenzieren auf abstrakte Vorlesungen, einen Dozierenden, eine Prüfungsleistung sowie ein Semester und einen Kurs
+  - über die abstrakte Vorlesung wird auf das Modul referenziert, dass die möglichen Prüfungsleistungen angibt; die Präsentation beinhaltet dann genau eine davon, die von dem jeweiligen Dozierenden ausgesucht wird
