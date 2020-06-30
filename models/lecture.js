@@ -62,5 +62,14 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
 
+  // create scope for default ordering
+  Lecture.addScope(
+    'defaultScope',
+    {
+      order: sequelize.col('lecture_id'),
+    },
+    { override: true }
+  );
+
   return Lecture;
 };

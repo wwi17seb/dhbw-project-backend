@@ -43,5 +43,15 @@ module.exports = (sequelize, DataTypes) => {
       },
     });
   };
+
+  // create scope for default ordering
+  AcademicRecord.addScope(
+    'defaultScope',
+    {
+      order: sequelize.col('academicRecord_id'),
+    },
+    { override: true }
+  );
+
   return AcademicRecord;
 };

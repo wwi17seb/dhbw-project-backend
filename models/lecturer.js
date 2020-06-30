@@ -87,5 +87,15 @@ module.exports = (sequelize, DataTypes) => {
       },
     });
   };
+
+  // create scope for default ordering
+  Lecturer.addScope(
+    'defaultScope',
+    {
+      order: sequelize.col('lecturer_id'),
+    },
+    { override: true }
+  );
+
   return Lecturer;
 };

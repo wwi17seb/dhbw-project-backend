@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       catalog_effective_from: {
         type: DataTypes.STRING,
         allowNull: true,
-      }
+      },
     },
     {
       modelName: 'MajorSubject',
@@ -51,5 +51,15 @@ module.exports = (sequelize, DataTypes) => {
       },
     });
   };
+
+  // create scope for default ordering
+  MajorSubject.addScope(
+    'defaultScope',
+    {
+      order: sequelize.col('majorSubject_id'),
+    },
+    { override: true }
+  );
+
   return MajorSubject;
 };

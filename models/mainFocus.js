@@ -41,5 +41,15 @@ module.exports = (sequelize, DataTypes) => {
       },
     });
   };
+
+  // create scope for default ordering
+  MainFocus.addScope(
+    'defaultScope',
+    {
+      order: sequelize.col('mainFocus_id'),
+    },
+    { override: true }
+  );
+
   return MainFocus;
 };
