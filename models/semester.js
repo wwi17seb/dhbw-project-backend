@@ -56,5 +56,15 @@ module.exports = (sequelize, DataTypes) => {
       },
     });
   };
+
+  // create scope for default ordering
+  Semester.addScope(
+    'defaultScope',
+    {
+      order: [sequelize.col('number'), sequelize.col('semester_id')],
+    },
+    { override: true }
+  );
+
   return Semester;
 };

@@ -30,5 +30,15 @@ module.exports = (sequelize, DataTypes) => {
       },
     });
   };
+
+  // create scope for default ordering
+  FieldOfStudy.addScope(
+    'defaultScope',
+    {
+      order: sequelize.col('name'),
+    },
+    { override: true }
+  );
+
   return FieldOfStudy;
 };

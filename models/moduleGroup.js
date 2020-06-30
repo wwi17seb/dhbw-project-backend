@@ -50,5 +50,15 @@ module.exports = (sequelize, DataTypes) => {
       },
     });
   };
+
+  // create scope for default ordering
+  ModuleGroup.addScope(
+    'defaultScope',
+    {
+      order: sequelize.col('moduleGroup_id'),
+    },
+    { override: true }
+  );
+
   return ModuleGroup;
 };

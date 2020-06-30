@@ -96,5 +96,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
+  // create scope for default ordering
+  DirectorOfStudies.addScope(
+    'defaultScope',
+    {
+      order: sequelize.col('username'),
+    },
+    { override: true }
+  );
+
   return DirectorOfStudies;
 };
