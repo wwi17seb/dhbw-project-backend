@@ -77,7 +77,7 @@ module.exports = (sequelize, DataTypes) => {
   Module.addScope(
     'defaultScope',
     {
-      order: sequelize.col('module_id'),
+      order: [sequelize.col('catalog_id'), sequelize.col('module_id')],
     },
     { override: true }
   );

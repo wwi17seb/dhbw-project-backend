@@ -46,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
   MainFocus.addScope(
     'defaultScope',
     {
-      order: sequelize.col('mainFocus_id'),
+      order: sequelize.col('name'),
     },
     { override: true }
   );

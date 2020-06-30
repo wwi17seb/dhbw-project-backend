@@ -100,7 +100,7 @@ module.exports = (sequelize, DataTypes) => {
   DirectorOfStudies.addScope(
     'defaultScope',
     {
-      order: sequelize.col('directorOfStudies_id'),
+      order: sequelize.col('username'),
     },
     { override: true }
   );

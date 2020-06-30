@@ -56,7 +56,10 @@ module.exports = (sequelize, DataTypes) => {
   MajorSubject.addScope(
     'defaultScope',
     {
-      order: sequelize.col('majorSubject_id'),
+      order: [
+        ['catalog_effective_from', 'DESC'],
+        ['name', 'ASC'],
+      ],
     },
     { override: true }
   );

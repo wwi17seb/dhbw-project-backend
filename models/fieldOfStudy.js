@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
   FieldOfStudy.addScope(
     'defaultScope',
     {
-      order: sequelize.col('fieldOfStudy_id'),
+      order: sequelize.col('name'),
     },
     { override: true }
   );

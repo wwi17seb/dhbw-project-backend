@@ -48,7 +48,7 @@ module.exports = (sequelize, DataTypes) => {
   AcademicRecord.addScope(
     'defaultScope',
     {
-      order: sequelize.col('academicRecord_id'),
+      order: sequelize.col('abbreviation'),
     },
     { override: true }
   );
