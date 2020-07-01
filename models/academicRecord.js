@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
     AcademicRecord.Presentation = models.AcademicRecord.hasMany(models.Presentation, {
       onDelete: 'CASCADE',
       foreignKey: {
-        allowNull: false,
+        allowNull: true,
         name: 'academicRecord_id',
       },
     });
