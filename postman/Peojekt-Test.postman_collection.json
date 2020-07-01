@@ -7,10 +7,117 @@
 	},
 	"item": [
 		{
+			"name": "RegisterKey",
+			"item": [
+				{
+					"name": "update RegisterKey",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f38bacf3-1404-4e02-a3b7-7461d26fb0f9",
+								"exec": [
+									"pm.test(\"Update Register Key status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4a12f275-fcf4-4b71-93e8-4a3644a5a2b9",
+								"exec": [
+									"",
+									"pm.environment.set(\"user2-password-new\", \"\\\"MeinNeuesSicheresPasswort42\\\"\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"registerKey\": \"SichererSchlüssel1337\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/registerKey?token={{admin-token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"registerKey"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{admin-token}}"
+								}
+							]
+						},
+						"description": "Updates current register key. If given value is \"falsy\" (e. g. undefined, null, false, \" \") the self registration will be deactivated."
+					},
+					"response": []
+				},
+				{
+					"name": "get RegisterKey",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a48df0f9-3926-40fb-9ce3-ac80c5397ed0",
+								"exec": [
+									"pm.test(\"GET Register Key status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"if (pm.response.json().payload && pm.response.json().payload.registerKey) {",
+									"    pm.environment.set(\"registerKey\", pm.response.json().payload.registerKey);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/registerKey?token={{admin-token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"registerKey"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{admin-token}}"
+								}
+							]
+						},
+						"description": "Returns register key."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
 			"name": "Authentication",
 			"item": [
 				{
-					"name": "signup User",
+					"name": "register User",
 					"event": [
 						{
 							"listen": "test",
@@ -19,7 +126,7 @@
 								"exec": [
 									"",
 									"",
-									"pm.test(\"Signup status test\", function () {",
+									"pm.test(\"Register status test\", function () {",
 									"",
 									"if (pm.response.json().message && (pm.response.json().message === \"Username already exists\")) {",
 									"    pm.response.to.have.status(400);",
@@ -59,7 +166,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": {{user1-name}},\n    \"password\": {{user1-password}}\n}",
+							"raw": "{\n    \"username\": {{user1-name}},\n    \"password\": {{user1-password}},\n    \"registerKey\": \"SichererSchlüssel1337\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -67,12 +174,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{backend}}/signup",
+							"raw": "{{backend}}/register",
 							"host": [
 								"{{backend}}"
 							],
 							"path": [
-								"signup"
+								"register"
 							]
 						}
 					},
@@ -539,7 +646,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"abbreviation\": \"Kl\",\r\n    \"type\": \"Klausur\",\r\n    \"rated\": true\r\n}",
+							"raw": "{\r\n    \"abbreviation\": \"Kl\",\r\n    \"type\": \"Klausur\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -588,7 +695,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"abbreviation\": \"K\",\r\n    \"type\": \"Klausur\",\r\n    \"rated\": true\r\n}",
+							"raw": "{\r\n    \"abbreviation\": \"K\",\r\n    \"type\": \"Klausur\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1087,8 +1194,8 @@
 							}
 						],
 						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [],
+							"mode": "raw",
+							"raw": "{\r\n\t\"course_id\": {{course_id}},\r\n    \"name\": \"SS18\",\r\n    \"number\": 0,\r\n    \"start_date\": \"2018-05-07\",\r\n    \"end_date\": \"2018-08-03\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1272,7 +1379,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstname\": \"Sebastian\",\n    \"lastname\": \"Ritterbusch\",\n    \"academic_title\": \"Prof. Dr.\",\n    \"email\": \"sebastian.ritterbusch@dhbw-mannheim.de\",\n    \"salutation\": \"Herr\",\n    \"phonenumber\": \"+49 621 4105 - 1724\",\n    \"experience\": \"Mathematik, Podcasts\",\n    \"mainFocus_ids\": [{{mainFocus_id}}],\n    \"profile\": \"...\",\n    \"research\": \"...\",\n    \"cv\": \"...\",\n    \"comment\": \"sehr engagiert\",\n    \"is_extern\": true,\n    \"allow_manipulation\": true\n}",
+							"raw": "{\n    \"firstname\": \"Sebastian\",\n    \"lastname\": \"Ritterbusch\",\n    \"academic_title\": \"Prof. Dr.\",\n    \"email\": \"sebastian.ritterbusch@dhbw-mannheim.de\",\n    \"salutation\": \"Herr\",\n    \"phonenumber\": \"+49 621 4105 - 1724\",\n    \"experience\": \"Mathematik, Podcasts\",\n    \"mainFocus_ids\": [{{mainFocus_id}}],\n    \"comment\": \"sehr engagiert\",\n    \"is_extern\": true,\n    \"allow_manipulation\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1346,6 +1453,107 @@
 							]
 						},
 						"description": "Update a given lecturer if he is linked with a given director of studies."
+					},
+					"response": []
+				},
+				{
+					"name": "add Lecturer CV",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "633088d6-b9be-4928-b3da-a5cfcc3de9ce",
+								"exec": [
+									"pm.test(\"PUT LecturerCV status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "cv",
+									"type": "file",
+									"src": "/Users/dennis/Downloads/Command (1).pdf"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{backend}}/lecturerCV?token={{token}}&lecturerId={{lecturer_id}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"lecturerCV"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "lecturerId",
+									"value": "{{lecturer_id}}"
+								}
+							]
+						},
+						"description": "Adds CV of a given lecturer."
+					},
+					"response": []
+				},
+				{
+					"name": "get LecturerCV",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c2356afc-91e2-42ff-98a5-44e65a3312fa",
+								"exec": [
+									"pm.test(\"GET LecturerCV status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{backend}}/lecturerCV?token={{token}}&lecturerId={{lecturer_id}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"lecturerCV"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "lecturerId",
+									"value": "{{lecturer_id}}"
+								}
+							]
+						},
+						"description": "Gets CV of a given lecturer."
 					},
 					"response": []
 				}
@@ -1562,6 +1770,170 @@
 					"response": []
 				}
 			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "DirectorOfStudies",
+			"item": [
+				{
+					"name": "get DirectorOfStudies",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "823b977c-8030-46d3-93b0-f8ca980cf9a4",
+								"exec": [
+									"pm.test(\"GET Director of Studies status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"if (pm.response.json().payload && pm.response.json().payload.DirectorOfStudies.directorOfStudies_id) {",
+									"    pm.environment.set(\"current_directorOfStudies_id\", pm.response.json().payload.DirectorOfStudies.directorOfStudies_id);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/directorOfStudies?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"directorOfStudies"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Returns information about the currently logged in DirectorOfStudies."
+					},
+					"response": []
+				},
+				{
+					"name": "change DirectorOfStudies Password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "12acf872-eb55-45e4-a8ec-b54ef801874e",
+								"exec": [
+									"pm.test(\"UPDATE Password status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "bcd394a3-b464-44d3-ae5d-def946cf921a",
+								"exec": [
+									"",
+									"pm.environment.set(\"user1-password-new\", \"\\\"MeinNeuesSicheresPasswort1337\\\"\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"oldPassword\": {{user1-password}}, \r\n\t\"newPassword\": {{user1-password}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/changePassword?directorOfStudiesId={{current_directorOfStudies_id}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"changePassword"
+							],
+							"query": [
+								{
+									"key": "directorOfStudiesId",
+									"value": "{{current_directorOfStudies_id}}"
+								}
+							]
+						},
+						"description": "Enables to update passwords for currently logged in Director of Studies."
+					},
+					"response": []
+				},
+				{
+					"name": "update DirectorOfStudies",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8ddade69-c00f-4028-8ae8-fe998db1e7f2",
+								"exec": [
+									"pm.test(\"UPDATE DirectorOfStudies status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "3d1e4376-2671-425b-b363-a3b64994747f",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"username\": {{user1-name}}, \r\n\t\"misc\": \"test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/directorOfStudies?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"directorOfStudies"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Enables to update username- and misc-field for currently logged in Director of Studies."
+					},
+					"response": []
+				}
+			],
+			"description": "Routes for Director of Study.",
 			"protocolProfileBehavior": {}
 		},
 		{
@@ -1946,6 +2318,403 @@
 					"response": []
 				}
 			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "TransferOwnership",
+			"item": [
+				{
+					"name": "transferOwnership",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b053ce48-b1ec-4301-9ecc-d335d443749d",
+								"exec": [
+									"pm.test(\"TransferOwnership status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"newOwnerId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/transferOwnership?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"transferOwnership"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Transfers ownership of all Courses, Lecturers and Presentations from one director of studies to another."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "get Users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c55fb41c-e1bc-4c0e-ab0d-7110c6abc122",
+								"exec": [
+									"pm.test(\"GET Users status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/users?token={{admin-token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{admin-token}}"
+								}
+							]
+						},
+						"description": "Returns all registered users."
+					},
+					"response": []
+				},
+				{
+					"name": "create User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3a906822-b19d-4308-a36f-9a86c6db9add",
+								"exec": [
+									"pm.test(\"Signup status test\", function () {",
+									"",
+									"if (pm.response.json().message && (pm.response.json().message === \"Username already exists\")) {",
+									"    pm.response.to.have.status(400);",
+									"} else {",
+									"    pm.response.to.have.status(201);",
+									"}",
+									"});",
+									"",
+									"if (pm.response.json().payload && pm.response.json().payload.directorOfStudies_id) {",
+									"    pm.environment.set(\"user2-directorOfStudies_id\", pm.response.json().payload.directorOfStudies_id);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "7b14f213-4059-475d-b60e-3559fd7e7037",
+								"exec": [
+									"pm.environment.set(\"user2-name\", \"\\\"Nutzername2\\\"\");",
+									"pm.environment.set(\"user2-password\", \"\\\"MeinSicheresPasswort42\\\"\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": {{user2-name}},\n    \"password\": {{user2-password}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/createUser?token={{admin-token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"createUser"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{admin-token}}"
+								}
+							]
+						},
+						"description": "Create a new User"
+					},
+					"response": []
+				},
+				{
+					"name": "resetPassword",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a2ea3be9-fcbb-429b-8808-c3663f645df1",
+								"exec": [
+									"pm.test(\"Reset Password status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "781c0842-10ac-4846-b42c-2a5990895548",
+								"exec": [
+									"",
+									"pm.environment.set(\"user2-password-new\", \"\\\"MeinNeuesSicheresPasswort42\\\"\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"newPassword\": {{user2-password-new}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/resetPassword?token={{admin-token}}&directorOfStudiesId={{user2-directorOfStudies_id}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"resetPassword"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{admin-token}}"
+								},
+								{
+									"key": "directorOfStudiesId",
+									"value": "{{user2-directorOfStudies_id}}"
+								}
+							]
+						},
+						"description": "Updates password of given Director of Study."
+					},
+					"response": []
+				},
+				{
+					"name": "upgrade to admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2fb2b5cd-7c4e-4721-bedb-d99e5af6e2b9",
+								"exec": [
+									"pm.test(\"Admin Upgrade status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "8c91f08f-a060-49d8-8b3e-ff05a58bdb5b",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/upgradeToAdmin?token={{admin-token}}&directorOfStudiesId={{user2-directorOfStudies_id}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"upgradeToAdmin"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{admin-token}}"
+								},
+								{
+									"key": "directorOfStudiesId",
+									"value": "{{user2-directorOfStudies_id}}"
+								}
+							]
+						},
+						"description": "Upgrades given Director of Study to admin."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "GoogleCalendar",
+			"item": [
+				{
+					"name": "get GoogleCalendar",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a0856cf3-410d-4f6f-8244-fd22e52876f4",
+								"exec": [
+									"pm.test(\"GET Google Calendar status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/googleCalendar?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"googleCalendar"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Returns information about google calendars."
+					},
+					"response": []
+				},
+				{
+					"name": "update GoogleCalendar",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6f6c9467-1e89-4f2f-b508-77725ee42931",
+								"exec": [
+									"pm.test(\"UPDATE Google Calendar status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ff4fb876-f494-4b8b-88b3-0565ac052ce4",
+								"exec": [
+									"",
+									"pm.environment.set(\"user1-password-new\", \"\\\"MeinNeuesSicheresPasswort1337\\\"\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"apiKey\": \"this is an GC API Key\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/googleCalendar?token={{admin-token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"googleCalendar"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{admin-token}}"
+								}
+							]
+						},
+						"description": "Updates Key-Value pairs for google calendar information. All Key-Value pairs need to be in the request. This is an Admin Functionality."
+					},
+					"response": []
+				}
+			],
+			"description": "Route for getting the google calendar information.",
 			"protocolProfileBehavior": {}
 		}
 	],
