@@ -41,7 +41,7 @@
                 "cv": "[DATEINAME]",
                 "comment": "[KOMMENTAR]",
                 "is_extern": true,
-                "possible_lectures": "[Vorlesungen]",
+                "possible_lectures": "[VORLESUNGEN]",
                 "allow_manipulation": true,
                 "createdAt": "[DATUM]",
                 "updatedAt": "[DATUM]",
@@ -101,7 +101,7 @@
     "phonenumber": "[TELEFONNUMMER]",
     "mainFocus_ids": [0, 0],
     "comment": "[KOMMENTAR]",
-    "possible_lectures": "[Vorlesungen]",
+    "possible_lectures": "[VORLESUNGEN]",
     "is_extern": true,
     "allow_manipulation": true
 }
@@ -137,7 +137,7 @@
         "salutation": "[ANREDE]",
         "phonenumber": "[TELEFONNUMMER]",
         "comment": "[KOMMENTAR]",
-        "possible_lectures": "[Vorlesungen]",
+        "possible_lectures": "[VORLESUNGEN]",
         "is_extern": true,
         "allow_manipulation": true,
         "createdBy_id": 0,
@@ -164,7 +164,7 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
     "phonenumber": "[TELEFONNUMMER]",
     "mainFocus_ids": [0, 0],
     "comment": "[KOMMENTAR]",
-    "possible_lectures": "[Vorlesungen]",
+    "possible_lectures": "[VORLESUNGEN]",
     "is_extern": true,
     "allow_manipulation": true
 }
