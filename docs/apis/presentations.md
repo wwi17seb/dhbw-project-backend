@@ -84,14 +84,14 @@ Das Filtern nach `courseId` funktioniert nur, wenn der angemeldete DoS auch Stud
                         "ects": 0,
                         "catalog_id": "[KATALOG_ID]",
                         "number_of_lectures_to_attend": 0,
-                        "rated": true,
                         "requirements": "[ANFORDERUNGEN]",
+                        "rated": true,
                         "createdAt": "[DATUM]",
                         "updatedAt": "[DATUM]",
                         "moduleGroup_id": 0,
                         "ModuleGroup": {
                             "moduleGroup_id": 0,
-                            "name": "[NAME_DER_MODULEGRUPPE]",
+                            "name": "[MODULENAME]",
                             "number_of_modules_to_attend": 0,
                             "from_semester_number": 0,
                             "to_semester_number": 0,
@@ -102,126 +102,48 @@ Das Filtern nach `courseId` funktioniert nur, wenn der angemeldete DoS auch Stud
                         "AcademicRecords": [
                             {
                                 "academicRecord_id": 0,
-                                "course_id": 0,
-                                "createdBy_id": 0,
-                                "lecture_id": 0,
-                                "lecturer_id": 0,
-                                "semester_id": 0,
-                                "Semester": {
-                                    "semester_id": 0,
-                                    "name": "[NAME_DES_SEMESTERS]",
-                                    "number": 0,
-                                    "start_date": "[STARTDATUM]",
-                                    "end_date": "[ENDDATUM]",
-                                    "createdAt": "[DATUM]",
-                                    "updatedAt": "[DATUM]",
-                                    "course_id": 0
-                                },
-                                "AcademicRecord": {
-                                    "academicRecord_id": 0,
-                                    "abbreviation": "[ABKÜRZUNG]",
-                                    "type": "[ART]",
-                                    "createdAt": "[DATUM]",
-                                    "updatedAt": "[DATUM]"
-                                },
-                                "Lecture": {
-                                    "lecture_id": 0,
-                                    "name": "[NAME_DER_VORLESUNG]",
-                                    "workload_home": 0,
-                                    "workload_dhbw": 0,
-                                    "catalog_id": "[KATALOG_ID]",
-                                    "createdAt": "[DATUM]",
-                                    "updatedAt": "[DATUM]",
-                                    "module_id": 0,
-                                    "MainFocuses": [
-                                        {
-                                            "mainFocus_id": 0,
-                                            "name": "[NAME_DES_SCHWERPUNKTS]",
-                                            "createdAt": "[DATUM]",
-                                            "updatedAt": "[DATUM]"
-                                        }
-                                    ],
-                                    "Module": {
-                                        "module_id": 0,
-                                        "name": "[NAME]",
-                                        "description": "[BESCHREIBUNG]",
-                                        "ects": 0,
-                                        "catalog_id": "[KATALOG_ID]",
-                                        "number_of_lectures_to_attend": 0,
-                                        "rated": true,
-                                        "requirements": "[ANFORDERUNGEN]",
-                                        "createdAt": "[DATUM]",
-                                        "updatedAt": "[DATUM]",
-                                        "moduleGroup_id": 0,
-                                        "ModuleGroup": {
-                                            "moduleGroup_id": 0,
-                                            "name": "[NAME_DER_MODULEGRUPPE]",
-                                            "number_of_modules_to_attend": 0,
-                                            "from_semester_number": 0,
-                                            "to_semester_number": 0,
-                                            "createdAt": "[DATUM]",
-                                            "updatedAt": "[DATUM]",
-                                            "majorSubject_id": 0
-                                        },
-                                        "AcademicRecords": [
-                                            {
-                                                "academicRecord_id": 0,
-                                                "abbreviation": "[ABKÜRZUNG]",
-                                                "type": "[ART]",
-                                                "createdAt": "[DATUM]",
-                                                "updatedAt": "[DATUM]"
-                                            }
-                                        ]
-                                    }
-                                },
-                                "Lecturer": {
-                                    "lecturer_id": 0,
-                                    "firstname": "[VORNAME]",
-                                    "lastname": "[NACHNAME]",
-                                    "academic_title": "[AKADEMISCHER_TITEL]",
-                                    "email": "[E-MAIL]",
-                                    "salutation": "[ANREDE]",
-                                    "phonenumber": "[TELEFONNUMMER]",
-                                    "possible_lectures": "[MÖGLICHE_VORLESUNGEN]",
-                                    "cv": "[VITA]",
-                                    "comment": "[KOMMENTAR]",
-                                    "is_extern": true,
-                                    "allow_manipulation": true,
-                                    "createdAt": "[DATUM]",
-                                    "updatedAt": "[DATUM]",
-                                    "createdBy_id": 0,
-                                    "MainFocuses": [
-                                        {
-                                            "mainFocus_id": 0,
-                                            "name": "[NAME]",
-                                            "createdAt": "[DATUM]",
-                                            "updatedAt": "[DATUM]"
-                                        }
-                                    ]
-                                },
-                                "DirectorOfStudies": {
-                                    "directorOfStudies_id": 0,
-                                    "username": "[NUTZERNAME]",
-                                    "is_admin": true,
-                                    "misc": "[VERSCHIEDENES]"
-                                },
-                                "createdBy": {
-                                    "directorOfStudies_id": 0,
-                                    "username": "[NUTZERNAME]"
-                                }
+                                "abbreviation": "[ABKÜRZUNG]",
+                                "type": "[TYP]",
+                                "createdAt": "[DATUM]",
+                                "updatedAt": "[DATUM]"
                             }
                         ]
-                    },
-                    "DirectorOfStudies": {
-                        "directorOfStudies_id": 0,
-                        "username": "[NUTZERNAME]",
-                        "is_admin": true,
-                        "misc": "[VERSCHIEDENES]"
-                    },
-                    "createdBy": {
-                        "directorOfStudies_id": 0,
-                        "username": "[NUTZERNAME]"
                     }
+                },
+                "Lecturer": {
+                    "lecturer_id": 0,
+                    "firstname": "[VORNAME]",
+                    "lastname": "[NACHNAME]",
+                    "academic_title": "[AKADEMISCHER_TITLE]",
+                    "email": "[E-MAIL]",
+                    "salutation": "[ANREDE]",
+                    "phonenumber": "[TELEFONNUMMER]",
+                    "cv": "[LEBENSLAUF]",
+                    "comment": "[KOMMENTAR]",
+                    "possible_lectures": "[POTENTIELLE_VORLESUNGEN]",
+                    "is_extern": true,
+                    "allow_manipulation": true,
+                    "createdAt": "[DATUM]",
+                    "updatedAt": "[DATUM]",
+                    "createdBy_id": 0,
+                    "MainFocuses": [
+                        {
+                            "mainFocus_id": 0,
+                            "name": "[SCHWERPUNKT]",
+                            "createdAt": "[DATUM]",
+                            "updatedAt": "[DATUM]"
+                        }
+                    ]
+                },
+                "DirectorOfStudies": {
+                    "directorOfStudies_id": 0,
+                    "username": "[BENUTZERNAME]",
+                    "is_admin": true,
+                    "misc": "[VERSCHIEDENES]"
+                },
+                "createdBy": {
+                    "directorOfStudies_id": 0,
+                    "username": "[BENUTZERNAME]"
                 }
             }
         ]
@@ -270,8 +192,8 @@ Das Filtern nach `courseId` funktioniert nur, wenn der angemeldete DoS auch Stud
 | `_________ects`                           | 1                                                   | ECTS-Punkte des Moduls                                                                                           |
 | `_________catalog_id`                     | "WWISE_1337"                                        | Kennzeichnung aus dem Modulkatalog der DHBW                                                                      |
 | `_________number_of_lectures_to_attend`   | 1                                                   | Anzahl Vorlesungen, die im Rahmen des Moduls besucht werden müssen                                               |
-| `_________rated`                          | true / false                                        | Benotung                                                                                                         |
 | `_________requirements`                   | "Software Engineering 1"                            | Freitext, Für Teilnahme an Vorlesung benötigte Grundlagen bzw. Vorwissen                                         |
+| `_________rated`                          | true / false                                        | Benotung                                                                                                         |
 | `_________moduleGroup_id`                 | 1                                                   | Eindeutige ID der Modulgruppe                                                                                    |
 | `_________ModuleGroup`                    | { }                                                 | Objekt einer Modulgruppe                                                                                         |
 | `____________moduleGroup_id`              | 1                                                   | Eindeutige ID der Modulgruppe                                                                                    |
@@ -292,11 +214,11 @@ Das Filtern nach `courseId` funktioniert nur, wenn der angemeldete DoS auch Stud
 | `______email`                             | "sebastian.ritterbusch@dhbw-mannheim.de"            | E-Mail des Dozierenden                                                                                           |
 | `______salutation`                        | "Herr"                                              | Anrede des Dozierenden                                                                                           |
 | `______phonenumber`                       | "+49 621 4105 - 1724"                               | Telefonnummer des Dozierenden                                                                                    |
-| `______possible_lectures`                 | "Mathematik, Podcasts, ..."                         | Freitext, beinhaltet Vorlesungen, die der Dozierende halten könnte                                               |
 | `______cv`                                | ""                                                  | zur Zeit nur als string möglich; wird angepasst und nachgereicht                                                 |
 | `______comment`                           | "Sehr engagiert"                                    | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
+| `______possible_lectures`                 | "Mathematik, Podcasts, ..."                         | Freitext, beinhaltet Vorlesungen, die der Dozierende halten könnte                                               |
 | `______is_extern`                         | false                                               | Gibt an, ob ein Dozent extern ist - false = intern, true = extern                                                |
-| `___allow_manipulation`                   | true                                                | Gibt an, ob ein Dozent von **allen** Studiengangsleitern bearbeitbar ist                                         |
+| `______allow_manipulation`                | true                                                | Gibt an, ob ein Dozent von **allen** Studiengangsleitern bearbeitbar ist                                         |
 | `______createdBy_id`                      | 1                                                   | ID des Users, der zuletzt den Dozenten verändert hat                                                             |
 | `______MainFocuses`                       | [ ]                                                 | Array von Schwerpunkten des Dozierenden                                                                          |
 | `_________mainFocus_id`                   | 1                                                   | Eindeutige ID des Schwerpunktes                                                                                  |
@@ -322,7 +244,6 @@ Das Filtern nach `courseId` funktioniert nur, wenn der angemeldete DoS auch Stud
 - `getCoLecturers`
   - fügt Rückgabe weitere Felder hinzu
   - fügt an Präsentationen, die von mehreren Dozenten gleichzeitig gehalten werden, ein Array der mit-Dozenten an
-
 
 #### Rückgabe mit Queryparameter `getCoLecturers=true`
 
