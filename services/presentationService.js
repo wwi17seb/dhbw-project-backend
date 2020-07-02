@@ -1,5 +1,6 @@
 const db = require('../database/database');
 const lecturerService = require('./lecturerService');
+const copyObjectHelper = require('../helpers/propertyCopyHelper');
 const { Op } = require('sequelize');
 
 const withInclude = [
@@ -25,56 +26,53 @@ module.exports.findPresentationById = async (presentation_id) => {
   return presentation ? presentation.dataValues : null;
 };
 
-// FIXME:
-module.exports.findPresentationByLecturerIdWithCoLecturer = async (lecturer_id) => {
+module.exports.findPresentationsByLecturerIdWithCoLecturer = async (lecturer_id) => {
   let where = { lecturer_id };
   let Presentations = await db.Presentation.findAll({ include: withInclude, where });
-  Presentations = Presentations.map((Presentations) => Presentations.dataValues);
 
-  // find all presentations with same course, semester and lecture id
-  // find lecturer to presentation
-
-  for (let i = 0; i < Presentations.length; i++) {
-    // get all presentations with same information
-    let coPresentations = await db.Presentation.findAll({
-      where: {
-        course_id: Presentations[i].course_id,
-        semester_id: Presentations[i].semester_id,
-        lecture_id: Presentations[i].lecture_id,
-        lecturer_id: { [Op.not]: Presentations[i].lecturer_id },
-      },
-    });
-    coPresentations = coPresentations.map((coPresentations) => coPresentations.dataValues);
-
-    // create coLecturers array
-    Presentations[i]['coLecturers'] = [];
-
-    // get each lecturer for coLecturers array
-    for (let j = 0; j < coPresentations.length; j++) {
-      let coLecturer = await lecturerService.findLecturerById(coPresentations[j].lecturer_id);
-      Presentations[i]['coLecturers'].push(coLecturer);
+  const coLecturersConnection = await db.sequelize.query(
+    `SELECT A.presentation_id, B.lecturer_id, L.firstname, L.lastname, L.academic_title, L.salutation, L.is_extern
+    FROM presentation A, presentation B INNER JOIN lecturer L ON B.lecturer_id = L.lecturer_id
+    WHERE A.course_id = B.course_id
+      AND A.lecture_id = B.lecture_id
+      AND A.lecturer_id = :lecturerId
+      AND B.lecturer_id != :lecturerId;`,
+    {
+      replacements: { lecturerId: lecturer_id },
+      type: db.Sequelize.QueryTypes.SELECT,
     }
-  }
+  );
+
+  const presentationCoLecturersMap = coLecturersConnection.reduce(function (map, obj) {
+    if (map[obj.presentation_id] === undefined) {
+      map[obj.presentation_id] = [];
+    }
+    map[obj.presentation_id].push(
+      copyObjectHelper(obj, ['lecturer_id', 'firstname', 'lastname', 'academic_title', 'salutation', 'is_extern'])
+    );
+    return map;
+  }, {});
+
+  Presentations = Presentations.map((Presentation) => {
+    const p = Presentation.dataValues;
+    p.CoLecturers = presentationCoLecturersMap[p.presentation_id];
+    return p;
+  });
+
   return Presentations;
 };
 
-module.exports.findPresentationByLecturerId = async (lecturer_id, status) => {
+module.exports.findPresentationsByLecturerId = async (lecturer_id) => {
   let where = { lecturer_id };
-  if (status) {
-    where = { ...where, status };
-  }
 
   const presentations = await db.Presentation.findAll({ include: withInclude, where });
   return presentations.map((presentations) => presentations.dataValues);
 };
 
-module.exports.findAll = async (course_id, semester_id, status) => {
+module.exports.findAll = async (course_id, semester_id) => {
   let where = { course_id };
   if (semester_id) {
     where = { ...where, semester_id };
-  }
-  if (status) {
-    where = { ...where, status };
   }
   const presentations = await db.Presentation.findAll({ include: withInclude, where });
   return presentations.map((presentation) => presentation.dataValues);

@@ -238,9 +238,6 @@ Das Filtern nach `courseId` funktioniert nur, wenn der angemeldete DoS auch Stud
   - filtert die Rückgabe.
   - filtert Anfragen die `courseId` nutzen
   - gibt alle Presentations zum angegebenen Kurs&Semester zurück.
-- `status`
-  - filtert die Rückgabe.
-  - gibt alle Presentations zum angegebenen Dozenten zurück
 - `getCoLecturers`
   - fügt Rückgabe weitere Felder hinzu
   - fügt an Präsentationen, die von mehreren Dozenten gleichzeitig gehalten werden, ein Array der mit-Dozenten an
@@ -258,17 +255,8 @@ Für weitere Infos über Dozierende siehe [Dozierenden Doku](lecturers.md).
             "firstname": "[VORNAME]",
             "lastname": "[NACHNAME]",
             "academic_title": "[AKADEMISCHER_TITEL]",
-            "email": "[E-MAIL]",
             "salutation": "[ANREDE]",
-            "phonenumber": "[TELEFONNUMMER]",
-            "cv": "[DATEINAME]",
-            "comment": "[KOMMENTAR]",
             "is_extern": true,
-            "possible_lectures": "[Vorlesungen]",
-            "allow_manipulation": true,
-            "createdAt": "[DATUM]",
-            "updatedAt": "[DATUM]",
-            "createdBy_id": 0,
         }
     ]
 }

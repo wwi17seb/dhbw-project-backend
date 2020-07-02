@@ -7,14 +7,12 @@ const directorOfStudiesService = require('../services/directorOfStudiesService')
 const {
   checkPresentationEditAuthorization,
   checkCourseEditAuthorization,
-  checkLecturerEditAuthorization,
 } = require('../helpers/checkAuthorizationHelper');
 
 exports.getPresentations = async (req, res, next) => {
   const course_id = req.query.courseId;
   const semester_id = req.query.semesterId;
   const lecturer_id = req.query.lecturerId;
-  const status = req.query.status;
   const get_co_lecturers = req.query.getCoLecturers;
   const directorOfStudiesId = req.token.directorOfStudies_id;
 
@@ -25,46 +23,34 @@ exports.getPresentations = async (req, res, next) => {
     if (lecturer_id && course_id) {
       throw new Error('Can not filter by course and lecturer at the same time');
     }
+    let Presentations, Dos;
     if (course_id) {
       if (!(await checkCourseEditAuthorization(directorOfStudiesId, course_id))) {
-        return responseHelper(res, 403, 'You are not authorized to view presentations of this course');
+        throw new Error('You are not authorized to view presentations of this course');
       }
-      let [Presentations, DoS] = await Promise.all([
-        presentationService.findAll(course_id, semester_id, status),
+      [Presentations, DoS] = await Promise.all([
+        presentationService.findAll(course_id, semester_id),
         directorOfStudiesService.getById(directorOfStudiesId),
       ]);
-      Presentations = Presentations.map((presentation) => {
-        presentation.createdBy = presentation.DirectorOfStudies;
-        presentation.DirectorOfStudies = DoS;
-        return presentation;
-      });
-
-      return responseHelper(res, 200, 'Successful', { Presentations });
     } else if (get_co_lecturers) {
-      let [Presentations, DoS] = await Promise.all([
-        presentationService.findPresentationByLecturerIdWithCoLecturer(lecturer_id),
+      [Presentations, DoS] = await Promise.all([
+        presentationService.findPresentationsByLecturerIdWithCoLecturer(lecturer_id),
         directorOfStudiesService.getById(directorOfStudiesId),
       ]);
-      Presentations = Presentations.map((presentation) => {
-        presentation.createdBy = presentation.DirectorOfStudies;
-        presentation.DirectorOfStudies = DoS;
-        return presentation;
-      });
-
-      return responseHelper(res, 200, 'Successful', { Presentations });
     } else {
-      let [Presentations, DoS] = await Promise.all([
-        presentationService.findPresentationByLecturerId(lecturer_id, status),
+      [Presentations, DoS] = await Promise.all([
+        presentationService.findPresentationsByLecturerId(lecturer_id),
         directorOfStudiesService.getById(directorOfStudiesId),
       ]);
-      Presentations = Presentations.map((presentation) => {
-        presentation.createdBy = presentation.DirectorOfStudies;
-        presentation.DirectorOfStudies = DoS;
-        return presentation;
-      });
-
-      return responseHelper(res, 200, 'Successful', { Presentations });
     }
+
+    Presentations = Presentations.map((presentation) => {
+      presentation.createdBy = presentation.DirectorOfStudies;
+      presentation.DirectorOfStudies = DoS;
+      return presentation;
+    });
+
+    return responseHelper(res, 200, 'Successful', { Presentations });
   } catch (error) {
     return errorResponseHelper(res, next, error);
   }
