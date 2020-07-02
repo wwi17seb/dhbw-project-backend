@@ -18,7 +18,7 @@ async function submitForm() {
     'email',
     'salutation',
     'phonenumber',
-    'experience',
+    'possible_lectures',
     'comment',
   ]) {
     data[id] = document.getElementById(id).value;

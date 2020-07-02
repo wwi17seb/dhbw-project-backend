@@ -13,6 +13,7 @@ module.exports.findAllLecturers = async () => {
   const lecturers = await db.Lecturer.findAll({
     include: [
       { model: db.DirectorOfStudies, attributes: ['directorOfStudies_id', 'username', 'is_admin'] },
+      { model: db.MainFocus, through: {attributes: []} },
     ],
   });
 
@@ -29,7 +30,7 @@ module.exports.createLecturer = async (
     email,
     salutation,
     phonenumber,
-    experience,
+    possible_lectures,
     profile,
     research,
     comment,
@@ -47,7 +48,7 @@ module.exports.createLecturer = async (
     email,
     salutation,
     phonenumber,
-    experience,
+    possible_lectures,
     profile,
     research,
     comment,
@@ -74,7 +75,7 @@ module.exports.updateLecturer = async (
     email,
     salutation,
     phonenumber,
-    experience,
+    possible_lectures,
     profile,
     research,
     comment,
@@ -92,7 +93,7 @@ module.exports.updateLecturer = async (
     email,
     salutation,
     phonenumber,
-    experience,
+    possible_lectures,
     profile,
     research,
     comment,

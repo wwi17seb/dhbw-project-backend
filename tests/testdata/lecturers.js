@@ -10,7 +10,6 @@ module.exports = {
         email: 'Tony.Maldonary@bachelor-of-science.com',
         salutation: 'Herr',
         phonenumber: '0123456789',
-        experience: 'Can handle DB lecture',
         mainFocus_ids: [
           '{{mainFocuses.projektmanagement.mainFocus_id}}',
           '{{mainFocuses.webentwicklung.mainFocus_id}}',
@@ -36,7 +35,6 @@ module.exports = {
         email: 'emmett.l@brown.edu',
         salutation: 'Mr.',
         phonenumber: '+1 1210 1985 2204',
-        experience: 'time travel, DeLorean, plutionium',
         mainFocus_ids: [
           '{{mainFocuses.projektmanagement.mainFocus_id}}',
           '{{mainFocuses.softwareentwicklung.mainFocus_id}}',
@@ -61,7 +59,6 @@ module.exports = {
         email: 'quirrell@hogwarts.co.uk',
         salutation: 'Mr.',
         phonenumber: '+44 578 2108',
-        experience: 'Defence Against the Dark Arts',
         mainFocus_ids: [],
         profile: '-',
         research: '',
@@ -82,7 +79,6 @@ module.exports = {
         email: 'elliotalderson@protonmail.ch',
         salutation: 'Herr',
         phonenumber: '(212) 555-0179',
-        experience: 'Cybersecurity, Linux',
         mainFocus_ids: ['{{mainFocuses.itsicherheit.mainFocus_id}}', '{{mainFocuses.mlaids.mainFocus_id}}'],
         profile: null,
         research: null,

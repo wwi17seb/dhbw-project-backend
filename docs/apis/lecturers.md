@@ -38,7 +38,6 @@
                 "email": "[E-MAIL]",
                 "salutation": "[ANREDE]",
                 "phonenumber": "[TELEFONNUMMER]",
-                "experience": "[ERFAHRUNG]",
                 "cv": "[DATEINAME]",
                 "comment": "[KOMMENTAR]",
                 "is_extern": true,
@@ -60,9 +59,7 @@
                 ]
             }
         ]
-      }
-    ]
-  }
+    }
 }
 ```
 
@@ -77,7 +74,6 @@
 | `___email`                   | "sebastian.ritterbusch@dhbw-mannheim.de" | Mailadresse des Dozierenden                                                                                      |
 | `___salutation`              | "Herr"                                   | Anrede des Dozierenden                                                                                           |
 | `___phonenumber`             | "+49 621 4105 - 1724"                    | Telefonnummer des Dozierenden                                                                                    |
-| `___experience`              | "Mathematik, Podcasts, ..."              | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
 | `___cv`                      | "dutzint.pdf"                            | Gibt den Namen der PDF-Datei an                                                                                  |
 | `___comment`                 | "Sehr engagiert"                         | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
 | `___possible_lectures`       | "Datenbanken, Methoden der WI"           | Freitext, speichert potentielle Vorlesungen als String                                                           |
@@ -97,18 +93,17 @@
 
 ```json
 {
-  "firstname": "[VORNAME]",
-  "lastname": "[NACHNAME]",
-  "academic_title": "[AKADEMISCHER_TITEL]",
-  "email": "[E-MAIL]",
-  "salutation": "[ANREDE]",
-  "phonenumber": "[TELEFONNUMMER]",
-  "experience": "[ERFAHRUNG]",
-  "mainFocus_ids": [0, 0],
-  "comment": "[KOMMENTAR]",
-  "is_extern": true,
-  "allow_manipulation": true,
-  "possible_lectures": "[Vorlesungen]"
+    "firstname": "[VORNAME]",
+    "lastname": "[NACHNAME]",
+    "academic_title": "[AKADEMISCHER_TITEL]",
+    "email": "[E-MAIL]",
+    "salutation": "[ANREDE]",
+    "phonenumber": "[TELEFONNUMMER]",
+    "mainFocus_ids": [0, 0],
+    "comment": "[KOMMENTAR]",
+    "possible_lectures": "[Vorlesungen]",
+    "is_extern": true,
+    "allow_manipulation": true
 }
 ```
 
@@ -122,35 +117,33 @@
 | `email`              | nein     | "sebastian.ritterbusch@dhbw-mannheim.de" | Mailadresse des Dozierenden                                                                                      |
 | `salutation`         | ja       | "Herr"                                   | Anrede des Dozierenden                                                                                           |
 | `phonenumber`        | ja       | "+49 621 4105 - 1724"                    | Telefonnummer des Dozierenden                                                                                    |
-| `experience`         | nein     | "Mathematik, Podcasts, ..."              | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
 | `mainFocus_ids`      | nein     | [ 1, 2 ]                                 | Eindeutige ID eines Schwerpunktes                                                                                |
 | `comment`            | nein     | "Sehr engagiert"                         | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
+| `possible_lectures`  | nein     | "Datenbanken, Methoden der WI"           | Freitext, speichert potentielle Vorlesungen als String                                                           |
 | `is_extern`          | ja       | true                                     | Gibt an, ob ein Dozent extern ist - false = intern, true = extern                                                |
 | `allow_manipulation` | ja       | true                                     | Gibt an, ob ein Dozent von **allen** Studiengangsleitern bearbeitbar ist                                         |
-| `possible_lectures`  | nein     | "Datenbanken, Methoden der WI"           | Freitext, speichert potentielle Vorlesungen als String                                                           |
 
 ### Rückgabe - POST /lecturers
 
 ```json
 {
-  "message": "Successfully created",
-  "payload": {
-    "lecturer_id": 0,
-    "firstname": "[VORNAME]",
-    "lastname": "[NACHNAME]",
-    "academic_title": "[AKADEMISCHER_TITEL]",
-    "email": "[E-MAIL]",
-    "salutation": "[ANREDE]",
-    "phonenumber": "[TELEFONNUMMER]",
-    "experience": "[ERFAHRUNG]",
-    "comment": "[KOMMENTAR]",
-    "is_extern": true,
-    "possible_lectures": "[Vorlesungen]",
-    "allow_manipulation": true,
-    "createdBy_id": 0,
-    "updatedAt": "[DATUM]",
-    "createdAt": "[DATUM]"
-  }
+    "message": "Successfully created",
+    "payload": {
+        "lecturer_id": 0,
+        "firstname": "[VORNAME]",
+        "lastname": "[NACHNAME]",
+        "academic_title": "[AKADEMISCHER_TITEL]",
+        "email": "[E-MAIL]",
+        "salutation": "[ANREDE]",
+        "phonenumber": "[TELEFONNUMMER]",
+        "comment": "[KOMMENTAR]",
+        "possible_lectures": "[Vorlesungen]",
+        "is_extern": true,
+        "allow_manipulation": true,
+        "createdBy_id": 0,
+        "updatedAt": "[DATUM]",
+        "createdAt": "[DATUM]"
+    }
 }
 ```
 
@@ -163,18 +156,17 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
 
 ```json
 {
-  "firstname": "[VORNAME]",
-  "lastname": "[NACHNAME]",
-  "academic_title": "[AKADEMISCHER_TITEL]",
-  "email": "[E-MAIL]",
-  "salutation": "[ANREDE]",
-  "phonenumber": "[TELEFONNUMMER]",
-  "experience": "[ERFAHRUNG]",
-  "mainFocus_ids": [0, 0],
-  "comment": "[KOMMENTAR]",
-  "is_extern": true,
-  "possible_lectures": "[Vorlesungen]",
-  "allow_manipulation": true
+    "firstname": "[VORNAME]",
+    "lastname": "[NACHNAME]",
+    "academic_title": "[AKADEMISCHER_TITEL]",
+    "email": "[E-MAIL]",
+    "salutation": "[ANREDE]",
+    "phonenumber": "[TELEFONNUMMER]",
+    "mainFocus_ids": [0, 0],
+    "comment": "[KOMMENTAR]",
+    "possible_lectures": "[Vorlesungen]",
+    "is_extern": true,
+    "allow_manipulation": true
 }
 ```
 
@@ -188,19 +180,18 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
 | `email`              | nein     | "sebastian.ritterbusch@dhbw-mannheim.de" | Mailadresse des Dozierenden                                                                                      |
 | `salutation`         | ja       | "Herr"                                   | Anrede des Dozierenden                                                                                           |
 | `phonenumber`        | ja       | "+49 621 4105 - 1724"                    | Telefonnummer des Dozierenden                                                                                    |
-| `experience`         | nein     | "Mathematik, Podcasts, ..."              | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
 | `mainFocus_ids`      | nein     | 1                                        | Eindeutige ID eines Schwerpunktes                                                                                |
 | `comment`            | nein     | "Sehr engagiert"                         | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
+| `possible_lectures`  | nein     | "Datenbanken, Methoden der WI"           | Freitext, speichert potentielle Vorlesungen als String                                                           |
 | `is_extern`          | ja       | true                                     | Gibt an, ob ein Dozent extern ist - false = intern, true = extern                                                |
 | `allow_manipulation` | ja       | true                                     | Gibt an, ob ein Dozent von **allen** Studiengangsleitern bearbeitbar ist                                         |
-| `possible_lectures`  | nein     | "Datenbanken, Methoden der WI"           | Freitext, speichert potentielle Vorlesungen als String                                                           |
 
 ### Rückgabe - PUT /lecturers?lecturerId={ID}
 
 ```json
 {
-  "message": "Successfully updated",
-  "payload": true
+    "message": "Successfully updated",
+    "payload": true
 }
 ```
 

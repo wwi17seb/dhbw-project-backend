@@ -40,6 +40,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
+      possible_lectures: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       is_extern: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
@@ -47,10 +51,6 @@ module.exports = (sequelize, DataTypes) => {
       allow_manipulation: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
-      },
-      possible_lectures: {
-        type: DataTypes.STRING,
-        allowNull: true,
       },
     },
     {

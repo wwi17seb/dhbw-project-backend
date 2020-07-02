@@ -9,7 +9,7 @@ module.exports = (res, next, error) => {
   const returnErrorMessageConditions = [
     { startsWith: 'notNull Violation: ', endsWith: ' cannot be null' },
     { startsWith: 'invalid input syntax for type' },
-    { startsWith: 'invalid input syntax for integer: '},
+    { startsWith: 'invalid input syntax for integer: ' },
     { startsWith: 'No ', endsWith: ' found to update' },
     { startsWith: 'No ', endsWith: ' found to delete' },
     { startsWith: 'No ', endsWith: ' given' },
@@ -20,6 +20,8 @@ module.exports = (res, next, error) => {
     { endsWith: ' can not be empty' },
     { matches: ['Register key is invalid', 'Old password is wrong', 'The username is already taken'] },
     { startsWith: 'Unexpected token ', includes: ' in JSON at position ' },
+    { includes: 'No required filter given' },
+    { includes: 'Can not filter by course and lecturer at the same time' },
   ];
   for (const condition of returnErrorMessageConditions) {
     if (
@@ -30,12 +32,6 @@ module.exports = (res, next, error) => {
     ) {
       return responseHelper(res, condition.code || 400, condition.message || error.message);
     }
-  }
-  if (error.message.startsWith('No') && error.message.endsWith('required filter given')){
-    return responseHelper(res, 400, error.message)
-  }
-  if (error.message.startsWith('Can not filter by course and lecturer at the same time')){
-    return responseHelper(res, 400, error.message)
   }
 
   if (error.parent) {

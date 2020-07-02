@@ -27,14 +27,13 @@ exports.postLecturers = async (req, res, next) => {
     'email',
     'salutation',
     'phonenumber',
-    'experience',
     'profile',
     'research',
     'comment',
+    'possible_lectures',
     'is_extern',
     'mainFocus_ids',
     'allow_manipulation',
-    'possibleLectures',
   ]);
 
   try {
@@ -59,13 +58,12 @@ exports.putLecturers = async (req, res, next) => {
     'email',
     'salutation',
     'phonenumber',
-    'experience',
     'profile',
     'research',
     'comment',
+    'possible_lectures',
     'is_extern',
     'mainFocus_ids',
-    'possibleLectures',
     'allow_manipulation',
   ]);
 

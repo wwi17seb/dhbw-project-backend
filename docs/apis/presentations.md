@@ -1,9 +1,11 @@
 # /presentations <!-- omit in toc -->
 
 - [GET /presentations](#get-presentations)
-  - [Rückgabe - GET /presentations?courseId={ID}](#rückgabe---get-presentationscourseidid)
-  - [Attribute der Anfrage - GET /presentations?courseId={ID}](#attribute-der-anfrage---get-presentationscourseidid)
+  - [Rückgabe - GET /presentations](#rückgabe---get-presentations)
+  - [Attribute der Anfrage - GET /presentations](#attribute-der-anfrage---get-presentations)
   - [Optionale Parameter /presentations](#optionale-parameter-presentations)
+    - [Rückgabe mit Queryparameter `getCoLecturer=true`](#rückgabe-mit-queryparameter-getcolecturertrue)
+    - [Attribute der Rückgabe mit Queryparameter `getCoLecturer=true`](#attribute-der-rückgabe-mit-queryparameter-getcolecturertrue)
 - [POST /presentations](#post-presentations)
   - [Body der Anfrage - POST /presentations](#body-der-anfrage---post-presentations)
   - [Attribute der Anfrage - POST /presentations](#attribute-der-anfrage---post-presentations)
@@ -19,85 +21,23 @@
 
 **Info**: Gibt alle **konkreten** Vorlesungen (inkl. der noch in Planung befindlichen) zurück. Über `courseId` wird dies auf einen Kurs beschränkt und über `lecturerId` können alle **konkreten** Vorlesungen eines Dozenten gefunden werden.
 Es müssen entweder `courseId` oder `lecturerId` angegeben werden. Es können nicht beide Filter gleichzeitig verwendet werden.
-Über die `courseId` werden nur Vorlesungen eines bestimmten Kurses zurückgegeben und über`lecturerId`werden Vorlesungen anhand des Dozenten gefiltert.
+Über die `courseId` werden nur Vorlesungen eines bestimmten Kurses zurückgegeben und über `lecturerId` werden Vorlesungen anhand des Dozenten gefiltert.
 Das Filtern nach `courseId` funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom angegebenen Kurs ist (er muss die konkreten Vorlesungen nicht zwingend erstellt haben).
 
-### Rückgabe - GET /presentations?courseId={ID}
+`GET /presentations?courseId={ID}` oder `GET /presentations?lecturerId={ID}`
+
+### Rückgabe - GET /presentations
 
 ```json
 {
-  "message": "Successful",
-  "payload": {
-    "Presentations": [
-      {
-        "presentation_id": 0,
-        "status": "[STATUS]",
-        "createdAt": "[DATUM]",
-        "updatedAt": "[DATUM]",
-        "academicRecord_id": 0,
-        "course_id": 0,
-        "createdBy_id": 0,
-        "lecture_id": 0,
-        "lecturer_id": 0,
-        "semester_id": 0,
-        "Semester": {
-          "semester_id": 0,
-          "name": "[NAME_DES_SEMESTERS]",
-          "number": 0,
-          "start_date": "[STARTDATUM]",
-          "end_date": "[ENDDATUM]",
-          "createdAt": "[DATUM]",
-          "updatedAt": "[DATUM]",
-          "course_id": 0
-        },
-        "AcademicRecord": {
-          "academicRecord_id": 0,
-          "abbreviation": "[ABKÜRZUNG]",
-          "type": "[ART]",
-          "createdAt": "[DATUM]",
-          "updatedAt": "[DATUM]"
-        },
-        "Lecture": {
-          "lecture_id": 0,
-          "name": "[NAME_DER_VORLESUNG]",
-          "workload_home": 0,
-          "workload_dhbw": 0,
-          "catalog_id": "[KATALOG_ID]",
-          "createdAt": "[DATUM]",
-          "updatedAt": "[DATUM]",
-          "module_id": 0,
-          "MainFocuses": [
+    "message": "Successful",
+    "payload": {
+        "Presentations": [
             {
-              "mainFocus_id": 0,
-              "name": "[NAME_DES_SCHWERPUNKTS]",
-              "createdAt": "[DATUM]",
-              "updatedAt": "[DATUM]"
-            }
-          ],
-          "Module": {
-            "module_id": 0,
-            "name": "[NAME]",
-            "description": "[BESCHREIBUNG]",
-            "ects": 0,
-            "catalog_id": "[KATALOG_ID]",
-            "number_of_lectures_to_attend": 0,
-            "rated": true,
-            "requirements": "[ANFORDERUNGEN]",
-            "createdAt": "[DATUM]",
-            "updatedAt": "[DATUM]",
-            "moduleGroup_id": 0,
-            "ModuleGroup": {
-              "moduleGroup_id": 0,
-              "name": "[NAME_DER_MODULEGRUPPE]",
-              "number_of_modules_to_attend": 0,
-              "from_semester_number": 0,
-              "to_semester_number": 0,
-              "createdAt": "[DATUM]",
-              "updatedAt": "[DATUM]",
-              "majorSubject_id": 0
-            },
-            "AcademicRecords": [
-              {
+                "presentation_id": 0,
+                "status": "[STATUS]",
+                "createdAt": "[DATUM]",
+                "updatedAt": "[DATUM]",
                 "academicRecord_id": 0,
                 "course_id": 0,
                 "createdBy_id": 0,
@@ -163,85 +103,134 @@ Das Filtern nach `courseId` funktioniert nur, wenn der angemeldete DoS auch Stud
                         "AcademicRecords": [
                             {
                                 "academicRecord_id": 0,
-                                "abbreviation": "[ABKÜRZUNG]",
-                                "type": "[ART]",
-                                "createdAt": "[DATUM]",
-                                "updatedAt": "[DATUM]"
+                                "course_id": 0,
+                                "createdBy_id": 0,
+                                "lecture_id": 0,
+                                "lecturer_id": 0,
+                                "semester_id": 0,
+                                "Semester": {
+                                    "semester_id": 0,
+                                    "name": "[NAME_DES_SEMESTERS]",
+                                    "number": 0,
+                                    "start_date": "[STARTDATUM]",
+                                    "end_date": "[ENDDATUM]",
+                                    "createdAt": "[DATUM]",
+                                    "updatedAt": "[DATUM]",
+                                    "course_id": 0
+                                },
+                                "AcademicRecord": {
+                                    "academicRecord_id": 0,
+                                    "abbreviation": "[ABKÜRZUNG]",
+                                    "type": "[ART]",
+                                    "createdAt": "[DATUM]",
+                                    "updatedAt": "[DATUM]"
+                                },
+                                "Lecture": {
+                                    "lecture_id": 0,
+                                    "name": "[NAME_DER_VORLESUNG]",
+                                    "workload_home": 0,
+                                    "workload_dhbw": 0,
+                                    "catalog_id": "[KATALOG_ID]",
+                                    "createdAt": "[DATUM]",
+                                    "updatedAt": "[DATUM]",
+                                    "module_id": 0,
+                                    "MainFocuses": [
+                                        {
+                                            "mainFocus_id": 0,
+                                            "name": "[NAME_DES_SCHWERPUNKTS]",
+                                            "createdAt": "[DATUM]",
+                                            "updatedAt": "[DATUM]"
+                                        }
+                                    ],
+                                    "Module": {
+                                        "module_id": 0,
+                                        "name": "[NAME]",
+                                        "description": "[BESCHREIBUNG]",
+                                        "ects": 0,
+                                        "catalog_id": "[KATALOG_ID]",
+                                        "number_of_lectures_to_attend": 0,
+                                        "rated": true,
+                                        "requirements": "[ANFORDERUNGEN]",
+                                        "createdAt": "[DATUM]",
+                                        "updatedAt": "[DATUM]",
+                                        "moduleGroup_id": 0,
+                                        "ModuleGroup": {
+                                            "moduleGroup_id": 0,
+                                            "name": "[NAME_DER_MODULEGRUPPE]",
+                                            "number_of_modules_to_attend": 0,
+                                            "from_semester_number": 0,
+                                            "to_semester_number": 0,
+                                            "createdAt": "[DATUM]",
+                                            "updatedAt": "[DATUM]",
+                                            "majorSubject_id": 0
+                                        },
+                                        "AcademicRecords": [
+                                            {
+                                                "academicRecord_id": 0,
+                                                "abbreviation": "[ABKÜRZUNG]",
+                                                "type": "[ART]",
+                                                "createdAt": "[DATUM]",
+                                                "updatedAt": "[DATUM]"
+                                            }
+                                        ]
+                                    }
+                                },
+                                "Lecturer": {
+                                    "lecturer_id": 0,
+                                    "firstname": "[VORNAME]",
+                                    "lastname": "[NACHNAME]",
+                                    "academic_title": "[AKADEMISCHER_TITEL]",
+                                    "email": "[E-MAIL]",
+                                    "salutation": "[ANREDE]",
+                                    "phonenumber": "[TELEFONNUMMER]",
+                                    "possible_lectures": "[MÖGLICHE_VORLESUNGEN]",
+                                    "cv": "[VITA]",
+                                    "comment": "[KOMMENTAR]",
+                                    "is_extern": true,
+                                    "allow_manipulation": true,
+                                    "createdAt": "[DATUM]",
+                                    "updatedAt": "[DATUM]",
+                                    "createdBy_id": 0,
+                                    "MainFocuses": [
+                                        {
+                                            "mainFocus_id": 0,
+                                            "name": "[NAME]",
+                                            "createdAt": "[DATUM]",
+                                            "updatedAt": "[DATUM]"
+                                        }
+                                    ]
+                                },
+                                "DirectorOfStudies": {
+                                    "directorOfStudies_id": 0,
+                                    "username": "[NUTZERNAME]",
+                                    "is_admin": true,
+                                    "misc": "[VERSCHIEDENES]"
+                                },
+                                "createdBy": {
+                                    "directorOfStudies_id": 0,
+                                    "username": "[NUTZERNAME]"
+                                }
                             }
                         ]
+                    },
+                    "DirectorOfStudies": {
+                        "directorOfStudies_id": 0,
+                        "username": "[NUTZERNAME]",
+                        "is_admin": true,
+                        "misc": "[VERSCHIEDENES]"
+                    },
+                    "createdBy": {
+                        "directorOfStudies_id": 0,
+                        "username": "[NUTZERNAME]"
                     }
-                },
-                "Lecturer": {
-                    "lecturer_id": 0,
-                    "firstname": "[VORNAME]",
-                    "lastname": "[NACHNAME]",
-                    "academic_title": "[AKADEMISCHER_TITEL]",
-                    "email": "[E-MAIL]",
-                    "salutation": "[ANREDE]",
-                    "phonenumber": "[TELEFONNUMMER]",
-                    "experience": "[ERFAHRUNG]",
-                    "cv": "[VITA]",
-                    "comment": "[KOMMENTAR]",
-                    "is_extern": true,
-                    "allow_manipulation": true,
-                    "createdAt": "[DATUM]",
-                    "updatedAt": "[DATUM]",
-                    "createdBy_id": 0,
-                    "MainFocuses": [
-                        {
-                            "mainFocus_id": 0,
-                            "name": "[NAME]",
-                            "createdAt": "[DATUM]",
-                            "updatedAt": "[DATUM]"
-                        }
-                    ]
-                },
-                "DirectorOfStudies": {
-                    "directorOfStudies_id": 0,
-                    "username": "[NUTZERNAME]",
-                    "is_admin": true,
-                    "misc": "[VERSCHIEDENES]"
-                },
-                "createdBy": {
-                    "directorOfStudies_id": 0,
-                    "username": "[NUTZERNAME]"
                 }
             }
-          ]
-        },
-        "DirectorOfStudies": {
-          "directorOfStudies_id": 0,
-          "username": "[NUTZERNAME]",
-          "is_admin": true,
-          "misc": "[VERSCHIEDENES]"
-        },
-        "createdBy": {
-          "directorOfStudies_id": 0,
-          "username": "[NUTZERNAME]"
-        },
-        // wird nur gesendet, wenn der Filter /presentations?lecturerId={ID}?getColecturer=TRUE gesetzt ist
-        "coLecturers": [
-          {
-            "lecture_id": 1,
-            "presentation_id": 2,
-            "lecturer_id": 1,
-            "salutation": "Herr",
-            "academic_title": "B. Sc.",
-            "firstname": "Tony",
-            "lastname": "Maldonary",
-            "course_name": "WWI 17 SE B",
-            "lecture_name": "Finanzbuchhaltung",
-            "start_date": "2017-10-23T00:00:00.000Z",
-            "end_date": "2018-01-19T00:00:00.000Z"
-          }
         ]
-      }
-    ]
-  }
+    }
 }
 ```
 
-### Attribute der Anfrage - GET /presentations?courseId={ID}
+### Attribute der Anfrage - GET /presentations
 
 | Attribut                                  | Beispielwert                                        | Erklärung                                                                                                        |
 | ----------------------------------------- | --------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
@@ -304,7 +293,7 @@ Das Filtern nach `courseId` funktioniert nur, wenn der angemeldete DoS auch Stud
 | `______email`                             | "sebastian.ritterbusch@dhbw-mannheim.de"            | E-Mail des Dozierenden                                                                                           |
 | `______salutation`                        | "Herr"                                              | Anrede des Dozierenden                                                                                           |
 | `______phonenumber`                       | "+49 621 4105 - 1724"                               | Telefonnummer des Dozierenden                                                                                    |
-| `______experience`                        | "Mathematik, Podcasts, ..."                         | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
+| `______possible_lectures`                 | "Mathematik, Podcasts, ..."                         | Freitext, beinhaltet Vorlesungen, die der Dozierende halten könnte                                               |
 | `______cv`                                | ""                                                  | zur Zeit nur als string möglich; wird angepasst und nachgereicht                                                 |
 | `______comment`                           | "Sehr engagiert"                                    | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
 | `______is_extern`                         | false                                               | Gibt an, ob ein Dozent extern ist - false = intern, true = extern                                                |
@@ -331,9 +320,47 @@ Das Filtern nach `courseId` funktioniert nur, wenn der angemeldete DoS auch Stud
 - `status`
   - filtert die Rückgabe.
   - gibt alle Presentations zum angegebenen Dozenten zurück
-- `getColecturer`
+- `getCoLecturer`
   - fügt Rückgabe weitere Felder hinzu
   - fügt an Präsentationen, die von mehreren Dozenten gleichzeitig gehalten werden, ein Array der mit-Dozenten an
+
+
+#### Rückgabe mit Queryparameter `getCoLecturer=true`
+
+Jede Präsentation wird um folgendes
+```json
+{
+    "coLecturers": [
+        {
+            "lecture_id": 0,
+            "presentation_id": 0,
+            "lecturer_id": 0,
+            "salutation": "[ANREDE]",
+            "academic_title": "[AKADEMISCHER_TITEL]",
+            "firstname": "[VORNAME]",
+            "lastname": "[NACHNAME]",
+            "course_name": "[KURSNAME]",
+            "lecture_name": "[VORLESUNGSNAME]",
+            "start_date": "[STARTDATUM]",
+            "end_date": "[ENDDATUM]"
+        }
+    ]
+}
+```
+
+#### Attribute der Rückgabe mit Queryparameter `getCoLecturer=true`
+
+| Attribut             | Beispielwert       | Erklärung                          |
+| -------------------- | ------------------ | ---------------------------------- |
+| `___lecture_id`      | 1                  |                                    |
+| `___presentation_id` | 1                  |                                    |
+| `___lecturer_id`     | 1                  | Eindeutige ID des Dozierenden      |
+| `___salutation`      | "Frau"             |                                    |
+| `___academic_title`  | "Prof. Dr."        | akademischer Titel des Dozierenden |
+| `___firstname`       | "Sebastian"        | Vorname des Dozierenden            |
+| `___lastname`        | "Ritterbusch"      | Nachname des Dozierenden           |
+| `___course_name`     | "WWI17SEB"         | Name des Kurses                    |
+| `___lecture_name`    | "Machine Learning" | Name der Vorlesung                 |
 
 ## POST /presentations
 
@@ -343,12 +370,12 @@ Das Filtern nach `courseId` funktioniert nur, wenn der angemeldete DoS auch Stud
 
 ```json
 {
-  "lecture_id": 0,
-  "lecturer_id": 0,
-  "academicRecord_id": 0,
-  "semester_id": 0,
-  "course_id": 0,
-  "status": "[STATUS]"
+    "lecture_id": 0,
+    "lecturer_id": 0,
+    "academicRecord_id": 0,
+    "semester_id": 0,
+    "course_id": 0,
+    "status": "[STATUS]"
 }
 ```
 
@@ -367,19 +394,19 @@ Das Filtern nach `courseId` funktioniert nur, wenn der angemeldete DoS auch Stud
 
 ```json
 {
-  "message": "Successfully created",
-  "payload": {
-    "presentation_id": 0,
-    "course_id": 0,
-    "semester_id": 0,
-    "academicRecord_id": 0,
-    "lecture_id": 0,
-    "lecturer_id": 0,
-    "status": "[STATUS]",
-    "createdBy_id": 0,
-    "updatedAt": "[DATUM]",
-    "createdAt": "[DATUM]"
-  }
+    "message": "Successfully created",
+    "payload": {
+        "presentation_id": 0,
+        "course_id": 0,
+        "semester_id": 0,
+        "academicRecord_id": 0,
+        "lecture_id": 0,
+        "lecturer_id": 0,
+        "status": "[STATUS]",
+        "createdBy_id": 0,
+        "updatedAt": "[DATUM]",
+        "createdAt": "[DATUM]"
+    }
 }
 ```
 
@@ -392,12 +419,12 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
 
 ```json
 {
-  "lecture_id": 0,
-  "lecturer_id": 0,
-  "academicRecord_id": 0,
-  "semester_id": 0,
-  "course_id": 0,
-  "status": "[STATUS]"
+    "lecture_id": 0,
+    "lecturer_id": 0,
+    "academicRecord_id": 0,
+    "semester_id": 0,
+    "course_id": 0,
+    "status": "[STATUS]"
 }
 ```
 
@@ -416,8 +443,8 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
 
 ```json
 {
-  "message": "Successfully updated",
-  "payload": true
+    "message": "Successfully updated",
+    "payload": true
 }
 ```
 
@@ -429,7 +456,7 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
 
 ```json
 {
-  "message": "Successfully deleted",
-  "payload": true
+    "message": "Successfully deleted",
+    "payload": true
 }
 ```
