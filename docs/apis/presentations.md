@@ -4,8 +4,7 @@
   - [Rückgabe - GET /presentations](#rückgabe---get-presentations)
   - [Attribute der Anfrage - GET /presentations](#attribute-der-anfrage---get-presentations)
   - [Optionale Parameter /presentations](#optionale-parameter-presentations)
-    - [Rückgabe mit Queryparameter `getCoLecturer=true`](#rückgabe-mit-queryparameter-getcolecturertrue)
-    - [Attribute der Rückgabe mit Queryparameter `getCoLecturer=true`](#attribute-der-rückgabe-mit-queryparameter-getcolecturertrue)
+    - [Rückgabe mit Queryparameter `getCoLecturers=true`](#rückgabe-mit-queryparameter-getcolecturerstrue)
 - [POST /presentations](#post-presentations)
   - [Body der Anfrage - POST /presentations](#body-der-anfrage---post-presentations)
   - [Attribute der Anfrage - POST /presentations](#attribute-der-anfrage---post-presentations)
@@ -320,47 +319,39 @@ Das Filtern nach `courseId` funktioniert nur, wenn der angemeldete DoS auch Stud
 - `status`
   - filtert die Rückgabe.
   - gibt alle Presentations zum angegebenen Dozenten zurück
-- `getCoLecturer`
+- `getCoLecturers`
   - fügt Rückgabe weitere Felder hinzu
   - fügt an Präsentationen, die von mehreren Dozenten gleichzeitig gehalten werden, ein Array der mit-Dozenten an
 
 
-#### Rückgabe mit Queryparameter `getCoLecturer=true`
+#### Rückgabe mit Queryparameter `getCoLecturers=true`
 
-Jede Präsentation wird um folgendes
+Sofern `getCoLectuers` angefordert wird, werden alle Dozierenden, welche die gleiche Vorlesung, im gleichen Kurs und Semester halten, ausgegeben.
+Für weitere Infos über Dozierende siehe [Dozierenden Doku](lecturers.md).
+
 ```json
 {
     "coLecturers": [
         {
-            "lecture_id": 0,
-            "presentation_id": 0,
             "lecturer_id": 0,
-            "salutation": "[ANREDE]",
-            "academic_title": "[AKADEMISCHER_TITEL]",
             "firstname": "[VORNAME]",
             "lastname": "[NACHNAME]",
-            "course_name": "[KURSNAME]",
-            "lecture_name": "[VORLESUNGSNAME]",
-            "start_date": "[STARTDATUM]",
-            "end_date": "[ENDDATUM]"
+            "academic_title": "[AKADEMISCHER_TITEL]",
+            "email": "[E-MAIL]",
+            "salutation": "[ANREDE]",
+            "phonenumber": "[TELEFONNUMMER]",
+            "cv": "[DATEINAME]",
+            "comment": "[KOMMENTAR]",
+            "is_extern": true,
+            "possible_lectures": "[Vorlesungen]",
+            "allow_manipulation": true,
+            "createdAt": "[DATUM]",
+            "updatedAt": "[DATUM]",
+            "createdBy_id": 0,
         }
     ]
 }
 ```
-
-#### Attribute der Rückgabe mit Queryparameter `getCoLecturer=true`
-
-| Attribut             | Beispielwert       | Erklärung                          |
-| -------------------- | ------------------ | ---------------------------------- |
-| `___lecture_id`      | 1                  |                                    |
-| `___presentation_id` | 1                  |                                    |
-| `___lecturer_id`     | 1                  | Eindeutige ID des Dozierenden      |
-| `___salutation`      | "Frau"             |                                    |
-| `___academic_title`  | "Prof. Dr."        | akademischer Titel des Dozierenden |
-| `___firstname`       | "Sebastian"        | Vorname des Dozierenden            |
-| `___lastname`        | "Ritterbusch"      | Nachname des Dozierenden           |
-| `___course_name`     | "WWI17SEB"         | Name des Kurses                    |
-| `___lecture_name`    | "Machine Learning" | Name der Vorlesung                 |
 
 ## POST /presentations
 

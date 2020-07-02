@@ -15,7 +15,7 @@ exports.getPresentations = async (req, res, next) => {
   const semester_id = req.query.semesterId;
   const lecturer_id = req.query.lecturerId;
   const status = req.query.status;
-  const get_co_lecturer = req.query.getCoLecturer;
+  const get_co_lecturers = req.query.getCoLecturers;
   const directorOfStudiesId = req.token.directorOfStudies_id;
 
   try {
@@ -40,7 +40,7 @@ exports.getPresentations = async (req, res, next) => {
       });
 
       return responseHelper(res, 200, 'Successful', { Presentations });
-    } else if (get_co_lecturer) {
+    } else if (get_co_lecturers) {
       let [Presentations, DoS] = await Promise.all([
         presentationService.findPresentationByLecturerIdWithCoLecturer(lecturer_id),
         directorOfStudiesService.getById(directorOfStudiesId),
