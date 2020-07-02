@@ -41,7 +41,6 @@ exports.getPresentations = async (req, res, next) => {
       return responseHelper(res, 200, 'Successful', { Presentations });
     } else {
       if (get_co_lecturer) {
-        // TODO: further validation of get_co_lecturer, at this point sending any value will be accepted
         let [Presentations, DoS] = await Promise.all([
           presentationService.findPresentationByLecturerIdWithCoLecturer(lecturer_id),
           directorOfStudiesService.getById(directorOfStudiesId),
