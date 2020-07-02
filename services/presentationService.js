@@ -1,7 +1,5 @@
 const db = require('../database/database');
-const lecturerService = require('./lecturerService');
 const copyObjectHelper = require('../helpers/propertyCopyHelper');
-const { Op } = require('sequelize');
 
 const withInclude = [
   { model: db.Semester },
@@ -31,7 +29,7 @@ module.exports.findPresentationsByLecturerIdWithCoLecturer = async (lecturer_id)
   let Presentations = await db.Presentation.findAll({ include: withInclude, where });
 
   const coLecturersConnection = await db.sequelize.query(
-    `SELECT A.presentation_id, B.lecturer_id, L.firstname, L.lastname, L.academic_title, L.salutation, L.is_extern
+    `SELECT A.presentation_id, B.status, B.lecturer_id, L.firstname, L.lastname, L.academic_title, L.salutation, L.is_extern
     FROM presentation A, presentation B INNER JOIN lecturer L ON B.lecturer_id = L.lecturer_id
     WHERE A.course_id = B.course_id
       AND A.lecture_id = B.lecture_id
@@ -48,14 +46,22 @@ module.exports.findPresentationsByLecturerIdWithCoLecturer = async (lecturer_id)
       map[obj.presentation_id] = [];
     }
     map[obj.presentation_id].push(
-      copyObjectHelper(obj, ['lecturer_id', 'firstname', 'lastname', 'academic_title', 'salutation', 'is_extern'])
+      copyObjectHelper(obj, [
+        'status',
+        'lecturer_id',
+        'firstname',
+        'lastname',
+        'academic_title',
+        'salutation',
+        'is_extern',
+      ])
     );
     return map;
   }, {});
 
   Presentations = Presentations.map((Presentation) => {
     const p = Presentation.dataValues;
-    p.CoLecturers = presentationCoLecturersMap[p.presentation_id];
+    p.CoLecturers = presentationCoLecturersMap[p.presentation_id] || [];
     return p;
   });
 

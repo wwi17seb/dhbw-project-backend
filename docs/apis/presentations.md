@@ -235,22 +235,28 @@ Das Filtern nach `courseId` funktioniert nur, wenn der angemeldete DoS auch Stud
 ### Optionale Parameter /presentations
 
 - `semesterId`
-  - filtert die Rückgabe.
+  - filtert die Rückgabe
   - filtert Anfragen die `courseId` nutzen
   - gibt alle Presentations zum angegebenen Kurs&Semester zurück.
 - `getCoLecturers`
+  - gemeinsam mit `lecturerId`
   - fügt Rückgabe weitere Felder hinzu
-  - fügt an Präsentationen, die von mehreren Dozenten gleichzeitig gehalten werden, ein Array der mit-Dozenten an
+  - fügt ein Array der Mit-Dozenten (Co-Lecturers) an Präsentationen, die von mehreren Dozenten gleichzeitig gehalten werden, an
 
 #### Rückgabe mit Queryparameter `getCoLecturers=true`
 
-Sofern `getCoLectuers` angefordert wird, werden alle Dozierenden, welche die gleiche Vorlesung, im gleichen Kurs und Semester halten, ausgegeben.
-Für weitere Infos über Dozierende siehe [Dozierenden Doku](lecturers.md).
+Sofern `getCoLecturers` angefordert wird, werden alle Dozierenden, welche die gleiche Vorlesung, im gleichen Kurs halten, ausgegeben.
+Der Wert von `getCoLecturers` ist dabei egal (wenn er _truthy_ ist, werden weitere Dozenten ausgegeben).
+Ein Filtern nach `status`, sodass nur Co-Lecturer von tatsächlich gehaltenen Vorlesungen angezeigt werden, muss im Front-End erfolgen (alternativ kann der Status angezeigt werden, sodass der Benutzer eine entsprechende Einschätzung vornehmen kann).
+Dabei hat die Presentation, wie oben beschrieben, selbst einen `status`, der sich auf den gesuchten Dozenten bezieht.
+Für jeden Co-Lecturer gibt es nochmal einen `status`, der sich jeweils auf diesen bzw. diese Presentation bezieht.
+Für weitere Infos über Dozierende siehe [Dozierenden-Doku](lecturers.md).
 
 ```json
 {
-    "coLecturers": [
+    "CoLecturers": [
         {
+            "status": "[STATUS]",
             "lecturer_id": 0,
             "firstname": "[VORNAME]",
             "lastname": "[NACHNAME]",
