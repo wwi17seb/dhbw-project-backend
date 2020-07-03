@@ -12,21 +12,38 @@ const {
 exports.getPresentations = async (req, res) => {
   const course_id = req.query.courseId;
   const semester_id = req.query.semesterId;
+  const lecturer_id = req.query.lecturerId;
+  const get_co_lecturers = req.query.getCoLecturers;
   const directorOfStudiesId = req.token.directorOfStudies_id;
 
   try {
-    if (!course_id) {
-      throw new Error('No course given');
+    if (!course_id && !lecturer_id) {
+      throw new Error('No required filter given');
+    }
+    if (lecturer_id && course_id) {
+      throw new Error('Can not filter by course and lecturer at the same time');
+    }
+    let Presentations, Dos;
+    if (course_id) {
+      if (!(await checkCourseEditAuthorization(directorOfStudiesId, course_id))) {
+        throw new Error('You are not authorized to view presentations of this course');
+      }
+      [Presentations, DoS] = await Promise.all([
+        presentationService.findAll(course_id, semester_id),
+        directorOfStudiesService.getById(directorOfStudiesId),
+      ]);
+    } else if (get_co_lecturers) {
+      [Presentations, DoS] = await Promise.all([
+        presentationService.findPresentationsByLecturerIdWithCoLecturer(lecturer_id),
+        directorOfStudiesService.getById(directorOfStudiesId),
+      ]);
+    } else {
+      [Presentations, DoS] = await Promise.all([
+        presentationService.findPresentationsByLecturerId(lecturer_id),
+        directorOfStudiesService.getById(directorOfStudiesId),
+      ]);
     }
 
-    if (!(await checkCourseEditAuthorization(directorOfStudiesId, course_id))) {
-      throw new Error('You are not authorized to view presentations of this course');
-    }
-
-    let [Presentations, DoS] = await Promise.all([
-      presentationService.findAll(course_id, semester_id),
-      directorOfStudiesService.getById(directorOfStudiesId),
-    ]);
     Presentations = Presentations.map((presentation) => {
       presentation.createdBy = presentation.DirectorOfStudies;
       presentation.DirectorOfStudies = DoS;

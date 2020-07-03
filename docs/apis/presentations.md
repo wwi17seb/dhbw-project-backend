@@ -1,9 +1,10 @@
 # /presentations <!-- omit in toc -->
 
-- [GET /presentations?courseId={ID}](#get-presentationscourseidid)
-  - [Rückgabe - GET /presentations?courseId={ID}](#rückgabe---get-presentationscourseidid)
-  - [Attribute der Anfrage - GET /presentations?courseId={ID}](#attribute-der-anfrage---get-presentationscourseidid)
+- [GET /presentations](#get-presentations)
+  - [Rückgabe - GET /presentations](#rückgabe---get-presentations)
+  - [Attribute der Anfrage - GET /presentations](#attribute-der-anfrage---get-presentations)
   - [Optionale Parameter /presentations](#optionale-parameter-presentations)
+    - [Rückgabe mit Queryparameter `getCoLecturers=true`](#rückgabe-mit-queryparameter-getcolecturerstrue)
 - [POST /presentations](#post-presentations)
   - [Body der Anfrage - POST /presentations](#body-der-anfrage---post-presentations)
   - [Attribute der Anfrage - POST /presentations](#attribute-der-anfrage---post-presentations)
@@ -15,12 +16,16 @@
 - [DELETE /presentations?presentationId={ID}](#delete-presentationspresentationidid)
   - [Rückgabe - DELETE /presentations?presentationId={ID}](#rückgabe---delete-presentationspresentationidid)
 
-## GET /presentations?courseId={ID}
+## GET /presentations
 
-**Info**: Gibt alle **konkreten** Vorlesungen (inkl. der noch in Planung befindlichen) für einen bestimmten Kurs zurück.
-Dies funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom angegebenen Kurs ist (er muss die konkreten Vorlesungen nicht zwingend erstellt haben).
+**Info**: Gibt alle **konkreten** Vorlesungen (inkl. der noch in Planung befindlichen) zurück. Über `courseId` wird dies auf einen Kurs beschränkt und über `lecturerId` können alle **konkreten** Vorlesungen eines Dozenten gefunden werden.
+Es müssen entweder `courseId` oder `lecturerId` angegeben werden. Es können nicht beide Filter gleichzeitig verwendet werden.
+Über die `courseId` werden nur Vorlesungen eines bestimmten Kurses zurückgegeben und über `lecturerId` werden Vorlesungen anhand des Dozenten gefiltert.
+Das Filtern nach `courseId` funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom angegebenen Kurs ist (er muss die konkreten Vorlesungen nicht zwingend erstellt haben).
 
-### Rückgabe - GET /presentations?courseId={ID}
+`GET /presentations?courseId={ID}` oder `GET /presentations?lecturerId={ID}`
+
+### Rückgabe - GET /presentations
 
 ```json
 {
@@ -79,8 +84,8 @@ Dies funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom ange
                         "ects": 0,
                         "catalog_id": "[KATALOG_ID]",
                         "number_of_lectures_to_attend": 0,
-                        "rated": true,
                         "requirements": "[ANFORDERUNGEN]",
+                        "rated": true,
                         "createdAt": "[DATUM]",
                         "updatedAt": "[DATUM]",
                         "moduleGroup_id": 0,
@@ -98,7 +103,7 @@ Dies funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom ange
                             {
                                 "academicRecord_id": 0,
                                 "abbreviation": "[ABKÜRZUNG]",
-                                "type": "[ART]",
+                                "type": "[TYP]",
                                 "createdAt": "[DATUM]",
                                 "updatedAt": "[DATUM]"
                             }
@@ -113,9 +118,9 @@ Dies funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom ange
                     "email": "[E-MAIL]",
                     "salutation": "[ANREDE]",
                     "phonenumber": "[TELEFONNUMMER]",
-                    "experience": "[ERFAHRUNG]",
-                    "cv": "[VITA]",
+                    "cv": "[LEBENSLAUF]",
                     "comment": "[KOMMENTAR]",
+                    "possible_lectures": "[VORLESUNGEN]",
                     "is_extern": true,
                     "allow_manipulation": true,
                     "createdAt": "[DATUM]",
@@ -124,7 +129,7 @@ Dies funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom ange
                     "MainFocuses": [
                         {
                             "mainFocus_id": 0,
-                            "name": "[NAME]",
+                            "name": "[SCHWERPUNKT]",
                             "createdAt": "[DATUM]",
                             "updatedAt": "[DATUM]"
                         }
@@ -132,13 +137,13 @@ Dies funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom ange
                 },
                 "DirectorOfStudies": {
                     "directorOfStudies_id": 0,
-                    "username": "[NUTZERNAME]",
+                    "username": "[BENUTZERNAME]",
                     "is_admin": true,
                     "misc": "[VERSCHIEDENES]"
                 },
                 "createdBy": {
                     "directorOfStudies_id": 0,
-                    "username": "[NUTZERNAME]"
+                    "username": "[BENUTZERNAME]"
                 }
             }
         ]
@@ -146,7 +151,7 @@ Dies funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom ange
 }
 ```
 
-### Attribute der Anfrage - GET /presentations?courseId={ID}
+### Attribute der Anfrage - GET /presentations
 
 | Attribut                                  | Beispielwert                                        | Erklärung                                                                                                        |
 | ----------------------------------------- | --------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
@@ -187,8 +192,8 @@ Dies funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom ange
 | `_________ects`                           | 1                                                   | ECTS-Punkte des Moduls                                                                                           |
 | `_________catalog_id`                     | "WWISE_1337"                                        | Kennzeichnung aus dem Modulkatalog der DHBW                                                                      |
 | `_________number_of_lectures_to_attend`   | 1                                                   | Anzahl Vorlesungen, die im Rahmen des Moduls besucht werden müssen                                               |
-| `_________rated`                          | true / false                                        | Benotung                                                                                                         |
 | `_________requirements`                   | "Software Engineering 1"                            | Freitext, Für Teilnahme an Vorlesung benötigte Grundlagen bzw. Vorwissen                                         |
+| `_________rated`                          | true / false                                        | Benotung                                                                                                         |
 | `_________moduleGroup_id`                 | 1                                                   | Eindeutige ID der Modulgruppe                                                                                    |
 | `_________ModuleGroup`                    | { }                                                 | Objekt einer Modulgruppe                                                                                         |
 | `____________moduleGroup_id`              | 1                                                   | Eindeutige ID der Modulgruppe                                                                                    |
@@ -209,11 +214,11 @@ Dies funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom ange
 | `______email`                             | "sebastian.ritterbusch@dhbw-mannheim.de"            | E-Mail des Dozierenden                                                                                           |
 | `______salutation`                        | "Herr"                                              | Anrede des Dozierenden                                                                                           |
 | `______phonenumber`                       | "+49 621 4105 - 1724"                               | Telefonnummer des Dozierenden                                                                                    |
-| `______experience`                        | "Mathematik, Podcasts, ..."                         | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
 | `______cv`                                | ""                                                  | zur Zeit nur als string möglich; wird angepasst und nachgereicht                                                 |
 | `______comment`                           | "Sehr engagiert"                                    | Freitext, kann durch Front-End ebenfalls als JSON-Objekt im Stringformat gespeichert werden (`JSON.stringify()`) |
+| `______possible_lectures`                 | "Mathematik, Podcasts, ..."                         | Freitext, beinhaltet Vorlesungen, die der Dozierende halten könnte                                               |
 | `______is_extern`                         | false                                               | Gibt an, ob ein Dozent extern ist - false = intern, true = extern                                                |
-| `___allow_manipulation`                   | true                                                | Gibt an, ob ein Dozent von **allen** Studiengangsleitern bearbeitbar ist                                         |
+| `______allow_manipulation`                | true                                                | Gibt an, ob ein Dozent von **allen** Studiengangsleitern bearbeitbar ist                                         |
 | `______createdBy_id`                      | 1                                                   | ID des Users, der zuletzt den Dozenten verändert hat                                                             |
 | `______MainFocuses`                       | [ ]                                                 | Array von Schwerpunkten des Dozierenden                                                                          |
 | `_________mainFocus_id`                   | 1                                                   | Eindeutige ID des Schwerpunktes                                                                                  |
@@ -230,8 +235,38 @@ Dies funktioniert nur, wenn der angemeldete DoS auch Studiengangsleiter vom ange
 ### Optionale Parameter /presentations
 
 - `semesterId`
-  - filtert die Rückgabe.
+  - filtert die Rückgabe
+  - filtert Anfragen die `courseId` nutzen
   - gibt alle Presentations zum angegebenen Kurs&Semester zurück.
+- `getCoLecturers`
+  - gemeinsam mit `lecturerId`
+  - fügt Rückgabe weitere Felder hinzu
+  - fügt ein Array der Mit-Dozenten (Co-Lecturers) an Präsentationen, die von mehreren Dozenten gleichzeitig gehalten werden, an
+
+#### Rückgabe mit Queryparameter `getCoLecturers=true`
+
+Sofern `getCoLecturers` angefordert wird, werden alle Dozierenden, welche die gleiche Vorlesung, im gleichen Kurs halten, ausgegeben.
+Der Wert von `getCoLecturers` ist dabei egal (wenn er _truthy_ ist, werden weitere Dozenten ausgegeben).
+Ein Filtern nach `status`, sodass nur Co-Lecturer von tatsächlich gehaltenen Vorlesungen angezeigt werden, muss im Front-End erfolgen (alternativ kann der Status angezeigt werden, sodass der Benutzer eine entsprechende Einschätzung vornehmen kann).
+Dabei hat die Presentation, wie oben beschrieben, selbst einen `status`, der sich auf den gesuchten Dozenten bezieht.
+Für jeden Co-Lecturer gibt es nochmal einen `status`, der sich jeweils auf diesen bzw. diese Presentation bezieht.
+Für weitere Infos über Dozierende siehe [Dozierenden-Doku](lecturers.md).
+
+```json
+{
+    "CoLecturers": [
+        {
+            "status": "[STATUS]",
+            "lecturer_id": 0,
+            "firstname": "[VORNAME]",
+            "lastname": "[NACHNAME]",
+            "academic_title": "[AKADEMISCHER_TITEL]",
+            "salutation": "[ANREDE]",
+            "is_extern": true,
+        }
+    ]
+}
+```
 
 ## POST /presentations
 

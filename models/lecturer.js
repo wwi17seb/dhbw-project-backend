@@ -32,15 +32,15 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      experience: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
       cv: {
         type: DataTypes.STRING,
         allowNull: true,
       },
       comment: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      possible_lectures: {
         type: DataTypes.STRING,
         allowNull: true,
       },

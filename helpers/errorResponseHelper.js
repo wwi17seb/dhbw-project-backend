@@ -20,6 +20,8 @@ module.exports = (res, error) => {
     { endsWith: ' can not be empty' },
     { matches: ['Register key is invalid', 'Old password is wrong', 'The username is already taken'] },
     { startsWith: 'Unexpected token ', includes: ' in JSON at position ' },
+    { includes: 'No required filter given' },
+    { includes: 'Can not filter by course and lecturer at the same time' },
   ];
   for (const condition of returnErrorMessageConditions) {
     if (
