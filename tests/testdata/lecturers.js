@@ -24,7 +24,7 @@ module.exports = {
         is_extern: false,
         allow_manipulation: false,
       },
-      token: '{{signup.gömert.token}}',
+      token: '{{users.gömert.token}}',
     },
     {
       id: 'eb',
@@ -48,7 +48,7 @@ module.exports = {
         is_extern: true,
         allow_manipulation: true,
       },
-      token: '{{signup.jreichwald.token}}',
+      token: '{{users.jreichwald.token}}',
     },
     {
       id: 'qq',
@@ -68,7 +68,7 @@ module.exports = {
         is_extern: true,
         allow_manipulation: true,
       },
-      token: '{{signup.jreichwald.token}}',
+      token: '{{users.jreichwald.token}}',
     },
     {
       id: 'ea',
@@ -88,7 +88,7 @@ module.exports = {
         is_extern: true,
         allow_manipulation: false,
       },
-      token: '{{signup.jreichwald.token}}',
+      token: '{{users.jreichwald.token}}',
     },
   ],
 };

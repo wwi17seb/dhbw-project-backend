@@ -7,7 +7,7 @@ module.exports = {
         name: 'WWI 17 SE B',
         google_calendar_id: '[GOOGLE_KALENDER_ID]',
         majorSubject_id: '{{majorSubjects.wise11.majorSubject_id}}',
-        directorOfStudies_ids: ['{{signup.ritterbusch.directorOfStudies_id}}'],
+        directorOfStudies_ids: ['{{users.ritterbusch.directorOfStudies_id}}'],
         Semesters: [
           {
             name: 'WS 17/18',
@@ -47,7 +47,7 @@ module.exports = {
           },
         ],
       },
-      token: '{{signup.jreichwald.token}}',
+      token: '{{users.jreichwald.token}}',
     },
     {
       id: 'wwi18seb',
@@ -95,7 +95,7 @@ module.exports = {
           },
         ],
       },
-      token: '{{signup.ritterbusch.token}}',
+      token: '{{users.ritterbusch.token}}',
     },
   ],
 };

@@ -8,10 +8,10 @@ module.exports = {
         lecturer_id: '{{lecturers.eb.lecturer_id}}',
         lecture_id: '{{moduleGroups.wise11rechnungslegung.Modules[0].Lectures[0].lecture_id}}',
         course_id: '{{courses.wwi17seb.course_id}}',
-        academicRecord_id: '{{academicRecords.se.academicRecord_id}}',
+        academicRecord_id: undefined,
         semester_id: '{{courses.wwi17seb.Semesters[0].semester_id}}',
       },
-      token: '{{signup.jreichwald.token}}',
+      token: '{{users.jreichwald.token}}',
     },
     {
       id: 'p2',
@@ -23,7 +23,7 @@ module.exports = {
         academicRecord_id: '{{academicRecords.k.academicRecord_id}}',
         semester_id: '{{courses.wwi17seb.Semesters[0].semester_id}}',
       },
-      token: '{{signup.jreichwald.token}}',
+      token: '{{users.jreichwald.token}}',
     },
     {
       id: 'p3',
@@ -35,7 +35,7 @@ module.exports = {
         academicRecord_id: '{{academicRecords.k.academicRecord_id}}',
         semester_id: '{{courses.wwi17seb.Semesters[0].semester_id}}',
       },
-      token: '{{signup.jreichwald.token}}',
+      token: '{{users.jreichwald.token}}',
     },
   ],
 };
