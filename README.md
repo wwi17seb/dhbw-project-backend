@@ -136,6 +136,8 @@ You can use prettier by right clicking in the editor inside a code file.
 4. [frontend-only] When using postman to verify the routes please disable ssl certificate verification in postman.
    1. Disable _file &rarr; settings &rarr; ssl certificate verification_.****
 
+\* Important Note: To use the route addLecturerCV you need to access an PDF File on your computer. There already is an example file ("resume.pdf") within the postman-folder. To access it you either have to set your Postman-Working-Directory (Settings -> General -> Working directory section) to your Postman folder within the Peojekt-Backend structure. (e. g. "/Users/[yourName]/Documents/GitHub/dhbw-project-backend/postman"). It is also possible to select an own pdf-file in your current working directory or select the option to give access outside the working directory. 
+
 \* Routes that require an ID need to be filled by you.
 These parameters have the value `[REQUIRED]` and need to be updated by you.
 

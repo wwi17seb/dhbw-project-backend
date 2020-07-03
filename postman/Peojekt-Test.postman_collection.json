@@ -1481,7 +1481,11 @@
 								{
 									"key": "cv",
 									"type": "file",
+<<<<<<< Updated upstream
 									"src": "/Users/dennis/Downloads/Command (1).pdf"
+=======
+									"src": "resume.pdf"
+>>>>>>> Stashed changes
 								}
 							]
 						},
@@ -1596,14 +1600,20 @@
 									"value": "{{token}}"
 								},
 								{
+									"key": "courseId",
+									"value": "{{course_id}}"
+								},
+								{
+									"key": "getCoLecturers",
+									"value": "true",
+									"description": "Optional parameter for requesting lecturers with similar lectures in similar courses",
+									"disabled": true
+								},
+								{
 									"key": "semesterId",
 									"value": "1",
 									"description": "Optional parameter for filtering",
 									"disabled": true
-								},
-								{
-									"key": "courseId",
-									"value": "{{course_id}}"
 								}
 							]
 						},
@@ -1925,6 +1935,142 @@
 								{
 									"key": "token",
 									"value": "{{token}}"
+<<<<<<< Updated upstream
+=======
+								}
+							]
+						},
+						"description": "Enables to update username- and misc-field for currently logged in Director of Studies."
+					},
+					"response": []
+				}
+			],
+			"description": "Routes for Director of Study.",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Delete",
+			"item": [
+				{
+					"name": "delete Presentation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1bd2485b-d0a1-48a9-9d6d-6fec59d78ca0",
+								"exec": [
+									"pm.test(\"DELETE Presentation status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/presentations?token={{token}}&presentationId={{presentation_id}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"presentations"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "presentationId",
+									"value": "{{presentation_id}}"
+								}
+							]
+						},
+						"description": "Deletes a given presentation."
+					},
+					"response": []
+				},
+				{
+					"name": "delete Lecturer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2f2011b8-2cfa-46ec-88c9-db71833e9002",
+								"exec": [
+									"pm.test(\"DELETE Lecturer status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/lecturers?token={{token}}&lecturerId={{lecturer_id}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"lecturers"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "lecturerId",
+									"value": "{{lecturer_id}}"
+								}
+							]
+						},
+						"description": "Deletes a given lecturer if he is linked with a given director of studies."
+					},
+					"response": []
+				},
+				{
+					"name": "delete Semester",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "16c27401-bf7c-4780-97b6-dab8a71d25bf",
+								"exec": [
+									"pm.test(\"DELETE Semester status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/semesters?token={{token}}&semesterId={{semester_id}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"semesters"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "semesterId",
+									"value": "{{semester_id}}"
+>>>>>>> Stashed changes
 								}
 							]
 						},

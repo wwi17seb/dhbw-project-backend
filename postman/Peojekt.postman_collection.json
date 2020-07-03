@@ -710,7 +710,11 @@
 								{
 									"key": "cv",
 									"type": "file",
+<<<<<<< Updated upstream
 									"src": "/Users/dennis/Downloads/Command (1).pdf"
+=======
+									"src": "resume.pdf"
+>>>>>>> Stashed changes
 								}
 							]
 						},
@@ -1097,6 +1101,12 @@
 									"key": "semesterId",
 									"value": "1",
 									"description": "Optional parameter for filtering",
+									"disabled": true
+								},
+								{
+									"key": "getCoLecturers",
+									"value": "true",
+									"description": "Optional parameter for requesting lecturers with similar lectures in similar courses",
 									"disabled": true
 								}
 							]
