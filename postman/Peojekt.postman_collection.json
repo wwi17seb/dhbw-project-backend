@@ -710,11 +710,7 @@
 								{
 									"key": "cv",
 									"type": "file",
-<<<<<<< Updated upstream
-									"src": "/Users/dennis/Downloads/Command (1).pdf"
-=======
 									"src": "resume.pdf"
->>>>>>> Stashed changes
 								}
 							]
 						},
