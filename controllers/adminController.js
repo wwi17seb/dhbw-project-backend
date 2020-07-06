@@ -5,7 +5,7 @@ const { getLocalKey, setLocalKey, LOCAL_KEYS } = require('../helpers/localKeysFi
 const directorOfStudiesService = require('../services/directorOfStudiesService');
 const db = require('../database/database');
 
-exports.getAllUsers = async (req, res, next) => {
+exports.getAllUsers = async (req, res) => {
   const directorOfStudiesToCheck_id = req.token.directorOfStudies_id;
 
   if (!(await checkPrivilegesHelper(directorOfStudiesToCheck_id))) {
@@ -16,7 +16,7 @@ exports.getAllUsers = async (req, res, next) => {
     const Users = await directorOfStudiesService.getAllUsers();
     responseHelper(res, 200, 'Successful', { Users });
   } catch (error) {
-    return errorResponseHelper(res, next, error);
+    return errorResponseHelper(res, error);
   }
 };
 

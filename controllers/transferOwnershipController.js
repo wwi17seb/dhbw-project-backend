@@ -1,5 +1,6 @@
 const responseHelper = require('../helpers/responseHelper');
 const errorResponseHelper = require('../helpers/errorResponseHelper');
+const directorOfStudiesService = require('../services/directorOfStudiesService');
 const db = require('../database/database');
 
 async function updateModel(transaction, model, oldDirectorOfStudiesId, newDirectorOfStudiesId) {
@@ -56,6 +57,15 @@ async function updateCourse(transaction, oldDirectorOfStudiesId, newDirectorOfSt
     }
   );
 }
+
+exports.getAllUsersForTransfer = async (req, res) => {
+  try {
+    const Users = await directorOfStudiesService.getAllUsersForTransfer();
+    return responseHelper(res, 200, 'Successful', { Users });
+  } catch (error) {
+    return errorResponseHelper(res, error);
+  }
+};
 
 exports.transferOwnership = async (req, res) => {
   const oldDirectorOfStudiesId = req.token.directorOfStudies_id;

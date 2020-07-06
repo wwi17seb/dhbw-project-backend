@@ -1,13 +1,23 @@
 const db = require('../database/database');
 
 // GET
-module.exports.getAllUsers = async() => {
+module.exports.getAllUsers = async () => {
   const attributes = ['directorOfStudies_id', 'username', 'is_admin', 'password_change_required'];
+
+  return getUsersWithAttributes(attributes);
+};
+
+module.exports.getAllUsersForTransfer = async () => {
+  const attributes = ['directorOfStudies_id', 'username'];
+
+  return getUsersWithAttributes(attributes);
+};
+
+async function getUsersWithAttributes(attributes) {
   const users = await db.DirectorOfStudies.findAll({ attributes });
 
   return users;
-
-};
+}
 
 module.exports.getByUsername = async (username) => {
   const directorOfStudiesToFind = await db.DirectorOfStudies.findOne({

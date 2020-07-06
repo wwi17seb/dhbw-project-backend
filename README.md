@@ -230,6 +230,7 @@ If you want to know more about our database design and speak german, take a look
 | Create a module group                                                      | `POST`      | `/moduleGroups`      | `token`                                                                                  | :white_check_mark: | [moduleGroups.md](/docs/apis/moduleGroups.md)           |
 | Update a module group                                                      | `PUT`       | `/moduleGroups`      | `token`, `moduleGroupId`                                                                 | :white_check_mark: | [moduleGroups.md](/docs/apis/moduleGroups.md)           |
 | Delete a module group                                                      | `DELETE`    | `/moduleGroups`      | `token`, `moduleGroupId`                                                                 | :white_check_mark: | [moduleGroups.md](/docs/apis/moduleGroups.md)           |
+| Get all users eligible to transfer ownership to                            | `GET`       | `/usersForTransfer`  | `token`                                                                                  | :white_check_mark: | [transferOwnership.md](/docs/apis/transferOwnership.md) |
 | Transfer everything connection to one director of studies to another       | `POST`      | `/transferOwnership` | `token`                                                                                  | :white_check_mark: | [transferOwnership.md](/docs/apis/transferOwnership.md) |
 
 Legend:
