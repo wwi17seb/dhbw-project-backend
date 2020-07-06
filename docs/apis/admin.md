@@ -117,10 +117,6 @@
 
 ## PUT /upgradeToAdmin?directorOfStudiesId={ID}
 
-```json
-{}
-```
-
 ### Rückgabe - PUT /upgradeToAdmin?directorOfStudiesId={ID}
 
 ```json

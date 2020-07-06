@@ -33,10 +33,6 @@ if (saveLog && !fs.existsSync(LOG_DIR)) {
   fs.mkdirSync(LOG_DIR);
 }
 
-function post(path, data, token) {
-  return _fetch('POST', path, data, token);
-}
-
 function _fetch(method, path, data, token) {
   const url =
     SERVER_URL +
@@ -78,7 +74,7 @@ function log(status, ...args) {
 }
 
 function promiseHelper(method) {
-  return new Promise(async (resolve, reject) => {
+  return new Promise(async (resolve) => {
     await method();
     resolve();
   });
@@ -98,16 +94,18 @@ async function login() {
   const defaultUsername = propertiesReader.getProperty('app.defaultUser');
   const defaultPassword = propertiesReader.getProperty('app.defaultPassword');
   try {
-    TOKEN = (await post('login', { username: defaultUsername, password: defaultPassword })).token;
+    TOKEN = (await _fetch('POST', 'login', { username: defaultUsername, password: defaultPassword })).token;
   } catch (error) {
     console.log(error);
   }
 }
 
 async function createTestData(filename) {
+  const method = testdata[filename].method || 'POST';
   const route = testdata[filename].route;
-  if (!data[route]) {
-    data[route] = {};
+  const name = testdata[filename].name || route;
+  if (!data[name]) {
+    data[name] = {};
   }
 
   await Promise.all(
@@ -116,14 +114,14 @@ async function createTestData(filename) {
         const dataObject = replacePlaceholders(entry.data);
         const tokenObject = replacePlaceholders(entry.token);
         try {
-          const response = await post(route, dataObject, tokenObject);
+          const response = await _fetch(method, route, dataObject, tokenObject);
           if (!response) {
-            throw new Error("No data received");
+            throw new Error('No data received');
           }
-          data[route][entry.id] = response;
+          data[name][entry.id] = response;
         } catch {
           if (testdata[filename].alternativeRoute) {
-            data[route][entry.id] = await post(testdata[filename].alternativeRoute, dataObject, tokenObject);
+            data[name][entry.id] = await _fetch(method, testdata[filename].alternativeRoute, dataObject, tokenObject);
           }
         }
       });
@@ -173,12 +171,14 @@ const data = {};
 async function main() {
   await setServerURLIfProduction();
   await login();
+  await createTestData('activateRegisterKey');
   await Promise.all([
     createTestData('fieldsOfStudy'),
     createTestData('users'),
     createTestData('academicRecords'),
     createTestData('mainFocuses'),
   ]);
+  createTestData('deactivateRegisterKey');
   await Promise.all([createTestData('majorSubjects')]);
   await Promise.all([
     createTestData('courses'),
@@ -186,8 +186,6 @@ async function main() {
     createTestData('lecturers'),
   ]);
   await Promise.all([createTestData('presentations')]);
-
-  //console.log(data);
 }
 
 main();

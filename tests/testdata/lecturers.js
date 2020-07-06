@@ -24,7 +24,7 @@ module.exports = {
         allow_manipulation: false,
         possible_lectures: 'Recht, Datenbanken, Webentwicklung',
       },
-      token: '{{signup.gömert.token}}',
+      token: '{{users.gömert.token}}',
     },
     {
       id: 'eb',
@@ -48,7 +48,7 @@ module.exports = {
         allow_manipulation: true,
         possible_lectures: 'Projektmanagement',
       },
-      token: '{{signup.jreichwald.token}}',
+      token: '{{users.jreichwald.token}}',
     },
     {
       id: 'qq',
@@ -68,7 +68,7 @@ module.exports = {
         allow_manipulation: true,
         possible_lectures: 'Verteidigung gegen die dunklen Künste',
       },
-      token: '{{signup.jreichwald.token}}',
+      token: '{{users.jreichwald.token}}',
     },
     {
       id: 'ea',
@@ -88,7 +88,7 @@ module.exports = {
         allow_manipulation: false,
         possible_lectures: 'Neue Konzepte: IT Sicherheit, Grundlagen der WI',
       },
-      token: '{{signup.jreichwald.token}}',
+      token: '{{users.jreichwald.token}}',
     },
   ],
 };

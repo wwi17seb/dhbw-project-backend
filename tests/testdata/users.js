@@ -1,5 +1,6 @@
 module.exports = {
-  route: 'signup',
+  name: 'users',
+  route: 'register',
   alternativeRoute: 'login',
   data: [
     {
@@ -7,6 +8,7 @@ module.exports = {
       data: {
         username: 'jreichwald',
         password: 'pw',
+        registerKey: 'DemuKi',
       },
     },
     {
@@ -14,6 +16,7 @@ module.exports = {
       data: {
         username: 'ritterbusch',
         password: 'pw',
+        registerKey: 'DemuKi',
       },
     },
     {
@@ -21,6 +24,7 @@ module.exports = {
       data: {
         username: 'matt',
         password: 'pw',
+        registerKey: 'DemuKi',
       },
     },
     {
@@ -28,6 +32,7 @@ module.exports = {
       data: {
         username: 'gömert',
         password: 'pw',
+        registerKey: 'DemuKi',
       },
     },
   ],
