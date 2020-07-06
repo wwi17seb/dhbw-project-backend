@@ -21,9 +21,9 @@ module.exports.createMajorSubject = async (transaction, name, fieldOfStudy_id, c
 };
 
 // PUT
-module.exports.updateMajorSubject = async (transaction, { majorSubject_id, name, fieldOfStudy_id }) => {
+module.exports.updateMajorSubject = async (transaction, { majorSubject_id, name, fieldOfStudy_id, catalog_effective_from }) => {
   const majorSubject = await db.MajorSubject.update(
-    { name, fieldOfStudy_id },
+    { name, fieldOfStudy_id, catalog_effective_from },
     { where: { majorSubject_id }, transaction }
   );
 
