@@ -16,6 +16,7 @@ const withInclude = [
   },
   { model: db.Lecturer, include: [{ model: db.MainFocus, through: { attributes: [] } }] },
   { model: db.DirectorOfStudies, attributes: ['directorOfStudies_id', 'username'] },
+  { model: db.Course, attributes: ['name'] },
 ];
 // GET
 module.exports.findPresentationById = async (presentation_id) => {
