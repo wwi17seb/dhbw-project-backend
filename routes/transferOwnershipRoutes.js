@@ -5,6 +5,7 @@ const transferOwnershipController = require('../controllers/transferOwnershipCon
 
 const router = express.Router();
 
-router.post('/transferOwnership/', authorize(), transferOwnershipController.transferOwnership);
+router.post('/transferOwnership', authorize(), transferOwnershipController.transferOwnership);
+router.get('/usersForTransfer', authorize(), transferOwnershipController.getAllUsersForTransfer);
 
 module.exports = router;
