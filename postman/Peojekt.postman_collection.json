@@ -9,7 +9,19 @@
 			"name": "Authentication",
 			"item": [
 				{
-					"name": "signup User",
+					"name": "signup User [deprecated]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6db71bcd-35ee-453b-9bd1-cd181c7387fe",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -36,6 +48,61 @@
 							],
 							"path": [
 								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "20fdf19a-eaea-4eef-9e81-6583d11ca070",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "d3a56cd0-a11b-487b-a6d5-9411587ddbfc",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"Nutzername\",\n    \"password\": \"MeinSicheresPasswort1337\",\n    \"registerKey\": \"SichererSchlüssel1337\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/register",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"register"
 							]
 						}
 					},
@@ -529,7 +596,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstname\": \"Sebastian\",\n    \"lastname\": \"Ritterbusch\",\n    \"academic_title\": \"Prof. Dr.\",\n    \"email\": \"sebastian.ritterbusch@dhbw-mannheim.de\",\n    \"salutation\": \"Herr\",\n    \"phonenumber\": \"+49 621 4105 - 1724\",\n    \"experience\": \"Mathematik, Podcasts\",\n    \"mainFocus_ids\": [1],\n    \"profile\": \"...\",\n    \"research\": \"...\",\n    \"cv\": \"...\",\n    \"comment\": \"sehr engagiert\",\n    \"is_extern\": true,\n    \"allow_manipulation\": true\n}",
+							"raw": "{\n    \"firstname\": \"Sebastian\",\n    \"lastname\": \"Ritterbusch\",\n    \"academic_title\": \"Prof. Dr.\",\n    \"email\": \"sebastian.ritterbusch@dhbw-mannheim.de\",\n    \"salutation\": \"Herr\",\n    \"phonenumber\": \"+49 621 4105 - 1724\",\n    \"experience\": \"Mathematik, Podcasts\",\n    \"mainFocus_ids\": [1],\n    \"comment\": \"sehr engagiert\",\n    \"is_extern\": true,\n    \"allow_manipulation\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -562,7 +629,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstname\": \"Sebastian\",\n    \"lastname\": \"Ritterbusch\",\n    \"academic_title\": \"Prof. Dr.\",\n    \"email\": \"sebastian.ritterbusch@dhbw-mannheim.de\",\n    \"salutation\": \"Herr\",\n    \"phonenumber\": \"+49 621 4105 - 1724\",\n    \"experience\": \"Mathematik, Podcasts\",\n    \"mainFocus_ids\": [1,2],\n    \"profile\": \"...\",\n    \"research\": \"...\",\n    \"cv\": \"...\",\n    \"comment\": \"sehr engagiert\",\n    \"is_extern\": true,\n    \"allow_manipulation\": true\n}",
+							"raw": "{\n    \"firstname\": \"Sebastian\",\n    \"lastname\": \"Ritterbusch\",\n    \"academic_title\": \"Prof. Dr.\",\n    \"email\": \"sebastian.ritterbusch@dhbw-mannheim.de\",\n    \"salutation\": \"Herr\",\n    \"phonenumber\": \"+49 621 4105 - 1724\",\n    \"experience\": \"Mathematik, Podcasts\",\n    \"mainFocus_ids\": [1,2],\n    \"comment\": \"sehr engagiert\",\n    \"is_extern\": true,\n    \"allow_manipulation\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -617,6 +684,103 @@
 							]
 						},
 						"description": "Deletes a given lecturer if he is linked with a given director of studies."
+					},
+					"response": []
+				},
+				{
+					"name": "add Lecturer CV",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "21cb7920-b526-48c0-8c5e-c3e8b6440c66",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "cv",
+									"type": "file",
+									"src": "resume.pdf"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{backend}}/lecturerCV?token={{token}}&lecturerId=[REQUIRED]",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"lecturerCV"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "lecturerId",
+									"value": "[REQUIRED]"
+								}
+							]
+						},
+						"description": "Adds CV of a given lecturer."
+					},
+					"response": []
+				},
+				{
+					"name": "get LecturerCV",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "34d3ddae-9c21-4ea3-a7d1-23434c7fe2f6",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{backend}}/lecturerCV?token={{token}}&lecturerId=[REQUIRED]",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"lecturerCV"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "lecturerId",
+									"value": "[REQUIRED]"
+								}
+							]
+						},
+						"description": "Gets CV of a given lecturer."
 					},
 					"response": []
 				}
@@ -934,6 +1098,12 @@
 									"value": "1",
 									"description": "Optional parameter for filtering",
 									"disabled": true
+								},
+								{
+									"key": "getCoLecturers",
+									"value": "true",
+									"description": "Optional parameter for requesting lecturers with similar lectures in similar courses",
+									"disabled": true
 								}
 							]
 						},
@@ -1131,7 +1301,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"abbreviation\": \"K\",\r\n    \"type\": \"Klausur\",\r\n    \"rated\": true\r\n}",
+							"raw": "{\r\n    \"abbreviation\": \"K\",\r\n    \"type\": \"Klausur\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1164,7 +1334,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"abbreviation\": \"K\",\r\n    \"type\": \"Klausur\",\r\n    \"rated\": true\r\n}",
+							"raw": "{\r\n    \"abbreviation\": \"K\",\r\n    \"type\": \"Klausur\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1330,6 +1500,621 @@
 							]
 						},
 						"description": "Deletes a given module group."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "TransferOwnership",
+			"item": [
+				{
+					"name": "transferOwnership",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c1cd526f-d14a-4752-a935-fa84120ed4d3",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"newOwnerId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/transferOwnership?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"transferOwnership"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Transfers ownership of all Courses, Lecturers and Presentations from one director of studies to another."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "GoogleCalendar",
+			"item": [
+				{
+					"name": "get GoogleCalendar",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "57e9adaa-f269-473f-bb95-d17cde970288",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/googleCalendar?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"googleCalendar"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Returns information about google calendars."
+					},
+					"response": []
+				},
+				{
+					"name": "update GoogleCalendar",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "30c89f6b-bb51-4629-b872-ecb2de35b151",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5eaaac58-2a19-4608-8c09-31ec2faa6cf4",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"apiKey\": \"this is an GC API Key\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/googleCalendar?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"googleCalendar"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Updates Key-Value pairs for google calendar information. All Key-Value pairs need to be in the request. This is an Admin Functionality."
+					},
+					"response": []
+				}
+			],
+			"description": "Route for getting the google calendar information.",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "DirectorOfStudies",
+			"item": [
+				{
+					"name": "get DirectorOfStudies",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4092040a-43b2-42c6-9ad6-c326a104abdf",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/directorOfStudies?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"directorOfStudies"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Returns information about the currently logged in DirectorOfStudies."
+					},
+					"response": []
+				},
+				{
+					"name": "change DirectorOfStudies Password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "228f98a2-5d97-43f3-8a78-c5f7fb3e5695",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "53f878b2-2a73-4132-a1dd-7b44cc23516a",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"oldPassword\": \"Passwort\",\r\n\t\"newPassword\": \"PasswortNeu\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/changePassword?directorOfStudiesId=1",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"changePassword"
+							],
+							"query": [
+								{
+									"key": "directorOfStudiesId",
+									"value": "1"
+								}
+							]
+						},
+						"description": "Enables to update passwords for currently logged in Director of Studies."
+					},
+					"response": []
+				},
+				{
+					"name": "update DirectorOfStudies",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "25962809-eccd-48c5-a5ac-2a16678393e4",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "56de3921-1eaf-4d93-b04e-d61c4d2c6d62",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"username\": \"MeinNeuerNutzername\", \r\n\t\"misc\": \"test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/directorOfStudies?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"directorOfStudies"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Enables to update username- and misc-field for currently logged in Director of Studies."
+					},
+					"response": []
+				}
+			],
+			"description": "Routes for Director of Study.",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "get Users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "29f0f94e-26ea-4031-a9fb-620c0c6671c6",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/users?token={{admin-token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{admin-token}}"
+								}
+							]
+						},
+						"description": "Returns all registered users."
+					},
+					"response": []
+				},
+				{
+					"name": "create User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c571d888-d993-4437-bdf2-e92e4e844851",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "98724bcc-7bab-4798-bc00-f358e2af6048",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"Nutzername\",\n    \"password\": \"Passwort\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/createUser?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"createUser"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Create a new User"
+					},
+					"response": []
+				},
+				{
+					"name": "resetPassword",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "866a8ec3-1113-43e5-99e0-247c21f31f4b",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "cdab1968-1d29-4d3f-aadc-30aa31dcb91d",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"newPassword\": \"neuesPasswort\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/resetPassword?token={{token}}&directorOfStudiesId=1",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"resetPassword"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "directorOfStudiesId",
+									"value": "1"
+								}
+							]
+						},
+						"description": "Updates password of given Director of Study."
+					},
+					"response": []
+				},
+				{
+					"name": "upgrade to admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b1cc9939-b83e-4f54-9eb2-8cf152635a5b",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "40a82f9a-ca7d-4707-868d-9ae1d43d1a09",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/upgradeToAdmin?token={{token}}&directorOfStudiesId=1",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"upgradeToAdmin"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "directorOfStudiesId",
+									"value": "1"
+								}
+							]
+						},
+						"description": "Upgrades given Director of Study to admin."
+					},
+					"response": []
+				},
+				{
+					"name": "get RegisterKey",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fab80929-b12d-4694-b5d5-90c9f58d1de5",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/registerKey?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"registerKey"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Returns register key."
+					},
+					"response": []
+				},
+				{
+					"name": "update RegisterKey",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "71f24807-d57c-4c73-ad3b-31af1b544941",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e6de6035-779b-4bdd-875e-99e2a0bcc6eb",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"registerKey\": \"SichererSchlüssel1337\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/registerKey?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"registerKey"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Updates current register key. If given value is \"falsy\" (e. g. undefined, null, false, \" \") the self registration will be deactivated."
 					},
 					"response": []
 				}
