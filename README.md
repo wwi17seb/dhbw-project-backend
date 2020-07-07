@@ -151,7 +151,7 @@ To see how authentication with the token works take a look at the postman collec
 
 PDF files are stored in `pdf`-folder which will be created automatically if `app.forceSync` is set to true.
 For better structuring there is a subfolder for each type of PDF files.
-Currently we only store CVs of lecturers in `pdf/vita`.
+Currently we only store CVs of lecturers in `pdf/cv`.
 The files are named `{ID}.pdf` where `{ID}` is the `lecturer_id` of the corresponding lecturer.
 
 There is a configuration file where the register key and Google API key is saved.
@@ -162,7 +162,8 @@ The file `keys.json` has the following format:
 {
    "registerKey": "used to create an account",
    "googleCalendar": {
-      "apiKey": "api key"
+      "apiKey": "api key",
+      "[further keys]": "[further values]"
    }
 }
 ```
