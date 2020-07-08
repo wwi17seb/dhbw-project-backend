@@ -8,6 +8,18 @@ module.exports = {
       },
     },
     {
+      id: 'wis',
+      data: {
+        name: 'Wissenschaftliches Arbeiten',
+      },
+    },
+    {
+      id: 'm',
+      data: {
+        name: 'Mathematik',
+      },
+    },
+    {
       id: 'itsicherheit',
       data: {
         name: 'IT-Sicherheit',
@@ -44,9 +56,27 @@ module.exports = {
       },
     },
     {
+      id: 'vwl',
+      data: {
+        name: 'VWL',
+      },
+    },
+    {
       id: 'recht',
       data: {
         name: 'Recht',
+      },
+    },
+    {
+      id: 'wi',
+      data: {
+        name: 'Wirtschaftsinformatik',
+      },
+    },
+    {
+      id: 'i',
+      data: {
+        name: 'Informatik',
       },
     },
   ],

@@ -40,7 +40,7 @@ module.exports = {
             end_date: '2020-02-14',
           },
           {
-            name: 'WS 20',
+            name: 'SS 20',
             number: 6,
             start_date: '2020-05-11',
             end_date: '2020-07-31',
@@ -55,7 +55,7 @@ module.exports = {
         name: 'WWI 18 SE B',
         google_calendar_id: '[GOOGLE_KALENDER_ID]',
         majorSubject_id: '{{majorSubjects.wise18.majorSubject_id}}',
-        directorOfStudies_ids: [],
+        directorOfStudies_ids: ['{{users.ritterbusch.directorOfStudies_id}}'],
         Semesters: [
           {
             name: 'WS 18/19',
@@ -76,7 +76,7 @@ module.exports = {
             end_date: '2020-02-14',
           },
           {
-            name: 'WS 20',
+            name: 'SS 20',
             number: 4,
             start_date: '2020-05-11',
             end_date: '2020-07-31',
@@ -96,6 +96,198 @@ module.exports = {
         ],
       },
       token: '{{users.ritterbusch.token}}',
+    },
+    {
+      id: 'wwi18dsa',
+      data: {
+        name: 'WWI 18 DS A',
+        google_calendar_id: '[GOOGLE_KALENDER_ID]',
+        majorSubject_id: '{{majorSubjects.wids18.majorSubject_id}}',
+        directorOfStudies_ids: ['{{users.matt.directorOfStudies_id}}'],
+        Semesters: [
+          {
+            name: 'WS 18/19',
+            number: 1,
+            start_date: '2018-11-19',
+            end_date: '2019-02-05',
+          },
+          {
+            name: 'SS 19',
+            number: 2,
+            start_date: '2019-05-06',
+            end_date: '2019-08-02',
+          },
+          {
+            name: 'WS 19/20',
+            number: 3,
+            start_date: '2019-11-18',
+            end_date: '2020-02-14',
+          },
+          {
+            name: 'SS 20',
+            number: 4,
+            start_date: '2020-05-11',
+            end_date: '2020-07-31',
+          },
+          {
+            name: 'WS 20/21',
+            number: 5,
+            start_date: '2020-10-23',
+            end_date: '2021-01-19',
+          },
+          {
+            name: 'SS 21',
+            number: 6,
+            start_date: '2021-05-14',
+            end_date: '2021-08-03',
+          },
+        ],
+      },
+      token: '{{users.matt.token}}',
+    },
+    {
+      id: 'wwi18dsb',
+      data: {
+        name: 'WWI 18 DS B',
+        google_calendar_id: '[GOOGLE_KALENDER_ID]',
+        majorSubject_id: '{{majorSubjects.wids18.majorSubject_id}}',
+        directorOfStudies_ids: ['{{users.matt.directorOfStudies_id}}'],
+        Semesters: [
+          {
+            name: 'WS 18/19',
+            number: 1,
+            start_date: '2018-11-19',
+            end_date: '2019-02-05',
+          },
+          {
+            name: 'SS 19',
+            number: 2,
+            start_date: '2019-05-06',
+            end_date: '2019-08-02',
+          },
+          {
+            name: 'WS 19/20',
+            number: 3,
+            start_date: '2019-11-18',
+            end_date: '2020-02-14',
+          },
+          {
+            name: 'SS 20',
+            number: 4,
+            start_date: '2020-05-11',
+            end_date: '2020-07-31',
+          },
+          {
+            name: 'WS 20/21',
+            number: 5,
+            start_date: '2020-10-23',
+            end_date: '2021-01-19',
+          },
+          {
+            name: 'SS 21',
+            number: 6,
+            start_date: '2021-05-14',
+            end_date: '2021-08-03',
+          },
+        ],
+      },
+      token: '{{users.matt.token}}',
+    },
+    {
+      id: 'wwi18ama',
+      data: {
+        name: 'WWI 18 AM A',
+        google_calendar_id: '[GOOGLE_KALENDER_ID]',
+        majorSubject_id: '{{majorSubjects.wiam18.majorSubject_id}}',
+        directorOfStudies_ids: ['{{users.gömert.directorOfStudies_id}}'],
+        Semesters: [
+          {
+            name: 'WS 18/19',
+            number: 1,
+            start_date: '2018-11-19',
+            end_date: '2019-02-05',
+          },
+          {
+            name: 'SS 19',
+            number: 2,
+            start_date: '2019-05-06',
+            end_date: '2019-08-02',
+          },
+          {
+            name: 'WS 19/20',
+            number: 3,
+            start_date: '2019-11-18',
+            end_date: '2020-02-14',
+          },
+          {
+            name: 'SS 20',
+            number: 4,
+            start_date: '2020-05-11',
+            end_date: '2020-07-31',
+          },
+          {
+            name: 'WS 20/21',
+            number: 5,
+            start_date: '2020-10-23',
+            end_date: '2021-01-19',
+          },
+          {
+            name: 'SS 21',
+            number: 6,
+            start_date: '2021-05-14',
+            end_date: '2021-08-03',
+          },
+        ],
+      },
+      token: '{{users.gömert.token}}',
+    },
+    {
+      id: 'wwi18amb',
+      data: {
+        name: 'WWI 18 AM B',
+        google_calendar_id: '[GOOGLE_KALENDER_ID]',
+        majorSubject_id: '{{majorSubjects.wiam18.majorSubject_id}}',
+        directorOfStudies_ids: ['{{users.gömert.directorOfStudies_id}}'],
+        Semesters: [
+          {
+            name: 'WS 18/19',
+            number: 1,
+            start_date: '2018-11-19',
+            end_date: '2019-02-05',
+          },
+          {
+            name: 'SS 19',
+            number: 2,
+            start_date: '2019-05-06',
+            end_date: '2019-08-02',
+          },
+          {
+            name: 'WS 19/20',
+            number: 3,
+            start_date: '2019-11-18',
+            end_date: '2020-02-14',
+          },
+          {
+            name: 'SS 20',
+            number: 4,
+            start_date: '2020-05-11',
+            end_date: '2020-07-31',
+          },
+          {
+            name: 'WS 20/21',
+            number: 5,
+            start_date: '2020-10-23',
+            end_date: '2021-01-19',
+          },
+          {
+            name: 'SS 21',
+            number: 6,
+            start_date: '2021-05-14',
+            end_date: '2021-08-03',
+          },
+        ],
+      },
+      token: '{{users.gömert.token}}',
     },
   ],
 };

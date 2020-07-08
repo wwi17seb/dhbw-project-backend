@@ -22,5 +22,12 @@ module.exports = {
         type: '???',
       },
     },
+    {
+      id: 'pf',
+      data: {
+        abbreviation: 'PF',
+        type: 'Portfolio',
+      },
+    },
   ],
 };
