@@ -45,7 +45,7 @@ app.use(function (err, req, res, next) {
   errorResponseHelper(res, err);
 });
 
-dbsync;
+dbsync();
 // Start the server without SSL
 http.createServer(app).listen(serverPort, () => {
   console.log('Your server is listening on port %d (http://localhost:%d)', serverPort, serverPort);
