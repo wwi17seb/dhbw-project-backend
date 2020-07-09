@@ -2,13 +2,13 @@ module.exports = {
   route: 'moduleGroups',
   data: [
     {
-      id: 'wise11bwl',
+      id: 'wise11rechnungslegung',
       data: {
         majorSubject_id: '{{majorSubjects.wise11.majorSubject_id}}',
-        name: 'Betriebswirtschaftslehre',
-        number_of_modules_to_attend: 4,
+        name: 'Grundlagen der Rechnungslegung',
+        number_of_modules_to_attend: 1,
         from_semester_number: 1,
-        to_semester_number: 6,
+        to_semester_number: 2,
         Modules: [
           {
             name: 'Grundlagen der Rechnungslegung',
@@ -36,32 +36,94 @@ module.exports = {
               },
             ],
           },
+        ],
+      },
+    },
+    {
+      id: 'wise11grundlagenwi',
+      data: {
+        majorSubject_id: '{{majorSubjects.wise11.majorSubject_id}}',
+        name: 'Methoden der Wirtschaftsinformatik',
+        number_of_modules_to_attend: 1,
+        from_semester_number: 1,
+        to_semester_number: 2,
+        Modules: [
           {
-            name: 'Grundlagen in BWL',
+            name: 'Grundlegende Methoden der Wirtschaftsinformatik',
             description: '',
             ects: 6,
             catalog_id: 'unbekannt',
-            academicRecord_ids: ['{{academicRecords.k.academicRecord_id}}','{{academicRecords.se.academicRecord_id}}'],
+            academicRecord_ids: ['{{academicRecords.k.academicRecord_id}}', '{{academicRecords.se.academicRecord_id}}'],
             number_of_lectures_to_attend: 2,
             rated: true,
-            requirements: 'keine',
+            requirements: 'Keine',
             Lectures: [
               {
-                name: 'Einführung in die BWL / Introduction to General Business Administration',
-                workload_dhbw: 48,
-                workload_home: 72,
+                name: 'Einführung in die Wirtschaftsinformatik',
+                workload_dhbw: 36,
+                workload_home: 54,
                 catalog_id: 'unbekannt',
-                mainFocus_ids: ['{{mainFocuses.bwl.mainFocus_id}}'],
+                mainFocus_ids: ['{{mainFocuses.wi.mainFocus_id}}'],
               },
               {
-                name: 'Marketing / Marketing',
-                workload_dhbw: 24,
-                workload_home: 36,
+                name: 'Systemanalyse und -entwurf',
+                workload_dhbw: 36,
+                workload_home: 54,
                 catalog_id: 'unbekannt',
-                mainFocus_ids: ['{{mainFocuses.bwl.mainFocus_id}}'],
+                mainFocus_ids: ['{{mainFocuses.wi.mainFocus_id}}'],
               },
             ],
           },
+        ],
+      },
+    },
+    {
+      id: 'wise11mathe1',
+      data: {
+        majorSubject_id: '{{majorSubjects.wise11.majorSubject_id}}',
+        name: 'Mathematische Grundlagen I',
+        number_of_modules_to_attend: 3,
+        from_semester_number: 1,
+        to_semester_number: 2,
+        Modules: [
+          {
+            name: 'Mathematische Grundlagen I',
+            description: '',
+            ects: 5,
+            catalog_id: 'unbekannt',
+            academicRecord_ids: ['{{academicRecords.k.academicRecord_id}}'],
+            number_of_lectures_to_attend: 2,
+            rated: true,
+            requirements: 'Keine',
+            Lectures: [
+              {
+                name: 'Mathematik  für  Wirtschaftsinformatiker  /  Mathematics  for  Business Information Management',
+                workload_dhbw: 30,
+                workload_home: 45,
+                catalog_id: 'unbekannt',
+                mainFocus_ids: ['{{mainFocuses.m.mainFocus_id}}'],
+              },
+              {
+                name: 'Logik und Algebra / Logics and Algebra ',
+                workload_dhbw: 30,
+                workload_home: 45,
+                catalog_id: 'unbekannt',
+                mainFocus_ids: ['{{mainFocuses.m.mainFocus_id}}'],
+              },
+            ],
+          },
+        ],
+      },
+    },
+    {
+      id: 'wise11finanzierungundrechnungswesen',
+      data: {
+        majorSubject_id: '{{majorSubjects.wise11.majorSubject_id}}',
+        name: 'Finanzierung und Rechnungswesen',
+        number_of_modules_to_attend: 1,
+        from_semester_number: 3,
+        to_semester_number: 4,
+        Modules: [
           {
             name: 'Finanzierung und Rechnungswesen',
             description: '',
@@ -88,6 +150,18 @@ module.exports = {
               },
             ],
           },
+        ],
+      },
+    },
+    {
+      id: 'wise11management',
+      data: {
+        majorSubject_id: '{{majorSubjects.wise11.majorSubject_id}}',
+        name: 'Management',
+        number_of_modules_to_attend: 1,
+        from_semester_number: 5,
+        to_semester_number: 6,
+        Modules: [
           {
             name: 'Management',
             description: '',
@@ -118,63 +192,37 @@ module.exports = {
       },
     },
     {
-      id: 'wise11mathe',
+      id: 'wise11grundlagenderbwl',
       data: {
         majorSubject_id: '{{majorSubjects.wise11.majorSubject_id}}',
-        name: 'Mathematik',
-        number_of_modules_to_attend: 2,
+        name: 'Grundlagen in BWL',
+        number_of_modules_to_attend: 1,
         from_semester_number: 1,
-        to_semester_number: 4,
+        to_semester_number: 2,
         Modules: [
           {
-            name: 'Mathematische Grundlagen I',
+            name: 'Grundlagen in BWL',
             description: '',
-            ects: 5,
+            ects: 6,
             catalog_id: 'unbekannt',
-            academicRecord_ids: ['{{academicRecords.k.academicRecord_id}}'],
+            academicRecord_ids: ['{{academicRecords.k.academicRecord_id}}','{{academicRecords.se.academicRecord_id}}'],
             number_of_lectures_to_attend: 2,
             rated: true,
-            requirements: 'Keine',
+            requirements: 'keine',
             Lectures: [
               {
-                name: 'Mathematik für Wirtschaftsinformatiker / Mathematics for Business Information Management',
-                workload_dhbw: 30,
-                workload_home: 45,
+                name: 'Einführung in die BWL / Introduction to General Business Administration',
+                workload_dhbw: 48,
+                workload_home: 72,
                 catalog_id: 'unbekannt',
-                mainFocus_ids: ['{{mainFocuses.m.mainFocus_id}}'],
+                mainFocus_ids: ['{{mainFocuses.bwl.mainFocus_id}}'],
               },
               {
-                name: 'Logik und Algebra / Logics and Algebra ',
-                workload_dhbw: 30,
-                workload_home: 45,
+                name: 'Marketing / Marketing',
+                workload_dhbw: 24,
+                workload_home: 36,
                 catalog_id: 'unbekannt',
-                mainFocus_ids: ['{{mainFocuses.m.mainFocus_id}}'],
-              },
-            ],
-          },
-          {
-            name: 'Mathematische Grundlagen II',
-            description: '',
-            ects: 5,
-            catalog_id: 'unbekannt',
-            academicRecord_ids: ['{{academicRecords.k.academicRecord_id}}'],
-            number_of_lectures_to_attend: 2,
-            rated: true,
-            requirements: 'Keine',
-            Lectures: [
-              {
-                name: 'Statistik / Statistics',
-                workload_dhbw: 28,
-                workload_home: 47,
-                catalog_id: 'unbekannt',
-                mainFocus_ids: ['{{mainFocuses.m.mainFocus_id}}'],
-              },
-              {
-                name: 'Operations Research / Operations Research',
-                workload_dhbw: 27,
-                workload_home: 48,
-                catalog_id: 'unbekannt',
-                mainFocus_ids: ['{{mainFocuses.m.mainFocus_id}}'],
+                mainFocus_ids: ['{{mainFocuses.bwl.mainFocus_id}}'],
               },
             ],
           },
@@ -182,42 +230,16 @@ module.exports = {
       },
     },
     {
-      id: 'wise11methodenderwi',
+      id: 'wise11umsetzungwi',
       data: {
         majorSubject_id: '{{majorSubjects.wise11.majorSubject_id}}',
-        name: 'Methoden der Wirtschaftsinformatik',
-        number_of_modules_to_attend: 6,
-        from_semester_number: 1,
-        to_semester_number: 6,
+        name: 'Umsetzung der Methodender Wirtschaftsinformatik',
+        number_of_modules_to_attend: 1,
+        from_semester_number: 3,
+        to_semester_number: 4,
         Modules: [
           {
-            name: 'Grundlegende Methoden der Wirtschaftsinformatik',
-            description: '',
-            ects: 6,
-            catalog_id: 'unbekannt',
-            academicRecord_ids: ['{{academicRecords.k.academicRecord_id}}', '{{academicRecords.se.academicRecord_id}}'],
-            number_of_lectures_to_attend: 2,
-            rated: true,
-            requirements: 'Keine',
-            Lectures: [
-              {
-                name: 'Einführung in die Wirtschaftsinformatik',
-                workload_dhbw: 36,
-                workload_home: 54,
-                catalog_id: 'unbekannt',
-                mainFocus_ids: ['{{mainFocuses.wi.mainFocus_id}}'],
-              },
-              {
-                name: 'Systemanalyse und -entwurf',
-                workload_dhbw: 36,
-                workload_home: 54,
-                catalog_id: 'unbekannt',
-                mainFocus_ids: ['{{mainFocuses.wi.mainFocus_id}}'],
-              },
-            ],
-          },      
-          {
-            name: 'Umsetzung der Methoden der Wirtschaftsinformatik',
+            name: 'Umsetzung der Methodender Wirtschaftsinformatik',
             description: '',
             ects: 6,
             catalog_id: 'unbekannt',
@@ -242,6 +264,18 @@ module.exports = {
               },
             ],
           },
+        ],
+      },
+    },
+    {
+      id: 'wise11prozessmanagement',
+      data: {
+        majorSubject_id: '{{majorSubjects.wise11.majorSubject_id}}',
+        name: 'IT- und Geschäftsprozessmanagement',
+        number_of_modules_to_attend: 1,
+        from_semester_number: 5,
+        to_semester_number: 6,
+        Modules: [
           {
             name: 'IT- und Geschäftsprozessmanagement',
             description: '',
@@ -268,6 +302,18 @@ module.exports = {
               },
             ],
           },
+        ],
+      },
+    },
+    {
+      id: 'wise11prozessmanagement',
+      data: {
+        majorSubject_id: '{{majorSubjects.wise11.majorSubject_id}}',
+        name: 'Modul: Integrationsseminar zu ausgewählten Themen der WI',
+        number_of_modules_to_attend: 1,
+        from_semester_number: 5,
+        to_semester_number: 6,
+        Modules: [
           {
             name: 'Modul: Integrationsseminar zu ausgewählten Themen der WI',
             description: '',
@@ -287,6 +333,18 @@ module.exports = {
               },
             ],
           },
+        ],
+      },
+    },
+    {
+      id: 'wise11projekt',
+      data: {
+        majorSubject_id: '{{majorSubjects.wise11.majorSubject_id}}',
+        name: 'Projekt',
+        number_of_modules_to_attend: 1,
+        from_semester_number: 5,
+        to_semester_number: 6,
+        Modules: [
           {
             name: 'Projekt',
             description: '',
@@ -312,7 +370,19 @@ module.exports = {
                 mainFocus_ids: ['{{mainFocuses.wi.mainFocus_id}}'],
               },
             ],
-          },      
+          },
+        ],
+      },
+    },
+    {
+      id: 'wise11neuekonzepte',
+      data: {
+        majorSubject_id: '{{majorSubjects.wise11.majorSubject_id}}',
+        name: 'Neue Konzepte',
+        number_of_modules_to_attend: 1,
+        from_semester_number: 5,
+        to_semester_number: 6,
+        Modules: [
           {
             name: 'Neue Konzepte',
             description: '',
@@ -343,13 +413,13 @@ module.exports = {
       },
     },
     {
-      id: 'wise11informatik',
+      id: 'wise11grundlagenit',
       data: {
         majorSubject_id: '{{majorSubjects.wise11.majorSubject_id}}',
         name: 'Grundlegende Konzepte der IT',
-        number_of_modules_to_attend: 6,
+        number_of_modules_to_attend: 1,
         from_semester_number: 1,
-        to_semester_number: 6,
+        to_semester_number: 2,
         Modules: [
           {
             name: 'Grundlegende Konzepte der IT',
@@ -384,6 +454,18 @@ module.exports = {
               },
             ],
           },
+        ],
+      },
+    },
+    {
+      id: 'wise11programmieren',
+      data: {
+        majorSubject_id: '{{majorSubjects.wise11.majorSubject_id}}',
+        name: 'Programmierung und Programmiertechniken',
+        number_of_modules_to_attend: 1,
+        from_semester_number: 1,
+        to_semester_number: 2,
+        Modules: [
           {
             name: 'Programmierung und Programmiertechniken',
             description: '',
@@ -410,6 +492,18 @@ module.exports = {
               },
             ],
           },
+        ],
+      },
+    },
+    {
+      id: 'wise11datenbanken',
+      data: {
+        majorSubject_id: '{{majorSubjects.wise11.majorSubject_id}}',
+        name: 'Programmierung und Programmiertechniken',
+        number_of_modules_to_attend: 1,
+        from_semester_number: 1,
+        to_semester_number: 2,
+        Modules: [
           {
             name: 'Datenbanken',
             description: '',
@@ -436,6 +530,18 @@ module.exports = {
               },
             ],
           },
+        ],
+      },
+    },
+    {
+      id: 'wise11verteiltesysteme',
+      data: {
+        majorSubject_id: '{{majorSubjects.wise11.majorSubject_id}}',
+        name: 'Entwicklung verteilter Systeme',
+        number_of_modules_to_attend: 1,
+        from_semester_number: 3,
+        to_semester_number: 4,
+        Modules: [
           {
             name: 'Entwicklung verteilter Systeme',
             description: '',
@@ -462,6 +568,18 @@ module.exports = {
               },
             ],
           },
+        ],
+      },
+    },
+    {
+      id: 'wise11softwareengineering1',
+      data: {
+        majorSubject_id: '{{majorSubjects.wise11.majorSubject_id}}',
+        name: 'Software Engineering I',
+        number_of_modules_to_attend: 1,
+        from_semester_number: 3,
+        to_semester_number: 4,
+        Modules: [
           {
             name: 'Software Engineering I',
             description: '',
@@ -495,6 +613,18 @@ module.exports = {
               },
             ],
           },
+        ],
+      },
+    },
+    {
+      id: 'wise11softwareengineering2',
+      data: {
+        majorSubject_id: '{{majorSubjects.wise11.majorSubject_id}}',
+        name: 'Software Engineering II',
+        number_of_modules_to_attend: 1,
+        from_semester_number: 5,
+        to_semester_number: 6,
+        Modules: [
           {
             name: 'Software Engineering II',
             description: '',
@@ -525,10 +655,10 @@ module.exports = {
       },
     },
     {
-      id: 'wise11methodischegrundlagen',
+      id: 'wise11wissenschaftlichesarbeiten',
       data: {
         majorSubject_id: '{{majorSubjects.wise11.majorSubject_id}}',
-        name: 'Methodische Grundlagen',
+        name: 'Wissenschaftliches Arbeiten',
         number_of_modules_to_attend: 1,
         from_semester_number: 1,
         to_semester_number: 6,
@@ -563,6 +693,44 @@ module.exports = {
                 workload_home: 40,
                 catalog_id: 'unbekannt',
                 mainFocus_ids: ['{{mainFocuses.wis.mainFocus_id}}'],
+              },
+            ],
+          },
+        ],
+      },
+    },
+    {
+      id: 'wise11mathe2',
+      data: {
+        majorSubject_id: '{{majorSubjects.wise11.majorSubject_id}}',
+        name: 'Mathematische Grundlagen II',
+        number_of_modules_to_attend: 1,
+        from_semester_number: 3,
+        to_semester_number: 4,
+        Modules: [
+          {
+            name: 'Mathematische Grundlagen II',
+            description: '',
+            ects: 5,
+            catalog_id: 'unbekannt',
+            academicRecord_ids: ['{{academicRecords.k.academicRecord_id}}'],
+            number_of_lectures_to_attend: 2,
+            rated: true,
+            requirements: 'Keine',
+            Lectures: [
+              {
+                name: 'Statistik / Statistics',
+                workload_dhbw: 28,
+                workload_home: 47,
+                catalog_id: 'unbekannt',
+                mainFocus_ids: ['{{mainFocuses.m.mainFocus_id}}'],
+              },
+              {
+                name: 'Operations Research / Operations Research',
+                workload_dhbw: 27,
+                workload_home: 48,
+                catalog_id: 'unbekannt',
+                mainFocus_ids: ['{{mainFocuses.m.mainFocus_id}}'],
               },
             ],
           },
@@ -612,7 +780,7 @@ module.exports = {
       data: {
         majorSubject_id: '{{majorSubjects.wise11.majorSubject_id}}',
         name: 'Volkswirtschaftslehre',
-        number_of_modules_to_attend: 2,
+        number_of_modules_to_attend: 1,
         from_semester_number: 3,
         to_semester_number: 4,
         Modules: [
@@ -646,11 +814,11 @@ module.exports = {
       },
     },
     {
-      id: 'wise11schlüsselqualifikationen',
+      id: 'wise11sq1',
       data: {
         majorSubject_id: '{{majorSubjects.wise11.majorSubject_id}}',
-        name: 'Schlüsselqualifikationen',
-        number_of_modules_to_attend: 2,
+        name: 'Schlüsselqualifikationen I',
+        number_of_modules_to_attend: 1,
         from_semester_number: 1,
         to_semester_number: 2,
         Modules: [
@@ -680,6 +848,18 @@ module.exports = {
               },
             ],
           },
+        ],
+      },
+    },
+    {
+      id: 'wise11sq2',
+      data: {
+        majorSubject_id: '{{majorSubjects.wise11.majorSubject_id}}',
+        name: 'Schlüsselqualifikationen II',
+        number_of_modules_to_attend: 1,
+        from_semester_number: 3,
+        to_semester_number: 4,
+        Modules: [
           {
             name: 'Schlüsselqualifikationen II',
             description: '',
@@ -710,139 +890,11 @@ module.exports = {
       },
     },
     {
-      id: 'wise11wahlpflichtmodule1',
-      data: {
-        majorSubject_id: '{{majorSubjects.wise11.majorSubject_id}}',
-        name: 'Branchenorientierte Aspekte der Wirtschaftsinformatik in der Industrie I',
-        number_of_modules_to_attend: 2,
-        from_semester_number: 3,
-        to_semester_number: 6,
-        Modules: [
-          {
-            name: 'Branchenorientierte Aspekte der Wirtschaftsinformatik in der Industrie I',
-            description: '',
-            ects: 6,
-            catalog_id: 'unbekannt',
-            academicRecord_ids: ['{{academicRecords.k.academicRecord_id}}', '{{academicRecords.se.academicRecord_id}}'],
-            number_of_lectures_to_attend: 2,
-            rated: true,
-            requirements: 'keine',
-            Lectures: [
-              {
-                name: 'Grundlagen 1 / Basic Topics',
-                workload_dhbw: 33,
-                workload_home: 57,
-                catalog_id: 'unbekannt',
-                mainFocus_ids: ['{{mainFocuses.bwl.mainFocus_id}}'],
-              },
-              {
-                name: 'Grundlagen 2 / Basic Topics 2',
-                workload_dhbw: 33,
-                workload_home: 57,
-                catalog_id: 'unbekannt',
-                mainFocus_ids: ['{{mainFocuses.bwl.mainFocus_id}}'],
-              },
-            ],
-          },
-          {
-            name: 'Branchenorientierte Aspekte der Wirtschaftsinformatik in der Industrie II',
-            description: '',
-            ects: 7,
-            catalog_id: 'unbekannt',
-            academicRecord_ids: ['{{academicRecords.k.academicRecord_id}}', '{{academicRecords.se.academicRecord_id}}'],
-            number_of_lectures_to_attend: 2,
-            rated: true,
-            requirements: 'Branchenorientierte Aspekte der Wirtschaftsinformatik in der Industrie I',
-            Lectures: [
-              {
-                name: 'Optimierung industrieller Prozesse / Optimization of Industrial Processes',
-                workload_dhbw: 30,
-                workload_home: 60,
-                catalog_id: 'unbekannt',
-                mainFocus_ids: ['{{mainFocuses.bwl.mainFocus_id}}'],
-              },
-              {
-                name: 'Integrative Informationssysteme in der Industrie / Integrative Information Systems in Industry',
-                workload_dhbw: 40,
-                workload_home: 80,
-                catalog_id: 'unbekannt',
-                mainFocus_ids: ['{{mainFocuses.bwl.mainFocus_id}}'],
-              },
-            ],
-          },
-        ],
-      },
-    },
-    {
-      id: 'wise11wahlpflichtmodule2',
-      data: {
-        majorSubject_id: '{{majorSubjects.wise11.majorSubject_id}}',
-        name: 'Technische Grundlagen mobiler Applikationen',
-        number_of_modules_to_attend: 2,
-        from_semester_number: 3,
-        to_semester_number: 6,
-        Modules: [
-          {
-            name: 'Technische Grundlagen mobiler Applikationen',
-            description: '',
-            ects: 6,
-            catalog_id: 'unbekannt',
-            academicRecord_ids: ['{{academicRecords.k.academicRecord_id}}', '{{academicRecords.se.academicRecord_id}}'],
-            number_of_lectures_to_attend: 2,
-            rated: true,
-            requirements: 'Grundlegende Konzepte der IT',
-            Lectures: [
-              {
-                name: 'Netzwerk- und Betriebssystemstrukturen für mobile Applikationen  / Network and Operating System Structures for Mobile Applications',
-                workload_dhbw: 33,
-                workload_home: 57,
-                catalog_id: 'unbekannt',
-                mainFocus_ids: ['{{mainFocuses.it.mainFocus_id}}'],
-              },
-              {
-                name: 'Weiterführende Konzepte mobiler Applikationen / Advanced Concepts of Mobile Applications',
-                workload_dhbw: 33,
-                workload_home: 57,
-                catalog_id: 'unbekannt',
-                mainFocus_ids: ['{{mainFocuses.it.mainFocus_id}}'],
-              },
-            ],
-          },
-          {
-            name: 'Entwicklung mobiler Applikationen',
-            description: '',
-            ects: 7,
-            catalog_id: 'unbekannt',
-            academicRecord_ids: ['{{academicRecords.k.academicRecord_id}}', '{{academicRecords.se.academicRecord_id}}'],
-            number_of_lectures_to_attend: 2,
-            rated: true,
-            requirements: 'Technische Grundlagen mobiler Applikationen, Programmierung und Programmiertechniken',
-            Lectures: [
-              {
-                name: 'Plattformen und Frameworks / Platforms and Frameworks',
-                workload_dhbw: 30,
-                workload_home: 60,
-                catalog_id: 'unbekannt',
-                mainFocus_ids: ['{{mainFocuses.it.mainFocus_id}}'],
-              },
-              {
-                name: 'Native Entwicklung mobiler Applikationen / Native Mobile Application Development',
-                workload_dhbw: 40,
-                workload_home: 80,
-                catalog_id: 'unbekannt',
-                mainFocus_ids: ['{{mainFocuses.it.mainFocus_id}}'],
-              },
-            ],
-          },
-        ],
-      },
-    },
-    {
-      id: 'wise11praxismodule',
+      id: 'wise11praxismodul1',
       data: {
         majorSubject_id: '{{majorSubjects.wise11.majorSubject_id}}',
         name: 'Praxismodul I',
-        number_of_modules_to_attend: 2,
+        number_of_modules_to_attend: 1,
         from_semester_number: 1,
         to_semester_number: 2,
         Modules: [
@@ -872,6 +924,18 @@ module.exports = {
               },
             ],
           },
+        ],
+      },
+    },
+    {
+      id: 'wise11praxismodul2',
+      data: {
+        majorSubject_id: '{{majorSubjects.wise11.majorSubject_id}}',
+        name: 'Praxismodul II',
+        number_of_modules_to_attend: 1,
+        from_semester_number: 3,
+        to_semester_number: 4,
+        Modules: [
           {
             name: 'Praxismodul II',
             description: '',
@@ -898,6 +962,18 @@ module.exports = {
               },
             ],
           },
+        ],
+      },
+    },
+    {
+      id: 'wise11praxismodul3',
+      data: {
+        majorSubject_id: '{{majorSubjects.wise11.majorSubject_id}}',
+        name: 'Praxismodul III',
+        number_of_modules_to_attend: 1,
+        from_semester_number: 3,
+        to_semester_number: 4,
+        Modules: [
           {
             name: 'Praxismodul III',
             description: '',
@@ -928,11 +1004,139 @@ module.exports = {
       },
     },
     {
+      id: 'wise11wahlpflichtjahr2',
+      data: {
+        majorSubject_id: '{{majorSubjects.wise11.majorSubject_id}}',
+        name: 'Wahlpflichtmodule Jahr 2',
+        number_of_modules_to_attend: 1,
+        from_semester_number: 3,
+        to_semester_number: 4,
+        Modules: [
+          {
+            name: 'Branchenorientierte Aspekte der Wirtschaftsinformatik in der Industrie I',
+            description: '',
+            ects: 6,
+            catalog_id: 'unbekannt',
+            academicRecord_ids: ['{{academicRecords.k.academicRecord_id}}', '{{academicRecords.se.academicRecord_id}}'],
+            number_of_lectures_to_attend: 2,
+            rated: true,
+            requirements: 'keine',
+            Lectures: [
+              {
+                name: 'Grundlagen 1 / Basic Topics',
+                workload_dhbw: 33,
+                workload_home: 57,
+                catalog_id: 'unbekannt',
+                mainFocus_ids: ['{{mainFocuses.bwl.mainFocus_id}}'],
+              },
+              {
+                name: 'Grundlagen 2 / Basic Topics 2',
+                workload_dhbw: 33,
+                workload_home: 57,
+                catalog_id: 'unbekannt',
+                mainFocus_ids: ['{{mainFocuses.bwl.mainFocus_id}}'],
+              },
+            ],
+          },
+          {
+            name: 'Technische Grundlagen mobiler Applikationen',
+            description: '',
+            ects: 6,
+            catalog_id: 'unbekannt',
+            academicRecord_ids: ['{{academicRecords.k.academicRecord_id}}', '{{academicRecords.se.academicRecord_id}}'],
+            number_of_lectures_to_attend: 2,
+            rated: true,
+            requirements: 'Grundlegende Konzepte der IT',
+            Lectures: [
+              {
+                name: 'Netzwerk- und Betriebssystemstrukturen für mobile Applikationen  / Network and Operating System Structures for Mobile Applications',
+                workload_dhbw: 33,
+                workload_home: 57,
+                catalog_id: 'unbekannt',
+                mainFocus_ids: ['{{mainFocuses.it.mainFocus_id}}'],
+              },
+              {
+                name: 'Weiterführende Konzepte mobiler Applikationen / Advanced Concepts of Mobile Applications',
+                workload_dhbw: 33,
+                workload_home: 57,
+                catalog_id: 'unbekannt',
+                mainFocus_ids: ['{{mainFocuses.it.mainFocus_id}}'],
+              },
+            ],
+          },
+        ],
+      },
+    },
+    {
+      id: 'wise11wahlpflichtjahr3',
+      data: {
+        majorSubject_id: '{{majorSubjects.wise11.majorSubject_id}}',
+        name: 'Wahlpflichtmodule Jahr 3',
+        number_of_modules_to_attend: 1,
+        from_semester_number: 5,
+        to_semester_number: 6,
+        Modules: [
+          {
+            name: 'Branchenorientierte Aspekte der Wirtschaftsinformatik in der Industrie II',
+            description: '',
+            ects: 7,
+            catalog_id: 'unbekannt',
+            academicRecord_ids: ['{{academicRecords.k.academicRecord_id}}', '{{academicRecords.se.academicRecord_id}}'],
+            number_of_lectures_to_attend: 2,
+            rated: true,
+            requirements: 'Branchenorientierte Aspekte der Wirtschaftsinformatik in der Industrie I',
+            Lectures: [
+              {
+                name: 'Optimierung industrieller Prozesse / Optimization of Industrial Processes',
+                workload_dhbw: 30,
+                workload_home: 60,
+                catalog_id: 'unbekannt',
+                mainFocus_ids: ['{{mainFocuses.bwl.mainFocus_id}}'],
+              },
+              {
+                name: 'Integrative Informationssysteme in der Industrie / Integrative Information Systems in Industry',
+                workload_dhbw: 40,
+                workload_home: 80,
+                catalog_id: 'unbekannt',
+                mainFocus_ids: ['{{mainFocuses.bwl.mainFocus_id}}'],
+              },
+            ],
+          },  {
+            name: 'Entwicklung mobiler Applikationen',
+            description: '',
+            ects: 7,
+            catalog_id: 'unbekannt',
+            academicRecord_ids: ['{{academicRecords.k.academicRecord_id}}', '{{academicRecords.se.academicRecord_id}}'],
+            number_of_lectures_to_attend: 2,
+            rated: true,
+            requirements: 'Technische Grundlagen mobiler Applikationen, Programmierung und Programmiertechniken',
+            Lectures: [
+              {
+                name: 'Plattformen und Frameworks / Platforms and Frameworks',
+                workload_dhbw: 30,
+                workload_home: 60,
+                catalog_id: 'unbekannt',
+                mainFocus_ids: ['{{mainFocuses.it.mainFocus_id}}'],
+              },
+              {
+                name: 'Native Entwicklung mobiler Applikationen / Native Mobile Application Development',
+                workload_dhbw: 40,
+                workload_home: 80,
+                catalog_id: 'unbekannt',
+                mainFocus_ids: ['{{mainFocuses.it.mainFocus_id}}'],
+              },
+            ],
+          },
+        ],
+      },
+    },
+        
+    {
       id: 'wise18rechnungslegung',
       data: {
         majorSubject_id: '{{majorSubjects.wise18.majorSubject_id}}',
         name: 'Grundlagen der Rechnungslegung',
-        number_of_modules_to_attend: 2,
+        number_of_modules_to_attend: 1,
         from_semester_number: 1,
         to_semester_number: 2,
         Modules: [
@@ -970,7 +1174,7 @@ module.exports = {
       data: {
         majorSubject_id: '{{majorSubjects.wise18.majorSubject_id}}',
         name: 'Methoden der Wirtschaftsinformatik I',
-        number_of_modules_to_attend: 2,
+        number_of_modules_to_attend: 1,
         from_semester_number: 1,
         to_semester_number: 2,
         Modules: [
@@ -1008,7 +1212,7 @@ module.exports = {
       data: {
         majorSubject_id: '{{majorSubjects.wids18.majorSubject_id}}',
         name: 'Big Data',
-        number_of_modules_to_attend: 2,
+        number_of_modules_to_attend: 1,
         from_semester_number: 3,
         to_semester_number: 4,
         Modules: [
@@ -1046,7 +1250,7 @@ module.exports = {
       data: {
         majorSubject_id: '{{majorSubjects.wiam18.majorSubject_id}}',
         name: 'Recht',
-        number_of_modules_to_attend: 2,
+        number_of_modules_to_attend: 1,
         from_semester_number: 1,
         to_semester_number: 2,
         Modules: [
