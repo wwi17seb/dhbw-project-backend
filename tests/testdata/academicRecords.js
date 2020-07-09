@@ -9,6 +9,27 @@ module.exports = {
       },
     },
     {
+      id: 'pa',
+      data: {
+        abbreviation: 'PA',
+        type: 'Projektarbeit',
+      },
+    },
+    {
+      id: 'p',
+      data: {
+        abbreviation: 'P',
+        type: '???',
+      },
+    },
+    {
+      id: 'mp',
+      data: {
+        abbreviation: 'MP',
+        type: 'Mündliche Prüfung?',
+      },
+    },
+    {
       id: 'se',
       data: {
         abbreviation: 'SE',

@@ -14,6 +14,12 @@ module.exports = {
       },
     },
     {
+      id: 'praxis',
+      data: {
+        name: 'Praxismodul',
+      },
+    },
+    {
       id: 'm',
       data: {
         name: 'Mathematik',
@@ -74,7 +80,7 @@ module.exports = {
       },
     },
     {
-      id: 'i',
+      id: 'it',
       data: {
         name: 'Informatik',
       },
