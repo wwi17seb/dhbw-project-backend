@@ -13,7 +13,7 @@ exports.postLogin = async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    var passwordCheck = await checkPasswordHelper(username, password);
+    var passwordCheck = await checkPasswordHelper(username.trim(), password);
   } catch (error) {
     return errorResponseHelper(res, error);
   }
@@ -85,6 +85,7 @@ exports.register = async (req, res) => {
   if (!password) {
     return responseHelper(res, 400, 'No password was given!');
   }
+  username = username.trim();
 
   const directorOfStudiesExists = await directorOfStudiesService.getByUsername(username);
   if (directorOfStudiesExists) {

@@ -33,6 +33,7 @@ exports.postCreateUser = async (req, res) => {
   if (!password) {
     return responseHelper(res, 400, 'No password was given!');
   }
+  username = username.trim();
 
   const directorOfStudiesExists = await directorOfStudiesService.getByUsername(username);
   if (directorOfStudiesExists) {
