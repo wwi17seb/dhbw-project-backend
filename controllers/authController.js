@@ -36,45 +36,8 @@ exports.postLogin = async (req, res) => {
   }
 };
 
-exports.postSignup = async (req, res) => {
-  const { username, password } = req.body;
-
-  if (!username) {
-    return responseHelper(res, 400, 'No username was given!');
-  }
-  if (!password) {
-    return responseHelper(res, 400, 'No password was given!');
-  }
-
-  const directorOfStudiesExists = await directorOfStudiesService.getByUsername(username);
-  if (directorOfStudiesExists) {
-    return responseHelper(res, 400, 'Username already exists');
-  }
-
-  const directorOfStudiesToCreate = { username, password };
-  const transaction = await db.sequelize.transaction();
-
-  try {
-    const createdDirectorOfStudies = await directorOfStudiesService.createDirectorOfStudies(
-      transaction,
-      directorOfStudiesToCreate
-    );
-    const token = authService.generateToken(createdDirectorOfStudies);
-
-    transaction.commit();
-    return responseHelper(res, 201, '[DEPRECATED: YOU SHOULD NO LONGER USE THIS ROUTE] Successful', {
-      token,
-      directorOfStudies_id: createdDirectorOfStudies.directorOfStudies_id,
-      username: createdDirectorOfStudies.username,
-    });
-  } catch (error) {
-    transaction.rollback();
-    return errorResponseHelper(res, error);
-  }
-};
-
 exports.register = async (req, res) => {
-  const { username, password, registerKey } = req.body;
+  let { username, password, registerKey } = req.body;
 
   if (!registerKey) {
     return responseHelper(res, 400, 'No register key was given!');
