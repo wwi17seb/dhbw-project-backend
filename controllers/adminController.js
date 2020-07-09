@@ -22,7 +22,7 @@ exports.getAllUsers = async (req, res) => {
 
 exports.postCreateUser = async (req, res) => {
   const directorOfStudiesToCheck_id = req.token.directorOfStudies_id;
-  const { username, password } = req.body;
+  let { username, password } = req.body;
 
   if (!(await checkPrivilegesHelper(directorOfStudiesToCheck_id))) {
     return responseHelper(res, 403, 'You do not have the privileges to perform this task!');
