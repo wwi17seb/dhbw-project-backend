@@ -1,10 +1,6 @@
 # Authentifizierung <!-- omit in toc -->
 
-- [DEPRECATED - POST /signup](#deprecated---post-signup)
-  - [Body der Anfrage - POST /signup](#body-der-anfrage---post-signup)
-  - [Attribute der Anfrage - POST /signup](#attribute-der-anfrage---post-signup)
-  - [Rückgabe - POST /signup](#rückgabe---post-signup)
-  - [Attribute der Rückgabe - POST /signup](#attribute-der-rückgabe---post-signup)
+- [:no_entry: EOL - POST /signup](#️-eol---post-signup)
 - [POST /register](#post-register)
   - [Body der Anfrage - POST /register](#body-der-anfrage---post-register)
   - [Attribute der Anfrage - POST /register](#attribute-der-anfrage---post-register)
@@ -17,54 +13,14 @@
   - [Attribute der Rückgabe - POST /login](#attribute-der-rückgabe---post-login)
 - [POST /logout](#post-logout)
 
-## DEPRECATED - POST /signup
+## :no_entry: EOL - POST /signup
 
-**Info**: Diese Route wird bald nicht mehr in dieser Form verfügbar sein, da eine selbstständige Registierung nicht ohne Weiteres möglich sein sollte.
-Für diese Route ist keine Authentifizierung (d. h. kein Token in der URL) notwendig.
-Bitte stattdessen die Route [`/register`](#post-register) nutzen.
-
-### Body der Anfrage - POST /signup
-
-```json
-{
-    "username": "[NUTZERNAME]",
-    "password": "[PASSWORT]"
-}
-```
-
-### Attribute der Anfrage - POST /signup
-
-| Attribut   | Erfodert | Beispielwert               | Erklärung                                           |
-| ---------- | -------- | -------------------------- | --------------------------------------------------- |
-| `username` | ja       | "Nutzername"               | Name des Benutzers, kann auch eine Mailadresse sein |
-| `password` | ja       | "MeinSicheresPasswort1337" | Passwort des Benutzers                              |
-
-### Rückgabe - POST /signup
-
-```json
-{
-    "message": "[DEBUG-INFO/KOMMENTAR]",
-    "payload": {
-        "token": "[TOKEN]",
-        "directorOfStudies_id": 0,
-        "username": "[NUTZERNAME]"
-    }
-}
-```
-
-### Attribute der Rückgabe - POST /signup
-
-| Attribut               | Beispielwert                                                                                                                                                                                                 | Erklärung                                       |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------- |
-| `token`                | "eyJpe0JEKTAiOjAsImFsZyI6IkhTMjU2IiwidHlwIjoiSldUIn0.eyJ1c2VybmFtZSI6ImFkbWluIiwiZGlyZWN0b3JPZlN0dWRpZXNfaWQiOjEsImlhdCI6MTU5MjE3NjQ4MCwiZXhwIjoxNTk4MTM4MDgwfQ.CFzby-2_Q6h-_LsP_dP7IIzyL5ozu_UdV-dzyJdnQAk" | JWT, der zur Authentifizierung dient            |
-| `directorOfStudies_id` | 1                                                                                                                                                                                                            | Eindeutige ID des angelegten Studiengangleiters |
-| `username`             | "Nutzername"                                                                                                                                                                                                 | Nutzername des angelegten Studiengangleiters    |
+**END OF LIFE** - Diese Route wurde entfernt.
 
 ## POST /register
 
 **Info**: Diese Route dient dem selbstständigen Registrieren.
-Ersetzt `POST /signup`.
-Damit der Zugang allerdings auf berechtigte Nutzer beschränkt wird, muss hierzu ein Registrierungsschlüssel angegeben werden.
+Ersetzt `POST /signup` durch eine kontrollierte selbstständige Registrierung mit Hilfe eines Registrierungsschlüssels.
 
 ### Body der Anfrage - POST /register
 
