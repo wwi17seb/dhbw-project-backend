@@ -187,7 +187,7 @@ async function main() {
     createTestData('lecturers'),
   ]);
   await Promise.all([createTestData('presentations')]);
-  await Promise.all(createTestData('googleCalendar'));
+  await Promise.all([createTestData('googleCalendar')]);
 }
 
 main();
