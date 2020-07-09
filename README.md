@@ -180,7 +180,7 @@ If you want to know more about our database design and speak german, take a look
 | route name                                                                 | http method | route                | parameters                                                                               | status             | docs                                                    |
 | -------------------------------------------------------------------------- | ----------- | -------------------- | ---------------------------------------------------------------------------------------- | ------------------ | ------------------------------------------------------- |
 | Login                                                                      | `POST`      | `/login`             |                                                                                          | :white_check_mark: | [auth.md](/docs/apis/auth.md)                           |
-| [DEPRECATED] Signup                                                        | `POST`      | `/signup`            |                                                                                          | :end:              | [auth.md](/docs/apis/auth.md)                           |
+| [EOL] Signup                                                               | -           | -                    |                                                                                          | :no_entry:         | [auth.md](/docs/apis/auth.md)                           |
 | Register with register key                                                 | `POST`      | `/register`          |                                                                                          | :white_check_mark: | [auth.md](/docs/apis/auth.md)                           |
 | Change own password                                                        | `PUT`       | `/changePassword`    | `directorOfStudiesId`                                                                    | :white_check_mark: | [directorOfStudies.md](/docs/apis/directorOfStudies.md) |
 | Get all attributes to the current director of studies                      | `GET`       | `/directorOfStudies` | `token`                                                                                  | :white_check_mark: | [directorOfStudies.md](/docs/apis/directorOfStudies.md) |
@@ -242,5 +242,5 @@ Legend:
 - :parking: - api has been defined, development has not started yet &rarr; you can mock the api response
 - :eight_pointed_black_star: - api being defined &rarr; route and parameters are prone to change
 - :end: - api being reworked &rarr; will be discontinued and removed soon
-- :x: - removed
+- :no_entry: - removed
 - :o2: - not started

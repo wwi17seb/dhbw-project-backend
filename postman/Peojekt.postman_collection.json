@@ -9,51 +9,6 @@
 			"name": "Authentication",
 			"item": [
 				{
-					"name": "signup User [deprecated]",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "6db71bcd-35ee-453b-9bd1-cd181c7387fe",
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"username\": \"Nutzername\",\n    \"password\": \"MeinSicheresPasswort1337\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{backend}}/signup",
-							"host": [
-								"{{backend}}"
-							],
-							"path": [
-								"signup"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "register User",
 					"event": [
 						{

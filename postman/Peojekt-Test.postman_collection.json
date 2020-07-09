@@ -2428,7 +2428,7 @@
 							"script": {
 								"id": "3a906822-b19d-4308-a36f-9a86c6db9add",
 								"exec": [
-									"pm.test(\"Signup status test\", function () {",
+									"pm.test(\"User Creation status test\", function () {",
 									"",
 									"if (pm.response.json().message && (pm.response.json().message === \"Username already exists\")) {",
 									"    pm.response.to.have.status(400);",
