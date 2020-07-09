@@ -43,7 +43,7 @@ module.exports = {
       id: 'wise11grundlagenwi',
       data: {
         majorSubject_id: '{{majorSubjects.wise11.majorSubject_id}}',
-        name: 'Methoden der Wirtschaftsinformatik',
+        name: 'Grundlegende Methoden der Wirtschaftsinformatik',
         number_of_modules_to_attend: 1,
         from_semester_number: 1,
         to_semester_number: 2,
@@ -1130,7 +1130,6 @@ module.exports = {
         ],
       },
     },
-        
     {
       id: 'wise18rechnungslegung',
       data: {

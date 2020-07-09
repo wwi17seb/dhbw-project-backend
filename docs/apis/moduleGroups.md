@@ -280,8 +280,8 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
         {
           "lecture_id": 0,
           "name": "[NAME_DER_VORLESUNG]",
-          "workload_home": "[SELBSTSTUDIUM]",
-          "workload_dhbw": "[PRÄSENZZEIT]",
+          "workload_home": 0,
+          "workload_dhbw": 0,
           "catalog_id": "[KATALOG-ID]",
           "mainFocus_ids": [0, 0]
         }
