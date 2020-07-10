@@ -205,7 +205,7 @@ module.exports = {
             description: '',
             ects: 6,
             catalog_id: 'unbekannt',
-            academicRecord_ids: ['{{academicRecords.k.academicRecord_id}}','{{academicRecords.se.academicRecord_id}}'],
+            academicRecord_ids: ['{{academicRecords.k.academicRecord_id}}', '{{academicRecords.se.academicRecord_id}}'],
             number_of_lectures_to_attend: 2,
             rated: true,
             requirements: 'keine',
@@ -243,7 +243,7 @@ module.exports = {
             description: '',
             ects: 6,
             catalog_id: 'unbekannt',
-            academicRecord_ids: ['{{academicRecords.k.academicRecord_id}}','{{academicRecords.se.academicRecord_id}}'],
+            academicRecord_ids: ['{{academicRecords.k.academicRecord_id}}', '{{academicRecords.se.academicRecord_id}}'],
             number_of_lectures_to_attend: 2,
             rated: true,
             requirements: 'Grundlegende Methoden der WI, Programmierung und Programmiertechniken',
@@ -484,7 +484,8 @@ module.exports = {
                 mainFocus_ids: ['{{mainFocuses.it.mainFocus_id}}'],
               },
               {
-                name: 'Fortgeschrittene Programmierung, Algorithmen und Datenstrukturen / Advanced Programming, Algorithms and Data Structures',
+                name:
+                  'Fortgeschrittene Programmierung, Algorithmen und Datenstrukturen / Advanced Programming, Algorithms and Data Structures',
                 workload_dhbw: 72,
                 workload_home: 108,
                 catalog_id: 'unbekannt',
@@ -598,7 +599,8 @@ module.exports = {
                 mainFocus_ids: ['{{mainFocuses.it.mainFocus_id}}'],
               },
               {
-                name: 'Alternative A: User-Interface-Entwicklung und Usability / User Interface Development and Usability',
+                name:
+                  'Alternative A: User-Interface-Entwicklung und Usability / User Interface Development and Usability',
                 workload_dhbw: 33,
                 workload_home: 57,
                 catalog_id: 'unbekannt',
@@ -802,7 +804,8 @@ module.exports = {
                 mainFocus_ids: ['{{mainFocuses.vwl.mainFocus_id}}'],
               },
               {
-                name: 'Geld, Währung, Außenwirtschaft, Wirtschaftspolitik / Money, Currency, Foreign Economics, Economic Policy',
+                name:
+                  'Geld, Währung, Außenwirtschaft, Wirtschaftspolitik / Money, Currency, Foreign Economics, Economic Policy',
                 workload_dhbw: 28,
                 workload_home: 47,
                 catalog_id: 'unbekannt',
@@ -1049,7 +1052,8 @@ module.exports = {
             requirements: 'Grundlegende Konzepte der IT',
             Lectures: [
               {
-                name: 'Netzwerk- und Betriebssystemstrukturen für mobile Applikationen  / Network and Operating System Structures for Mobile Applications',
+                name:
+                  'Netzwerk- und Betriebssystemstrukturen für mobile Applikationen  / Network and Operating System Structures for Mobile Applications',
                 workload_dhbw: 33,
                 workload_home: 57,
                 catalog_id: 'unbekannt',
@@ -1101,7 +1105,8 @@ module.exports = {
                 mainFocus_ids: ['{{mainFocuses.bwl.mainFocus_id}}'],
               },
             ],
-          },  {
+          },
+          {
             name: 'Entwicklung mobiler Applikationen',
             description: '',
             ects: 7,
