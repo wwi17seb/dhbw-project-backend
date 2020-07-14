@@ -7,7 +7,7 @@ module.exports = {
         name: 'WWI 17 SE B',
         google_calendar_id: '[GOOGLE_KALENDER_ID]',
         majorSubject_id: '{{majorSubjects.wise11.majorSubject_id}}',
-        directorOfStudies_ids: ['{{users.ritterbusch.directorOfStudies_id}}'],
+        directorOfStudies_ids: [],
         Semesters: [
           {
             name: 'WS 17/18',
@@ -55,7 +55,7 @@ module.exports = {
         name: 'WWI 18 SE B',
         google_calendar_id: '[GOOGLE_KALENDER_ID]',
         majorSubject_id: '{{majorSubjects.wise18.majorSubject_id}}',
-        directorOfStudies_ids: ['{{users.ritterbusch.directorOfStudies_id}}'],
+        directorOfStudies_ids: [],
         Semesters: [
           {
             name: 'WS 18/19',
@@ -103,7 +103,7 @@ module.exports = {
         name: 'WWI 18 DS A',
         google_calendar_id: '[GOOGLE_KALENDER_ID]',
         majorSubject_id: '{{majorSubjects.wids18.majorSubject_id}}',
-        directorOfStudies_ids: ['{{users.matt.directorOfStudies_id}}'],
+        directorOfStudies_ids: [],
         Semesters: [
           {
             name: 'WS 18/19',
@@ -151,7 +151,7 @@ module.exports = {
         name: 'WWI 18 DS B',
         google_calendar_id: '[GOOGLE_KALENDER_ID]',
         majorSubject_id: '{{majorSubjects.wids18.majorSubject_id}}',
-        directorOfStudies_ids: ['{{users.matt.directorOfStudies_id}}'],
+        directorOfStudies_ids: [],
         Semesters: [
           {
             name: 'WS 18/19',
@@ -191,7 +191,7 @@ module.exports = {
           },
         ],
       },
-      token: '{{users.matt.token}}',
+      token: '{{users.dpfisterer.token}}',
     },
     {
       id: 'wwi18ama',
@@ -199,7 +199,7 @@ module.exports = {
         name: 'WWI 18 AM A',
         google_calendar_id: '[GOOGLE_KALENDER_ID]',
         majorSubject_id: '{{majorSubjects.wiam18.majorSubject_id}}',
-        directorOfStudies_ids: ['{{users.gömert.directorOfStudies_id}}'],
+        directorOfStudies_ids: [],
         Semesters: [
           {
             name: 'WS 18/19',
@@ -247,7 +247,7 @@ module.exports = {
         name: 'WWI 18 AM B',
         google_calendar_id: '[GOOGLE_KALENDER_ID]',
         majorSubject_id: '{{majorSubjects.wiam18.majorSubject_id}}',
-        directorOfStudies_ids: ['{{users.gömert.directorOfStudies_id}}'],
+        directorOfStudies_ids: [],
         Semesters: [
           {
             name: 'WS 18/19',

@@ -19,7 +19,6 @@ const fs = require('fs');
 const propertiesReader = require('../helpers/propertyReader');
 
 const testdata = require('./testdata');
-const { create } = require('domain');
 
 let SERVER_URL = `http://localhost:${propertiesReader.getProperty('app.port')}`;
 const SERVER_URL_PRODUCTION = `https://localhost/api`;
@@ -178,6 +177,7 @@ async function main() {
     createTestData('users'),
     createTestData('academicRecords'),
     createTestData('mainFocuses'),
+    createTestData('googleCalendar'),
   ]);
   createTestData('deactivateRegisterKey');
   await Promise.all([createTestData('majorSubjects')]);
@@ -187,7 +187,6 @@ async function main() {
     createTestData('lecturers'),
   ]);
   await Promise.all([createTestData('presentations')]);
-  await Promise.all([createTestData('googleCalendar')]);
 }
 
 main();

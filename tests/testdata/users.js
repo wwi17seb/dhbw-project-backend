@@ -35,5 +35,13 @@ module.exports = {
         registerKey: 'DemuKi',
       },
     },
+    {
+      id: 'dpfisterer',
+      data: {
+        username: 'dpfisterer',
+        password: 'pw',
+        registerKey: 'DemuKi',
+      },
+    },
   ],
 };

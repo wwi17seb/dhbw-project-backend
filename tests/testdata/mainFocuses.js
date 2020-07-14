@@ -20,7 +20,7 @@ module.exports = {
       },
     },
     {
-      id: 'm',
+      id: 'mathe',
       data: {
         name: 'Mathematik',
       },
