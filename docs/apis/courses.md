@@ -132,7 +132,7 @@
 | `directorOfStudies_ids` | nein     | [0, 1]           | Eigene ID wird automatisch gesetzt, hier können optional weitere verantwortliche DoS hinzugefügt werden |
 | `Semesters`             | nein     | [ ]              | Array von Semestern                                                                                     |
 | `___name`               | ja       | "WS17/18"        | Freitext, Format: Winter/Sommersemester + Jahr(e)                                                       |
-| `___number`             | ja       | 0                | Nummer des Semesters (erstes Semester, ...)                                                             |
+| `___number`             | ja       | 1                | Nummer des Semesters (erstes Semester, ..., z. B. 1-6)                                                  |
 | `___start_date`         | ja       | "2018-05-07"     | Startdatum; Format: ISO 8601                                                                            |
 | `___end_date`           | ja       | "2018-08-03"     | Enddatum; Format: ISO 8601                                                                              |
 
