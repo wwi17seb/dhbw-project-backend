@@ -1,0 +1,1155 @@
+{
+	"info": {
+		"_postman_id": "08f37c10-9abf-4270-aa74-c2afa0264ec2",
+		"name": "Peojekt-Test-Errors",
+		"description": "Test für die Peojekt API, basierend auf der Postman Collection. ",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Admin Permissions with non-admin token",
+			"item": [
+				{
+					"name": "update RegisterKey",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "819edbba-1c3b-4e6a-9ebd-891754f77775",
+								"exec": [
+									"pm.test(\"Status test for unauthorized admin functionality\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "cbe745bb-afa6-4161-addd-6eb6f988695d",
+								"exec": [
+									"",
+									"pm.environment.set(\"user2-password-new\", \"\\\"MeinNeuesSicheresPasswort42\\\"\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"registerKey\": \"SichererSchlüssel1337\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/registerKey?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"registerKey"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Checking error message on providing non-admin token for admin functionality."
+					},
+					"response": []
+				},
+				{
+					"name": "get RegisterKey",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f72ed46a-ba17-4dda-a0d2-1115fead3ea3",
+								"exec": [
+									"pm.test(\"Status test for unauthorized admin functionality\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/registerKey?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"registerKey"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Checking error message on providing non-admin token for admin functionality."
+					},
+					"response": []
+				},
+				{
+					"name": "get Users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "98e33c6e-f4ad-4487-9da7-db5e895961cc",
+								"exec": [
+									"pm.test(\"Status test for unauthorized admin functionality\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/users?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Checking error message on providing non-admin token for admin functionality."
+					},
+					"response": []
+				},
+				{
+					"name": "create User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "802f2b3d-3241-4456-8684-ef269a0e4a6f",
+								"exec": [
+									"pm.test(\"Status test for unauthorized admin functionality\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "bbe41127-9bde-4ce7-8b2d-410e41f14865",
+								"exec": [
+									"pm.environment.set(\"user2-name\", \"\\\"Nutzername2\\\"\");",
+									"pm.environment.set(\"user2-password\", \"\\\"MeinSicheresPasswort42\\\"\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": {{user2-name}},\n    \"password\": {{user2-password}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/createUser?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"createUser"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Checking error message on providing non-admin token for admin functionality."
+					},
+					"response": []
+				},
+				{
+					"name": "resetPassword",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "84ede2d3-85fb-4b37-9e09-b8a16bd88ca0",
+								"exec": [
+									"pm.test(\"Status test for unauthorized admin functionality\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1ef09b93-5f29-4412-9051-0519c0c4ba23",
+								"exec": [
+									"",
+									"pm.environment.set(\"user2-password-new\", \"\\\"MeinNeuesSicheresPasswort42\\\"\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"newPassword\": {{user2-password-new}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/resetPassword?token={{token}}&directorOfStudiesId={{user2-directorOfStudies_id}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"resetPassword"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "directorOfStudiesId",
+									"value": "{{user2-directorOfStudies_id}}"
+								}
+							]
+						},
+						"description": "Checking error message on providing non-admin token for admin functionality."
+					},
+					"response": []
+				},
+				{
+					"name": "upgrade to admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0f4481dd-4055-4454-8b53-de514da28729",
+								"exec": [
+									"pm.test(\"Status test for unauthorized admin functionality\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "47cd0dd1-75b5-41d4-bb1f-d7b474b551e2",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/upgradeToAdmin?token={{token}}&directorOfStudiesId={{user2-directorOfStudies_id}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"upgradeToAdmin"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "directorOfStudiesId",
+									"value": "{{user2-directorOfStudies_id}}"
+								}
+							]
+						},
+						"description": "Checking error message on providing non-admin token for admin functionality."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register already existing username",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ab36524f-bdca-46c4-bd6d-ce3a87c26c62",
+								"exec": [
+									"pm.test(\"Test for username already exists error\", function () {",
+									"",
+									"if (pm.response.json().message && (pm.response.json().message === \"Username already exists\")) {",
+									"    pm.response.to.have.status(400);",
+									"}else{",
+									"    pm.response.to.have.status(1);",
+									"}",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "57076a1f-b6ae-4879-a6cb-9a2b298f97d8",
+								"exec": [
+									"pm.environment.set(\"user1-name\", \"\\\"Nutzername\\\"\");",
+									"pm.environment.set(\"user1-password\", \"\\\"MeinSicheresPasswort1337\\\"\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": {{user1-name}},\n    \"password\": {{user1-password}},\n    \"registerKey\": \"SichererSchlüssel1337\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/register",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"register"
+							]
+						},
+						"description": "Checking for error message on providing already existing username at registration."
+					},
+					"response": []
+				},
+				{
+					"name": "Login with wrong password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "367ba5b9-7036-4ed1-bc6b-e497506bfa00",
+								"exec": [
+									"pm.test(\"Test for wrong password error\", function () {",
+									"",
+									"if (pm.response.json().message && (pm.response.json().message === \"AUTH FAILED\")) {",
+									"    pm.response.to.have.status(401);",
+									"}",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": {{user1-name}},\n    \"password\": \"Wrong Passoword\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/login",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"login"
+							]
+						},
+						"description": "Checking for error message on providing wrong passoword during login."
+					},
+					"response": []
+				},
+				{
+					"name": "Reset pw with wrong pw",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2d9cb22a-ce39-4a95-8f16-98430036602e",
+								"exec": [
+									"pm.test(\"Test for missing parameter in request at UPDATE\", function () {",
+									"",
+									"if (pm.response.json().message && (pm.response.json().message === \"Old password is wrong\")) {",
+									"    pm.response.to.have.status(400);",
+									"}else{",
+									"    pm.response.to.have.status(1); ",
+									"}",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1e13e03c-ab67-42a1-b084-97c592fac075",
+								"exec": [
+									"",
+									"pm.environment.set(\"user1-password-new\", \"\\\"MeinNeuesSicheresPasswort1337\\\"\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"oldPassword\": \"Wrong Paaassword\", \r\n\t\"newPassword\": {{user1-password}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/changePassword?directorOfStudiesId={{current_directorOfStudies_id}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"changePassword"
+							],
+							"query": [
+								{
+									"key": "directorOfStudiesId",
+									"value": "{{current_directorOfStudies_id}}"
+								}
+							]
+						},
+						"description": "Checking error message for update own password providing the wrong oldPassword."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Unauthorized",
+			"item": [
+				{
+					"name": "Wrong Token for GET",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ba773616-504f-42d6-8ee4-3c6256f87eb9",
+								"exec": [
+									"pm.test(\"Test for wrong token / unauthorized error\", function () {",
+									"",
+									"if (pm.response.json().message && (pm.response.json().message === \"Unauthorized\")) {",
+									"    pm.response.to.have.status(401);",
+									"}else{",
+									"    pm.response.to.have.status(1);",
+									"}",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/fieldsOfStudy?token=\"OBV10U5LYWR0NGT0K3N\"",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"fieldsOfStudy"
+							],
+							"query": [
+								{
+									"key": "withMajorSubjects",
+									"value": "[REQUIRED]",
+									"description": "Optional parameter for filtering (Boolean)",
+									"disabled": true
+								},
+								{
+									"key": "token",
+									"value": "\"OBV10U5LYWR0NGT0K3N\""
+								}
+							]
+						},
+						"description": "Testing error message for providing wrong token in GET request."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Wrong IDs",
+			"item": [
+				{
+					"name": "ID not found in GET",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "683c4112-eb55-491a-8d7d-ac4745adc0a8",
+								"exec": [
+									"pm.test(\"Test for wrong ID in GET\", function () {",
+									"",
+									"if (pm.response.json().message && (pm.response.json().message === \"Field of study could not be found\")) {",
+									"    pm.response.to.have.status(404);",
+									"}else{",
+									"    pm.response.to.have.status(1); ",
+									"}",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/majorSubjects?token={{token}}&fieldOfStudyId=100",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"majorSubjects"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "fieldOfStudyId",
+									"value": "100",
+									"description": "Returns all major subjects for that field of study"
+								}
+							]
+						},
+						"description": "Get all major subjects to the given field of study."
+					},
+					"response": []
+				},
+				{
+					"name": "ID not found in UPDATE",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c146683e-fb3d-4506-87b5-0bd9b63d5334",
+								"exec": [
+									"pm.test(\"Test for wrong ID for UPDATE\", function () {",
+									"",
+									"if (pm.response.json().message && (pm.response.json().message === \"No field of study found to update\")) {",
+									"    pm.response.to.have.status(400);",
+									"}else{",
+									"    pm.response.to.have.status(1); ",
+									"}",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Wirtschaftsinformatik\"\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/fieldsOfStudy?token={{token}}&fieldOfStudyId=100",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"fieldsOfStudy"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "fieldOfStudyId",
+									"value": "100"
+								}
+							]
+						},
+						"description": "Update a given Field of Study."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Missing Parameters",
+			"item": [
+				{
+					"name": "Missing parameter in body (CREATE)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5aa0da4d-8b62-442e-8356-2f7909497ab2",
+								"exec": [
+									"pm.test(\"Test for missing parameter in body at CREATE\", function () {",
+									"",
+									"if (pm.response.json().message && (pm.response.json().message === \"notNull Violation: MajorSubject.name cannot be null\")) {",
+									"    pm.response.to.have.status(400);",
+									"}else{",
+									"    pm.response.to.have.status(1); ",
+									"}",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"fieldOfStudy_id\": {{fieldOfStudy_id}},\r\n    \"catalog_effective_from\": \"Gültig ab 2018\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/majorSubjects?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"majorSubjects"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Checking for error message for missing parameter in CREATE request."
+					},
+					"response": []
+				},
+				{
+					"name": "Missing parameter in body (UPDATE)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1199d199-ca7d-42fb-b0fe-5703760179bb",
+								"exec": [
+									"pm.test(\"Test for missing parameter in body at UPDATE\", function () {",
+									"",
+									"if (pm.response.json().message && (pm.response.json().message === \"notNull Violation: MajorSubject.name cannot be null\")) {",
+									"    pm.response.to.have.status(400);",
+									"}else{",
+									"    pm.response.to.have.status(1); ",
+									"}",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"fieldOfStudy_id\": {{fieldOfStudy_id}},\r\n    \"catalog_effective_from\": \"Gültig ab 2019\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/majorSubjects?token={{token}}&majorSubjectId={{majorSubject_id}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"majorSubjects"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "majorSubjectId",
+									"value": "{{majorSubject_id}}"
+								}
+							]
+						},
+						"description": "Checking for error message for missing parameter in CREATE request."
+					},
+					"response": []
+				},
+				{
+					"name": "Missing parameter in request (GET)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5af48de9-d803-4953-a4c5-60c01c974db6",
+								"exec": [
+									"pm.test(\"Test for missing parameter in request at UPDATE\", function () {",
+									"",
+									"if (pm.response.json().message && (pm.response.json().message === \"No required filter given\")) {",
+									"    pm.response.to.have.status(400);",
+									"}else{",
+									"    pm.response.to.have.status(1); ",
+									"}",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/presentations?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"presentations"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "getCoLecturers",
+									"value": "true",
+									"description": "Optional parameter for requesting lecturers with similar lectures in similar courses",
+									"disabled": true
+								},
+								{
+									"key": "semesterId",
+									"value": "1",
+									"description": "Optional parameter for filtering",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Get all presentations connected to a given course."
+					},
+					"response": []
+				},
+				{
+					"name": "Missing paramter in request (UPDATE)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7a69396c-e1b9-4d2f-a443-db07ebac5891",
+								"exec": [
+									"pm.test(\"Test for missing parameter in request at UPDATE\", function () {",
+									"",
+									"if (pm.response.json().message && (pm.response.json().message === \"No course given\")) {",
+									"    pm.response.to.have.status(400);",
+									"}else{",
+									"    pm.response.to.have.status(1); ",
+									"}",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"WWI 17 SE B\",\r\n    \"google_calendar_id\": \"iq90i34lq6v196rqs4986dp370@group.calendar.google.com\",\r\n    \"majorSubject_id\": {{majorSubject_id}},\r\n    \"directorOfStudies_ids\": [{{directorOfStudies_id}}]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/courses?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"courses"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Checking error message for not providing ID within the UPDATE-Request."
+					},
+					"response": []
+				},
+				{
+					"name": "Missing parameter in request (DELETE)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "30132b55-2bac-4161-9464-d69b2fe8cf50",
+								"exec": [
+									"pm.test(\"Test for missing parameter in request at UPDATE\", function () {",
+									"",
+									"if (pm.response.json().message && (pm.response.json().message === \"No presentation given\")) {",
+									"    pm.response.to.have.status(400);",
+									"}else{",
+									"    pm.response.to.have.status(1); ",
+									"}",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/presentations?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"presentations"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Checking error message for providing no filter-id within a DELETE Request."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Nonexisting Routes",
+			"item": [
+				{
+					"name": "Wrong route name (GET)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3a8c5ee6-eaf8-4926-8e21-8442d6d48433",
+								"exec": [
+									"pm.test(\"Test for providing wrong route name\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/kurse?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"kurse"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Checking error message for providing non exiting route-name."
+					},
+					"response": []
+				},
+				{
+					"name": "Wrong route name (CREATE)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "05a401fe-cee1-4ba0-aca4-741d76a4d09a",
+								"exec": [
+									"pm.test(\"Test for providing wrong route name\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstname\": \"Sebastian\",\n    \"lastname\": \"Ritterbusch\",\n    \"academic_title\": \"Prof. Dr.\",\n    \"email\": \"sebastian.ritterbusch@dhbw-mannheim.de\",\n    \"salutation\": \"Herr\",\n    \"phonenumber\": \"+49 621 4105 - 1724\",\n    \"experience\": \"Mathematik, Podcasts\",\n    \"mainFocus_ids\": [{{mainFocus_id}}],\n    \"comment\": \"sehr engagiert\",\n    \"is_extern\": true,\n    \"allow_manipulation\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/lecturerers?token={{token}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"lecturerers"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Create a lecturer and link him with the given director of studies."
+					},
+					"response": []
+				},
+				{
+					"name": "Wrong route name (UPDATE)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2113c56a-7816-4ba1-8855-803518dd942e",
+								"exec": [
+									"pm.test(\"Test for providing wrong route name\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstname\": \"Sebastian\",\n    \"lastname\": \"Ritterbusch\",\n    \"academic_title\": \"Prof. Dr.\",\n    \"email\": \"sebastian.ritterbusch@dhbw-mannheim.de\",\n    \"salutation\": \"Herr\",\n    \"phonenumber\": \"+49 621 4105 - 1724\",\n    \"experience\": \"Mathematik, Podcasts\",\n    \"mainFocus_ids\": [{{mainFocus_id}}],\n    \"profile\": \"...\",\n    \"research\": \"...\",\n    \"cv\": \"...\",\n    \"comment\": \"sehr engagiert\",\n    \"is_extern\": true,\n    \"allow_manipulation\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backend}}/leteast?token={{token}}&lecturerId={{lecturer_id}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"leteast"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "lecturerId",
+									"value": "{{lecturer_id}}"
+								}
+							]
+						},
+						"description": "Update a given lecturer if he is linked with a given director of studies."
+					},
+					"response": []
+				},
+				{
+					"name": "Wrong route name (DELETE)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f46a20dd-2df4-4ec8-8457-20089c9a9c8f",
+								"exec": [
+									"pm.test(\"Test for providing wrong route name\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/lectuuuurers?token={{token}}&lecturerId={{lecturer_id}}",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"lectuuuurers"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "lecturerId",
+									"value": "{{lecturer_id}}"
+								}
+							]
+						},
+						"description": "Deletes a given lecturer if he is linked with a given director of studies."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Lecturers",
+			"item": [],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

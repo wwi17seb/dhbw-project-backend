@@ -141,6 +141,9 @@ You can use prettier by right clicking in the editor inside a code file.
 \* Routes that require an ID need to be filled by you.
 These parameters have the value `[REQUIRED]` and need to be updated by you.
 
+\* There are two collections that can be used for testing. The Peoject-Test Collection provides status tests for every route in a logical order. In addition to that you can use the Project-Test-Errors Collection to check on error status-messages for e.g. wrong use of the route or missing permissions. Make sure to run Peojekt-Test before Peoject-Test-Errors to have everything setup properly.
+
+
 # login
 
 You can use `admin` as login name with password `test` or its token `eyJpe0JEKTAiOjAsImFsZyI6IkhTMjU2IiwidHlwIjoiSldUIn0.eyJ1c2VybmFtZSI6ImFkbWluIiwiZGlyZWN0b3JPZlN0dWRpZXNfaWQiOjEsImlhdCI6MTU5MjE3NjQ4MCwiZXhwIjoxNTk4MTM4MDgwfQ.CFzby-2_Q6h-_LsP_dP7IIzyL5ozu_UdV-dzyJdnQAk` to authenticate yourself.
