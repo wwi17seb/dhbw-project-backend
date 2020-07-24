@@ -1,7 +1,27 @@
-# dhbw-project-backend <!-- omit in toc -->
+<p align="center">
+  <a href="https://github.com/nikolockenvitz?tab=repositories&q=%22dhbw-project-%22">
+    <img src="https://github.com/nikolockenvitz/dhbw-project-frontend/blob/master/src/images/ExoPlanLogo_transparent.png" alt="ExoPlan Logo" width="400">
+  </a>
 
-Please create feature branches and then use pull requests to merge to master branch.
-Read more on https://guides.github.com/introduction/flow/.
+  <!--<h3 align="center">a.k.a. Peojekt</h3>-->
+
+  <p align="center">
+    <b><a href="https://github.com/nikolockenvitz/dhbw-project-backend">dhbw-project-backend</a></b>
+    ·
+    <a href="https://github.com/nikolockenvitz/dhbw-project-frontend">dhbw-project-frontend</a>
+    ·
+    <a href="https://github.com/nikolockenvitz/dhbw-project-documentation">dhbw-project-documentation</a>
+  </p>
+
+  <p align="center">
+    <a href="https://github.com/nikolockenvitz/dhbw-project-backend/releases"
+    ><img src="https://img.shields.io/badge/version-1.9-informational" alt="v1.9"
+    ></a>
+    <a href="https://github.com/nikolockenvitz/dhbw-project-backend/blob/master/LICENSE"
+    ><img src="https://img.shields.io/badge/license-MIT-success" alt="MIT License"
+    ></a>
+  </p>
+</p>
 
 ## Content <!-- omit in toc -->
 
