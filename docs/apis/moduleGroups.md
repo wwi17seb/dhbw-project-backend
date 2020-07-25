@@ -26,74 +26,74 @@ Dies umfasst also die Modulgruppen, die Module und die (abstrakten) Vorlesungen.
     "message": "Successful",
     "payload": {
         "MajorSubject": {
-        "majorSubject_id": 0,
-        "name": "[STUDIENRICHTUNG]",
-        "catalog_effective_from": "[CATALOG_EFFECTIVE_FROM]",
-        "createdAt": "[DATUM]",
-        "updatedAt": "[DATUM]",
-        "fieldOfStudy_id": 0,
-        "FieldOfStudy": {
-            "fieldOfStudy_id": 0,
-            "name": "[STUDIENGANG]",
-            "createdAt": "[DATUM]",
-            "updatedAt": "[DATUM]"
-        }
-        },
-        "ModuleGroups": [
-        {
-            "moduleGroup_id": 0,
-            "name": "[NAME_DER_MODULGRUPPE]",
-            "number_of_modules_to_attend": 0,
-            "from_semester_number": 0,
-            "to_semester_number": 0,
+            "majorSubject_id": 0,
+            "name": "[STUDIENRICHTUNG]",
+            "catalog_effective_from": "[CATALOG_EFFECTIVE_FROM]",
             "createdAt": "[DATUM]",
             "updatedAt": "[DATUM]",
-            "majorSubject_id": 0,
-            "Modules": [
+            "fieldOfStudy_id": 0,
+            "FieldOfStudy": {
+                "fieldOfStudy_id": 0,
+                "name": "[STUDIENGANG]",
+                "createdAt": "[DATUM]",
+                "updatedAt": "[DATUM]"
+            }
+        },
+        "ModuleGroups": [
             {
-                "module_id": 0,
-                "name": "[NAME_DES_MODULS]",
-                "description": "",
-                "ects": 0,
-                "catalog_id": "[KATALOG_ID]",
-                "number_of_lectures_to_attend": 0,
-                "rated": true,
-                "requirements": "[ANFORDERUNGEN]",
+                "moduleGroup_id": 0,
+                "name": "[NAME_DER_MODULGRUPPE]",
+                "number_of_modules_to_attend": 0,
+                "from_semester_number": 0,
+                "to_semester_number": 0,
                 "createdAt": "[DATUM]",
                 "updatedAt": "[DATUM]",
-                "moduleGroup_id": 0,
-                "AcademicRecords": [
-                {
-                    "academicRecord_id": 0,
-                    "abbreviation": "[ABKÜRZUNG]",
-                    "type": "[ART]",
-                    "createdAt": "[DATUM]",
-                    "updatedAt": "[DATUM]"
-                }
-                ],
-                "Lectures": [
-                {
-                    "lecture_id": 0,
-                    "name": "[NAME_DER_VORLESUNG]",
-                    "workload_home": 0,
-                    "workload_dhbw": 0,
-                    "catalog_id": "[KATALOG_ID]",
-                    "createdAt": "[DATUM]",
-                    "updatedAt": "[DATUM]",
-                    "module_id": 0,
-                    "MainFocuses": [
+                "majorSubject_id": 0,
+                "Modules": [
                     {
-                        "mainFocus_id": 0,
-                        "name": "[SCHWERPUNKT]",
+                        "module_id": 0,
+                        "name": "[NAME_DES_MODULS]",
+                        "description": "",
+                        "ects": 0,
+                        "catalog_id": "[KATALOG_ID]",
+                        "number_of_lectures_to_attend": 0,
+                        "rated": true,
+                        "requirements": "[ANFORDERUNGEN]",
                         "createdAt": "[DATUM]",
-                        "updatedAt": "[DATUM]"
+                        "updatedAt": "[DATUM]",
+                        "moduleGroup_id": 0,
+                        "AcademicRecords": [
+                            {
+                                "academicRecord_id": 0,
+                                "abbreviation": "[ABKÜRZUNG]",
+                                "type": "[ART]",
+                                "createdAt": "[DATUM]",
+                                "updatedAt": "[DATUM]"
+                            }
+                        ],
+                        "Lectures": [
+                            {
+                                "lecture_id": 0,
+                                "name": "[NAME_DER_VORLESUNG]",
+                                "workload_home": 0,
+                                "workload_dhbw": 0,
+                                "catalog_id": "[KATALOG_ID]",
+                                "createdAt": "[DATUM]",
+                                "updatedAt": "[DATUM]",
+                                "module_id": 0,
+                                "MainFocuses": [
+                                    {
+                                        "mainFocus_id": 0,
+                                        "name": "[SCHWERPUNKT]",
+                                        "createdAt": "[DATUM]",
+                                        "updatedAt": "[DATUM]"
+                                    }
+                                ]
+                            }
+                        ]
                     }
-                    ]
-                }
                 ]
             }
-            ]
-        }
         ]
     }
 }
@@ -159,23 +159,23 @@ Der Grund warum dies nur gemeinsam erstellt und bearbeitet werden kann, liegt da
     "to_semester_number": 0,
     "Modules": [
         {
-        "name": "[NAME_DES_MODULS]",
-        "description": "[BESCHREIBUNG]",
-        "ects": 0,
-        "catalog_id": "[KATALOG-ID]",
-        "academicRecord_ids": [0, 0],
-        "number_of_lectures_to_attend": 0,
-        "rated": true,
-        "requirements": "[ANFODERUNGEN]",
-        "Lectures": [
-            {
-            "name": "[NAME_DER_VORLESUNG]",
-            "workload_home": 0,
-            "workload_dhbw": 0,
+            "name": "[NAME_DES_MODULS]",
+            "description": "[BESCHREIBUNG]",
+            "ects": 0,
             "catalog_id": "[KATALOG-ID]",
-            "mainFocus_ids": [0, 0]
-            }
-        ]
+            "academicRecord_ids": [0, 0],
+            "number_of_lectures_to_attend": 0,
+            "rated": true,
+            "requirements": "[ANFODERUNGEN]",
+            "Lectures": [
+                {
+                    "name": "[NAME_DER_VORLESUNG]",
+                    "workload_home": 0,
+                    "workload_dhbw": 0,
+                    "catalog_id": "[KATALOG-ID]",
+                    "mainFocus_ids": [0, 0]
+                }
+            ]
         }
     ]
 }
@@ -219,31 +219,31 @@ Der Grund warum dies nur gemeinsam erstellt und bearbeitet werden kann, liegt da
         "from_semester_number": 0,
         "to_semester_number": 0,
         "Modules": [
-        {
-            "module_id": 0,
-            "name": "[NAME_DES_MODULS]",
-            "description": "[BESCHREIBUNG]",
-            "ects": 0,
-            "catalog_id": "[KATALOG_ID]",
-            "number_of_lectures_to_attend": 0,
-            "rated": true,
-            "requirements": "[ANFORDERUNGEN]",
-            "Lectures": [
             {
-                "lecture_id": 0,
-                "name": "[NAME_DER_VORLESUNG]",
-                "workload_home": 0,
-                "workload_dhbw": 0,
+                "module_id": 0,
+                "name": "[NAME_DES_MODULS]",
+                "description": "[BESCHREIBUNG]",
+                "ects": 0,
                 "catalog_id": "[KATALOG_ID]",
-                "createdAt": "[DATUM]",
+                "number_of_lectures_to_attend": 0,
+                "rated": true,
+                "requirements": "[ANFORDERUNGEN]",
+                "Lectures": [
+                    {
+                        "lecture_id": 0,
+                        "name": "[NAME_DER_VORLESUNG]",
+                        "workload_home": 0,
+                        "workload_dhbw": 0,
+                        "catalog_id": "[KATALOG_ID]",
+                        "createdAt": "[DATUM]",
+                        "updatedAt": "[DATUM]",
+                        "module_id": 0
+                    }
+                ],
+                "moduleGroup_id": 0,
                 "updatedAt": "[DATUM]",
-                "module_id": 0
+                "createdAt": "[DATUM]"
             }
-            ],
-            "moduleGroup_id": 0,
-            "updatedAt": "[DATUM]",
-            "createdAt": "[DATUM]"
-        }
         ],
         "updatedAt": "[DATUM]",
         "createdAt": "[DATUM]"
@@ -267,25 +267,25 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
     "to_semester_number": 0,
     "Modules": [
         {
-        "module_id": 0,
-        "name": "[NAME_DES_MODULS]",
-        "description": "[BESCHREIBUNG]",
-        "ects": 0,
-        "catalog_id": "[KATALOG-ID]",
-        "academicRecord_ids": [0, 0],
-        "number_of_lectures_to_attend": 0,
-        "rated": true,
-        "requirements": "[ANFODERUNGEN]",
-        "Lectures": [
-            {
-            "lecture_id": 0,
-            "name": "[NAME_DER_VORLESUNG]",
-            "workload_home": 0,
-            "workload_dhbw": 0,
+            "module_id": 0,
+            "name": "[NAME_DES_MODULS]",
+            "description": "[BESCHREIBUNG]",
+            "ects": 0,
             "catalog_id": "[KATALOG-ID]",
-            "mainFocus_ids": [0, 0]
-            }
-        ]
+            "academicRecord_ids": [0, 0],
+            "number_of_lectures_to_attend": 0,
+            "rated": true,
+            "requirements": "[ANFODERUNGEN]",
+            "Lectures": [
+                {
+                    "lecture_id": 0,
+                    "name": "[NAME_DER_VORLESUNG]",
+                    "workload_home": 0,
+                    "workload_dhbw": 0,
+                    "catalog_id": "[KATALOG-ID]",
+                    "mainFocus_ids": [0, 0]
+                }
+            ]
         }
     ]
 }
