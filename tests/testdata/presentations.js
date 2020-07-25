@@ -41,7 +41,7 @@ module.exports = {
       id: 'p4',
       data: {
         status: 'Zusage',
-        lecturer_id: '{{lecturers.tr.lecturer_id}}',
+        lecturer_id: '{{lecturers.aw.lecturer_id}}',
         lecture_id: '{{moduleGroups.wise11mathe1.Modules[0].Lectures[1].lecture_id}}',
         course_id: '{{courses.wwi17seb.course_id}}',
         academicRecord_id: '{{academicRecords.k.academicRecord_id}}',

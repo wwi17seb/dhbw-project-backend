@@ -33,6 +33,9 @@ if (saveLog && !fs.existsSync(LOG_DIR)) {
   fs.mkdirSync(LOG_DIR);
 }
 
+const CONSOLE_LOG_COLOR_FG_RED = '\x1b[31m';
+const CONSOLE_LOG_COLOR_RESET = '\x1b[0m';
+
 function _fetch(method, path, data, token) {
   const url =
     SERVER_URL +
@@ -151,6 +154,11 @@ function replacePlaceholders(obj) {
       }
       return cur;
     } catch {
+      console.log(
+        `${CONSOLE_LOG_COLOR_FG_RED}` +
+          `Placeholder string ${str} could not be resolved! Please check the testdata!` +
+          `${CONSOLE_LOG_COLOR_RESET}`
+      );
       return undefined;
     }
   }
@@ -184,6 +192,7 @@ async function main() {
   await Promise.all([
     createTestData('courses'),
     createTestData('moduleGroupsModulesLectures'),
+    createTestData('moduleGroupsModulesLectures-wise2011'),
     createTestData('lecturers'),
   ]);
   await Promise.all([createTestData('presentations')]);

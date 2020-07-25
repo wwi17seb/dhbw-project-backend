@@ -130,10 +130,10 @@ module.exports = {
       token: '{{users.gömert.token}}',
     },
     {
-      id: 'tr',
+      id: 'aw',
       data: {
         firstname: 'Armin',
-        lastname: 'Rechner',
+        lastname: 'Wiedemann',
         academic_title: 'Prof. Dr.',
         email: 'armin.wiedemann@dhbw-mannheim.de',
         salutation: 'Herr',
