@@ -9,27 +9,6 @@ module.exports = {
       },
     },
     {
-      id: 'pa',
-      data: {
-        abbreviation: 'PA',
-        type: 'Projektarbeit',
-      },
-    },
-    {
-      id: 'p',
-      data: {
-        abbreviation: 'P',
-        type: '???',
-      },
-    },
-    {
-      id: 'mp',
-      data: {
-        abbreviation: 'MP',
-        type: 'Mündliche Prüfung?',
-      },
-    },
-    {
       id: 'se',
       data: {
         abbreviation: 'SE',
@@ -37,17 +16,38 @@ module.exports = {
       },
     },
     {
-      id: 'ln',
+      id: 'mp',
       data: {
-        abbreviation: 'LN',
-        type: '???',
+        abbreviation: 'MP',
+        type: 'Mündliche Prüfung',
       },
     },
     {
-      id: 'pf',
+      id: 'r',
       data: {
-        abbreviation: 'PF',
+        abbreviation: 'R',
+        type: 'Referat',
+      },
+    },
+    {
+      id: 'p',
+      data: {
+        abbreviation: 'P',
+        type: 'Präsentation',
+      },
+    },
+    {
+      id: 'prf',
+      data: {
+        abbreviation: 'PRF',
         type: 'Portfolio',
+      },
+    },
+    {
+      id: 'ln',
+      data: {
+        abbreviation: 'LN',
+        type: 'Leistungsnachweis',
       },
     },
   ],
