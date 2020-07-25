@@ -14,12 +14,6 @@ module.exports = {
       },
     },
     {
-      id: 'praxis',
-      data: {
-        name: 'Praxismodul',
-      },
-    },
-    {
       id: 'mathe',
       data: {
         name: 'Mathematik',
