@@ -21,7 +21,7 @@
     ><img src="https://img.shields.io/badge/build-success-success" alt="build status"
     ></a>
     <a href="https://youtu.be/dQw4w9WgXcQ" title="Manual Test Coverage"
-    ><img src="https://img.shields.io/badge/coverage-93%-success" alt="test coverage: 93%"
+    ><img src="https://img.shields.io/badge/coverage-93%25-success" alt="test coverage: 93%"
     ></a>
     <a href="https://github.com/nikolockenvitz/dhbw-project-backend/blob/master/LICENSE"
     ><img src="https://img.shields.io/badge/license-MIT-success" alt="MIT License"
