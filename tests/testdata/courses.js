@@ -7,7 +7,7 @@ module.exports = {
         name: 'WWI 17 SE B',
         google_calendar_id: '[GOOGLE_KALENDER_ID]',
         majorSubject_id: '{{majorSubjects.wise11.majorSubject_id}}',
-        directorOfStudies_ids: [],
+        directorOfStudies_ids: ['{{users.ritterbusch.directorOfStudies_id}}'],
         Semesters: [
           {
             name: 'WS 17/18',
