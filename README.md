@@ -17,6 +17,12 @@
     <a href="https://github.com/nikolockenvitz/dhbw-project-backend/releases"
     ><img src="https://img.shields.io/badge/version-1.9-informational" alt="v1.9"
     ></a>
+    <a href="https://youtu.be/dQw4w9WgXcQ"
+    ><img src="https://img.shields.io/badge/build-success-success" alt="build status"
+    ></a>
+    <a href="https://youtu.be/dQw4w9WgXcQ" title="Manual Test Coverage"
+    ><img src="https://img.shields.io/badge/coverage-93%-success" alt="test coverage: 93%"
+    ></a>
     <a href="https://github.com/nikolockenvitz/dhbw-project-backend/blob/master/LICENSE"
     ><img src="https://img.shields.io/badge/license-MIT-success" alt="MIT License"
     ></a>
