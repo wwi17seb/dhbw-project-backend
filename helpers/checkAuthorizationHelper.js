@@ -11,8 +11,8 @@ exports.checkLecturerEditAuthorization = async function (directorOfStudies_id, l
   return lecturer.allow_manipulation || lecturer.createdBy_id === directorOfStudies_id;
 };
 
-async function checkCourseEditAuthorization(directorOfStudies_id, course_id) {
-  const course = await courseService.findCourseById(course_id);
+async function checkCourseEditAuthorization(transaction, directorOfStudies_id, course_id) {
+  const course = await courseService.findCourseById(transaction, course_id);
   if (!course) {
     throw new Error('Course could not be found');
   }
@@ -30,7 +30,7 @@ exports.checkPresentationEditAuthorization = async function (directorOfStudies_i
     throw new Error('Presentation could not be found');
   }
   const course_id = presentation.course_id;
-  return await checkCourseEditAuthorization(directorOfStudies_id, course_id);
+  return await checkCourseEditAuthorization(undefined, directorOfStudies_id, course_id);
 };
 
 exports.checkSemesterEditAuthorization = async function (directorOfStudies_id, semester_id) {
@@ -39,5 +39,5 @@ exports.checkSemesterEditAuthorization = async function (directorOfStudies_id, s
     throw new Error('Semester could not be found');
   }
   const course_id = semester.course_id;
-  return await checkCourseEditAuthorization(directorOfStudies_id, course_id);
+  return await checkCourseEditAuthorization(undefined, directorOfStudies_id, course_id);
 };

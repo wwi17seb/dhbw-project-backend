@@ -25,7 +25,7 @@ exports.getPresentations = async (req, res) => {
     }
     let Presentations, Dos;
     if (course_id) {
-      if (!(await checkCourseEditAuthorization(directorOfStudiesId, course_id))) {
+      if (!(await checkCourseEditAuthorization(undefined, directorOfStudiesId, course_id))) {
         throw new Error('You are not authorized to view presentations of this course');
       }
       [Presentations, DoS] = await Promise.all([
@@ -70,7 +70,7 @@ exports.postPresentations = async (req, res) => {
       'status',
     ]);
 
-    if (!(await checkCourseEditAuthorization(directorOfStudiesId, presentationToCreate.course_id))) {
+    if (!(await checkCourseEditAuthorization(transaction, directorOfStudiesId, presentationToCreate.course_id))) {
       throw new Error('You are not authorized to create this presentation');
     }
 
@@ -109,7 +109,7 @@ exports.putPresentations = async (req, res) => {
 
     if (
       !(await checkPresentationEditAuthorization(directorOfStudiesId, presentationId)) ||
-      !(await checkCourseEditAuthorization(directorOfStudiesId, presentationToUpdate.course_id))
+      !(await checkCourseEditAuthorization(transaction, directorOfStudiesId, presentationToUpdate.course_id))
     ) {
       throw new Error('You are not authorized to update this presentation');
     }

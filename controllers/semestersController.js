@@ -10,7 +10,7 @@ exports.postSemesters = async (req, res) => {
 
   try {
     const SemesterToCreate = req.body;
-    if (!(await checkCourseEditAuthorization(directorOfStudiesId, SemesterToCreate.course_id))) {
+    if (!(await checkCourseEditAuthorization(transaction, directorOfStudiesId, SemesterToCreate.course_id))) {
       transaction.rollback();
       return responseHelper(res, 403, 'You are not authorized to create this semester');
     }
@@ -39,7 +39,7 @@ exports.putSemesters = async (req, res) => {
 
     if (
       !(await checkSemesterEditAuthorization(directorOfStudiesId, semesterId)) ||
-      !(await checkCourseEditAuthorization(directorOfStudiesId, semesterToUpdate.course_id))
+      !(await checkCourseEditAuthorization(transaction, directorOfStudiesId, semesterToUpdate.course_id))
     ) {
       throw new Error('You are not authorized to update this semester');
     }
