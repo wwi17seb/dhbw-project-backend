@@ -7,9 +7,9 @@
 
   <p align="center">
     <b><a href="https://github.com/nikolockenvitz/dhbw-project-backend">dhbw-project-backend</a></b>
-    ·
+    •
     <a href="https://github.com/nikolockenvitz/dhbw-project-frontend">dhbw-project-frontend</a>
-    ·
+    •
     <a href="https://github.com/nikolockenvitz/dhbw-project-documentation">dhbw-project-documentation</a>
   </p>
 
