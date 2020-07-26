@@ -1,11 +1,10 @@
 {
   "name": "dhbw-project-backend",
-  "version": "0.0.1",
-  "private": true,
+  "version": "2.0.0",
   "description": "",
   "keywords": [],
-  "author": "Awesome Developers",
-  "license": "ISC",
+  "author": "Sascha Görnert, Rene-Pascal Fischer, Niko Lockenvitz, Martin Sandig, Dennis Köhler, Kai Crecelius, Felix Waage",
+  "license": "MIT",
   "main": "app.js",
   "dependencies": {
     "bcryptjs": "^2.4.3",
