@@ -34,6 +34,14 @@ module.exports = {
       },
     },
     {
+      id: 'wiam18',
+      data: {
+        fieldOfStudy_id: '{{fieldsOfStudy.wi.fieldOfStudy_id}}',
+        name: 'Application Management',
+        catalog_effective_from: '2018',
+      },
+    },
+    {
       id: 'dm18',
       data: {
         fieldOfStudy_id: '{{fieldsOfStudy.dm.fieldOfStudy_id}}',

@@ -22,6 +22,7 @@ module.exports = (res, error) => {
     { startsWith: 'Unexpected token ', includes: ' in JSON at position ' },
     { includes: 'No required filter given' },
     { includes: 'Can not filter by course and lecturer at the same time' },
+    { startsWith: 'null value in column ', endsWith: ' violates not-null constraint' },
   ];
   for (const condition of returnErrorMessageConditions) {
     if (

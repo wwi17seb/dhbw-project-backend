@@ -25,7 +25,7 @@ Dies umfasst also die Modulgruppen, die Module und die (abstrakten) Vorlesungen.
 {
     "message": "Successful",
     "payload": {
-          "MajorSubject": {
+        "MajorSubject": {
             "majorSubject_id": 0,
             "name": "[STUDIENRICHTUNG]",
             "catalog_effective_from": "[CATALOG_EFFECTIVE_FROM]",
@@ -93,7 +93,7 @@ Dies umfasst also die Modulgruppen, die Module und die (abstrakten) Vorlesungen.
                         ]
                     }
                 ]
-            },
+            }
         ]
     }
 }
@@ -123,7 +123,7 @@ Dies umfasst also die Modulgruppen, die Module und die (abstrakten) Vorlesungen.
 | `______name`                         | "Neue Konzepte"         | Name des Modules                                                                                  |
 | `______description`                  | "..."                   | Beschreibung des Moduls aus dem Modulkatalog                                                      |
 | `______ects`                         | 8                       | ECTS-Punkte des Moduls                                                                            |
-| `______catalog_id`                   | 1                       | Kennzeichnung aus dem Modulkatalog der DHBW                                                       |
+| `______catalog_id`                   | "W3WI_101"              | Kennzeichnung aus dem Modulkatalog der DHBW                                                       |
 | `______number_of_lectures_to_attend` | 1                       | Anzahl Vorlesungen, die im Rahmen des Moduls besucht werden müssen                                |
 | `______rated`                        | true                    | Boolean, ob das Modul benotet wird                                                                |
 | `______requirements`                 | "Keine"                 | Freitext, Für Teilnahme an Vorlesung benötigte Grundlagen bzw. Vorwissen                          |
@@ -163,7 +163,7 @@ Der Grund warum dies nur gemeinsam erstellt und bearbeitet werden kann, liegt da
             "description": "[BESCHREIBUNG]",
             "ects": 0,
             "catalog_id": "[KATALOG-ID]",
-            "academicRecord_ids": [ 0, 0 ],
+            "academicRecord_ids": [0, 0],
             "number_of_lectures_to_attend": 0,
             "rated": true,
             "requirements": "[ANFODERUNGEN]",
@@ -173,7 +173,7 @@ Der Grund warum dies nur gemeinsam erstellt und bearbeitet werden kann, liegt da
                     "workload_home": 0,
                     "workload_dhbw": 0,
                     "catalog_id": "[KATALOG-ID]",
-                    "mainFocus_ids": [ 0, 0 ]
+                    "mainFocus_ids": [0, 0]
                 }
             ]
         }
@@ -194,7 +194,7 @@ Der Grund warum dies nur gemeinsam erstellt und bearbeitet werden kann, liegt da
 | `___name`                         | ja       | "Neue Konzepte" | Name des Modules                                                         |
 | `___description`                  | ja       | "..."           | Beschreibung des Moduls aus dem Modulkatalog                             |
 | `___ects`                         | ja       | 8               | ECTS-Punkte des Moduls                                                   |
-| `___catalog_id`                   | ja       | 1               | Kennzeichnung aus dem Modulkatalog der DHBW                              |
+| `___catalog_id`                   | ja       | "W3WI_101"      | Kennzeichnung aus dem Modulkatalog der DHBW                              |
 | `___academicRecord_ids`           | ja       | [1, 2]          | IDs der möglichen Prüfungsleistungen                                     |
 | `___number_of_lectures_to_attend` | ja       | 1               | Anzahl Vorlesungen, die im Rahmen des Moduls besucht werden müssen       |
 | `___rated`                        | ja       | true            | Boolean, ob das Modul benotet wird                                       |
@@ -203,7 +203,7 @@ Der Grund warum dies nur gemeinsam erstellt und bearbeitet werden kann, liegt da
 | `______name`                      | ja       | "IT-Security"   | Name der Vorlesung                                                       |
 | `______workload_home`             | ja       | 54              | Selbststudium; Einheit: Stunden                                          |
 | `______workload_dhbw`             | ja       | 36              | Präsenzstudium; Einheit: Stunden                                         |
-| `______catalog_id`                | ja       | 1               | Kennzeichnung aus dem Modulkatalog der DHBW                              |
+| `______catalog_id`                | ja       | "W3WI_101"      | Kennzeichnung aus dem Modulkatalog der DHBW                              |
 | `______mainFocus_ids`             | ja       | [ 1, 2 ]        | Array von Schwerpunkt-IDs der Vorlesung                                  |
 
 ### Rückgabe - POST /moduleGroups
@@ -272,7 +272,7 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
             "description": "[BESCHREIBUNG]",
             "ects": 0,
             "catalog_id": "[KATALOG-ID]",
-            "academicRecord_ids": [ 0, 0 ],
+            "academicRecord_ids": [0, 0],
             "number_of_lectures_to_attend": 0,
             "rated": true,
             "requirements": "[ANFODERUNGEN]",
@@ -280,10 +280,10 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
                 {
                     "lecture_id": 0,
                     "name": "[NAME_DER_VORLESUNG]",
-                    "workload_home": "[SELBSTSTUDIUM]",
-                    "workload_dhbw": "[PRÄSENZZEIT]",
+                    "workload_home": 0,
+                    "workload_dhbw": 0,
                     "catalog_id": "[KATALOG-ID]",
-                    "mainFocus_ids": [ 0, 0 ]
+                    "mainFocus_ids": [0, 0]
                 }
             ]
         }
@@ -305,7 +305,7 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
 | `______name`                         | ja       | "Neue Konzepte" | Name des Modules                                                                                                  |
 | `______description`                  | ja       | "..."           | Beschreibung des Moduls aus dem Modulkatalog                                                                      |
 | `______ects`                         | ja       | 8               | ECTS-Punkte des Moduls                                                                                            |
-| `______catalog_id`                   | ja       | 1               | Kennzeichnung aus dem Modulkatalog der DHBW                                                                       |
+| `______catalog_id`                   | ja       | "W3WI_101"      | Kennzeichnung aus dem Modulkatalog der DHBW                                                                       |
 | `______academicRecord_ids`           | ja       | [1, 2]          | IDs der möglichen Prüfungsleistungen                                                                              |
 | `______number_of_lectures_to_attend` | ja       | 1               | Anzahl Vorlesungen, die im Rahmen des Moduls besucht werden müssen                                                |
 | `______rated`                        | ja       | true            | Boolean, ob das Modul benotet wird                                                                                |
@@ -315,7 +315,7 @@ Alle Attribute müssen erneut übergeben werden, um auch das Löschen von Attrib
 | `_________name`                      | ja       | "IT-Security"   | Name der Vorlesung                                                                                                |
 | `_________workload_home`             | ja       | 54              | Selbststudium; Einheit: Stunden                                                                                   |
 | `_________workload_dhbw`             | ja       | 36              | Präsenzstudium; Einheit: Stunden                                                                                  |
-| `_________catalog_id`                | ja       | 1               | Kennzeichnung aus dem Modulkatalog der DHBW                                                                       |
+| `_________catalog_id`                | ja       | "W3WI_101"      | Kennzeichnung aus dem Modulkatalog der DHBW                                                                       |
 | `_________mainFocus_ids`             | ja       | [ 1, 2 ]        | Array von Schwerpunkt-IDs der Vorlesung                                                                           |
 
 ### Rückgabe - PUT /moduleGroups?moduleGroupId={ID}

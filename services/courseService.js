@@ -1,9 +1,9 @@
 const db = require('../database/database');
 
 // GET
-module.exports.findCourseById = async (course_id) => {
+module.exports.findCourseById = async (transaction, course_id) => {
   const withInclude = [{ model: db.DirectorOfStudies, attributes: ['directorOfStudies_id', 'username', 'is_admin'] }];
-  const course = await db.Course.findOne({ where: { course_id }, include: withInclude });
+  const course = await db.Course.findOne({ where: { course_id }, include: withInclude, transaction });
 
   return course ? course.dataValues : null;
 };

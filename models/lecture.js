@@ -15,11 +15,11 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       workload_home: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
       workload_dhbw: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
       catalog_id: {

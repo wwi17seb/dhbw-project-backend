@@ -68,7 +68,7 @@ exports.putCourses = async (req, res) => {
     if (!course_id) {
       throw new Error('No course given');
     }
-    if (!(await checkCourseEditAuthorization(directorOfStudiesId, course_id))) {
+    if (!(await checkCourseEditAuthorization(transaction, directorOfStudiesId, course_id))) {
       throw new Error('You are not authorized to update this course');
     }
 
@@ -105,7 +105,7 @@ exports.deleteCourses = async (req, res) => {
     if (!courseId) {
       throw new Error('No course given');
     }
-    if (!(await checkCourseEditAuthorization(directorOfStudiesId, courseId))) {
+    if (!(await checkCourseEditAuthorization(transaction, directorOfStudiesId, courseId))) {
       throw new Error('You are not authorized to delete this course');
     }
 
