@@ -31,10 +31,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nikolockenvitz/dhbw-project-backend.git"
+    "url": "git+https://github.com/wwi17seb/dhbw-project-backend.git"
   },
   "bugs": {
-    "url": "https://github.com/nikolockenvitz/dhbw-project-backend/issues"
+    "url": "https://github.com/wwi17seb/dhbw-project-backend/issues"
   },
-  "homepage": "https://github.com/nikolockenvitz/dhbw-project-backend#readme"
+  "homepage": "https://github.com/wwi17seb/dhbw-project-backend#readme"
 }
