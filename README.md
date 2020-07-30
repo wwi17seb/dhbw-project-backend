@@ -83,7 +83,7 @@
     pgadmin_password=test1234
     ```
 
-5.  Copy the server certifcates into the `/docker/nginx/ssl` directory. The certificate files can be found inside the `backend_doku->ssl` onedrive directory.
+5.  Copy the server certifcates into the `/docker/nginx/ssl` directory. Example certificate files can be found [here](https://1drv.ms/u/s!AudF6y3_chu503dmGqNPxsRwkyir?e=E5sMmD).
 
 ## for backend developers
 
